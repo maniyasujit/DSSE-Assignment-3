@@ -1,0 +1,2011 @@
+2026-06-25 12:13:33 [INFO] main — ======================================================================
+2026-06-25 12:13:33 [INFO] main — YARN Jira Issue Mining — Week 1 Pipeline
+2026-06-25 12:13:33 [INFO] main — ======================================================================
+2026-06-25 12:13:33 [INFO] main — [Step 1] Creating output directories…
+2026-06-25 12:13:33 [INFO] main — [Steps 2–6] Loading and filtering Issues.xlsx…
+2026-06-25 12:13:33 [INFO] src.data_loader — Loading Excel file: D:\DSSE\Assignment 3\DSSE-Assignment-3\Issues.xlsx
+2026-06-25 12:13:34 [INFO] src.data_loader — Available sheets: ['Yarn', 'Mapreduce', 'Lucene', 'Tika', 'JClouds']
+2026-06-25 12:13:34 [INFO] src.data_loader — Using sheet: 'Yarn'
+2026-06-25 12:13:34 [INFO] src.data_loader — Loaded 1545 rows from sheet 'Yarn'
+2026-06-25 12:13:34 [INFO] src.data_loader — Total rows loaded    : 1545
+2026-06-25 12:13:34 [INFO] src.data_loader — Yarn rows retained   : 1545
+2026-06-25 12:13:34 [INFO] src.data_loader — Non-Yarn rows removed: 0
+2026-06-25 12:13:34 [WARNING] src.data_loader — Optional columns not found in source data (created as empty): ['issue_id', 'votes', 'parent_key', 'parent_summary', 'has_parent', 'summary', 'description', 'raw_text', 'cleaned_text', 'token_list', 'issue_type', 'status', 'priority', 'reporter', 'assignee', 'created_date', 'updated_date', 'resolution_date', 'labels', 'components', 'fix_versions', 'comments', 'number_of_comments', 'comment_dates', 'comment_developers', 'bot_comment_count', 'human_comment_count', 'has_bot_comments', 'attachments', 'number_of_attachments', 'attachment_dates', 'attachment_files', 'has_attachments']
+2026-06-25 12:13:34 [INFO] src.data_loader — No comment data found in source. comment_dates / comment_developers will be empty.
+2026-06-25 12:13:34 [INFO] src.data_loader — No attachment data found in source. attachment_dates / attachment_files will be empty.
+2026-06-25 12:13:34 [INFO] src.data_loader —   Missing 'summary'                 :  1545 / 1545  (100.0%)
+2026-06-25 12:13:34 [INFO] src.data_loader —   Missing 'description'             :  1545 / 1545  (100.0%)
+2026-06-25 12:13:34 [INFO] src.data_loader —   Missing 'issue_type'              :  1545 / 1545  (100.0%)
+2026-06-25 12:13:34 [INFO] src.data_loader —   Missing 'status'                  :  1545 / 1545  (100.0%)
+2026-06-25 12:13:34 [INFO] src.data_loader —   Missing 'priority'                :  1545 / 1545  (100.0%)
+2026-06-25 12:13:34 [INFO] src.data_loader —   Missing 'reporter'                :  1545 / 1545  (100.0%)
+2026-06-25 12:13:34 [INFO] src.data_loader —   Missing 'assignee'                :  1545 / 1545  (100.0%)
+2026-06-25 12:13:34 [INFO] src.data_loader —   Missing 'created_date'            :  1545 / 1545  (100.0%)
+2026-06-25 12:13:34 [INFO] src.data_loader —   Missing 'parent_key'              :  1545 / 1545  (100.0%)
+2026-06-25 12:13:34 [INFO] utils.save_csv — Saved [yarn_issues_raw] → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\raw\yarn_issues_raw.csv  (1545 rows × 36 cols)
+2026-06-25 12:13:34 [INFO] utils.save_csv — Saved [yarn_issues_structured] → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_structured.csv  (1545 rows × 36 cols)
+2026-06-25 12:13:34 [INFO] main — Yarn issues loaded: 1545
+2026-06-25 12:13:34 [INFO] main — [Step 7] Jira API enrichment is DISABLED. Set ENABLE_JIRA_API=True in src/config.py to enable it.
+2026-06-25 12:13:34 [INFO] main — [Step 8] Extracting parent issue information…
+2026-06-25 12:13:34 [INFO] src.parent_extractor — Parent extraction results:
+2026-06-25 12:13:34 [INFO] src.parent_extractor —   Total issues          : 1545
+2026-06-25 12:13:34 [INFO] src.parent_extractor —   Issues with parent    : 0  (0.0%)
+2026-06-25 12:13:34 [INFO] src.parent_extractor —   Issues without parent : 1545  (100.0%)
+2026-06-25 12:13:34 [WARNING] src.parent_extractor — No parent keys found. This is expected when Jira API enrichment is disabled, since the xlsx does not contain parent metadata.
+2026-06-25 12:13:34 [INFO] utils.save_csv — Saved [yarn_issues_with_parents] → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_with_parents.csv  (1545 rows × 36 cols)
+2026-06-25 12:13:34 [INFO] main — [Step 9] Loading bot comment list from Bot Comments.rtf…
+2026-06-25 12:13:34 [INFO] src.bot_handler — Loaded 35 bot account names from Bot Comments.rtf.
+2026-06-25 12:13:34 [INFO] main — [Step 10] Annotating bot comments…
+2026-06-25 12:13:34 [WARNING] src.bot_handler — Column 'comment_developers' is absent or empty. Cannot determine bot vs human comments. Enable Jira API enrichment to retrieve comment author data.
+2026-06-25 12:13:34 [INFO] main — [Step 11] Preprocessing issue text (summary + description)…
+2026-06-25 12:13:39 [INFO] src.preprocessing — Preprocessing 1545 issues with spaCy model 'en_core_web_sm'.
+2026-06-25 12:13:39 [INFO] src.preprocessing — Preprocessing complete: 0 / 1545 issues have non-empty cleaned text.
+2026-06-25 12:13:39 [WARNING] src.preprocessing — All cleaned_text values are empty. This is expected when Jira API enrichment is disabled (summary and description columns are empty). Enable ENABLE_JIRA_API in config.py to retrieve text data.
+2026-06-25 12:13:39 [INFO] utils.save_csv — Saved [yarn_issues_cleaned] → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_cleaned.csv  (1545 rows × 36 cols)
+2026-06-25 12:13:39 [INFO] main — [Step 12] Building vocabulary from token lists…
+2026-06-25 12:13:40 [WARNING] src.vocabulary_builder — No tokens found in 'token_list'. Vocabulary will be empty. This is expected if Jira API enrichment is disabled and all summary/description fields are empty.
+2026-06-25 12:13:40 [INFO] utils.save_csv — Saved [yarn_vocabulary] → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_vocabulary.csv  (0 rows × 2 cols)
+2026-06-25 12:13:40 [INFO] utils.save_csv — Saved [top_20_tokens] → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_20_tokens.csv  (0 rows × 2 cols)
+2026-06-25 12:13:40 [INFO] utils.save_csv — Saved [top_50_tokens] → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_50_tokens.csv  (0 rows × 2 cols)
+2026-06-25 12:13:40 [INFO] utils.save_csv — Saved [top_100_tokens] → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_100_tokens.csv  (0 rows × 2 cols)
+2026-06-25 12:13:40 [INFO] src.vocabulary_builder — Skipping plots — vocabulary is empty.
+2026-06-25 12:13:40 [INFO] main — Vocabulary size: 0 unique tokens
+2026-06-25 12:13:40 [INFO] main — [Step 13] Vocabulary statistics and charts saved.
+2026-06-25 12:13:40 [INFO] main — [Step 14] Flagging ontology and project-specific terms…
+2026-06-25 12:13:40 [WARNING] src.ontology_helper — Vocabulary is empty — no flags to generate. Run with Jira API enrichment enabled to populate vocabulary.
+2026-06-25 12:13:40 [INFO] utils.save_csv — Saved [yarn_vocabulary_flags] → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_vocabulary_flags.csv  (0 rows × 6 cols)
+2026-06-25 12:13:40 [INFO] main — [Step 15] Ontology replacement is DISABLED (ENABLE_ONTOLOGY_REPLACEMENT=False).
+2026-06-25 12:13:40 [INFO] main — [Step 16] Generating Document-Term Matrix…
+2026-06-25 12:13:40 [WARNING] src.dtm_generator — 1545 issues have empty cleaned_text and will contribute zero-rows to the DTM. Enable Jira API enrichment to populate text.
+2026-06-25 12:13:40 [WARNING] src.dtm_generator — All documents are empty — returning empty DTM. This is expected when ENABLE_JIRA_API=False.
+2026-06-25 12:13:40 [INFO] src.dtm_generator — Saved empty DTM placeholder files to D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output.
+2026-06-25 12:13:40 [INFO] main — ======================================================================
+2026-06-25 12:13:40 [INFO] main — Pipeline complete. Output files:
+2026-06-25 12:13:40 [INFO] main —   [✓] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\raw\yarn_issues_raw.csv
+2026-06-25 12:13:40 [INFO] main —   [✓] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_structured.csv
+2026-06-25 12:13:40 [INFO] main —   [✓] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_with_parents.csv
+2026-06-25 12:13:40 [INFO] main —   [✓] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_cleaned.csv
+2026-06-25 12:13:40 [INFO] main —   [✓] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_vocabulary.csv
+2026-06-25 12:13:40 [INFO] main —   [✓] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_20_tokens.csv
+2026-06-25 12:13:40 [INFO] main —   [✓] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_50_tokens.csv
+2026-06-25 12:13:40 [INFO] main —   [✓] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_100_tokens.csv
+2026-06-25 12:13:40 [INFO] main —   [✗ (not created)] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_20_terms.png
+2026-06-25 12:13:40 [INFO] main —   [✗ (not created)] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_50_terms.png
+2026-06-25 12:13:40 [INFO] main —   [✓] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_vocabulary_flags.csv
+2026-06-25 12:13:40 [INFO] main —   [✓] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_document_term_matrix.csv
+2026-06-25 12:13:40 [INFO] main —   [✓] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_document_term_matrix_sparse.npz
+2026-06-25 12:13:40 [INFO] main —   [✓] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_dtm_features.csv
+2026-06-25 12:13:40 [INFO] main — ======================================================================
+2026-06-25 12:14:01 [INFO] main — ======================================================================
+2026-06-25 12:14:01 [INFO] main — YARN Jira Issue Mining — Week 1 Pipeline
+2026-06-25 12:14:01 [INFO] main — ======================================================================
+2026-06-25 12:14:01 [INFO] main — [Step 1] Creating output directories…
+2026-06-25 12:14:01 [INFO] main — [Steps 2–6] Loading and filtering Issues.xlsx…
+2026-06-25 12:14:01 [INFO] src.data_loader — Loading Excel file: D:\DSSE\Assignment 3\DSSE-Assignment-3\Issues.xlsx
+2026-06-25 12:14:01 [INFO] src.data_loader — Available sheets: ['Yarn', 'Mapreduce', 'Lucene', 'Tika', 'JClouds']
+2026-06-25 12:14:01 [INFO] src.data_loader — Using sheet: 'Yarn'
+2026-06-25 12:14:01 [INFO] src.data_loader — Loaded 1545 rows from sheet 'Yarn'
+2026-06-25 12:14:01 [INFO] src.data_loader — Total rows loaded    : 1545
+2026-06-25 12:14:01 [INFO] src.data_loader — Yarn rows retained   : 1545
+2026-06-25 12:14:01 [INFO] src.data_loader — Non-Yarn rows removed: 0
+2026-06-25 12:14:01 [WARNING] src.data_loader — Optional columns not found in source data (created as empty): ['issue_id', 'votes', 'parent_key', 'parent_summary', 'has_parent', 'summary', 'description', 'raw_text', 'cleaned_text', 'token_list', 'issue_type', 'status', 'priority', 'reporter', 'assignee', 'created_date', 'updated_date', 'resolution_date', 'labels', 'components', 'fix_versions', 'comments', 'number_of_comments', 'comment_dates', 'comment_developers', 'bot_comment_count', 'human_comment_count', 'has_bot_comments', 'attachments', 'number_of_attachments', 'attachment_dates', 'attachment_files', 'has_attachments']
+2026-06-25 12:14:01 [INFO] src.data_loader — No comment data found in source. comment_dates / comment_developers will be empty.
+2026-06-25 12:14:01 [INFO] src.data_loader — No attachment data found in source. attachment_dates / attachment_files will be empty.
+2026-06-25 12:14:01 [INFO] src.data_loader —   Missing 'summary'                 :  1545 / 1545  (100.0%)
+2026-06-25 12:14:01 [INFO] src.data_loader —   Missing 'description'             :  1545 / 1545  (100.0%)
+2026-06-25 12:14:01 [INFO] src.data_loader —   Missing 'issue_type'              :  1545 / 1545  (100.0%)
+2026-06-25 12:14:01 [INFO] src.data_loader —   Missing 'status'                  :  1545 / 1545  (100.0%)
+2026-06-25 12:14:01 [INFO] src.data_loader —   Missing 'priority'                :  1545 / 1545  (100.0%)
+2026-06-25 12:14:01 [INFO] src.data_loader —   Missing 'reporter'                :  1545 / 1545  (100.0%)
+2026-06-25 12:14:01 [INFO] src.data_loader —   Missing 'assignee'                :  1545 / 1545  (100.0%)
+2026-06-25 12:14:01 [INFO] src.data_loader —   Missing 'created_date'            :  1545 / 1545  (100.0%)
+2026-06-25 12:14:01 [INFO] src.data_loader —   Missing 'parent_key'              :  1545 / 1545  (100.0%)
+2026-06-25 12:14:01 [INFO] utils.save_csv — Saved [yarn_issues_raw] → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\raw\yarn_issues_raw.csv  (1545 rows × 36 cols)
+2026-06-25 12:14:01 [INFO] utils.save_csv — Saved [yarn_issues_structured] → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_structured.csv  (1545 rows × 36 cols)
+2026-06-25 12:14:01 [INFO] main — Yarn issues loaded: 1545
+2026-06-25 12:14:01 [INFO] main — [Step 7] Jira API enrichment is DISABLED. Set ENABLE_JIRA_API=True in src/config.py to enable it.
+2026-06-25 12:14:01 [INFO] main — [Step 8] Extracting parent issue information…
+2026-06-25 12:14:01 [INFO] src.parent_extractor — Parent extraction results:
+2026-06-25 12:14:01 [INFO] src.parent_extractor —   Total issues          : 1545
+2026-06-25 12:14:01 [INFO] src.parent_extractor —   Issues with parent    : 0  (0.0%)
+2026-06-25 12:14:01 [INFO] src.parent_extractor —   Issues without parent : 1545  (100.0%)
+2026-06-25 12:14:01 [WARNING] src.parent_extractor — No parent keys found. This is expected when Jira API enrichment is disabled, since the xlsx does not contain parent metadata.
+2026-06-25 12:14:02 [INFO] utils.save_csv — Saved [yarn_issues_with_parents] → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_with_parents.csv  (1545 rows × 36 cols)
+2026-06-25 12:14:02 [INFO] main — [Step 9] Loading bot comment list from Bot Comments.rtf…
+2026-06-25 12:14:02 [INFO] src.bot_handler — Loaded 35 bot account names from Bot Comments.rtf.
+2026-06-25 12:14:02 [INFO] main — [Step 10] Annotating bot comments…
+2026-06-25 12:14:02 [WARNING] src.bot_handler — Column 'comment_developers' is absent or empty. Cannot determine bot vs human comments. Enable Jira API enrichment to retrieve comment author data.
+2026-06-25 12:14:02 [INFO] main — [Step 11] Preprocessing issue text (summary + description)…
+2026-06-25 12:14:07 [INFO] src.preprocessing — Preprocessing 1545 issues with spaCy model 'en_core_web_sm'.
+2026-06-25 12:14:07 [INFO] src.preprocessing — Preprocessing complete: 0 / 1545 issues have non-empty cleaned text.
+2026-06-25 12:14:07 [WARNING] src.preprocessing — All cleaned_text values are empty. This is expected when Jira API enrichment is disabled (summary and description columns are empty). Enable ENABLE_JIRA_API in config.py to retrieve text data.
+2026-06-25 12:14:07 [INFO] utils.save_csv — Saved [yarn_issues_cleaned] → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_cleaned.csv  (1545 rows × 36 cols)
+2026-06-25 12:14:07 [INFO] main — [Step 12] Building vocabulary from token lists…
+2026-06-25 12:14:07 [WARNING] src.vocabulary_builder — No tokens found in 'token_list'. Vocabulary will be empty. This is expected if Jira API enrichment is disabled and all summary/description fields are empty.
+2026-06-25 12:14:07 [INFO] utils.save_csv — Saved [yarn_vocabulary] → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_vocabulary.csv  (0 rows × 2 cols)
+2026-06-25 12:14:07 [INFO] utils.save_csv — Saved [top_20_tokens] → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_20_tokens.csv  (0 rows × 2 cols)
+2026-06-25 12:14:07 [INFO] utils.save_csv — Saved [top_50_tokens] → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_50_tokens.csv  (0 rows × 2 cols)
+2026-06-25 12:14:07 [INFO] utils.save_csv — Saved [top_100_tokens] → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_100_tokens.csv  (0 rows × 2 cols)
+2026-06-25 12:14:07 [INFO] src.vocabulary_builder — Skipping plots — vocabulary is empty.
+2026-06-25 12:14:07 [INFO] main — Vocabulary size: 0 unique tokens
+2026-06-25 12:14:07 [INFO] main — [Step 13] Vocabulary statistics and charts saved.
+2026-06-25 12:14:07 [INFO] main — [Step 14] Flagging ontology and project-specific terms…
+2026-06-25 12:14:07 [WARNING] src.ontology_helper — Vocabulary is empty — no flags to generate. Run with Jira API enrichment enabled to populate vocabulary.
+2026-06-25 12:14:07 [INFO] utils.save_csv — Saved [yarn_vocabulary_flags] → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_vocabulary_flags.csv  (0 rows × 6 cols)
+2026-06-25 12:14:07 [INFO] main — [Step 15] Ontology replacement is DISABLED (ENABLE_ONTOLOGY_REPLACEMENT=False).
+2026-06-25 12:14:07 [INFO] main — [Step 16] Generating Document-Term Matrix…
+2026-06-25 12:14:07 [WARNING] src.dtm_generator — 1545 issues have empty cleaned_text and will contribute zero-rows to the DTM. Enable Jira API enrichment to populate text.
+2026-06-25 12:14:07 [WARNING] src.dtm_generator — All documents are empty — returning empty DTM. This is expected when ENABLE_JIRA_API=False.
+2026-06-25 12:14:07 [INFO] src.dtm_generator — Saved empty DTM placeholder files to D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output.
+2026-06-25 12:14:07 [INFO] main — ======================================================================
+2026-06-25 12:14:07 [INFO] main — Pipeline complete. Output files:
+2026-06-25 12:14:07 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\raw\yarn_issues_raw.csv
+2026-06-25 12:14:07 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_structured.csv
+2026-06-25 12:14:07 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_with_parents.csv
+2026-06-25 12:14:07 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_cleaned.csv
+2026-06-25 12:14:07 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_vocabulary.csv
+2026-06-25 12:14:07 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_20_tokens.csv
+2026-06-25 12:14:07 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_50_tokens.csv
+2026-06-25 12:14:07 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_100_tokens.csv
+2026-06-25 12:14:07 [INFO] main —   [MISSING] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_20_terms.png
+2026-06-25 12:14:07 [INFO] main —   [MISSING] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_50_terms.png
+2026-06-25 12:14:07 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_vocabulary_flags.csv
+2026-06-25 12:14:07 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_document_term_matrix.csv
+2026-06-25 12:14:07 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_document_term_matrix_sparse.npz
+2026-06-25 12:14:07 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_dtm_features.csv
+2026-06-25 12:14:07 [INFO] main — ======================================================================
+2026-06-25 12:14:27 [INFO] main — ======================================================================
+2026-06-25 12:14:27 [INFO] main — YARN Jira Issue Mining — Week 1 Pipeline
+2026-06-25 12:14:27 [INFO] main — ======================================================================
+2026-06-25 12:14:27 [INFO] main — [Step 1] Creating output directories…
+2026-06-25 12:14:27 [INFO] main — [Steps 2–6] Loading and filtering Issues.xlsx…
+2026-06-25 12:14:27 [INFO] src.data_loader — Loading Excel file: D:\DSSE\Assignment 3\DSSE-Assignment-3\Issues.xlsx
+2026-06-25 12:14:27 [INFO] src.data_loader — Available sheets: ['Yarn', 'Mapreduce', 'Lucene', 'Tika', 'JClouds']
+2026-06-25 12:14:27 [INFO] src.data_loader — Using sheet: 'Yarn'
+2026-06-25 12:14:27 [INFO] src.data_loader — Loaded 1545 rows from sheet 'Yarn'
+2026-06-25 12:14:27 [INFO] src.data_loader — Total rows loaded    : 1545
+2026-06-25 12:14:27 [INFO] src.data_loader — Yarn rows retained   : 1545
+2026-06-25 12:14:27 [INFO] src.data_loader — Non-Yarn rows removed: 0
+2026-06-25 12:14:27 [WARNING] src.data_loader — Optional columns not found in source data (created as empty): ['issue_id', 'votes', 'parent_key', 'parent_summary', 'has_parent', 'summary', 'description', 'raw_text', 'cleaned_text', 'token_list', 'issue_type', 'status', 'priority', 'reporter', 'assignee', 'created_date', 'updated_date', 'resolution_date', 'labels', 'components', 'fix_versions', 'comments', 'number_of_comments', 'comment_dates', 'comment_developers', 'bot_comment_count', 'human_comment_count', 'has_bot_comments', 'attachments', 'number_of_attachments', 'attachment_dates', 'attachment_files', 'has_attachments']
+2026-06-25 12:14:27 [INFO] src.data_loader — No comment data found in source. comment_dates / comment_developers will be empty.
+2026-06-25 12:14:27 [INFO] src.data_loader — No attachment data found in source. attachment_dates / attachment_files will be empty.
+2026-06-25 12:14:27 [INFO] src.data_loader —   Missing 'summary'                 :  1545 / 1545  (100.0%)
+2026-06-25 12:14:27 [INFO] src.data_loader —   Missing 'description'             :  1545 / 1545  (100.0%)
+2026-06-25 12:14:27 [INFO] src.data_loader —   Missing 'issue_type'              :  1545 / 1545  (100.0%)
+2026-06-25 12:14:27 [INFO] src.data_loader —   Missing 'status'                  :  1545 / 1545  (100.0%)
+2026-06-25 12:14:27 [INFO] src.data_loader —   Missing 'priority'                :  1545 / 1545  (100.0%)
+2026-06-25 12:14:27 [INFO] src.data_loader —   Missing 'reporter'                :  1545 / 1545  (100.0%)
+2026-06-25 12:14:27 [INFO] src.data_loader —   Missing 'assignee'                :  1545 / 1545  (100.0%)
+2026-06-25 12:14:27 [INFO] src.data_loader —   Missing 'created_date'            :  1545 / 1545  (100.0%)
+2026-06-25 12:14:27 [INFO] src.data_loader —   Missing 'parent_key'              :  1545 / 1545  (100.0%)
+2026-06-25 12:14:27 [INFO] utils.save_csv — Saved [yarn_issues_raw] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\raw\yarn_issues_raw.csv  (1545 rows x 36 cols)
+2026-06-25 12:14:27 [INFO] utils.save_csv — Saved [yarn_issues_structured] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_structured.csv  (1545 rows x 36 cols)
+2026-06-25 12:14:27 [INFO] main — Yarn issues loaded: 1545
+2026-06-25 12:14:27 [INFO] main — [Step 7] Jira API enrichment is DISABLED. Set ENABLE_JIRA_API=True in src/config.py to enable it.
+2026-06-25 12:14:27 [INFO] main — [Step 8] Extracting parent issue information…
+2026-06-25 12:14:27 [INFO] src.parent_extractor — Parent extraction results:
+2026-06-25 12:14:27 [INFO] src.parent_extractor —   Total issues          : 1545
+2026-06-25 12:14:27 [INFO] src.parent_extractor —   Issues with parent    : 0  (0.0%)
+2026-06-25 12:14:27 [INFO] src.parent_extractor —   Issues without parent : 1545  (100.0%)
+2026-06-25 12:14:27 [WARNING] src.parent_extractor — No parent keys found. This is expected when Jira API enrichment is disabled, since the xlsx does not contain parent metadata.
+2026-06-25 12:14:27 [INFO] utils.save_csv — Saved [yarn_issues_with_parents] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_with_parents.csv  (1545 rows x 36 cols)
+2026-06-25 12:14:27 [INFO] main — [Step 9] Loading bot comment list from Bot Comments.rtf…
+2026-06-25 12:14:27 [INFO] src.bot_handler — Loaded 35 bot account names from Bot Comments.rtf.
+2026-06-25 12:14:27 [INFO] main — [Step 10] Annotating bot comments…
+2026-06-25 12:14:27 [WARNING] src.bot_handler — Column 'comment_developers' is absent or empty. Cannot determine bot vs human comments. Enable Jira API enrichment to retrieve comment author data.
+2026-06-25 12:14:27 [INFO] main — [Step 11] Preprocessing issue text (summary + description)…
+2026-06-25 12:14:32 [INFO] src.preprocessing — Preprocessing 1545 issues with spaCy model 'en_core_web_sm'.
+2026-06-25 12:14:32 [INFO] src.preprocessing — Preprocessing complete: 0 / 1545 issues have non-empty cleaned text.
+2026-06-25 12:14:32 [WARNING] src.preprocessing — All cleaned_text values are empty. This is expected when Jira API enrichment is disabled (summary and description columns are empty). Enable ENABLE_JIRA_API in config.py to retrieve text data.
+2026-06-25 12:14:32 [INFO] utils.save_csv — Saved [yarn_issues_cleaned] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_cleaned.csv  (1545 rows x 36 cols)
+2026-06-25 12:14:32 [INFO] main — [Step 12] Building vocabulary from token lists…
+2026-06-25 12:14:33 [WARNING] src.vocabulary_builder — No tokens found in 'token_list'. Vocabulary will be empty. This is expected if Jira API enrichment is disabled and all summary/description fields are empty.
+2026-06-25 12:14:33 [INFO] utils.save_csv — Saved [yarn_vocabulary] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_vocabulary.csv  (0 rows x 2 cols)
+2026-06-25 12:14:33 [INFO] utils.save_csv — Saved [top_20_tokens] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_20_tokens.csv  (0 rows x 2 cols)
+2026-06-25 12:14:33 [INFO] utils.save_csv — Saved [top_50_tokens] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_50_tokens.csv  (0 rows x 2 cols)
+2026-06-25 12:14:33 [INFO] utils.save_csv — Saved [top_100_tokens] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_100_tokens.csv  (0 rows x 2 cols)
+2026-06-25 12:14:33 [INFO] src.vocabulary_builder — Skipping plots — vocabulary is empty.
+2026-06-25 12:14:33 [INFO] main — Vocabulary size: 0 unique tokens
+2026-06-25 12:14:33 [INFO] main — [Step 13] Vocabulary statistics and charts saved.
+2026-06-25 12:14:33 [INFO] main — [Step 14] Flagging ontology and project-specific terms…
+2026-06-25 12:14:33 [WARNING] src.ontology_helper — Vocabulary is empty — no flags to generate. Run with Jira API enrichment enabled to populate vocabulary.
+2026-06-25 12:14:33 [INFO] utils.save_csv — Saved [yarn_vocabulary_flags] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_vocabulary_flags.csv  (0 rows x 6 cols)
+2026-06-25 12:14:33 [INFO] main — [Step 15] Ontology replacement is DISABLED (ENABLE_ONTOLOGY_REPLACEMENT=False).
+2026-06-25 12:14:33 [INFO] main — [Step 16] Generating Document-Term Matrix…
+2026-06-25 12:14:33 [WARNING] src.dtm_generator — 1545 issues have empty cleaned_text and will contribute zero-rows to the DTM. Enable Jira API enrichment to populate text.
+2026-06-25 12:14:33 [WARNING] src.dtm_generator — All documents are empty — returning empty DTM. This is expected when ENABLE_JIRA_API=False.
+2026-06-25 12:14:33 [INFO] src.dtm_generator — Saved empty DTM placeholder files to D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output.
+2026-06-25 12:14:33 [INFO] main — ======================================================================
+2026-06-25 12:14:33 [INFO] main — Pipeline complete. Output files:
+2026-06-25 12:14:33 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\raw\yarn_issues_raw.csv
+2026-06-25 12:14:33 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_structured.csv
+2026-06-25 12:14:33 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_with_parents.csv
+2026-06-25 12:14:33 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_cleaned.csv
+2026-06-25 12:14:33 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_vocabulary.csv
+2026-06-25 12:14:33 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_20_tokens.csv
+2026-06-25 12:14:33 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_50_tokens.csv
+2026-06-25 12:14:33 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_100_tokens.csv
+2026-06-25 12:14:33 [INFO] main —   [MISSING] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_20_terms.png
+2026-06-25 12:14:33 [INFO] main —   [MISSING] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_50_terms.png
+2026-06-25 12:14:33 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_vocabulary_flags.csv
+2026-06-25 12:14:33 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_document_term_matrix.csv
+2026-06-25 12:14:33 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_document_term_matrix_sparse.npz
+2026-06-25 12:14:33 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_dtm_features.csv
+2026-06-25 12:14:33 [INFO] main — ======================================================================
+2026-06-25 12:14:57 [INFO] main — ======================================================================
+2026-06-25 12:14:57 [INFO] main — YARN Jira Issue Mining — Week 1 Pipeline
+2026-06-25 12:14:57 [INFO] main — ======================================================================
+2026-06-25 12:14:57 [INFO] main — [Step 1] Creating output directories…
+2026-06-25 12:14:57 [INFO] main — [Steps 2–6] Loading and filtering Issues.xlsx…
+2026-06-25 12:14:57 [INFO] src.data_loader — Loading Excel file: D:\DSSE\Assignment 3\DSSE-Assignment-3\Issues.xlsx
+2026-06-25 12:14:57 [INFO] src.data_loader — Available sheets: ['Yarn', 'Mapreduce', 'Lucene', 'Tika', 'JClouds']
+2026-06-25 12:14:57 [INFO] src.data_loader — Using sheet: 'Yarn'
+2026-06-25 12:14:57 [INFO] src.data_loader — Loaded 1545 rows from sheet 'Yarn'
+2026-06-25 12:14:57 [INFO] src.data_loader — Total rows loaded    : 1545
+2026-06-25 12:14:57 [INFO] src.data_loader — Yarn rows retained   : 1545
+2026-06-25 12:14:57 [INFO] src.data_loader — Non-Yarn rows removed: 0
+2026-06-25 12:14:57 [WARNING] src.data_loader — Optional columns not found in source data (created as empty): ['issue_id', 'votes', 'parent_key', 'parent_summary', 'has_parent', 'summary', 'description', 'raw_text', 'cleaned_text', 'token_list', 'issue_type', 'status', 'priority', 'reporter', 'assignee', 'created_date', 'updated_date', 'resolution_date', 'labels', 'components', 'fix_versions', 'comments', 'number_of_comments', 'comment_dates', 'comment_developers', 'bot_comment_count', 'human_comment_count', 'has_bot_comments', 'attachments', 'number_of_attachments', 'attachment_dates', 'attachment_files', 'has_attachments']
+2026-06-25 12:14:57 [INFO] src.data_loader — No comment data found in source. comment_dates / comment_developers will be empty.
+2026-06-25 12:14:57 [INFO] src.data_loader — No attachment data found in source. attachment_dates / attachment_files will be empty.
+2026-06-25 12:14:57 [INFO] src.data_loader —   Missing 'summary'                 :  1545 / 1545  (100.0%)
+2026-06-25 12:14:57 [INFO] src.data_loader —   Missing 'description'             :  1545 / 1545  (100.0%)
+2026-06-25 12:14:57 [INFO] src.data_loader —   Missing 'issue_type'              :  1545 / 1545  (100.0%)
+2026-06-25 12:14:57 [INFO] src.data_loader —   Missing 'status'                  :  1545 / 1545  (100.0%)
+2026-06-25 12:14:57 [INFO] src.data_loader —   Missing 'priority'                :  1545 / 1545  (100.0%)
+2026-06-25 12:14:57 [INFO] src.data_loader —   Missing 'reporter'                :  1545 / 1545  (100.0%)
+2026-06-25 12:14:57 [INFO] src.data_loader —   Missing 'assignee'                :  1545 / 1545  (100.0%)
+2026-06-25 12:14:57 [INFO] src.data_loader —   Missing 'created_date'            :  1545 / 1545  (100.0%)
+2026-06-25 12:14:57 [INFO] src.data_loader —   Missing 'parent_key'              :  1545 / 1545  (100.0%)
+2026-06-25 12:14:57 [INFO] utils.save_csv — Saved [yarn_issues_raw] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\raw\yarn_issues_raw.csv  (1545 rows x 36 cols)
+2026-06-25 12:14:57 [INFO] utils.save_csv — Saved [yarn_issues_structured] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_structured.csv  (1545 rows x 36 cols)
+2026-06-25 12:14:57 [INFO] main — Yarn issues loaded: 1545
+2026-06-25 12:14:57 [INFO] main — [Step 7] Jira API enrichment is DISABLED. Set ENABLE_JIRA_API=True in src/config.py to enable it.
+2026-06-25 12:14:57 [INFO] main — [Step 8] Extracting parent issue information…
+2026-06-25 12:14:57 [INFO] src.parent_extractor — Parent extraction results:
+2026-06-25 12:14:57 [INFO] src.parent_extractor —   Total issues          : 1545
+2026-06-25 12:14:57 [INFO] src.parent_extractor —   Issues with parent    : 0  (0.0%)
+2026-06-25 12:14:57 [INFO] src.parent_extractor —   Issues without parent : 1545  (100.0%)
+2026-06-25 12:14:57 [WARNING] src.parent_extractor — No parent keys found. This is expected when Jira API enrichment is disabled, since the xlsx does not contain parent metadata.
+2026-06-25 12:14:57 [INFO] utils.save_csv — Saved [yarn_issues_with_parents] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_with_parents.csv  (1545 rows x 36 cols)
+2026-06-25 12:14:57 [INFO] main — [Step 9] Loading bot comment list from Bot Comments.rtf…
+2026-06-25 12:14:57 [INFO] src.bot_handler — Loaded 35 bot account names from Bot Comments.rtf.
+2026-06-25 12:14:57 [INFO] main — [Step 10] Annotating bot comments…
+2026-06-25 12:14:57 [WARNING] src.bot_handler — Column 'comment_developers' is absent or empty. Cannot determine bot vs human comments. Enable Jira API enrichment to retrieve comment author data.
+2026-06-25 12:14:57 [INFO] main — [Step 11] Preprocessing issue text (summary + description)…
+2026-06-25 12:15:02 [INFO] src.preprocessing — Preprocessing 1545 issues with spaCy model 'en_core_web_sm'.
+2026-06-25 12:15:02 [INFO] src.preprocessing — Preprocessing complete: 0 / 1545 issues have non-empty cleaned text.
+2026-06-25 12:15:02 [WARNING] src.preprocessing — All cleaned_text values are empty. This is expected when Jira API enrichment is disabled (summary and description columns are empty). Enable ENABLE_JIRA_API in config.py to retrieve text data.
+2026-06-25 12:15:02 [INFO] utils.save_csv — Saved [yarn_issues_cleaned] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_cleaned.csv  (1545 rows x 36 cols)
+2026-06-25 12:15:02 [INFO] main — [Step 12] Building vocabulary from token lists…
+2026-06-25 12:15:03 [WARNING] src.vocabulary_builder — No tokens found in 'token_list'. Vocabulary will be empty. This is expected if Jira API enrichment is disabled and all summary/description fields are empty.
+2026-06-25 12:15:03 [INFO] utils.save_csv — Saved [yarn_vocabulary] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_vocabulary.csv  (0 rows x 2 cols)
+2026-06-25 12:15:03 [INFO] utils.save_csv — Saved [top_20_tokens] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_20_tokens.csv  (0 rows x 2 cols)
+2026-06-25 12:15:03 [INFO] utils.save_csv — Saved [top_50_tokens] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_50_tokens.csv  (0 rows x 2 cols)
+2026-06-25 12:15:03 [INFO] utils.save_csv — Saved [top_100_tokens] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_100_tokens.csv  (0 rows x 2 cols)
+2026-06-25 12:15:03 [INFO] src.vocabulary_builder — Skipping plots — vocabulary is empty.
+2026-06-25 12:15:03 [INFO] main — Vocabulary size: 0 unique tokens
+2026-06-25 12:15:03 [INFO] main — [Step 13] Vocabulary statistics and charts saved.
+2026-06-25 12:15:03 [INFO] main — [Step 14] Flagging ontology and project-specific terms…
+2026-06-25 12:15:03 [WARNING] src.ontology_helper — Vocabulary is empty — no flags to generate. Run with Jira API enrichment enabled to populate vocabulary.
+2026-06-25 12:15:03 [INFO] utils.save_csv — Saved [yarn_vocabulary_flags] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_vocabulary_flags.csv  (0 rows x 6 cols)
+2026-06-25 12:15:03 [INFO] main — [Step 15] Ontology replacement is DISABLED (ENABLE_ONTOLOGY_REPLACEMENT=False).
+2026-06-25 12:15:03 [INFO] main — [Step 16] Generating Document-Term Matrix…
+2026-06-25 12:15:03 [WARNING] src.dtm_generator — 1545 issues have empty cleaned_text and will contribute zero-rows to the DTM. Enable Jira API enrichment to populate text.
+2026-06-25 12:15:03 [WARNING] src.dtm_generator — All documents are empty — returning empty DTM. This is expected when ENABLE_JIRA_API=False.
+2026-06-25 12:15:03 [INFO] src.dtm_generator — Saved empty DTM placeholder files to D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output.
+2026-06-25 12:15:03 [INFO] main — ======================================================================
+2026-06-25 12:15:03 [INFO] main — Pipeline complete. Output files:
+2026-06-25 12:15:03 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\raw\yarn_issues_raw.csv
+2026-06-25 12:15:03 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_structured.csv
+2026-06-25 12:15:03 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_with_parents.csv
+2026-06-25 12:15:03 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_cleaned.csv
+2026-06-25 12:15:03 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_vocabulary.csv
+2026-06-25 12:15:03 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_20_tokens.csv
+2026-06-25 12:15:03 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_50_tokens.csv
+2026-06-25 12:15:03 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_100_tokens.csv
+2026-06-25 12:15:03 [INFO] main —   [MISSING] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_20_terms.png
+2026-06-25 12:15:03 [INFO] main —   [MISSING] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_50_terms.png
+2026-06-25 12:15:03 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_vocabulary_flags.csv
+2026-06-25 12:15:03 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_document_term_matrix.csv
+2026-06-25 12:15:03 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_document_term_matrix_sparse.npz
+2026-06-25 12:15:03 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_dtm_features.csv
+2026-06-25 12:15:03 [INFO] main — ======================================================================
+2026-06-25 12:29:27 [INFO] main — ======================================================================
+2026-06-25 12:29:27 [INFO] main — YARN Jira Issue Mining — Week 1 Pipeline
+2026-06-25 12:29:27 [INFO] main — ======================================================================
+2026-06-25 12:29:27 [INFO] main — [Step 1] Creating output directories…
+2026-06-25 12:29:27 [INFO] main — [Steps 2–6] Loading and filtering Issues.xlsx…
+2026-06-25 12:29:27 [INFO] src.data_loader — Loading Excel file: D:\DSSE\Assignment 3\DSSE-Assignment-3\Issues.xlsx
+2026-06-25 12:29:27 [INFO] src.data_loader — Available sheets: ['Yarn', 'Mapreduce', 'Lucene', 'Tika', 'JClouds']
+2026-06-25 12:29:27 [INFO] src.data_loader — Using sheet: 'Yarn'
+2026-06-25 12:29:27 [INFO] src.data_loader — Loaded 1545 rows from sheet 'Yarn'
+2026-06-25 12:29:27 [INFO] src.data_loader — Total rows loaded    : 1545
+2026-06-25 12:29:27 [INFO] src.data_loader — Yarn rows retained   : 1545
+2026-06-25 12:29:27 [INFO] src.data_loader — Non-Yarn rows removed: 0
+2026-06-25 12:29:27 [WARNING] src.data_loader — Optional columns not found in source data (created as empty): ['issue_id', 'votes', 'parent_key', 'parent_summary', 'has_parent', 'summary', 'description', 'raw_text', 'cleaned_text', 'token_list', 'issue_type', 'status', 'priority', 'reporter', 'assignee', 'created_date', 'updated_date', 'resolution_date', 'labels', 'components', 'fix_versions', 'comments', 'number_of_comments', 'comment_dates', 'comment_developers', 'bot_comment_count', 'human_comment_count', 'has_bot_comments', 'attachments', 'number_of_attachments', 'attachment_dates', 'attachment_files', 'has_attachments']
+2026-06-25 12:29:27 [INFO] src.data_loader — No comment data found in source. comment_dates / comment_developers will be empty.
+2026-06-25 12:29:27 [INFO] src.data_loader — No attachment data found in source. attachment_dates / attachment_files will be empty.
+2026-06-25 12:29:27 [INFO] src.data_loader —   Missing 'summary'                 :  1545 / 1545  (100.0%)
+2026-06-25 12:29:27 [INFO] src.data_loader —   Missing 'description'             :  1545 / 1545  (100.0%)
+2026-06-25 12:29:27 [INFO] src.data_loader —   Missing 'issue_type'              :  1545 / 1545  (100.0%)
+2026-06-25 12:29:27 [INFO] src.data_loader —   Missing 'status'                  :  1545 / 1545  (100.0%)
+2026-06-25 12:29:27 [INFO] src.data_loader —   Missing 'priority'                :  1545 / 1545  (100.0%)
+2026-06-25 12:29:27 [INFO] src.data_loader —   Missing 'reporter'                :  1545 / 1545  (100.0%)
+2026-06-25 12:29:27 [INFO] src.data_loader —   Missing 'assignee'                :  1545 / 1545  (100.0%)
+2026-06-25 12:29:27 [INFO] src.data_loader —   Missing 'created_date'            :  1545 / 1545  (100.0%)
+2026-06-25 12:29:27 [INFO] src.data_loader —   Missing 'parent_key'              :  1545 / 1545  (100.0%)
+2026-06-25 12:29:27 [INFO] utils.save_csv — Saved [yarn_issues_raw] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\raw\yarn_issues_raw.csv  (1545 rows x 36 cols)
+2026-06-25 12:29:27 [INFO] utils.save_csv — Saved [yarn_issues_structured] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_structured.csv  (1545 rows x 36 cols)
+2026-06-25 12:29:27 [INFO] main — Yarn issues loaded: 1545
+2026-06-25 12:29:27 [INFO] main — [Step 7] Enriching with Jira REST API…
+2026-06-25 12:29:28 [INFO] src.jira_enricher — Starting Jira API enrichment for 1545 issues from: https://issues.apache.org/jira
+2026-06-25 12:29:28 [WARNING] src.jira_enricher — No Jira credentials configured. Public endpoints only — private issues may be inaccessible.
+2026-06-25 12:30:25 [WARNING] urllib3.connectionpool — Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'RemoteDisconnected('Remote end closed connection without response')': /jira/rest/api/2/issue/YARN-9904?fields=summary%2Cdescription%2Cissuetype%2Cstatus%2Cpriority%2Creporter%2Cassignee%2Ccreated%2Cupdated%2Cresolutiondate%2Clabels%2Ccomponents%2CfixVersions%2Cparent%2Ccomment%2Cattachment%2Cvotes%2Csubtasks%2Ccustomfield_10014
+2026-06-25 12:33:30 [INFO] main — ======================================================================
+2026-06-25 12:33:30 [INFO] main — YARN Jira Issue Mining — Week 1 Pipeline
+2026-06-25 12:33:30 [INFO] main — ======================================================================
+2026-06-25 12:33:30 [INFO] main — [Step 1] Creating output directories…
+2026-06-25 12:33:30 [INFO] main — [Steps 2–6] Loading and filtering Issues.xlsx…
+2026-06-25 12:33:30 [INFO] src.data_loader — Loading Excel file: D:\DSSE\Assignment 3\DSSE-Assignment-3\Issues.xlsx
+2026-06-25 12:33:30 [INFO] src.data_loader — Available sheets: ['Yarn', 'Mapreduce', 'Lucene', 'Tika', 'JClouds']
+2026-06-25 12:33:30 [INFO] src.data_loader — Using sheet: 'Yarn'
+2026-06-25 12:33:30 [INFO] src.data_loader — Loaded 1545 rows from sheet 'Yarn'
+2026-06-25 12:33:30 [INFO] src.data_loader — Total rows loaded    : 1545
+2026-06-25 12:33:30 [INFO] src.data_loader — Yarn rows retained   : 1545
+2026-06-25 12:33:30 [INFO] src.data_loader — Non-Yarn rows removed: 0
+2026-06-25 12:33:30 [WARNING] src.data_loader — Optional columns not found in source data (created as empty): ['issue_id', 'votes', 'parent_key', 'parent_summary', 'has_parent', 'summary', 'description', 'raw_text', 'cleaned_text', 'token_list', 'issue_type', 'status', 'priority', 'reporter', 'assignee', 'created_date', 'updated_date', 'resolution_date', 'labels', 'components', 'fix_versions', 'comments', 'number_of_comments', 'comment_dates', 'comment_developers', 'bot_comment_count', 'human_comment_count', 'has_bot_comments', 'attachments', 'number_of_attachments', 'attachment_dates', 'attachment_files', 'has_attachments']
+2026-06-25 12:33:30 [INFO] src.data_loader — No comment data found in source. comment_dates / comment_developers will be empty.
+2026-06-25 12:33:30 [INFO] src.data_loader — No attachment data found in source. attachment_dates / attachment_files will be empty.
+2026-06-25 12:33:30 [INFO] src.data_loader —   Missing 'summary'                 :  1545 / 1545  (100.0%)
+2026-06-25 12:33:30 [INFO] src.data_loader —   Missing 'description'             :  1545 / 1545  (100.0%)
+2026-06-25 12:33:30 [INFO] src.data_loader —   Missing 'issue_type'              :  1545 / 1545  (100.0%)
+2026-06-25 12:33:30 [INFO] src.data_loader —   Missing 'status'                  :  1545 / 1545  (100.0%)
+2026-06-25 12:33:30 [INFO] src.data_loader —   Missing 'priority'                :  1545 / 1545  (100.0%)
+2026-06-25 12:33:30 [INFO] src.data_loader —   Missing 'reporter'                :  1545 / 1545  (100.0%)
+2026-06-25 12:33:30 [INFO] src.data_loader —   Missing 'assignee'                :  1545 / 1545  (100.0%)
+2026-06-25 12:33:30 [INFO] src.data_loader —   Missing 'created_date'            :  1545 / 1545  (100.0%)
+2026-06-25 12:33:30 [INFO] src.data_loader —   Missing 'parent_key'              :  1545 / 1545  (100.0%)
+2026-06-25 12:33:30 [INFO] utils.save_csv — Saved [yarn_issues_raw] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\raw\yarn_issues_raw.csv  (1545 rows x 36 cols)
+2026-06-25 12:33:30 [INFO] utils.save_csv — Saved [yarn_issues_structured] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_structured.csv  (1545 rows x 36 cols)
+2026-06-25 12:33:30 [INFO] main — Yarn issues loaded: 1545
+2026-06-25 12:33:30 [INFO] main — [Step 7] Enriching with Jira REST API…
+2026-06-25 12:33:30 [INFO] src.jira_enricher — Starting Jira API enrichment for 1545 issues from: https://issues.apache.org/jira
+2026-06-25 12:33:30 [WARNING] src.jira_enricher — No Jira credentials configured. Public endpoints only — private issues may be inaccessible.
+2026-06-25 12:39:10 [INFO] main — ======================================================================
+2026-06-25 12:39:10 [INFO] main — YARN Jira Issue Mining — Week 1 Pipeline
+2026-06-25 12:39:10 [INFO] main — ======================================================================
+2026-06-25 12:39:10 [INFO] main — [Step 1] Creating output directories…
+2026-06-25 12:39:10 [INFO] main — [Steps 2–6] Loading and filtering Issues.xlsx…
+2026-06-25 12:39:10 [INFO] src.data_loader — Loading Excel file: D:\DSSE\Assignment 3\DSSE-Assignment-3\Issues.xlsx
+2026-06-25 12:39:10 [INFO] src.data_loader — Available sheets: ['Yarn', 'Mapreduce', 'Lucene', 'Tika', 'JClouds']
+2026-06-25 12:39:10 [INFO] src.data_loader — Using sheet: 'Yarn'
+2026-06-25 12:39:10 [INFO] src.data_loader — Loaded 1545 rows from sheet 'Yarn'
+2026-06-25 12:39:10 [INFO] src.data_loader — Total rows loaded    : 1545
+2026-06-25 12:39:10 [INFO] src.data_loader — Yarn rows retained   : 1545
+2026-06-25 12:39:10 [INFO] src.data_loader — Non-Yarn rows removed: 0
+2026-06-25 12:39:10 [WARNING] src.data_loader — Optional columns not found in source data (created as empty): ['issue_id', 'votes', 'parent_key', 'parent_summary', 'has_parent', 'summary', 'description', 'raw_text', 'cleaned_text', 'token_list', 'issue_type', 'status', 'priority', 'reporter', 'assignee', 'created_date', 'updated_date', 'resolution_date', 'labels', 'components', 'fix_versions', 'comments', 'number_of_comments', 'comment_dates', 'comment_developers', 'bot_comment_count', 'human_comment_count', 'has_bot_comments', 'attachments', 'number_of_attachments', 'attachment_dates', 'attachment_files', 'has_attachments']
+2026-06-25 12:39:10 [INFO] src.data_loader — No comment data found in source. comment_dates / comment_developers will be empty.
+2026-06-25 12:39:10 [INFO] src.data_loader — No attachment data found in source. attachment_dates / attachment_files will be empty.
+2026-06-25 12:39:10 [INFO] src.data_loader —   Missing 'summary'                 :  1545 / 1545  (100.0%)
+2026-06-25 12:39:10 [INFO] src.data_loader —   Missing 'description'             :  1545 / 1545  (100.0%)
+2026-06-25 12:39:10 [INFO] src.data_loader —   Missing 'issue_type'              :  1545 / 1545  (100.0%)
+2026-06-25 12:39:10 [INFO] src.data_loader —   Missing 'status'                  :  1545 / 1545  (100.0%)
+2026-06-25 12:39:10 [INFO] src.data_loader —   Missing 'priority'                :  1545 / 1545  (100.0%)
+2026-06-25 12:39:10 [INFO] src.data_loader —   Missing 'reporter'                :  1545 / 1545  (100.0%)
+2026-06-25 12:39:10 [INFO] src.data_loader —   Missing 'assignee'                :  1545 / 1545  (100.0%)
+2026-06-25 12:39:10 [INFO] src.data_loader —   Missing 'created_date'            :  1545 / 1545  (100.0%)
+2026-06-25 12:39:10 [INFO] src.data_loader —   Missing 'parent_key'              :  1545 / 1545  (100.0%)
+2026-06-25 12:39:10 [INFO] utils.save_csv — Saved [yarn_issues_raw] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\raw\yarn_issues_raw.csv  (1545 rows x 36 cols)
+2026-06-25 12:39:10 [INFO] utils.save_csv — Saved [yarn_issues_structured] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_structured.csv  (1545 rows x 36 cols)
+2026-06-25 12:39:10 [INFO] main — Yarn issues loaded: 1545
+2026-06-25 12:39:10 [INFO] main — [Step 7] Enriching with Jira REST API…
+2026-06-25 12:39:10 [INFO] src.jira_enricher — Starting Jira API enrichment for 1545 issues from: https://issues.apache.org/jira
+2026-06-25 12:39:10 [WARNING] src.jira_enricher — No Jira credentials configured. Public endpoints only — private issues may be inaccessible.
+2026-06-25 12:39:11 [INFO] src.jira_enricher — Enriched 1 / 1545: YARN-10650
+2026-06-25 12:39:11 [INFO] src.jira_enricher — Enriched 2 / 1545: YARN-11025
+2026-06-25 12:39:12 [INFO] src.jira_enricher — Enriched 3 / 1545: YARN-11005
+2026-06-25 12:39:13 [INFO] src.jira_enricher — Enriched 4 / 1545: YARN-11003
+2026-06-25 12:39:13 [INFO] src.jira_enricher — Enriched 5 / 1545: YARN-11002
+2026-06-25 12:39:14 [INFO] src.jira_enricher — Enriched 6 / 1545: YARN-10980
+2026-06-25 12:39:15 [INFO] src.jira_enricher — Enriched 7 / 1545: YARN-10955
+2026-06-25 12:39:15 [INFO] src.jira_enricher — Enriched 8 / 1545: YARN-10930
+2026-06-25 12:39:16 [INFO] src.jira_enricher — Enriched 9 / 1545: YARN-10928
+2026-06-25 12:39:17 [INFO] src.jira_enricher — Enriched 10 / 1545: YARN-10899
+2026-06-25 12:39:17 [INFO] src.jira_enricher — Enriched 11 / 1545: YARN-10898
+2026-06-25 12:39:18 [INFO] src.jira_enricher — Enriched 12 / 1545: YARN-10889
+2026-06-25 12:39:18 [INFO] src.jira_enricher — Enriched 13 / 1545: YARN-10843
+2026-06-25 12:39:19 [INFO] src.jira_enricher — Enriched 14 / 1545: YARN-10835
+2026-06-25 12:39:20 [INFO] src.jira_enricher — Enriched 15 / 1545: YARN-10790
+2026-06-25 12:39:21 [INFO] src.jira_enricher — Enriched 16 / 1545: YARN-10782
+2026-06-25 12:39:21 [INFO] src.jira_enricher — Enriched 17 / 1545: YARN-10759
+2026-06-25 12:39:22 [INFO] src.jira_enricher — Enriched 18 / 1545: YARN-10758
+2026-06-25 12:39:23 [INFO] src.jira_enricher — Enriched 19 / 1545: YARN-10755
+2026-06-25 12:39:23 [INFO] src.jira_enricher — Enriched 20 / 1545: YARN-10738
+2026-06-25 12:39:24 [INFO] src.jira_enricher — Enriched 21 / 1545: YARN-10714
+2026-06-25 12:39:25 [INFO] src.jira_enricher — Enriched 22 / 1545: YARN-10655
+2026-06-25 12:39:25 [INFO] src.jira_enricher — Enriched 23 / 1545: YARN-10623
+2026-06-25 12:39:26 [INFO] src.jira_enricher — Enriched 24 / 1545: YARN-10621
+2026-06-25 12:39:27 [INFO] src.jira_enricher — Enriched 25 / 1545: YARN-10617
+2026-06-25 12:39:27 [INFO] src.jira_enricher — Enriched 26 / 1545: YARN-10598
+2026-06-25 12:39:28 [INFO] src.jira_enricher — Enriched 27 / 1545: YARN-10585
+2026-06-25 12:39:28 [INFO] src.jira_enricher — Enriched 28 / 1545: YARN-10581
+2026-06-25 12:39:29 [INFO] src.jira_enricher — Enriched 29 / 1545: YARN-10579
+2026-06-25 12:39:30 [INFO] src.jira_enricher — Enriched 30 / 1545: YARN-10571
+2026-06-25 12:39:30 [INFO] src.jira_enricher — Enriched 31 / 1545: YARN-10564
+2026-06-25 12:39:31 [INFO] src.jira_enricher — Enriched 32 / 1545: YARN-10546
+2026-06-25 12:39:32 [INFO] src.jira_enricher — Enriched 33 / 1545: YARN-10534
+2026-06-25 12:39:33 [INFO] src.jira_enricher — Enriched 34 / 1545: YARN-10524
+2026-06-25 12:39:33 [INFO] src.jira_enricher — Enriched 35 / 1545: YARN-10521
+2026-06-25 12:39:34 [INFO] src.jira_enricher — Enriched 36 / 1545: YARN-10514
+2026-06-25 12:39:34 [INFO] src.jira_enricher — Enriched 37 / 1545: YARN-10512
+2026-06-25 12:39:35 [INFO] src.jira_enricher — Enriched 38 / 1545: YARN-10505
+2026-06-25 12:39:35 [INFO] src.jira_enricher — Enriched 39 / 1545: YARN-10496
+2026-06-25 12:39:36 [INFO] src.jira_enricher — Enriched 40 / 1545: YARN-10493
+2026-06-25 12:39:36 [INFO] src.jira_enricher — Enriched 41 / 1545: YARN-10478
+2026-06-25 12:39:37 [INFO] src.jira_enricher — Enriched 42 / 1545: YARN-10473
+2026-06-25 12:39:38 [INFO] src.jira_enricher — Enriched 43 / 1545: YARN-10449
+2026-06-25 12:39:38 [INFO] src.jira_enricher — Enriched 44 / 1545: YARN-10436
+2026-06-25 12:39:39 [INFO] src.jira_enricher — Enriched 45 / 1545: YARN-10433
+2026-06-25 12:39:39 [INFO] src.jira_enricher — Enriched 46 / 1545: YARN-10432
+2026-06-25 12:39:40 [INFO] src.jira_enricher — Enriched 47 / 1545: YARN-10431
+2026-06-25 12:39:41 [INFO] src.jira_enricher — Enriched 48 / 1545: YARN-10422
+2026-06-25 12:39:41 [INFO] src.jira_enricher — Enriched 49 / 1545: YARN-10421
+2026-06-25 12:39:42 [INFO] src.jira_enricher — Enriched 50 / 1545: YARN-10406
+2026-06-25 12:39:42 [INFO] src.jira_enricher — Enriched 51 / 1545: YARN-10389
+2026-06-25 12:39:43 [INFO] src.jira_enricher — Enriched 52 / 1545: YARN-10384
+2026-06-25 12:39:44 [INFO] src.jira_enricher — Enriched 53 / 1545: YARN-10376
+2026-06-25 12:39:44 [INFO] src.jira_enricher — Enriched 54 / 1545: YARN-10375
+2026-06-25 12:39:47 [INFO] src.jira_enricher — Enriched 55 / 1545: YARN-10374
+2026-06-25 12:39:48 [INFO] src.jira_enricher — Enriched 56 / 1545: YARN-10370
+2026-06-25 12:39:48 [INFO] src.jira_enricher — Enriched 57 / 1545: YARN-10043
+2026-06-25 12:39:52 [INFO] src.jira_enricher — Enriched 58 / 1545: YARN-10352
+2026-06-25 12:39:54 [INFO] src.jira_enricher — Enriched 59 / 1545: YARN-10335
+2026-06-25 12:39:55 [INFO] src.jira_enricher — Enriched 60 / 1545: YARN-10333
+2026-06-25 12:39:55 [INFO] src.jira_enricher — Enriched 61 / 1545: YARN-10323
+2026-06-25 12:39:56 [INFO] src.jira_enricher — Enriched 62 / 1545: YARN-10311
+2026-06-25 12:39:56 [INFO] src.jira_enricher — Enriched 63 / 1545: YARN-10304
+2026-06-25 12:39:57 [INFO] src.jira_enricher — Enriched 64 / 1545: YARN-10292
+2026-06-25 12:39:57 [INFO] src.jira_enricher — Enriched 65 / 1545: YARN-10281
+2026-06-25 12:39:58 [INFO] src.jira_enricher — Enriched 66 / 1545: YARN-10276
+2026-06-25 12:39:58 [INFO] src.jira_enricher — Enriched 67 / 1545: YARN-10246
+2026-06-25 12:39:59 [INFO] src.jira_enricher — Enriched 68 / 1545: YARN-10238
+2026-06-25 12:39:59 [INFO] src.jira_enricher — Enriched 69 / 1545: YARN-10229
+2026-06-25 12:40:00 [INFO] src.jira_enricher — Enriched 70 / 1545: YARN-10216
+2026-06-25 12:40:01 [INFO] src.jira_enricher — Enriched 71 / 1545: YARN-10028
+2026-06-25 12:40:02 [INFO] src.jira_enricher — Enriched 72 / 1545: YARN-10214
+2026-06-25 12:40:03 [INFO] src.jira_enricher — Enriched 73 / 1545: YARN-10181
+2026-06-25 12:40:03 [INFO] src.jira_enricher — Enriched 74 / 1545: YARN-10162
+2026-06-25 12:40:05 [INFO] src.jira_enricher — Enriched 75 / 1545: YARN-10126
+2026-06-25 12:40:05 [INFO] src.jira_enricher — Enriched 76 / 1545: YARN-10114
+2026-06-25 12:40:06 [INFO] src.jira_enricher — Enriched 77 / 1545: YARN-10101
+2026-06-25 12:40:07 [INFO] src.jira_enricher — Enriched 78 / 1545: YARN-10100
+2026-06-25 12:40:07 [INFO] src.jira_enricher — Enriched 79 / 1545: YARN-10099
+2026-06-25 12:40:08 [INFO] src.jira_enricher — Enriched 80 / 1545: YARN-10096
+2026-06-25 12:40:08 [INFO] src.jira_enricher — Enriched 81 / 1545: YARN-10094
+2026-06-25 12:40:09 [INFO] src.jira_enricher — Enriched 82 / 1545: YARN-10079
+2026-06-25 12:40:10 [INFO] src.jira_enricher — Enriched 83 / 1545: YARN-10062
+2026-06-25 12:40:11 [INFO] src.jira_enricher — Enriched 84 / 1545: YARN-10039
+2026-06-25 12:40:12 [INFO] src.jira_enricher — Enriched 85 / 1545: YARN-10032
+2026-06-25 12:40:14 [INFO] src.jira_enricher — Enriched 86 / 1545: YARN-10031
+2026-06-25 12:40:15 [INFO] src.jira_enricher — Enriched 87 / 1545: YARN-10022
+2026-06-25 12:40:15 [INFO] src.jira_enricher — Enriched 88 / 1545: YARN-9927
+2026-06-25 12:40:16 [INFO] src.jira_enricher — Enriched 89 / 1545: YARN-9936
+2026-06-25 12:40:17 [INFO] src.jira_enricher — Enriched 90 / 1545: YARN-9926
+2026-06-25 12:40:18 [INFO] src.jira_enricher — Enriched 91 / 1545: YARN-9923
+2026-06-25 12:40:18 [INFO] src.jira_enricher — Enriched 92 / 1545: YARN-9916
+2026-06-25 12:40:19 [INFO] src.jira_enricher — Enriched 93 / 1545: YARN-9904
+2026-06-25 12:40:20 [INFO] src.jira_enricher — Enriched 94 / 1545: YARN-9899
+2026-06-25 12:40:20 [INFO] src.jira_enricher — Enriched 95 / 1545: YARN-9897
+2026-06-25 12:40:21 [INFO] src.jira_enricher — Enriched 96 / 1545: YARN-9879
+2026-06-25 12:40:22 [INFO] src.jira_enricher — Enriched 97 / 1545: YARN-9848
+2026-06-25 12:40:22 [INFO] src.jira_enricher — Enriched 98 / 1545: YARN-9809
+2026-06-25 12:40:23 [INFO] src.jira_enricher — Enriched 99 / 1545: YARN-9805
+2026-06-25 12:40:24 [INFO] src.jira_enricher — Enriched 100 / 1545: YARN-9748
+2026-06-25 12:40:24 [INFO] src.jira_enricher — Enriched 101 / 1545: YARN-9726
+2026-06-25 12:40:25 [INFO] src.jira_enricher — Enriched 102 / 1545: YARN-9802
+2026-06-25 12:40:26 [INFO] src.jira_enricher — Enriched 103 / 1545: YARN-9768
+2026-06-25 12:40:26 [INFO] src.jira_enricher — Enriched 104 / 1545: YARN-9761
+2026-06-25 12:40:27 [INFO] src.jira_enricher — Enriched 105 / 1545: YARN-9760
+2026-06-25 12:40:28 [INFO] src.jira_enricher — Enriched 106 / 1545: YARN-9746
+2026-06-25 12:40:28 [INFO] src.jira_enricher — Enriched 107 / 1545: YARN-9754
+2026-06-25 12:40:29 [INFO] src.jira_enricher — Enriched 108 / 1545: YARN-9753
+2026-06-25 12:40:29 [INFO] src.jira_enricher — Enriched 109 / 1545: YARN-9737
+2026-06-25 12:40:30 [INFO] src.jira_enricher — Enriched 110 / 1545: YARN-9730
+2026-06-25 12:40:31 [INFO] src.jira_enricher — Enriched 111 / 1545: YARN-9698
+2026-06-25 12:40:31 [INFO] src.jira_enricher — Enriched 112 / 1545: YARN-9697
+2026-06-25 12:40:33 [INFO] src.jira_enricher — Enriched 113 / 1545: YARN-9686
+2026-06-25 12:40:34 [INFO] src.jira_enricher — Enriched 114 / 1545: YARN-9671
+2026-06-25 12:40:35 [INFO] src.jira_enricher — Enriched 115 / 1545: YARN-9669
+2026-06-25 12:40:35 [INFO] src.jira_enricher — Enriched 116 / 1545: YARN-9664
+2026-06-25 12:40:36 [INFO] src.jira_enricher — Enriched 117 / 1545: YARN-9663
+2026-06-25 12:40:36 [INFO] src.jira_enricher — Enriched 118 / 1545: YARN-9656
+2026-06-25 12:40:37 [INFO] src.jira_enricher — Enriched 119 / 1545: YARN-9652
+2026-06-25 12:40:37 [INFO] src.jira_enricher — Enriched 120 / 1545: YARN-9634
+2026-06-25 12:40:38 [INFO] src.jira_enricher — Enriched 121 / 1545: YARN-9633
+2026-06-25 12:40:40 [INFO] src.jira_enricher — Enriched 122 / 1545: YARN-9618
+2026-06-25 12:40:40 [INFO] src.jira_enricher — Enriched 123 / 1545: YARN-9609
+2026-06-25 12:40:41 [INFO] src.jira_enricher — Enriched 124 / 1545: YARN-9607
+2026-06-25 12:40:41 [INFO] src.jira_enricher — Enriched 125 / 1545: YARN-9603
+2026-06-25 12:40:42 [INFO] src.jira_enricher — Enriched 126 / 1545: YARN-9577
+2026-06-25 12:40:43 [INFO] src.jira_enricher — Enriched 127 / 1545: YARN-9555
+2026-06-25 12:40:43 [INFO] src.jira_enricher — Enriched 128 / 1545: YARN-9528
+2026-06-25 12:40:44 [INFO] src.jira_enricher — Enriched 129 / 1545: YARN-9439
+2026-06-25 12:40:44 [INFO] src.jira_enricher — Enriched 130 / 1545: YARN-9499
+2026-06-25 12:40:45 [INFO] src.jira_enricher — Enriched 131 / 1545: YARN-9477
+2026-06-25 12:40:46 [INFO] src.jira_enricher — Enriched 132 / 1545: YARN-9473
+2026-06-25 12:40:46 [INFO] src.jira_enricher — Enriched 133 / 1545: YARN-9472
+2026-06-25 12:40:47 [INFO] src.jira_enricher — Enriched 134 / 1545: YARN-9443
+2026-06-25 12:40:47 [INFO] src.jira_enricher — Enriched 135 / 1545: YARN-9421
+2026-06-25 12:40:48 [INFO] src.jira_enricher — Enriched 136 / 1545: YARN-9416
+2026-06-25 12:40:49 [INFO] src.jira_enricher — Enriched 137 / 1545: YARN-9414
+2026-06-25 12:40:49 [INFO] src.jira_enricher — Enriched 138 / 1545: YARN-9378
+2026-06-25 12:40:50 [INFO] src.jira_enricher — Enriched 139 / 1545: YARN-9366
+2026-06-25 12:40:50 [INFO] src.jira_enricher — Enriched 140 / 1545: YARN-9346
+2026-06-25 12:40:51 [INFO] src.jira_enricher — Enriched 141 / 1545: YARN-9345
+2026-06-25 12:40:51 [INFO] src.jira_enricher — Enriched 142 / 1545: YARN-9313
+2026-06-25 12:40:52 [INFO] src.jira_enricher — Enriched 143 / 1545: YARN-9298
+2026-06-25 12:40:53 [INFO] src.jira_enricher — Enriched 144 / 1545: YARN-9292
+2026-06-25 12:40:53 [INFO] src.jira_enricher — Enriched 145 / 1545: YARN-9287
+2026-06-25 12:40:54 [INFO] src.jira_enricher — Enriched 146 / 1545: YARN-9276
+2026-06-25 12:40:54 [INFO] src.jira_enricher — Enriched 147 / 1545: YARN-9249
+2026-06-25 12:40:55 [INFO] src.jira_enricher — Enriched 148 / 1545: YARN-9230
+2026-06-25 12:40:56 [INFO] src.jira_enricher — Enriched 149 / 1545: YARN-9228
+2026-06-25 12:40:56 [INFO] src.jira_enricher — Enriched 150 / 1545: YARN-9200
+2026-06-25 12:40:57 [INFO] src.jira_enricher — Enriched 151 / 1545: YARN-9174
+2026-06-25 12:40:57 [INFO] src.jira_enricher — Enriched 152 / 1545: YARN-9150
+2026-06-25 12:40:58 [INFO] src.jira_enricher — Enriched 153 / 1545: YARN-9146
+2026-06-25 12:40:58 [INFO] src.jira_enricher — Enriched 154 / 1545: YARN-9145
+2026-06-25 12:40:59 [INFO] src.jira_enricher — Enriched 155 / 1545: YARN-9116
+2026-06-25 12:41:00 [INFO] src.jira_enricher — Enriched 156 / 1545: YARN-9098
+2026-06-25 12:41:00 [INFO] src.jira_enricher — Enriched 157 / 1545: YARN-9086
+2026-06-25 12:41:01 [INFO] src.jira_enricher — Enriched 158 / 1545: YARN-9059
+2026-06-25 12:41:02 [INFO] src.jira_enricher — Enriched 159 / 1545: YARN-9060
+2026-06-25 12:41:03 [INFO] src.jira_enricher — Enriched 160 / 1545: YARN-9056
+2026-06-25 12:41:03 [INFO] src.jira_enricher — Enriched 161 / 1545: YARN-9055
+2026-06-25 12:41:04 [INFO] src.jira_enricher — Enriched 162 / 1545: YARN-9050
+2026-06-25 12:41:04 [INFO] src.jira_enricher — Enriched 163 / 1545: YARN-9045
+2026-06-25 12:41:05 [INFO] src.jira_enricher — Enriched 164 / 1545: YARN-9038
+2026-06-25 12:41:05 [INFO] src.jira_enricher — Enriched 165 / 1545: YARN-9034
+2026-06-25 12:41:06 [INFO] src.jira_enricher — Enriched 166 / 1545: YARN-9023
+2026-06-25 12:41:06 [INFO] src.jira_enricher — Enriched 167 / 1545: YARN-9021
+2026-06-25 12:41:07 [INFO] src.jira_enricher — Enriched 168 / 1545: YARN-9016
+2026-06-25 12:41:08 [INFO] src.jira_enricher — Enriched 169 / 1545: YARN-9015
+2026-06-25 12:41:08 [INFO] src.jira_enricher — Enriched 170 / 1545: YARN-9014
+2026-06-25 12:41:09 [INFO] src.jira_enricher — Enriched 171 / 1545: YARN-9003
+2026-06-25 12:41:09 [INFO] src.jira_enricher — Enriched 172 / 1545: YARN-9000
+2026-06-25 12:41:10 [INFO] src.jira_enricher — Enriched 173 / 1545: YARN-8993
+2026-06-25 12:41:11 [INFO] src.jira_enricher — Enriched 174 / 1545: YARN-8964
+2026-06-25 12:41:11 [INFO] src.jira_enricher — Enriched 175 / 1545: YARN-8982
+2026-06-25 12:41:12 [INFO] src.jira_enricher — Enriched 176 / 1545: YARN-8962
+2026-06-25 12:41:12 [INFO] src.jira_enricher — Enriched 177 / 1545: YARN-8761
+2026-06-25 12:41:13 [INFO] src.jira_enricher — Enriched 178 / 1545: YARN-8981
+2026-06-25 12:41:13 [INFO] src.jira_enricher — Enriched 179 / 1545: YARN-8978
+2026-06-25 12:41:14 [INFO] src.jira_enricher — Enriched 180 / 1545: YARN-8967
+2026-06-25 12:41:14 [INFO] src.jira_enricher — Enriched 181 / 1545: YARN-8965
+2026-06-25 12:41:15 [INFO] src.jira_enricher — Enriched 182 / 1545: YARN-8953
+2026-06-25 12:41:16 [INFO] src.jira_enricher — Enriched 183 / 1545: YARN-8913
+2026-06-25 12:41:16 [INFO] src.jira_enricher — Enriched 184 / 1545: YARN-8890
+2026-06-25 12:41:17 [INFO] src.jira_enricher — Enriched 185 / 1545: YARN-8903
+2026-06-25 12:41:17 [INFO] src.jira_enricher — Enriched 186 / 1545: YARN-8895
+2026-06-25 12:41:18 [INFO] src.jira_enricher — Enriched 187 / 1545: YARN-8889
+2026-06-25 12:41:19 [INFO] src.jira_enricher — Enriched 188 / 1545: YARN-8887
+2026-06-25 12:41:19 [INFO] src.jira_enricher — Enriched 189 / 1545: YARN-8886
+2026-06-25 12:41:20 [INFO] src.jira_enricher — Enriched 190 / 1545: YARN-8884
+2026-06-25 12:41:21 [INFO] src.jira_enricher — Enriched 191 / 1545: YARN-8882
+2026-06-25 12:41:21 [INFO] src.jira_enricher — Enriched 192 / 1545: YARN-8881
+2026-06-25 12:41:22 [INFO] src.jira_enricher — Enriched 193 / 1545: YARN-8880
+2026-06-25 12:41:22 [INFO] src.jira_enricher — Enriched 194 / 1545: YARN-8863
+2026-06-25 12:41:23 [INFO] src.jira_enricher — Enriched 195 / 1545: YARN-8862
+2026-06-25 12:41:24 [INFO] src.jira_enricher — Enriched 196 / 1545: YARN-8851
+2026-06-25 12:41:24 [INFO] src.jira_enricher — Enriched 197 / 1545: YARN-8850
+2026-06-25 12:41:25 [INFO] src.jira_enricher — Enriched 198 / 1545: YARN-8849
+2026-06-25 12:41:25 [INFO] src.jira_enricher — Enriched 199 / 1545: YARN-8848
+2026-06-25 12:41:26 [INFO] src.jira_enricher — Enriched 200 / 1545: YARN-8839
+2026-06-25 12:41:26 [INFO] src.jira_enricher — Enriched 201 / 1545: YARN-8838
+2026-06-25 12:41:27 [INFO] src.jira_enricher — Enriched 202 / 1545: YARN-8836
+2026-06-25 12:41:27 [INFO] src.jira_enricher — Enriched 203 / 1545: YARN-8834
+2026-06-25 12:41:28 [INFO] src.jira_enricher — Enriched 204 / 1545: YARN-8827
+2026-06-25 12:41:28 [INFO] src.jira_enricher — Enriched 205 / 1545: YARN-8821
+2026-06-25 12:41:29 [INFO] src.jira_enricher — Enriched 206 / 1545: YARN-8820
+2026-06-25 12:41:30 [INFO] src.jira_enricher — Enriched 207 / 1545: YARN-8811
+2026-06-25 12:41:30 [INFO] src.jira_enricher — Enriched 208 / 1545: YARN-8766
+2026-06-25 12:41:31 [INFO] src.jira_enricher — Enriched 209 / 1545: YARN-8765
+2026-06-25 12:41:31 [INFO] src.jira_enricher — Enriched 210 / 1545: YARN-8763
+2026-06-25 12:41:32 [INFO] src.jira_enricher — Enriched 211 / 1545: YARN-8762
+2026-06-25 12:41:32 [INFO] src.jira_enricher — Enriched 212 / 1545: YARN-8736
+2026-06-25 12:41:33 [INFO] src.jira_enricher — Enriched 213 / 1545: YARN-8731
+2026-06-25 12:41:33 [INFO] src.jira_enricher — Enriched 214 / 1545: YARN-8697
+2026-06-25 12:41:34 [INFO] src.jira_enricher — Enriched 215 / 1545: YARN-8696
+2026-06-25 12:41:35 [INFO] src.jira_enricher — Enriched 216 / 1545: YARN-8686
+2026-06-25 12:41:35 [INFO] src.jira_enricher — Enriched 217 / 1545: YARN-8684
+2026-06-25 12:41:36 [INFO] src.jira_enricher — Enriched 218 / 1545: YARN-8673
+2026-06-25 12:41:36 [INFO] src.jira_enricher — Enriched 219 / 1545: YARN-8670
+2026-06-25 12:41:37 [INFO] src.jira_enricher — Enriched 220 / 1545: YARN-8643
+2026-06-25 12:41:37 [INFO] src.jira_enricher — Enriched 221 / 1545: YARN-8651
+2026-06-25 12:41:38 [INFO] src.jira_enricher — Enriched 222 / 1545: YARN-8639
+2026-06-25 12:41:38 [INFO] src.jira_enricher — Enriched 223 / 1545: YARN-8638
+2026-06-25 12:41:39 [INFO] src.jira_enricher — Enriched 224 / 1545: YARN-8634
+2026-06-25 12:41:40 [INFO] src.jira_enricher — Enriched 225 / 1545: YARN-8626
+2026-06-25 12:41:41 [INFO] src.jira_enricher — Enriched 226 / 1545: YARN-8621
+2026-06-25 12:41:41 [INFO] src.jira_enricher — Enriched 227 / 1545: YARN-8618
+2026-06-25 12:41:42 [INFO] src.jira_enricher — Enriched 228 / 1545: YARN-8599
+2026-06-25 12:41:42 [INFO] src.jira_enricher — Enriched 229 / 1545: YARN-8598
+2026-06-25 12:41:43 [INFO] src.jira_enricher — Enriched 230 / 1545: YARN-8597
+2026-06-25 12:41:43 [INFO] src.jira_enricher — Enriched 231 / 1545: YARN-8572
+2026-06-25 12:41:44 [INFO] src.jira_enricher — Enriched 232 / 1545: YARN-8583
+2026-06-25 12:41:44 [INFO] src.jira_enricher — Enriched 233 / 1545: YARN-8571
+2026-06-25 12:41:45 [INFO] src.jira_enricher — Enriched 234 / 1545: YARN-8559
+2026-06-25 12:41:46 [INFO] src.jira_enricher — Enriched 235 / 1545: YARN-8556
+2026-06-25 12:41:46 [INFO] src.jira_enricher — Enriched 236 / 1545: YARN-8551
+2026-06-25 12:41:47 [INFO] src.jira_enricher — Enriched 237 / 1545: YARN-8533
+2026-06-25 12:41:47 [INFO] src.jira_enricher — Enriched 238 / 1545: YARN-8532
+2026-06-25 12:41:48 [INFO] src.jira_enricher — Enriched 239 / 1545: YARN-8499
+2026-06-25 12:41:48 [INFO] src.jira_enricher — Enriched 240 / 1545: YARN-8495
+2026-06-25 12:41:49 [INFO] src.jira_enricher — Enriched 241 / 1545: YARN-8493
+2026-06-25 12:41:49 [INFO] src.jira_enricher — Enriched 242 / 1545: YARN-8489
+2026-06-25 12:41:50 [INFO] src.jira_enricher — Enriched 243 / 1545: YARN-8488
+2026-06-25 12:41:50 [INFO] src.jira_enricher — Enriched 244 / 1545: YARN-8472
+2026-06-25 12:41:51 [INFO] src.jira_enricher — Enriched 245 / 1545: YARN-8468
+2026-06-25 12:41:52 [INFO] src.jira_enricher — Enriched 246 / 1545: YARN-8451
+2026-06-25 12:41:52 [INFO] src.jira_enricher — Enriched 247 / 1545: YARN-8461
+2026-06-25 12:41:53 [INFO] src.jira_enricher — Enriched 248 / 1545: YARN-8452
+2026-06-25 12:41:53 [INFO] src.jira_enricher — Enriched 249 / 1545: YARN-8446
+2026-06-25 12:41:54 [INFO] src.jira_enricher — Enriched 250 / 1545: YARN-8412
+2026-06-25 12:41:55 [INFO] src.jira_enricher — Enriched 251 / 1545: YARN-8411
+2026-06-25 12:41:55 [INFO] src.jira_enricher — Enriched 252 / 1545: YARN-8392
+2026-06-25 12:41:56 [INFO] src.jira_enricher — Enriched 253 / 1545: YARN-8304
+2026-06-25 12:41:56 [INFO] src.jira_enricher — Enriched 254 / 1545: YARN-8379
+2026-06-25 12:41:57 [INFO] src.jira_enricher — Enriched 255 / 1545: YARN-8364
+2026-06-25 12:41:57 [INFO] src.jira_enricher — Enriched 256 / 1545: YARN-8361
+2026-06-25 12:41:58 [INFO] src.jira_enricher — Enriched 257 / 1545: YARN-8356
+2026-06-25 12:41:59 [INFO] src.jira_enricher — Enriched 258 / 1545: YARN-8352
+2026-06-25 12:41:59 [INFO] src.jira_enricher — Enriched 259 / 1545: YARN-8306
+2026-06-25 12:42:00 [INFO] src.jira_enricher — Enriched 260 / 1545: YARN-8345
+2026-06-25 12:42:01 [INFO] src.jira_enricher — Enriched 261 / 1545: YARN-8333
+2026-06-25 12:42:01 [INFO] src.jira_enricher — Enriched 262 / 1545: YARN-8320
+2026-06-25 12:42:02 [INFO] src.jira_enricher — Enriched 263 / 1545: YARN-8314
+2026-06-25 12:42:02 [INFO] src.jira_enricher — Enriched 264 / 1545: YARN-8303
+2026-06-25 12:42:03 [INFO] src.jira_enricher — Enriched 265 / 1545: YARN-8298
+2026-06-25 12:42:03 [INFO] src.jira_enricher — Enriched 266 / 1545: YARN-8286
+2026-06-25 12:42:04 [INFO] src.jira_enricher — Enriched 267 / 1545: YARN-8283
+2026-06-25 12:42:04 [INFO] src.jira_enricher — Enriched 268 / 1545: YARN-8256
+2026-06-25 12:42:05 [INFO] src.jira_enricher — Enriched 269 / 1545: YARN-8250
+2026-06-25 12:42:05 [INFO] src.jira_enricher — Enriched 270 / 1545: YARN-8240
+2026-06-25 12:42:06 [INFO] src.jira_enricher — Enriched 271 / 1545: YARN-8238
+2026-06-25 12:42:07 [INFO] src.jira_enricher — Enriched 272 / 1545: YARN-8192
+2026-06-25 12:42:07 [INFO] src.jira_enricher — Enriched 273 / 1545: YARN-8186
+2026-06-25 12:42:08 [INFO] src.jira_enricher — Enriched 274 / 1545: YARN-8178
+2026-06-25 12:42:08 [INFO] src.jira_enricher — Enriched 275 / 1545: YARN-8170
+2026-06-25 12:42:09 [INFO] src.jira_enricher — Enriched 276 / 1545: YARN-8157
+2026-06-25 12:42:09 [INFO] src.jira_enricher — Enriched 277 / 1545: YARN-8146
+2026-06-25 12:42:10 [INFO] src.jira_enricher — Enriched 278 / 1545: YARN-8137
+2026-06-25 12:42:10 [INFO] src.jira_enricher — Enriched 279 / 1545: YARN-8134
+2026-06-25 12:42:11 [INFO] src.jira_enricher — Enriched 280 / 1545: YARN-8131
+2026-06-25 12:42:12 [INFO] src.jira_enricher — Enriched 281 / 1545: YARN-8104
+2026-06-25 12:42:12 [INFO] src.jira_enricher — Enriched 282 / 1545: YARN-8103
+2026-06-25 12:42:13 [INFO] src.jira_enricher — Enriched 283 / 1545: YARN-8100
+2026-06-25 12:42:13 [INFO] src.jira_enricher — Enriched 284 / 1545: YARN-8092
+2026-06-25 12:42:14 [INFO] src.jira_enricher — Enriched 285 / 1545: YARN-8081
+2026-06-25 12:42:14 [INFO] src.jira_enricher — Enriched 286 / 1545: YARN-8080
+2026-06-25 12:42:15 [INFO] src.jira_enricher — Enriched 287 / 1545: YARN-7307
+2026-06-25 12:42:15 [INFO] src.jira_enricher — Enriched 288 / 1545: YARN-8065
+2026-06-25 12:42:16 [INFO] src.jira_enricher — Enriched 289 / 1545: YARN-8052
+2026-06-25 12:42:17 [INFO] src.jira_enricher — Enriched 290 / 1545: YARN-8042
+2026-06-25 12:42:17 [INFO] src.jira_enricher — Enriched 291 / 1545: YARN-8038
+2026-06-25 12:42:18 [INFO] src.jira_enricher — Enriched 292 / 1545: YARN-8018
+2026-06-25 12:42:18 [INFO] src.jira_enricher — Enriched 293 / 1545: YARN-8015
+2026-06-25 12:42:19 [INFO] src.jira_enricher — Enriched 294 / 1545: YARN-8014
+2026-06-25 12:42:20 [INFO] src.jira_enricher — Enriched 295 / 1545: YARN-8013
+2026-06-25 12:42:20 [INFO] src.jira_enricher — Enriched 296 / 1545: YARN-8007
+2026-06-25 12:42:21 [INFO] src.jira_enricher — Enriched 297 / 1545: YARN-7996
+2026-06-25 12:42:21 [INFO] src.jira_enricher — Enriched 298 / 1545: YARN-7976
+2026-06-25 12:42:22 [INFO] src.jira_enricher — Enriched 299 / 1545: YARN-7974
+2026-06-25 12:42:22 [INFO] src.jira_enricher — Enriched 300 / 1545: YARN-7972
+2026-06-25 12:42:23 [INFO] src.jira_enricher — Enriched 301 / 1545: YARN-7939
+2026-06-25 12:42:24 [INFO] src.jira_enricher — Enriched 302 / 1545: YARN-7934
+2026-06-25 12:42:24 [INFO] src.jira_enricher — Enriched 303 / 1545: YARN-7931
+2026-06-25 12:42:25 [INFO] src.jira_enricher — Enriched 304 / 1545: YARN-7930
+2026-06-25 12:42:25 [INFO] src.jira_enricher — Enriched 305 / 1545: YARN-7929
+2026-06-25 12:42:26 [INFO] src.jira_enricher — Enriched 306 / 1545: YARN-7904
+2026-06-25 12:42:26 [INFO] src.jira_enricher — Enriched 307 / 1545: YARN-7923
+2026-06-25 12:42:27 [INFO] src.jira_enricher — Enriched 308 / 1545: YARN-7900
+2026-06-25 12:42:28 [INFO] src.jira_enricher — Enriched 309 / 1545: YARN-7882
+2026-06-25 12:42:28 [INFO] src.jira_enricher — Enriched 310 / 1545: YARN-7876
+2026-06-25 12:42:29 [INFO] src.jira_enricher — Enriched 311 / 1545: YARN-7871
+2026-06-25 12:42:29 [INFO] src.jira_enricher — Enriched 312 / 1545: YARN-7863
+2026-06-25 12:42:30 [INFO] src.jira_enricher — Enriched 313 / 1545: YARN-7858
+2026-06-25 12:42:30 [INFO] src.jira_enricher — Enriched 314 / 1545: YARN-7856
+2026-06-25 12:42:31 [INFO] src.jira_enricher — Enriched 315 / 1545: YARN-7854
+2026-06-25 12:42:31 [INFO] src.jira_enricher — Enriched 316 / 1545: YARN-7848
+2026-06-25 12:42:32 [INFO] src.jira_enricher — Enriched 317 / 1545: YARN-7847
+2026-06-25 12:42:33 [INFO] src.jira_enricher — Enriched 318 / 1545: YARN-7842
+2026-06-25 12:42:33 [INFO] src.jira_enricher — Enriched 319 / 1545: YARN-7839
+2026-06-25 12:42:34 [INFO] src.jira_enricher — Enriched 320 / 1545: YARN-7831
+2026-06-25 12:42:34 [INFO] src.jira_enricher — Enriched 321 / 1545: YARN-7825
+2026-06-25 12:42:35 [INFO] src.jira_enricher — Enriched 322 / 1545: YARN-7812
+2026-06-25 12:42:35 [INFO] src.jira_enricher — Enriched 323 / 1545: YARN-7806
+2026-06-25 12:42:36 [INFO] src.jira_enricher — Enriched 324 / 1545: YARN-7606
+2026-06-25 12:42:37 [INFO] src.jira_enricher — Enriched 325 / 1545: YARN-7790
+2026-06-25 12:42:37 [INFO] src.jira_enricher — Enriched 326 / 1545: YARN-7778
+2026-06-25 12:42:38 [INFO] src.jira_enricher — Enriched 327 / 1545: YARN-7774
+2026-06-25 12:42:38 [INFO] src.jira_enricher — Enriched 328 / 1545: YARN-7724
+2026-06-25 12:42:39 [INFO] src.jira_enricher — Enriched 329 / 1545: YARN-7713
+2026-06-25 12:42:39 [INFO] src.jira_enricher — Enriched 330 / 1545: YARN-7707
+2026-06-25 12:42:40 [INFO] src.jira_enricher — Enriched 331 / 1545: YARN-7694
+2026-06-25 12:42:40 [INFO] src.jira_enricher — Enriched 332 / 1545: YARN-7686
+2026-06-25 12:42:41 [INFO] src.jira_enricher — Enriched 333 / 1545: YARN-7672
+2026-06-25 12:42:42 [INFO] src.jira_enricher — Enriched 334 / 1545: YARN-7670
+2026-06-25 12:42:42 [INFO] src.jira_enricher — Enriched 335 / 1545: YARN-7669
+2026-06-25 12:42:43 [INFO] src.jira_enricher — Enriched 336 / 1545: YARN-7666
+2026-06-25 12:42:43 [INFO] src.jira_enricher — Enriched 337 / 1545: YARN-7662
+2026-06-25 12:42:44 [INFO] src.jira_enricher — Enriched 338 / 1545: YARN-7660
+2026-06-25 12:42:44 [INFO] src.jira_enricher — Enriched 339 / 1545: YARN-7657
+2026-06-25 12:42:45 [INFO] src.jira_enricher — Enriched 340 / 1545: YARN-7655
+2026-06-25 12:42:46 [INFO] src.jira_enricher — Enriched 341 / 1545: YARN-7653
+2026-06-25 12:42:46 [INFO] src.jira_enricher — Enriched 342 / 1545: YARN-7033
+2026-06-25 12:42:47 [INFO] src.jira_enricher — Enriched 343 / 1545: YARN-7643
+2026-06-25 12:42:47 [INFO] src.jira_enricher — Enriched 344 / 1545: YARN-7634
+2026-06-25 12:42:48 [INFO] src.jira_enricher — Enriched 345 / 1545: YARN-7622
+2026-06-25 12:42:48 [INFO] src.jira_enricher — Enriched 346 / 1545: YARN-7621
+2026-06-25 12:42:49 [INFO] src.jira_enricher — Enriched 347 / 1545: YARN-7612
+2026-06-25 12:42:50 [INFO] src.jira_enricher — Enriched 348 / 1545: YARN-7605
+2026-06-25 12:42:50 [INFO] src.jira_enricher — Enriched 349 / 1545: YARN-7599
+2026-06-25 12:42:51 [INFO] src.jira_enricher — Enriched 350 / 1545: YARN-7583
+2026-06-25 12:42:51 [INFO] src.jira_enricher — Enriched 351 / 1545: YARN-7540
+2026-06-25 12:42:52 [INFO] src.jira_enricher — Enriched 352 / 1545: YARN-7530
+2026-06-25 12:42:52 [INFO] src.jira_enricher — Enriched 353 / 1545: YARN-7522
+2026-06-25 12:42:53 [INFO] src.jira_enricher — Enriched 354 / 1545: YARN-7520
+2026-06-25 12:42:53 [INFO] src.jira_enricher — Enriched 355 / 1545: YARN-7506
+2026-06-25 12:42:54 [INFO] src.jira_enricher — Enriched 356 / 1545: YARN-7495
+2026-06-25 12:42:55 [INFO] src.jira_enricher — Enriched 357 / 1545: YARN-7494
+2026-06-25 12:42:55 [INFO] src.jira_enricher — Enriched 358 / 1545: YARN-7492
+2026-06-25 12:42:56 [INFO] src.jira_enricher — Enriched 359 / 1545: YARN-7481
+2026-06-25 12:42:56 [INFO] src.jira_enricher — Enriched 360 / 1545: YARN-7473
+2026-06-25 12:42:57 [INFO] src.jira_enricher — Enriched 361 / 1545: YARN-7469
+2026-06-25 12:42:58 [INFO] src.jira_enricher — Enriched 362 / 1545: YARN-7468
+2026-06-25 12:42:58 [INFO] src.jira_enricher — Enriched 363 / 1545: YARN-7457
+2026-06-25 12:42:59 [INFO] src.jira_enricher — Enriched 364 / 1545: YARN-7441
+2026-06-25 12:43:00 [INFO] src.jira_enricher — Enriched 365 / 1545: YARN-7438
+2026-06-25 12:43:00 [INFO] src.jira_enricher — Enriched 366 / 1545: YARN-7423
+2026-06-25 12:43:01 [INFO] src.jira_enricher — Enriched 367 / 1545: YARN-7419
+2026-06-25 12:43:01 [INFO] src.jira_enricher — Enriched 368 / 1545: YARN-7405
+2026-06-25 12:43:02 [INFO] src.jira_enricher — Enriched 369 / 1545: YARN-7399
+2026-06-25 12:43:02 [INFO] src.jira_enricher — Enriched 370 / 1545: YARN-7384
+2026-06-25 12:43:03 [INFO] src.jira_enricher — Enriched 371 / 1545: YARN-7376
+2026-06-25 12:43:04 [INFO] src.jira_enricher — Enriched 372 / 1545: YARN-7368
+2026-06-25 12:43:04 [INFO] src.jira_enricher — Enriched 373 / 1545: YARN-7297
+2026-06-25 12:43:05 [INFO] src.jira_enricher — Enriched 374 / 1545: YARN-7292
+2026-06-25 12:43:06 [INFO] src.jira_enricher — Enriched 375 / 1545: YARN-7282
+2026-06-25 12:43:07 [INFO] src.jira_enricher — Enriched 376 / 1545: YARN-7273
+2026-06-25 12:43:07 [INFO] src.jira_enricher — Enriched 377 / 1545: YARN-7272
+2026-06-25 12:43:08 [INFO] src.jira_enricher — Enriched 378 / 1545: YARN-7271
+2026-06-25 12:43:08 [INFO] src.jira_enricher — Enriched 379 / 1545: YARN-7265
+2026-06-25 12:43:09 [INFO] src.jira_enricher — Enriched 380 / 1545: YARN-7250
+2026-06-25 12:43:11 [INFO] src.jira_enricher — Enriched 381 / 1545: YARN-7224
+2026-06-25 12:43:11 [INFO] src.jira_enricher — Enriched 382 / 1545: YARN-7218
+2026-06-25 12:43:12 [INFO] src.jira_enricher — Enriched 383 / 1545: YARN-7217
+2026-06-25 12:43:12 [INFO] src.jira_enricher — Enriched 384 / 1545: YARN-7215
+2026-06-25 12:43:13 [INFO] src.jira_enricher — Enriched 385 / 1545: YARN-7193
+2026-06-25 12:43:13 [INFO] src.jira_enricher — Enriched 386 / 1545: YARN-7192
+2026-06-25 12:43:14 [INFO] src.jira_enricher — Enriched 387 / 1545: YARN-1637
+2026-06-25 12:43:14 [INFO] src.jira_enricher — Enriched 388 / 1545: YARN-7159
+2026-06-25 12:43:15 [INFO] src.jira_enricher — Enriched 389 / 1545: YARN-7158
+2026-06-25 12:43:16 [INFO] src.jira_enricher — Enriched 390 / 1545: YARN-7142
+2026-06-25 12:43:16 [INFO] src.jira_enricher — Enriched 391 / 1545: YARN-7129
+2026-06-25 12:43:17 [INFO] src.jira_enricher — Enriched 392 / 1545: YARN-7127
+2026-06-25 12:43:17 [INFO] src.jira_enricher — Enriched 393 / 1545: YARN-7117
+2026-06-25 12:43:18 [INFO] src.jira_enricher — Enriched 394 / 1545: YARN-7109
+2026-06-25 12:43:18 [INFO] src.jira_enricher — Enriched 395 / 1545: YARN-7107
+2026-06-25 12:43:19 [INFO] src.jira_enricher — Enriched 396 / 1545: YARN-7097
+2026-06-25 12:43:20 [INFO] src.jira_enricher — Enriched 397 / 1545: YARN-7096
+2026-06-25 12:43:20 [INFO] src.jira_enricher — Enriched 398 / 1545: YARN-7095
+2026-06-25 12:43:21 [INFO] src.jira_enricher — Enriched 399 / 1545: YARN-7079
+2026-06-25 12:43:21 [INFO] src.jira_enricher — Enriched 400 / 1545: YARN-7069
+2026-06-25 12:43:22 [INFO] src.jira_enricher — Enriched 401 / 1545: YARN-7061
+2026-06-25 12:43:22 [INFO] src.jira_enricher — Enriched 402 / 1545: YARN-7059
+2026-06-25 12:43:23 [INFO] src.jira_enricher — Enriched 403 / 1545: YARN-7055
+2026-06-25 12:43:23 [INFO] src.jira_enricher — Enriched 404 / 1545: YARN-7054
+2026-06-25 12:43:24 [INFO] src.jira_enricher — Enriched 405 / 1545: YARN-7053
+2026-06-25 12:43:25 [INFO] src.jira_enricher — Enriched 406 / 1545: YARN-7037
+2026-06-25 12:43:25 [INFO] src.jira_enricher — Enriched 407 / 1545: YARN-1636
+2026-06-25 12:43:26 [INFO] src.jira_enricher — Enriched 408 / 1545: YARN-7031
+2026-06-25 12:43:26 [INFO] src.jira_enricher — Enriched 409 / 1545: YARN-7019
+2026-06-25 12:43:27 [INFO] src.jira_enricher — Enriched 410 / 1545: YARN-7018
+2026-06-25 12:43:28 [INFO] src.jira_enricher — Enriched 411 / 1545: YARN-7017
+2026-06-25 12:43:28 [INFO] src.jira_enricher — Enriched 412 / 1545: YARN-7016
+2026-06-25 12:43:29 [INFO] src.jira_enricher — Enriched 413 / 1545: YARN-7010
+2026-06-25 12:43:29 [INFO] src.jira_enricher — Enriched 414 / 1545: YARN-7006
+2026-06-25 12:43:30 [INFO] src.jira_enricher — Enriched 415 / 1545: YARN-7005
+2026-06-25 12:43:30 [INFO] src.jira_enricher — Enriched 416 / 1545: YARN-7004
+2026-06-25 12:43:31 [INFO] src.jira_enricher — Enriched 417 / 1545: YARN-7003
+2026-06-25 12:43:32 [INFO] src.jira_enricher — Enriched 418 / 1545: YARN-6963
+2026-06-25 12:43:32 [INFO] src.jira_enricher — Enriched 419 / 1545: YARN-6960
+2026-06-25 12:43:33 [INFO] src.jira_enricher — Enriched 420 / 1545: YARN-1635
+2026-06-25 12:43:33 [INFO] src.jira_enricher — Enriched 421 / 1545: YARN-6947
+2026-06-25 12:43:34 [INFO] src.jira_enricher — Enriched 422 / 1545: YARN-6936
+2026-06-25 12:43:35 [INFO] src.jira_enricher — Enriched 423 / 1545: YARN-6915
+2026-06-25 12:43:35 [INFO] src.jira_enricher — Enriched 424 / 1545: YARN-6903
+2026-06-25 12:43:36 [INFO] src.jira_enricher — Enriched 425 / 1545: YARN-6896
+2026-06-25 12:43:36 [INFO] src.jira_enricher — Enriched 426 / 1545: YARN-6889
+2026-06-25 12:43:37 [INFO] src.jira_enricher — Enriched 427 / 1545: YARN-6877
+2026-06-25 12:43:38 [INFO] src.jira_enricher — Enriched 428 / 1545: YARN-6876
+2026-06-25 12:43:38 [INFO] src.jira_enricher — Enriched 429 / 1545: YARN-6875
+2026-06-25 12:43:39 [INFO] src.jira_enricher — Enriched 430 / 1545: YARN-6858
+2026-06-25 12:43:39 [INFO] src.jira_enricher — Enriched 431 / 1545: YARN-6857
+2026-06-25 12:43:40 [INFO] src.jira_enricher — Enriched 432 / 1545: YARN-6855
+2026-06-25 12:43:40 [INFO] src.jira_enricher — Enriched 433 / 1545: YARN-6848
+2026-06-25 12:43:41 [INFO] src.jira_enricher — Enriched 434 / 1545: YARN-6842
+2026-06-25 12:43:42 [INFO] src.jira_enricher — Enriched 435 / 1545: YARN-6839
+2026-06-25 12:43:42 [INFO] src.jira_enricher — Enriched 436 / 1545: YARN-6829
+2026-06-25 12:43:43 [INFO] src.jira_enricher — Enriched 437 / 1545: YARN-6828
+2026-06-25 12:43:43 [INFO] src.jira_enricher — Enriched 438 / 1545: YARN-1634
+2026-06-25 12:43:44 [INFO] src.jira_enricher — Enriched 439 / 1545: YARN-6820
+2026-06-25 12:43:44 [INFO] src.jira_enricher — Enriched 440 / 1545: YARN-6791
+2026-06-25 12:43:45 [INFO] src.jira_enricher — Enriched 441 / 1545: YARN-6789
+2026-06-25 12:43:45 [INFO] src.jira_enricher — Enriched 442 / 1545: YARN-6777
+2026-06-25 12:43:46 [INFO] src.jira_enricher — Enriched 443 / 1545: YARN-6774
+2026-06-25 12:43:47 [INFO] src.jira_enricher — Enriched 444 / 1545: YARN-6753
+2026-06-25 12:43:47 [INFO] src.jira_enricher — Enriched 445 / 1545: YARN-1633
+2026-06-25 12:43:48 [INFO] src.jira_enricher — Enriched 446 / 1545: YARN-6734
+2026-06-25 12:43:48 [INFO] src.jira_enricher — Enriched 447 / 1545: YARN-6733
+2026-06-25 12:43:49 [INFO] src.jira_enricher — Enriched 448 / 1545: YARN-6724
+2026-06-25 12:43:49 [INFO] src.jira_enricher — Enriched 449 / 1545: YARN-6573
+2026-06-25 12:43:50 [INFO] src.jira_enricher — Enriched 450 / 1545: YARN-6704
+2026-06-25 12:43:51 [INFO] src.jira_enricher — Enriched 451 / 1545: YARN-6691
+2026-06-25 12:43:51 [INFO] src.jira_enricher — Enriched 452 / 1545: YARN-6688
+2026-06-25 12:43:52 [INFO] src.jira_enricher — Enriched 453 / 1545: YARN-6679
+2026-06-25 12:43:53 [INFO] src.jira_enricher — Enriched 454 / 1545: YARN-6671
+2026-06-25 12:43:53 [INFO] src.jira_enricher — Enriched 455 / 1545: YARN-6670
+2026-06-25 12:43:54 [INFO] src.jira_enricher — Enriched 456 / 1545: YARN-6669
+2026-06-25 12:43:54 [INFO] src.jira_enricher — Enriched 457 / 1545: YARN-6636
+2026-06-25 12:43:55 [INFO] src.jira_enricher — Enriched 458 / 1545: YARN-6634
+2026-06-25 12:43:56 [INFO] src.jira_enricher — Enriched 459 / 1545: YARN-6612
+2026-06-25 12:43:56 [INFO] src.jira_enricher — Enriched 460 / 1545: YARN-6626
+2026-06-25 12:43:57 [INFO] src.jira_enricher — Enriched 461 / 1545: YARN-6621
+2026-06-25 12:43:57 [INFO] src.jira_enricher — Enriched 462 / 1545: YARN-6620
+2026-06-25 12:43:58 [INFO] src.jira_enricher — Enriched 463 / 1545: YARN-6601
+2026-06-25 12:43:59 [INFO] src.jira_enricher — Enriched 464 / 1545: YARN-6599
+2026-06-25 12:43:59 [INFO] src.jira_enricher — Enriched 465 / 1545: YARN-6596
+2026-06-25 12:44:00 [INFO] src.jira_enricher — Enriched 466 / 1545: YARN-6592
+2026-06-25 12:44:00 [INFO] src.jira_enricher — Enriched 467 / 1545: YARN-6586
+2026-06-25 12:44:01 [INFO] src.jira_enricher — Enriched 468 / 1545: YARN-6569
+2026-06-25 12:44:02 [INFO] src.jira_enricher — Enriched 469 / 1545: YARN-6567
+2026-06-25 12:44:02 [INFO] src.jira_enricher — Enriched 470 / 1545: YARN-6527
+2026-06-25 12:44:03 [INFO] src.jira_enricher — Enriched 471 / 1545: YARN-6524
+2026-06-25 12:44:04 [INFO] src.jira_enricher — Enriched 472 / 1545: YARN-6521
+2026-06-25 12:44:05 [INFO] src.jira_enricher — Enriched 473 / 1545: YARN-6511
+2026-06-25 12:44:05 [INFO] src.jira_enricher — Enriched 474 / 1545: YARN-6507
+2026-06-25 12:44:06 [INFO] src.jira_enricher — Enriched 475 / 1545: YARN-6484
+2026-06-25 12:44:06 [INFO] src.jira_enricher — Enriched 476 / 1545: YARN-6469
+2026-06-25 12:44:08 [INFO] src.jira_enricher — Enriched 477 / 1545: YARN-6466
+2026-06-25 12:44:08 [INFO] src.jira_enricher — Enriched 478 / 1545: YARN-6462
+2026-06-25 12:44:09 [INFO] src.jira_enricher — Enriched 479 / 1545: YARN-6449
+2026-06-25 12:44:09 [INFO] src.jira_enricher — Enriched 480 / 1545: YARN-6440
+2026-06-25 12:44:10 [INFO] src.jira_enricher — Enriched 481 / 1545: YARN-6426
+2026-06-25 12:44:10 [INFO] src.jira_enricher — Enriched 482 / 1545: YARN-6407
+2026-06-25 12:44:11 [INFO] src.jira_enricher — Enriched 483 / 1545: YARN-6401
+2026-06-25 12:44:11 [INFO] src.jira_enricher — Enriched 484 / 1545: YARN-6398
+2026-06-25 12:44:12 [INFO] src.jira_enricher — Enriched 485 / 1545: YARN-6396
+2026-06-25 12:44:13 [INFO] src.jira_enricher — Enriched 486 / 1545: YARN-6390
+2026-06-25 12:44:13 [INFO] src.jira_enricher — Enriched 487 / 1545: YARN-6345
+2026-06-25 12:44:14 [INFO] src.jira_enricher — Enriched 488 / 1545: YARN-6369
+2026-06-25 12:44:14 [INFO] src.jira_enricher — Enriched 489 / 1545: YARN-6366
+2026-06-25 12:44:15 [INFO] src.jira_enricher — Enriched 490 / 1545: YARN-6364
+2026-06-25 12:44:15 [INFO] src.jira_enricher — Enriched 491 / 1545: YARN-6358
+2026-06-25 12:44:16 [INFO] src.jira_enricher — Enriched 492 / 1545: YARN-6357
+2026-06-25 12:44:17 [INFO] src.jira_enricher — Enriched 493 / 1545: YARN-6355
+2026-06-25 12:44:18 [INFO] src.jira_enricher — Enriched 494 / 1545: YARN-6347
+2026-06-25 12:44:18 [INFO] src.jira_enricher — Enriched 495 / 1545: YARN-6320
+2026-06-25 12:44:19 [INFO] src.jira_enricher — Enriched 496 / 1545: YARN-6314
+2026-06-25 12:44:20 [INFO] src.jira_enricher — Enriched 497 / 1545: YARN-6306
+2026-06-25 12:44:20 [INFO] src.jira_enricher — Enriched 498 / 1545: YARN-6282
+2026-06-25 12:44:21 [INFO] src.jira_enricher — Enriched 499 / 1545: YARN-6266
+2026-06-25 12:44:21 [INFO] src.jira_enricher — Enriched 500 / 1545: YARN-6255
+2026-06-25 12:44:22 [INFO] src.jira_enricher — Enriched 501 / 1545: YARN-6254
+2026-06-25 12:44:22 [INFO] src.jira_enricher — Enriched 502 / 1545: YARN-6234
+2026-06-25 12:44:23 [INFO] src.jira_enricher — Enriched 503 / 1545: YARN-6224
+2026-06-25 12:44:24 [INFO] src.jira_enricher — Enriched 504 / 1545: YARN-6223
+2026-06-25 12:44:24 [INFO] src.jira_enricher — Enriched 505 / 1545: YARN-6207
+2026-06-25 12:44:25 [INFO] src.jira_enricher — Enriched 506 / 1545: YARN-6192
+2026-06-25 12:44:25 [INFO] src.jira_enricher — Enriched 507 / 1545: YARN-6179
+2026-06-25 12:44:26 [INFO] src.jira_enricher — Enriched 508 / 1545: YARN-6167
+2026-06-25 12:44:26 [INFO] src.jira_enricher — Enriched 509 / 1545: YARN-6162
+2026-06-25 12:44:27 [INFO] src.jira_enricher — Enriched 510 / 1545: YARN-6161
+2026-06-25 12:44:27 [INFO] src.jira_enricher — Enriched 511 / 1545: YARN-6160
+2026-06-25 12:44:28 [INFO] src.jira_enricher — Enriched 512 / 1545: YARN-6137
+2026-06-25 12:44:28 [INFO] src.jira_enricher — Enriched 513 / 1545: YARN-6127
+2026-06-25 12:44:29 [INFO] src.jira_enricher — Enriched 514 / 1545: YARN-1474
+2026-06-25 12:44:30 [INFO] src.jira_enricher — Enriched 515 / 1545: YARN-6121
+2026-06-25 12:44:30 [INFO] src.jira_enricher — Enriched 516 / 1545: YARN-6101
+2026-06-25 12:44:31 [INFO] src.jira_enricher — Enriched 517 / 1545: YARN-6100
+2026-06-25 12:44:31 [INFO] src.jira_enricher — Enriched 518 / 1545: YARN-6099
+2026-06-25 12:44:32 [INFO] src.jira_enricher — Enriched 519 / 1545: YARN-6095
+2026-06-25 12:44:32 [INFO] src.jira_enricher — Enriched 520 / 1545: YARN-6080
+2026-06-25 12:44:33 [INFO] src.jira_enricher — Enriched 521 / 1545: YARN-6069
+2026-06-25 12:44:33 [INFO] src.jira_enricher — Enriched 522 / 1545: YARN-6067
+2026-06-25 12:44:34 [INFO] src.jira_enricher — Enriched 523 / 1545: YARN-6058
+2026-06-25 12:44:35 [INFO] src.jira_enricher — Enriched 524 / 1545: YARN-6045
+2026-06-25 12:44:35 [INFO] src.jira_enricher — Enriched 525 / 1545: YARN-6043
+2026-06-25 12:44:36 [INFO] src.jira_enricher — Enriched 526 / 1545: YARN-6040
+2026-06-25 12:44:36 [INFO] src.jira_enricher — Enriched 527 / 1545: YARN-6037
+2026-06-25 12:44:37 [INFO] src.jira_enricher — Enriched 528 / 1545: YARN-6011
+2026-06-25 12:44:38 [INFO] src.jira_enricher — Enriched 529 / 1545: YARN-6008
+2026-06-25 12:44:38 [INFO] src.jira_enricher — Enriched 530 / 1545: YARN-6005
+2026-06-25 12:44:39 [INFO] src.jira_enricher — Enriched 531 / 1545: YARN-5990
+2026-06-25 12:44:39 [INFO] src.jira_enricher — Enriched 532 / 1545: YARN-5984
+2026-06-25 12:44:40 [INFO] src.jira_enricher — Enriched 533 / 1545: YARN-5983
+2026-06-25 12:44:40 [INFO] src.jira_enricher — Enriched 534 / 1545: YARN-5972
+2026-06-25 12:44:41 [INFO] src.jira_enricher — Enriched 535 / 1545: YARN-5955
+2026-06-25 12:44:42 [INFO] src.jira_enricher — Enriched 536 / 1545: YARN-5953
+2026-06-25 12:44:43 [INFO] src.jira_enricher — Enriched 537 / 1545: YARN-5952
+2026-06-25 12:44:43 [INFO] src.jira_enricher — Enriched 538 / 1545: YARN-5949
+2026-06-25 12:44:44 [INFO] src.jira_enricher — Enriched 539 / 1545: YARN-5940
+2026-06-25 12:44:44 [INFO] src.jira_enricher — Enriched 540 / 1545: YARN-5932
+2026-06-25 12:44:45 [INFO] src.jira_enricher — Enriched 541 / 1545: YARN-5910
+2026-06-25 12:44:46 [INFO] src.jira_enricher — Enriched 542 / 1545: YARN-5906
+2026-06-25 12:44:46 [INFO] src.jira_enricher — Enriched 543 / 1545: YARN-5905
+2026-06-25 12:44:47 [INFO] src.jira_enricher — Enriched 544 / 1545: YARN-5900
+2026-06-25 12:44:48 [INFO] src.jira_enricher — Enriched 545 / 1545: YARN-5889
+2026-06-25 12:44:49 [INFO] src.jira_enricher — Enriched 546 / 1545: YARN-5887
+2026-06-25 12:44:50 [INFO] src.jira_enricher — Enriched 547 / 1545: YARN-5886
+2026-06-25 12:44:51 [INFO] src.jira_enricher — Enriched 548 / 1545: YARN-5883
+2026-06-25 12:44:51 [INFO] src.jira_enricher — Enriched 549 / 1545: YARN-5881
+2026-06-25 12:44:52 [INFO] src.jira_enricher — Enriched 550 / 1545: YARN-5872
+2026-06-25 12:44:52 [INFO] src.jira_enricher — Enriched 551 / 1545: YARN-5869
+2026-06-25 12:44:53 [INFO] src.jira_enricher — Enriched 552 / 1545: YARN-5860
+2026-06-25 12:44:54 [INFO] src.jira_enricher — Enriched 553 / 1545: YARN-5846
+2026-06-25 12:44:54 [INFO] src.jira_enricher — Enriched 554 / 1545: YARN-5832
+2026-06-25 12:44:55 [INFO] src.jira_enricher — Enriched 555 / 1545: YARN-5820
+2026-06-25 12:44:55 [INFO] src.jira_enricher — Enriched 556 / 1545: YARN-2215
+2026-06-25 12:44:56 [INFO] src.jira_enricher — Enriched 557 / 1545: YARN-5789
+2026-06-25 12:44:56 [INFO] src.jira_enricher — Enriched 558 / 1545: YARN-5780
+2026-06-25 12:44:57 [INFO] src.jira_enricher — Enriched 559 / 1545: YARN-5769
+2026-06-25 12:44:57 [INFO] src.jira_enricher — Enriched 560 / 1545: YARN-5761
+2026-06-25 12:44:58 [INFO] src.jira_enricher — Enriched 561 / 1545: YARN-5740
+2026-06-25 12:44:58 [INFO] src.jira_enricher — Enriched 562 / 1545: YARN-5739
+2026-06-25 12:44:59 [INFO] src.jira_enricher — Enriched 563 / 1545: YARN-5734
+2026-06-25 12:45:00 [INFO] src.jira_enricher — Enriched 564 / 1545: YARN-5732
+2026-06-25 12:45:00 [INFO] src.jira_enricher — Enriched 565 / 1545: YARN-5727
+2026-06-25 12:45:01 [INFO] src.jira_enricher — Enriched 566 / 1545: YARN-5724
+2026-06-25 12:45:02 [INFO] src.jira_enricher — Enriched 567 / 1545: YARN-5718
+2026-06-25 12:45:02 [INFO] src.jira_enricher — Enriched 568 / 1545: YARN-5716
+2026-06-25 12:45:03 [INFO] src.jira_enricher — Enriched 569 / 1545: YARN-5704
+2026-06-25 12:45:03 [INFO] src.jira_enricher — Enriched 570 / 1545: YARN-5702
+2026-06-25 12:45:04 [INFO] src.jira_enricher — Enriched 571 / 1545: YARN-5715
+2026-06-25 12:45:05 [INFO] src.jira_enricher — Enriched 572 / 1545: YARN-5708
+2026-06-25 12:45:05 [INFO] src.jira_enricher — Enriched 573 / 1545: YARN-5699
+2026-06-25 12:45:06 [INFO] src.jira_enricher — Enriched 574 / 1545: YARN-5692
+2026-06-25 12:45:06 [INFO] src.jira_enricher — Enriched 575 / 1545: YARN-5683
+2026-06-25 12:45:07 [INFO] src.jira_enricher — Enriched 576 / 1545: YARN-5681
+2026-06-25 12:45:07 [INFO] src.jira_enricher — Enriched 577 / 1545: YARN-5677
+2026-06-25 12:45:08 [INFO] src.jira_enricher — Enriched 578 / 1545: YARN-5648
+2026-06-25 12:45:09 [INFO] src.jira_enricher — Enriched 579 / 1545: YARN-5673
+2026-06-25 12:45:09 [INFO] src.jira_enricher — Enriched 580 / 1545: YARN-5668
+2026-06-25 12:45:10 [INFO] src.jira_enricher — Enriched 581 / 1545: YARN-5667
+2026-06-25 12:45:10 [INFO] src.jira_enricher — Enriched 582 / 1545: YARN-5658
+2026-06-25 12:45:11 [INFO] src.jira_enricher — Enriched 583 / 1545: YARN-5644
+2026-06-25 12:45:12 [INFO] src.jira_enricher — Enriched 584 / 1545: YARN-5638
+2026-06-25 12:45:12 [INFO] src.jira_enricher — Enriched 585 / 1545: YARN-5637
+2026-06-25 12:45:13 [INFO] src.jira_enricher — Enriched 586 / 1545: YARN-5606
+2026-06-25 12:45:13 [INFO] src.jira_enricher — Enriched 587 / 1545: YARN-5636
+2026-06-25 12:45:14 [INFO] src.jira_enricher — Enriched 588 / 1545: YARN-5634
+2026-06-25 12:45:14 [INFO] src.jira_enricher — Enriched 589 / 1545: YARN-5629
+2026-06-25 12:45:15 [INFO] src.jira_enricher — Enriched 590 / 1545: YARN-5627
+2026-06-25 12:45:16 [INFO] src.jira_enricher — Enriched 591 / 1545: YARN-5626
+2026-06-25 12:45:16 [INFO] src.jira_enricher — Enriched 592 / 1545: YARN-5605
+2026-06-25 12:45:17 [INFO] src.jira_enricher — Enriched 593 / 1545: YARN-5619
+2026-06-25 12:45:17 [INFO] src.jira_enricher — Enriched 594 / 1545: YARN-5618
+2026-06-25 12:45:18 [INFO] src.jira_enricher — Enriched 595 / 1545: YARN-5612
+2026-06-25 12:45:18 [INFO] src.jira_enricher — Enriched 596 / 1545: YARN-5611
+2026-06-25 12:45:19 [INFO] src.jira_enricher — Enriched 597 / 1545: YARN-5593
+2026-06-25 12:45:19 [INFO] src.jira_enricher — Enriched 598 / 1545: YARN-5590
+2026-06-25 12:45:20 [INFO] src.jira_enricher — Enriched 599 / 1545: YARN-5587
+2026-06-25 12:45:21 [INFO] src.jira_enricher — Enriched 600 / 1545: YARN-5585
+2026-06-25 12:45:21 [INFO] src.jira_enricher — Enriched 601 / 1545: YARN-5556
+2026-06-25 12:45:22 [INFO] src.jira_enricher — Enriched 602 / 1545: YARN-5547
+2026-06-25 12:45:22 [INFO] src.jira_enricher — Enriched 603 / 1545: YARN-5541
+2026-06-25 12:45:23 [INFO] src.jira_enricher — Enriched 604 / 1545: YARN-5532
+2026-06-25 12:45:23 [INFO] src.jira_enricher — Enriched 605 / 1545: YARN-5531
+2026-06-25 12:45:24 [INFO] src.jira_enricher — Enriched 606 / 1545: YARN-5520
+2026-06-25 12:45:25 [INFO] src.jira_enricher — Enriched 607 / 1545: YARN-5519
+2026-06-25 12:45:25 [INFO] src.jira_enricher — Enriched 608 / 1545: YARN-5518
+2026-06-25 12:45:26 [INFO] src.jira_enricher — Enriched 609 / 1545: YARN-5517
+2026-06-25 12:45:26 [INFO] src.jira_enricher — Enriched 610 / 1545: YARN-5516
+2026-06-25 12:45:27 [INFO] src.jira_enricher — Enriched 611 / 1545: YARN-5505
+2026-06-25 12:45:27 [INFO] src.jira_enricher — Enriched 612 / 1545: YARN-5457
+2026-06-25 12:45:28 [INFO] src.jira_enricher — Enriched 613 / 1545: YARN-5501
+2026-06-25 12:45:28 [INFO] src.jira_enricher — Enriched 614 / 1545: YARN-5479
+2026-06-25 12:45:29 [INFO] src.jira_enricher — Enriched 615 / 1545: YARN-5478
+2026-06-25 12:45:30 [INFO] src.jira_enricher — Enriched 616 / 1545: YARN-5473
+2026-06-25 12:45:30 [INFO] src.jira_enricher — Enriched 617 / 1545: YARN-5468
+2026-06-25 12:45:31 [INFO] src.jira_enricher — Enriched 618 / 1545: YARN-5461
+2026-06-25 12:45:31 [INFO] src.jira_enricher — Enriched 619 / 1545: YARN-5452
+2026-06-25 12:45:32 [INFO] src.jira_enricher — Enriched 620 / 1545: YARN-5426
+2026-06-25 12:45:32 [INFO] src.jira_enricher — Enriched 621 / 1545: YARN-5413
+2026-06-25 12:45:33 [INFO] src.jira_enricher — Enriched 622 / 1545: YARN-5412
+2026-06-25 12:45:34 [INFO] src.jira_enricher — Enriched 623 / 1545: YARN-5411
+2026-06-25 12:45:34 [INFO] src.jira_enricher — Enriched 624 / 1545: YARN-5410
+2026-06-25 12:45:35 [INFO] src.jira_enricher — Enriched 625 / 1545: YARN-5408
+2026-06-25 12:45:35 [INFO] src.jira_enricher — Enriched 626 / 1545: YARN-5407
+2026-06-25 12:45:36 [INFO] src.jira_enricher — Enriched 627 / 1545: YARN-5406
+2026-06-25 12:45:36 [INFO] src.jira_enricher — Enriched 628 / 1545: YARN-5396
+2026-06-25 12:45:37 [INFO] src.jira_enricher — Enriched 629 / 1545: YARN-5392
+2026-06-25 12:45:37 [INFO] src.jira_enricher — Enriched 630 / 1545: YARN-5391
+2026-06-25 12:45:38 [INFO] src.jira_enricher — Enriched 631 / 1545: YARN-5390
+2026-06-25 12:45:38 [INFO] src.jira_enricher — Enriched 632 / 1545: YARN-5357
+2026-06-25 12:45:39 [INFO] src.jira_enricher — Enriched 633 / 1545: YARN-5387
+2026-06-25 12:45:40 [INFO] src.jira_enricher — Enriched 634 / 1545: YARN-5386
+2026-06-25 12:45:40 [INFO] src.jira_enricher — Enriched 635 / 1545: YARN-5385
+2026-06-25 12:45:41 [INFO] src.jira_enricher — Enriched 636 / 1545: YARN-5384
+2026-06-25 12:45:41 [INFO] src.jira_enricher — Enriched 637 / 1545: YARN-5366
+2026-06-25 12:45:42 [INFO] src.jira_enricher — Enriched 638 / 1545: YARN-5355
+2026-06-25 12:45:42 [INFO] src.jira_enricher — Enriched 639 / 1545: YARN-5352
+2026-06-25 12:45:43 [INFO] src.jira_enricher — Enriched 640 / 1545: YARN-5342
+2026-06-25 12:45:44 [INFO] src.jira_enricher — Enriched 641 / 1545: YARN-5261
+2026-06-25 12:45:44 [INFO] src.jira_enricher — Enriched 642 / 1545: YARN-5330
+2026-06-25 12:45:45 [INFO] src.jira_enricher — Enriched 643 / 1545: YARN-5329
+2026-06-25 12:45:45 [INFO] src.jira_enricher — Enriched 644 / 1545: YARN-5328
+2026-06-25 12:45:46 [INFO] src.jira_enricher — Enriched 645 / 1545: YARN-5327
+2026-06-25 12:45:46 [INFO] src.jira_enricher — Enriched 646 / 1545: YARN-5326
+2026-06-25 12:45:47 [INFO] src.jira_enricher — Enriched 647 / 1545: YARN-5325
+2026-06-25 12:45:47 [INFO] src.jira_enricher — Enriched 648 / 1545: YARN-5324
+2026-06-25 12:45:48 [INFO] src.jira_enricher — Enriched 649 / 1545: YARN-5321
+2026-06-25 12:45:49 [INFO] src.jira_enricher — Enriched 650 / 1545: YARN-5307
+2026-06-25 12:45:49 [INFO] src.jira_enricher — Enriched 651 / 1545: YARN-5304
+2026-06-25 12:45:50 [INFO] src.jira_enricher — Enriched 652 / 1545: YARN-5295
+2026-06-25 12:45:50 [INFO] src.jira_enricher — Enriched 653 / 1545: YARN-5292
+2026-06-25 12:45:51 [INFO] src.jira_enricher — Enriched 654 / 1545: YARN-5290
+2026-06-25 12:45:51 [INFO] src.jira_enricher — Enriched 655 / 1545: YARN-5281
+2026-06-25 12:45:52 [INFO] src.jira_enricher — Enriched 656 / 1545: YARN-5280
+2026-06-25 12:45:52 [INFO] src.jira_enricher — Enriched 657 / 1545: YARN-5256
+2026-06-25 12:45:53 [INFO] src.jira_enricher — Enriched 658 / 1545: YARN-5255
+2026-06-25 12:45:54 [INFO] src.jira_enricher — Enriched 659 / 1545: YARN-5225
+2026-06-25 12:45:54 [INFO] src.jira_enricher — Enriched 660 / 1545: YARN-5220
+2026-06-25 12:45:55 [INFO] src.jira_enricher — Enriched 661 / 1545: YARN-5218
+2026-06-25 12:45:55 [INFO] src.jira_enricher — Enriched 662 / 1545: YARN-5215
+2026-06-25 12:45:56 [INFO] src.jira_enricher — Enriched 663 / 1545: YARN-5211
+2026-06-25 12:45:56 [INFO] src.jira_enricher — Enriched 664 / 1545: YARN-5207
+2026-06-25 12:45:57 [INFO] src.jira_enricher — Enriched 665 / 1545: YARN-5202
+2026-06-25 12:45:58 [INFO] src.jira_enricher — Enriched 666 / 1545: YARN-5177
+2026-06-25 12:45:58 [INFO] src.jira_enricher — Enriched 667 / 1545: YARN-5175
+2026-06-25 12:45:59 [INFO] src.jira_enricher — Enriched 668 / 1545: YARN-5140
+2026-06-25 12:45:59 [INFO] src.jira_enricher — Enriched 669 / 1545: YARN-5139
+2026-06-25 12:46:00 [INFO] src.jira_enricher — Enriched 670 / 1545: YARN-5137
+2026-06-25 12:46:00 [INFO] src.jira_enricher — Enriched 671 / 1545: YARN-5113
+2026-06-25 12:46:01 [INFO] src.jira_enricher — Enriched 672 / 1545: YARN-5086
+2026-06-25 12:46:02 [INFO] src.jira_enricher — Enriched 673 / 1545: YARN-5085
+2026-06-25 12:46:02 [INFO] src.jira_enricher — Enriched 674 / 1545: YARN-5081
+2026-06-25 12:46:03 [INFO] src.jira_enricher — Enriched 675 / 1545: YARN-5079
+2026-06-25 12:46:03 [INFO] src.jira_enricher — Enriched 676 / 1545: YARN-5078
+2026-06-25 12:46:04 [INFO] src.jira_enricher — Enriched 677 / 1545: YARN-5076
+2026-06-25 12:46:04 [INFO] src.jira_enricher — Enriched 678 / 1545: YARN-5046
+2026-06-25 12:46:05 [INFO] src.jira_enricher — Enriched 679 / 1545: YARN-5025
+2026-06-25 12:46:05 [INFO] src.jira_enricher — Enriched 680 / 1545: YARN-5015
+2026-06-25 12:46:06 [INFO] src.jira_enricher — Enriched 681 / 1545: YARN-5008
+2026-06-25 12:46:07 [INFO] src.jira_enricher — Enriched 682 / 1545: YARN-4993
+2026-06-25 12:46:07 [INFO] src.jira_enricher — Enriched 683 / 1545: YARN-4985
+2026-06-25 12:46:08 [INFO] src.jira_enricher — Enriched 684 / 1545: YARN-4958
+2026-06-25 12:46:08 [INFO] src.jira_enricher — Enriched 685 / 1545: YARN-4966
+2026-06-25 12:46:09 [INFO] src.jira_enricher — Enriched 686 / 1545: YARN-4963
+2026-06-25 12:46:09 [INFO] src.jira_enricher — Enriched 687 / 1545: YARN-4962
+2026-06-25 12:46:10 [INFO] src.jira_enricher — Enriched 688 / 1545: YARN-4952
+2026-06-25 12:46:10 [INFO] src.jira_enricher — Enriched 689 / 1545: YARN-4950
+2026-06-25 12:46:11 [INFO] src.jira_enricher — Enriched 690 / 1545: YARN-4948
+2026-06-25 12:46:12 [INFO] src.jira_enricher — Enriched 691 / 1545: YARN-4945
+2026-06-25 12:46:12 [INFO] src.jira_enricher — Enriched 692 / 1545: YARN-4213
+2026-06-25 12:46:13 [INFO] src.jira_enricher — Enriched 693 / 1545: YARN-4904
+2026-06-25 12:46:13 [INFO] src.jira_enricher — Enriched 694 / 1545: YARN-4902
+2026-06-25 12:46:14 [INFO] src.jira_enricher — Enriched 695 / 1545: YARN-4864
+2026-06-25 12:46:14 [INFO] src.jira_enricher — Enriched 696 / 1545: YARN-4889
+2026-06-25 12:46:15 [INFO] src.jira_enricher — Enriched 697 / 1545: YARN-4888
+2026-06-25 12:46:16 [INFO] src.jira_enricher — Enriched 698 / 1545: YARN-4887
+2026-06-25 12:46:16 [INFO] src.jira_enricher — Enriched 699 / 1545: YARN-4879
+2026-06-25 12:46:17 [INFO] src.jira_enricher — Enriched 700 / 1545: YARN-4877
+2026-06-25 12:46:17 [INFO] src.jira_enricher — Enriched 701 / 1545: YARN-4876
+2026-06-25 12:46:18 [INFO] src.jira_enricher — Enriched 702 / 1545: YARN-4874
+2026-06-25 12:46:18 [INFO] src.jira_enricher — Enriched 703 / 1545: YARN-4873
+2026-06-25 12:46:19 [INFO] src.jira_enricher — Enriched 704 / 1545: YARN-4870
+2026-06-25 12:46:19 [INFO] src.jira_enricher — Enriched 705 / 1545: YARN-4835
+2026-06-25 12:46:20 [INFO] src.jira_enricher — Enriched 706 / 1545: YARN-4830
+2026-06-25 12:46:20 [INFO] src.jira_enricher — Enriched 707 / 1545: YARN-4822
+2026-06-25 12:46:21 [INFO] src.jira_enricher — Enriched 708 / 1545: YARN-4793
+2026-06-25 12:46:22 [INFO] src.jira_enricher — Enriched 709 / 1545: YARN-4781
+2026-06-25 12:46:22 [INFO] src.jira_enricher — Enriched 710 / 1545: YARN-4777
+2026-06-25 12:46:23 [INFO] src.jira_enricher — Enriched 711 / 1545: YARN-4773
+2026-06-25 12:46:23 [INFO] src.jira_enricher — Enriched 712 / 1545: YARN-4766
+2026-06-25 12:46:24 [INFO] src.jira_enricher — Enriched 713 / 1545: YARN-4758
+2026-06-25 12:46:25 [INFO] src.jira_enricher — Enriched 714 / 1545: YARN-4757
+2026-06-25 12:46:25 [INFO] src.jira_enricher — Enriched 715 / 1545: YARN-4742
+2026-06-25 12:46:26 [INFO] src.jira_enricher — Enriched 716 / 1545: YARN-4752
+2026-06-25 12:46:26 [INFO] src.jira_enricher — Enriched 717 / 1545: YARN-4737
+2026-06-25 12:46:27 [INFO] src.jira_enricher — Enriched 718 / 1545: YARN-4730
+2026-06-25 12:46:27 [INFO] src.jira_enricher — Enriched 719 / 1545: YARN-4726
+2026-06-25 12:46:28 [INFO] src.jira_enricher — Enriched 720 / 1545: YARN-4725
+2026-06-25 12:46:28 [INFO] src.jira_enricher — Enriched 721 / 1545: YARN-4724
+2026-06-25 12:46:29 [INFO] src.jira_enricher — Enriched 722 / 1545: YARN-4719
+2026-06-25 12:46:30 [INFO] src.jira_enricher — Enriched 723 / 1545: YARN-4716
+2026-06-25 12:46:30 [INFO] src.jira_enricher — Enriched 724 / 1545: YARN-4715
+2026-06-25 12:46:31 [INFO] src.jira_enricher — Enriched 725 / 1545: YARN-4696
+2026-06-25 12:46:31 [INFO] src.jira_enricher — Enriched 726 / 1545: YARN-4692
+2026-06-25 12:46:32 [INFO] src.jira_enricher — Enriched 727 / 1545: YARN-4683
+2026-06-25 12:46:32 [INFO] src.jira_enricher — Enriched 728 / 1545: YARN-4676
+2026-06-25 12:46:33 [INFO] src.jira_enricher — Enriched 729 / 1545: YARN-4665
+2026-06-25 12:46:33 [INFO] src.jira_enricher — Enriched 730 / 1545: YARN-4619
+2026-06-25 12:46:34 [INFO] src.jira_enricher — Enriched 731 / 1545: YARN-4611
+2026-06-25 12:46:35 [INFO] src.jira_enricher — Enriched 732 / 1545: YARN-4479
+2026-06-25 12:46:35 [INFO] src.jira_enricher — Enriched 733 / 1545: YARN-4602
+2026-06-25 12:46:36 [INFO] src.jira_enricher — Enriched 734 / 1545: YARN-4601
+2026-06-25 12:46:36 [INFO] src.jira_enricher — Enriched 735 / 1545: YARN-4600
+2026-06-25 12:46:37 [INFO] src.jira_enricher — Enriched 736 / 1545: YARN-4599
+2026-06-25 12:46:38 [INFO] src.jira_enricher — Enriched 737 / 1545: YARN-4597
+2026-06-25 12:46:39 [INFO] src.jira_enricher — Enriched 738 / 1545: YARN-4595
+2026-06-25 12:46:39 [INFO] src.jira_enricher — Enriched 739 / 1545: YARN-4591
+2026-06-25 12:46:40 [INFO] src.jira_enricher — Enriched 740 / 1545: YARN-4561
+2026-06-25 12:46:40 [INFO] src.jira_enricher — Enriched 741 / 1545: YARN-4578
+2026-06-25 12:46:41 [INFO] src.jira_enricher — Enriched 742 / 1545: YARN-4576
+2026-06-25 12:46:41 [INFO] src.jira_enricher — Enriched 743 / 1545: YARN-4559
+2026-06-25 12:46:42 [INFO] src.jira_enricher — Enriched 744 / 1545: YARN-4553
+2026-06-25 12:46:42 [INFO] src.jira_enricher — Enriched 745 / 1545: YARN-4523
+2026-06-25 12:46:43 [INFO] src.jira_enricher — Enriched 746 / 1545: YARN-4537
+2026-06-25 12:46:44 [INFO] src.jira_enricher — Enriched 747 / 1545: YARN-4515
+2026-06-25 12:46:44 [INFO] src.jira_enricher — Enriched 748 / 1545: YARN-4511
+2026-06-25 12:46:45 [INFO] src.jira_enricher — Enriched 749 / 1545: YARN-3776
+2026-06-25 12:46:45 [INFO] src.jira_enricher — Enriched 750 / 1545: YARN-4496
+2026-06-25 12:46:46 [INFO] src.jira_enricher — Enriched 751 / 1545: YARN-4473
+2026-06-25 12:46:46 [INFO] src.jira_enricher — Enriched 752 / 1545: YARN-4471
+2026-06-25 12:46:47 [INFO] src.jira_enricher — Enriched 753 / 1545: YARN-4466
+2026-06-25 12:46:47 [INFO] src.jira_enricher — Enriched 754 / 1545: YARN-4349
+2026-06-25 12:46:48 [INFO] src.jira_enricher — Enriched 755 / 1545: YARN-4447
+2026-06-25 12:46:48 [INFO] src.jira_enricher — Enriched 756 / 1545: YARN-4443
+2026-06-25 12:46:49 [INFO] src.jira_enricher — Enriched 757 / 1545: YARN-4438
+2026-06-25 12:46:50 [INFO] src.jira_enricher — Enriched 758 / 1545: YARN-4435
+2026-06-25 12:46:50 [INFO] src.jira_enricher — Enriched 759 / 1545: YARN-4433
+2026-06-25 12:46:51 [INFO] src.jira_enricher — Enriched 760 / 1545: YARN-4425
+2026-06-25 12:46:51 [INFO] src.jira_enricher — Enriched 761 / 1545: YARN-4420
+2026-06-25 12:46:52 [INFO] src.jira_enricher — Enriched 762 / 1545: YARN-4417
+2026-06-25 12:46:53 [INFO] src.jira_enricher — Enriched 763 / 1545: YARN-4412
+2026-06-25 12:46:53 [INFO] src.jira_enricher — Enriched 764 / 1545: YARN-4405
+2026-06-25 12:46:54 [INFO] src.jira_enricher — Enriched 765 / 1545: YARN-4390
+2026-06-25 12:46:55 [INFO] src.jira_enricher — Enriched 766 / 1545: YARN-4368
+2026-06-25 12:46:55 [INFO] src.jira_enricher — Enriched 767 / 1545: YARN-4360
+2026-06-25 12:46:56 [INFO] src.jira_enricher — Enriched 768 / 1545: YARN-4353
+2026-06-25 12:46:57 [INFO] src.jira_enricher — Enriched 769 / 1545: YARN-4335
+2026-06-25 12:46:57 [INFO] src.jira_enricher — Enriched 770 / 1545: YARN-4333
+2026-06-25 12:46:58 [INFO] src.jira_enricher — Enriched 771 / 1545: YARN-4276
+2026-06-25 12:46:58 [INFO] src.jira_enricher — Enriched 772 / 1545: YARN-4275
+2026-06-25 12:46:59 [INFO] src.jira_enricher — Enriched 773 / 1545: YARN-4271
+2026-06-25 12:46:59 [INFO] src.jira_enricher — Enriched 774 / 1545: YARN-4266
+2026-06-25 12:47:00 [INFO] src.jira_enricher — Enriched 775 / 1545: YARN-4265
+2026-06-25 12:47:01 [INFO] src.jira_enricher — Enriched 776 / 1545: YARN-4248
+2026-06-25 12:47:01 [INFO] src.jira_enricher — Enriched 777 / 1545: YARN-4245
+2026-06-25 12:47:02 [INFO] src.jira_enricher — Enriched 778 / 1545: YARN-4234
+2026-06-25 12:47:02 [INFO] src.jira_enricher — Enriched 779 / 1545: YARN-4233
+2026-06-25 12:47:03 [INFO] src.jira_enricher — Enriched 780 / 1545: YARN-4231
+2026-06-25 12:47:03 [INFO] src.jira_enricher — Enriched 781 / 1545: YARN-4225
+2026-06-25 12:47:04 [INFO] src.jira_enricher — Enriched 782 / 1545: YARN-4224
+2026-06-25 12:47:05 [INFO] src.jira_enricher — Enriched 783 / 1545: YARN-4221
+2026-06-25 12:47:05 [INFO] src.jira_enricher — Enriched 784 / 1545: YARN-4219
+2026-06-25 12:47:06 [INFO] src.jira_enricher — Enriched 785 / 1545: YARN-4205
+2026-06-25 12:47:07 [INFO] src.jira_enricher — Enriched 786 / 1545: YARN-4199
+2026-06-25 12:47:07 [INFO] src.jira_enricher — Enriched 787 / 1545: YARN-4197
+2026-06-25 12:47:08 [INFO] src.jira_enricher — Enriched 788 / 1545: YARN-4195
+2026-06-25 12:47:09 [INFO] src.jira_enricher — Enriched 789 / 1545: YARN-4194
+2026-06-25 12:47:09 [INFO] src.jira_enricher — Enriched 790 / 1545: YARN-4193
+2026-06-25 12:47:10 [INFO] src.jira_enricher — Enriched 791 / 1545: YARN-4189
+2026-06-25 12:47:10 [INFO] src.jira_enricher — Enriched 792 / 1545: YARN-4186
+2026-06-25 12:47:11 [INFO] src.jira_enricher — Enriched 793 / 1545: YARN-4181
+2026-06-25 12:47:11 [INFO] src.jira_enricher — Enriched 794 / 1545: YARN-4176
+2026-06-25 12:47:12 [INFO] src.jira_enricher — Enriched 795 / 1545: YARN-4166
+2026-06-25 12:47:12 [INFO] src.jira_enricher — Enriched 796 / 1545: YARN-4162
+2026-06-25 12:47:13 [INFO] src.jira_enricher — Enriched 797 / 1545: YARN-4161
+2026-06-25 12:47:14 [INFO] src.jira_enricher — Enriched 798 / 1545: YARN-4132
+2026-06-25 12:47:14 [INFO] src.jira_enricher — Enriched 799 / 1545: YARN-4129
+2026-06-25 12:47:15 [INFO] src.jira_enricher — Enriched 800 / 1545: YARN-4125
+2026-06-25 12:47:15 [INFO] src.jira_enricher — Enriched 801 / 1545: YARN-4117
+2026-06-25 12:47:16 [INFO] src.jira_enricher — Enriched 802 / 1545: YARN-4108
+2026-06-25 12:47:16 [INFO] src.jira_enricher — Enriched 803 / 1545: YARN-4097
+2026-06-25 12:47:17 [INFO] src.jira_enricher — Enriched 804 / 1545: YARN-4094
+2026-06-25 12:47:17 [INFO] src.jira_enricher — Enriched 805 / 1545: YARN-4093
+2026-06-25 12:47:18 [INFO] src.jira_enricher — Enriched 806 / 1545: YARN-4091
+2026-06-25 12:47:19 [INFO] src.jira_enricher — Enriched 807 / 1545: YARN-4088
+2026-06-25 12:47:19 [INFO] src.jira_enricher — Enriched 808 / 1545: YARN-4080
+2026-06-25 12:47:20 [INFO] src.jira_enricher — Enriched 809 / 1545: YARN-4077
+2026-06-25 12:47:20 [INFO] src.jira_enricher — Enriched 810 / 1545: YARN-4075
+2026-06-25 12:47:21 [INFO] src.jira_enricher — Enriched 811 / 1545: YARN-4074
+2026-06-25 12:47:21 [INFO] src.jira_enricher — Enriched 812 / 1545: YARN-4070
+2026-06-25 12:47:22 [INFO] src.jira_enricher — Enriched 813 / 1545: YARN-4062
+2026-06-25 12:47:22 [INFO] src.jira_enricher — Enriched 814 / 1545: YARN-4061
+2026-06-25 12:47:23 [INFO] src.jira_enricher — Enriched 815 / 1545: YARN-4059
+2026-06-25 12:47:24 [INFO] src.jira_enricher — Enriched 816 / 1545: YARN-4056
+2026-06-25 12:47:25 [INFO] src.jira_enricher — Enriched 817 / 1545: YARN-4041
+2026-06-25 12:47:26 [INFO] src.jira_enricher — Enriched 818 / 1545: YARN-4039
+2026-06-25 12:47:27 [INFO] src.jira_enricher — Enriched 819 / 1545: YARN-4024
+2026-06-25 12:47:27 [INFO] src.jira_enricher — Enriched 820 / 1545: YARN-4023
+2026-06-25 12:47:28 [INFO] src.jira_enricher — Enriched 821 / 1545: YARN-4014
+2026-06-25 12:47:28 [INFO] src.jira_enricher — Enriched 822 / 1545: YARN-4012
+2026-06-25 12:47:29 [INFO] src.jira_enricher — Enriched 823 / 1545: YARN-4007
+2026-06-25 12:47:30 [INFO] src.jira_enricher — Enriched 824 / 1545: YARN-3998
+2026-06-25 12:47:30 [INFO] src.jira_enricher — Enriched 825 / 1545: YARN-3997
+2026-06-25 12:47:31 [INFO] src.jira_enricher — Enriched 826 / 1545: YARN-3983
+2026-06-25 12:47:31 [INFO] src.jira_enricher — Enriched 827 / 1545: YARN-3981
+2026-06-25 12:47:32 [INFO] src.jira_enricher — Enriched 828 / 1545: YARN-3980
+2026-06-25 12:47:32 [INFO] src.jira_enricher — Enriched 829 / 1545: YARN-3955
+2026-06-25 12:47:33 [INFO] src.jira_enricher — Enriched 830 / 1545: YARN-3970
+2026-06-25 12:47:34 [INFO] src.jira_enricher — Enriched 831 / 1545: YARN-3969
+2026-06-25 12:47:34 [INFO] src.jira_enricher — Enriched 832 / 1545: YARN-3964
+2026-06-25 12:47:35 [INFO] src.jira_enricher — Enriched 833 / 1545: YARN-3698
+2026-06-25 12:47:35 [INFO] src.jira_enricher — Enriched 834 / 1545: YARN-3935
+2026-06-25 12:47:36 [INFO] src.jira_enricher — Enriched 835 / 1545: YARN-3942
+2026-06-25 12:47:36 [INFO] src.jira_enricher — Enriched 836 / 1545: YARN-3929
+2026-06-25 12:47:37 [INFO] src.jira_enricher — Enriched 837 / 1545: YARN-3928
+2026-06-25 12:47:37 [INFO] src.jira_enricher — Enriched 838 / 1545: YARN-3927
+2026-06-25 12:47:38 [INFO] src.jira_enricher — Enriched 839 / 1545: YARN-3926
+2026-06-25 12:47:38 [INFO] src.jira_enricher — Enriched 840 / 1545: YARN-3923
+2026-06-25 12:47:39 [INFO] src.jira_enricher — Enriched 841 / 1545: YARN-3922
+2026-06-25 12:47:40 [INFO] src.jira_enricher — Enriched 842 / 1545: YARN-3920
+2026-06-25 12:47:40 [INFO] src.jira_enricher — Enriched 843 / 1545: YARN-3914
+2026-06-25 12:47:41 [INFO] src.jira_enricher — Enriched 844 / 1545: YARN-3904
+2026-06-25 12:47:41 [INFO] src.jira_enricher — Enriched 845 / 1545: YARN-3901
+2026-06-25 12:47:42 [INFO] src.jira_enricher — Enriched 846 / 1545: YARN-3895
+2026-06-25 12:47:42 [INFO] src.jira_enricher — Enriched 847 / 1545: YARN-3887
+2026-06-25 12:47:43 [INFO] src.jira_enricher — Enriched 848 / 1545: YARN-3870
+2026-06-25 12:47:43 [INFO] src.jira_enricher — Enriched 849 / 1545: YARN-3867
+2026-06-25 12:47:44 [INFO] src.jira_enricher — Enriched 850 / 1545: YARN-3866
+2026-06-25 12:47:45 [INFO] src.jira_enricher — Enriched 851 / 1545: YARN-3864
+2026-06-25 12:47:45 [INFO] src.jira_enricher — Enriched 852 / 1545: YARN-3863
+2026-06-25 12:47:46 [INFO] src.jira_enricher — Enriched 853 / 1545: YARN-3851
+2026-06-25 12:47:46 [INFO] src.jira_enricher — Enriched 854 / 1545: YARN-3822
+2026-06-25 12:47:47 [INFO] src.jira_enricher — Enriched 855 / 1545: YARN-3818
+2026-06-25 12:47:47 [INFO] src.jira_enricher — Enriched 856 / 1545: YARN-3817
+2026-06-25 12:47:48 [INFO] src.jira_enricher — Enriched 857 / 1545: YARN-3816
+2026-06-25 12:47:48 [INFO] src.jira_enricher — Enriched 858 / 1545: YARN-3815
+2026-06-25 12:47:49 [INFO] src.jira_enricher — Enriched 859 / 1545: YARN-3808
+2026-06-25 12:47:50 [INFO] src.jira_enricher — Enriched 860 / 1545: YARN-3807
+2026-06-25 12:47:50 [INFO] src.jira_enricher — Enriched 861 / 1545: YARN-3806
+2026-06-25 12:47:51 [INFO] src.jira_enricher — Enriched 862 / 1545: YARN-3773
+2026-06-25 12:47:51 [INFO] src.jira_enricher — Enriched 863 / 1545: YARN-3772
+2026-06-25 12:47:52 [INFO] src.jira_enricher — Enriched 864 / 1545: YARN-3739
+2026-06-25 12:47:52 [INFO] src.jira_enricher — Enriched 865 / 1545: YARN-3736
+2026-06-25 12:47:53 [INFO] src.jira_enricher — Enriched 866 / 1545: YARN-3719
+2026-06-25 12:47:54 [INFO] src.jira_enricher — Enriched 867 / 1545: YARN-3718
+2026-06-25 12:47:55 [INFO] src.jira_enricher — Enriched 868 / 1545: YARN-3692
+2026-06-25 12:47:55 [INFO] src.jira_enricher — Enriched 869 / 1545: YARN-3691
+2026-06-25 12:47:56 [INFO] src.jira_enricher — Enriched 870 / 1545: YARN-3684
+2026-06-25 12:47:56 [INFO] src.jira_enricher — Enriched 871 / 1545: YARN-3680
+2026-06-25 12:47:57 [INFO] src.jira_enricher — Enriched 872 / 1545: YARN-3623
+2026-06-25 12:47:57 [INFO] src.jira_enricher — Enriched 873 / 1545: YARN-3673
+2026-06-25 12:47:58 [INFO] src.jira_enricher — Enriched 874 / 1545: YARN-3672
+2026-06-25 12:47:58 [INFO] src.jira_enricher — Enriched 875 / 1545: YARN-3671
+2026-06-25 12:47:59 [INFO] src.jira_enricher — Enriched 876 / 1545: YARN-3666
+2026-06-25 12:47:59 [INFO] src.jira_enricher — Enriched 877 / 1545: YARN-3665
+2026-06-25 12:48:00 [INFO] src.jira_enricher — Enriched 878 / 1545: YARN-3664
+2026-06-25 12:48:01 [INFO] src.jira_enricher — Enriched 879 / 1545: YARN-3663
+2026-06-25 12:48:01 [INFO] src.jira_enricher — Enriched 880 / 1545: YARN-3662
+2026-06-25 12:48:02 [INFO] src.jira_enricher — Enriched 881 / 1545: YARN-3661
+2026-06-25 12:48:02 [INFO] src.jira_enricher — Enriched 882 / 1545: YARN-3660
+2026-06-25 12:48:03 [INFO] src.jira_enricher — Enriched 883 / 1545: YARN-3659
+2026-06-25 12:48:04 [INFO] src.jira_enricher — Enriched 884 / 1545: YARN-3656
+2026-06-25 12:48:04 [INFO] src.jira_enricher — Enriched 885 / 1545: YARN-3637
+2026-06-25 12:48:05 [INFO] src.jira_enricher — Enriched 886 / 1545: YARN-3636
+2026-06-25 12:48:05 [INFO] src.jira_enricher — Enriched 887 / 1545: YARN-3632
+2026-06-25 12:48:06 [INFO] src.jira_enricher — Enriched 888 / 1545: YARN-3622
+2026-06-25 12:48:06 [INFO] src.jira_enricher — Enriched 889 / 1545: YARN-3616
+2026-06-25 12:48:07 [INFO] src.jira_enricher — Enriched 890 / 1545: YARN-3611
+2026-06-25 12:48:07 [INFO] src.jira_enricher — Enriched 891 / 1545: YARN-3595
+2026-06-25 12:48:08 [INFO] src.jira_enricher — Enriched 892 / 1545: YARN-3588
+2026-06-25 12:48:08 [INFO] src.jira_enricher — Enriched 893 / 1545: YARN-3557
+2026-06-25 12:48:09 [INFO] src.jira_enricher — Enriched 894 / 1545: YARN-3542
+2026-06-25 12:48:10 [INFO] src.jira_enricher — Enriched 895 / 1545: YARN-3534
+2026-06-25 12:48:10 [INFO] src.jira_enricher — Enriched 896 / 1545: YARN-3510
+2026-06-25 12:48:11 [INFO] src.jira_enricher — Enriched 897 / 1545: YARN-3508
+2026-06-25 12:48:11 [INFO] src.jira_enricher — Enriched 898 / 1545: YARN-3500
+2026-06-25 12:48:12 [INFO] src.jira_enricher — Enriched 899 / 1545: YARN-3499
+2026-06-25 12:48:12 [INFO] src.jira_enricher — Enriched 900 / 1545: YARN-3490
+2026-06-25 12:48:13 [INFO] src.jira_enricher — Enriched 901 / 1545: YARN-3488
+2026-06-25 12:48:14 [INFO] src.jira_enricher — Enriched 902 / 1545: YARN-3482
+2026-06-25 12:48:14 [INFO] src.jira_enricher — Enriched 903 / 1545: YARN-3481
+2026-06-25 12:48:15 [INFO] src.jira_enricher — Enriched 904 / 1545: YARN-3474
+2026-06-25 12:48:15 [INFO] src.jira_enricher — Enriched 905 / 1545: YARN-3448
+2026-06-25 12:48:16 [INFO] src.jira_enricher — Enriched 906 / 1545: YARN-3445
+2026-06-25 12:48:16 [INFO] src.jira_enricher — Enriched 907 / 1545: YARN-3443
+2026-06-25 12:48:17 [INFO] src.jira_enricher — Enriched 908 / 1545: YARN-3440
+2026-06-25 12:48:17 [INFO] src.jira_enricher — Enriched 909 / 1545: YARN-3418
+2026-06-25 12:48:18 [INFO] src.jira_enricher — Enriched 910 / 1545: YARN-3417
+2026-06-25 12:48:19 [INFO] src.jira_enricher — Enriched 911 / 1545: YARN-3411
+2026-06-25 12:48:19 [INFO] src.jira_enricher — Enriched 912 / 1545: YARN-3402
+2026-06-25 12:48:20 [INFO] src.jira_enricher — Enriched 913 / 1545: YARN-3401
+2026-06-25 12:48:20 [INFO] src.jira_enricher — Enriched 914 / 1545: YARN-3391
+2026-06-25 12:48:21 [INFO] src.jira_enricher — Enriched 915 / 1545: YARN-3378
+2026-06-25 12:48:21 [INFO] src.jira_enricher — Enriched 916 / 1545: YARN-3374
+2026-06-25 12:48:22 [INFO] src.jira_enricher — Enriched 917 / 1545: YARN-3373
+2026-06-25 12:48:22 [INFO] src.jira_enricher — Enriched 918 / 1545: YARN-3372
+2026-06-25 12:48:23 [INFO] src.jira_enricher — Enriched 919 / 1545: YARN-3368
+2026-06-25 12:48:24 [INFO] src.jira_enricher — Enriched 920 / 1545: YARN-3366
+2026-06-25 12:48:24 [INFO] src.jira_enricher — Enriched 921 / 1545: YARN-3365
+2026-06-25 12:48:25 [INFO] src.jira_enricher — Enriched 922 / 1545: YARN-3361
+2026-06-25 12:48:25 [INFO] src.jira_enricher — Enriched 923 / 1545: YARN-3354
+2026-06-25 12:48:26 [INFO] src.jira_enricher — Enriched 924 / 1545: YARN-3345
+2026-06-25 12:48:27 [INFO] src.jira_enricher — Enriched 925 / 1545: YARN-3332
+2026-06-25 12:48:27 [INFO] src.jira_enricher — Enriched 926 / 1545: YARN-3319
+2026-06-25 12:48:28 [INFO] src.jira_enricher — Enriched 927 / 1545: YARN-3318
+2026-06-25 12:48:28 [INFO] src.jira_enricher — Enriched 928 / 1545: YARN-3317
+2026-06-25 12:48:29 [INFO] src.jira_enricher — Enriched 929 / 1545: YARN-3307
+2026-06-25 12:48:29 [INFO] src.jira_enricher — Enriched 930 / 1545: YARN-3306
+2026-06-25 12:48:30 [INFO] src.jira_enricher — Enriched 931 / 1545: YARN-3299
+2026-06-25 12:48:31 [INFO] src.jira_enricher — Enriched 932 / 1545: YARN-3250
+2026-06-25 12:48:31 [INFO] src.jira_enricher — Enriched 933 / 1545: YARN-3245
+2026-06-25 12:48:32 [INFO] src.jira_enricher — Enriched 934 / 1545: YARN-3212
+2026-06-25 12:48:32 [INFO] src.jira_enricher — Enriched 935 / 1545: YARN-3242
+2026-06-25 12:48:33 [INFO] src.jira_enricher — Enriched 936 / 1545: YARN-3235
+2026-06-25 12:48:33 [INFO] src.jira_enricher — Enriched 937 / 1545: YARN-3233
+2026-06-25 12:48:34 [INFO] src.jira_enricher — Enriched 938 / 1545: YARN-3228
+2026-06-25 12:48:34 [INFO] src.jira_enricher — Enriched 939 / 1545: YARN-3214
+2026-06-25 12:48:35 [INFO] src.jira_enricher — Enriched 940 / 1545: YARN-3208
+2026-06-25 12:48:36 [INFO] src.jira_enricher — Enriched 941 / 1545: YARN-3194
+2026-06-25 12:48:36 [INFO] src.jira_enricher — Enriched 942 / 1545: YARN-3172
+2026-06-25 12:48:37 [INFO] src.jira_enricher — Enriched 943 / 1545: YARN-3167
+2026-06-25 12:48:37 [INFO] src.jira_enricher — Enriched 944 / 1545: YARN-3166
+2026-06-25 12:48:38 [INFO] src.jira_enricher — Enriched 945 / 1545: YARN-3148
+2026-06-25 12:48:38 [INFO] src.jira_enricher — Enriched 946 / 1545: YARN-3139
+2026-06-25 12:48:39 [INFO] src.jira_enricher — Enriched 947 / 1545: YARN-3135
+2026-06-25 12:48:39 [INFO] src.jira_enricher — Enriched 948 / 1545: YARN-3127
+2026-06-25 12:48:40 [INFO] src.jira_enricher — Enriched 949 / 1545: YARN-3125
+2026-06-25 12:48:40 [INFO] src.jira_enricher — Enriched 950 / 1545: YARN-3119
+2026-06-25 12:48:41 [INFO] src.jira_enricher — Enriched 951 / 1545: YARN-3118
+2026-06-25 12:48:42 [INFO] src.jira_enricher — Enriched 952 / 1545: YARN-3115
+2026-06-25 12:48:42 [INFO] src.jira_enricher — Enriched 953 / 1545: YARN-3104
+2026-06-25 12:48:43 [INFO] src.jira_enricher — Enriched 954 / 1545: YARN-3100
+2026-06-25 12:48:43 [INFO] src.jira_enricher — Enriched 955 / 1545: YARN-3098
+2026-06-25 12:48:44 [INFO] src.jira_enricher — Enriched 956 / 1545: YARN-3093
+2026-06-25 12:48:44 [INFO] src.jira_enricher — Enriched 957 / 1545: YARN-3092
+2026-06-25 12:48:45 [INFO] src.jira_enricher — Enriched 958 / 1545: YARN-3091
+2026-06-25 12:48:45 [INFO] src.jira_enricher — Enriched 959 / 1545: YARN-3076
+2026-06-25 12:48:46 [INFO] src.jira_enricher — Enriched 960 / 1545: YARN-3068
+2026-06-25 12:48:47 [INFO] src.jira_enricher — Enriched 961 / 1545: YARN-3054
+2026-06-25 12:48:47 [INFO] src.jira_enricher — Enriched 962 / 1545: YARN-3053
+2026-06-25 12:48:48 [INFO] src.jira_enricher — Enriched 963 / 1545: YARN-3052
+2026-06-25 12:48:48 [INFO] src.jira_enricher — Enriched 964 / 1545: YARN-3051
+2026-06-25 12:48:49 [INFO] src.jira_enricher — Enriched 965 / 1545: YARN-3050
+2026-06-25 12:48:49 [INFO] src.jira_enricher — Enriched 966 / 1545: YARN-3049
+2026-06-25 12:48:50 [INFO] src.jira_enricher — Enriched 967 / 1545: YARN-3048
+2026-06-25 12:48:51 [INFO] src.jira_enricher — Enriched 968 / 1545: YARN-3047
+2026-06-25 12:48:51 [INFO] src.jira_enricher — Enriched 969 / 1545: YARN-3045
+2026-06-25 12:48:52 [INFO] src.jira_enricher — Enriched 970 / 1545: YARN-3044
+2026-06-25 12:48:52 [INFO] src.jira_enricher — Enriched 971 / 1545: YARN-3043
+2026-06-25 12:48:53 [INFO] src.jira_enricher — Enriched 972 / 1545: YARN-3042
+2026-06-25 12:48:54 [INFO] src.jira_enricher — Enriched 973 / 1545: YARN-3041
+2026-06-25 12:48:54 [INFO] src.jira_enricher — Enriched 974 / 1545: YARN-3040
+2026-06-25 12:48:55 [INFO] src.jira_enricher — Enriched 975 / 1545: YARN-3039
+2026-06-25 12:48:55 [INFO] src.jira_enricher — Enriched 976 / 1545: YARN-3038
+2026-06-25 12:48:56 [INFO] src.jira_enricher — Enriched 977 / 1545: YARN-3037
+2026-06-25 12:48:57 [INFO] src.jira_enricher — Enriched 978 / 1545: YARN-3036
+2026-06-25 12:48:58 [INFO] src.jira_enricher — Enriched 979 / 1545: YARN-3034
+2026-06-25 12:48:58 [INFO] src.jira_enricher — Enriched 980 / 1545: YARN-3033
+2026-06-25 12:48:59 [INFO] src.jira_enricher — Enriched 981 / 1545: YARN-3032
+2026-06-25 12:48:59 [INFO] src.jira_enricher — Enriched 982 / 1545: YARN-3031
+2026-06-25 12:49:00 [INFO] src.jira_enricher — Enriched 983 / 1545: YARN-3030
+2026-06-25 12:49:00 [INFO] src.jira_enricher — Enriched 984 / 1545: YARN-3026
+2026-06-25 12:49:01 [INFO] src.jira_enricher — Enriched 985 / 1545: YARN-3025
+2026-06-25 12:49:02 [INFO] src.jira_enricher — Enriched 986 / 1545: YARN-3003
+2026-06-25 12:49:02 [INFO] src.jira_enricher — Enriched 987 / 1545: YARN-2995
+2026-06-25 12:49:03 [INFO] src.jira_enricher — Enriched 988 / 1545: YARN-2986
+2026-06-25 12:49:03 [INFO] src.jira_enricher — Enriched 989 / 1545: YARN-2980
+2026-06-25 12:49:04 [INFO] src.jira_enricher — Enriched 990 / 1545: YARN-2969
+2026-06-25 12:49:05 [INFO] src.jira_enricher — Enriched 991 / 1545: YARN-2967
+2026-06-25 12:49:05 [INFO] src.jira_enricher — Enriched 992 / 1545: YARN-2966
+2026-06-25 12:49:06 [INFO] src.jira_enricher — Enriched 993 / 1545: YARN-2965
+2026-06-25 12:49:06 [INFO] src.jira_enricher — Enriched 994 / 1545: YARN-2885
+2026-06-25 12:49:07 [INFO] src.jira_enricher — Enriched 995 / 1545: YARN-2948
+2026-06-25 12:49:07 [INFO] src.jira_enricher — Enriched 996 / 1545: YARN-2947
+2026-06-25 12:49:08 [INFO] src.jira_enricher — Enriched 997 / 1545: YARN-2942
+2026-06-25 12:49:09 [INFO] src.jira_enricher — Enriched 998 / 1545: YARN-2928
+2026-06-25 12:49:09 [INFO] src.jira_enricher — Enriched 999 / 1545: YARN-2926
+2026-06-25 12:49:10 [INFO] src.jira_enricher — Enriched 1000 / 1545: YARN-2923
+2026-06-25 12:49:10 [INFO] src.jira_enricher — Enriched 1001 / 1545: YARN-2916
+2026-06-25 12:49:11 [INFO] src.jira_enricher — Enriched 1002 / 1545: YARN-2915
+2026-06-25 12:49:11 [INFO] src.jira_enricher — Enriched 1003 / 1545: YARN-2884
+2026-06-25 12:49:12 [INFO] src.jira_enricher — Enriched 1004 / 1545: YARN-2903
+2026-06-25 12:49:12 [INFO] src.jira_enricher — Enriched 1005 / 1545: YARN-2895
+2026-06-25 12:49:13 [INFO] src.jira_enricher — Enriched 1006 / 1545: YARN-2888
+2026-06-25 12:49:14 [INFO] src.jira_enricher — Enriched 1007 / 1545: YARN-2887
+2026-06-25 12:49:14 [INFO] src.jira_enricher — Enriched 1008 / 1545: YARN-2883
+2026-06-25 12:49:15 [INFO] src.jira_enricher — Enriched 1009 / 1545: YARN-2882
+2026-06-25 12:49:16 [INFO] src.jira_enricher — Enriched 1010 / 1545: YARN-2879
+2026-06-25 12:49:16 [INFO] src.jira_enricher — Enriched 1011 / 1545: YARN-2877
+2026-06-25 12:49:17 [INFO] src.jira_enricher — Enriched 1012 / 1545: YARN-2851
+2026-06-25 12:49:17 [INFO] src.jira_enricher — Enriched 1013 / 1545: YARN-2837
+2026-06-25 12:49:18 [INFO] src.jira_enricher — Enriched 1014 / 1545: YARN-2848
+2026-06-25 12:49:18 [INFO] src.jira_enricher — Enriched 1015 / 1545: YARN-2840
+2026-06-25 12:49:19 [INFO] src.jira_enricher — Enriched 1016 / 1545: YARN-2835
+2026-06-25 12:49:19 [INFO] src.jira_enricher — Enriched 1017 / 1545: YARN-2831
+2026-06-25 12:49:20 [INFO] src.jira_enricher — Enriched 1018 / 1545: YARN-2829
+2026-06-25 12:49:20 [INFO] src.jira_enricher — Enriched 1019 / 1545: YARN-2818
+2026-06-25 12:49:21 [INFO] src.jira_enricher — Enriched 1020 / 1545: YARN-2817
+2026-06-25 12:49:22 [INFO] src.jira_enricher — Enriched 1021 / 1545: YARN-2814
+2026-06-25 12:49:22 [INFO] src.jira_enricher — Enriched 1022 / 1545: YARN-2800
+2026-06-25 12:49:23 [INFO] src.jira_enricher — Enriched 1023 / 1545: YARN-2793
+2026-06-25 12:49:23 [INFO] src.jira_enricher — Enriched 1024 / 1545: YARN-2791
+2026-06-25 12:49:24 [INFO] src.jira_enricher — Enriched 1025 / 1545: YARN-2478
+2026-06-25 12:49:24 [INFO] src.jira_enricher — Enriched 1026 / 1545: YARN-2786
+2026-06-25 12:49:25 [INFO] src.jira_enricher — Enriched 1027 / 1545: YARN-2781
+2026-06-25 12:49:25 [INFO] src.jira_enricher — Enriched 1028 / 1545: YARN-2770
+2026-06-25 12:49:26 [INFO] src.jira_enricher — Enriched 1029 / 1545: YARN-2765
+2026-06-25 12:49:27 [INFO] src.jira_enricher — Enriched 1030 / 1545: YARN-2745
+2026-06-25 12:49:27 [INFO] src.jira_enricher — Enriched 1031 / 1545: YARN-2744
+2026-06-25 12:49:28 [INFO] src.jira_enricher — Enriched 1032 / 1545: YARN-2728
+2026-06-25 12:49:28 [INFO] src.jira_enricher — Enriched 1033 / 1545: YARN-2695
+2026-06-25 12:49:29 [INFO] src.jira_enricher — Enriched 1034 / 1545: YARN-2693
+2026-06-25 12:49:29 [INFO] src.jira_enricher — Enriched 1035 / 1545: YARN-2691
+2026-06-25 12:49:30 [INFO] src.jira_enricher — Enriched 1036 / 1545: YARN-2690
+2026-06-25 12:49:30 [INFO] src.jira_enricher — Enriched 1037 / 1545: YARN-2681
+2026-06-25 12:49:31 [INFO] src.jira_enricher — Enriched 1038 / 1545: YARN-2673
+2026-06-25 12:49:32 [INFO] src.jira_enricher — Enriched 1039 / 1545: YARN-2672
+2026-06-25 12:49:32 [INFO] src.jira_enricher — Enriched 1040 / 1545: YARN-2653
+2026-06-25 12:49:33 [INFO] src.jira_enricher — Enriched 1041 / 1545: YARN-2670
+2026-06-25 12:49:33 [INFO] src.jira_enricher — Enriched 1042 / 1545: YARN-2664
+2026-06-25 12:49:34 [INFO] src.jira_enricher — Enriched 1043 / 1545: YARN-2661
+2026-06-25 12:49:34 [INFO] src.jira_enricher — Enriched 1044 / 1545: YARN-2632
+2026-06-25 12:49:35 [INFO] src.jira_enricher — Enriched 1045 / 1545: YARN-2629
+2026-06-25 12:49:36 [INFO] src.jira_enricher — Enriched 1046 / 1545: YARN-2619
+2026-06-25 12:49:36 [INFO] src.jira_enricher — Enriched 1047 / 1545: YARN-2616
+2026-06-25 12:49:37 [INFO] src.jira_enricher — Enriched 1048 / 1545: YARN-2613
+2026-06-25 12:49:37 [INFO] src.jira_enricher — Enriched 1049 / 1545: YARN-2599
+2026-06-25 12:49:38 [INFO] src.jira_enricher — Enriched 1050 / 1545: YARN-2597
+2026-06-25 12:49:38 [INFO] src.jira_enricher — Enriched 1051 / 1545: YARN-2427
+2026-06-25 12:49:39 [INFO] src.jira_enricher — Enriched 1052 / 1545: YARN-2575
+2026-06-25 12:49:39 [INFO] src.jira_enricher — Enriched 1053 / 1545: YARN-2573
+2026-06-25 12:49:40 [INFO] src.jira_enricher — Enriched 1054 / 1545: YARN-2572
+2026-06-25 12:49:41 [INFO] src.jira_enricher — Enriched 1055 / 1545: YARN-2571
+2026-06-25 12:49:41 [INFO] src.jira_enricher — Enriched 1056 / 1545: YARN-2552
+2026-06-25 12:49:42 [INFO] src.jira_enricher — Enriched 1057 / 1545: YARN-2548
+2026-06-25 12:49:42 [INFO] src.jira_enricher — Enriched 1058 / 1545: YARN-2533
+2026-06-25 12:49:43 [INFO] src.jira_enricher — Enriched 1059 / 1545: YARN-2528
+2026-06-25 12:49:43 [INFO] src.jira_enricher — Enriched 1060 / 1545: YARN-2521
+2026-06-25 12:49:44 [INFO] src.jira_enricher — Enriched 1061 / 1545: YARN-2520
+2026-06-25 12:49:45 [INFO] src.jira_enricher — Enriched 1062 / 1545: YARN-2495
+2026-06-25 12:49:45 [INFO] src.jira_enricher — Enriched 1063 / 1545: YARN-2518
+2026-06-25 12:49:46 [INFO] src.jira_enricher — Enriched 1064 / 1545: YARN-2517
+2026-06-25 12:49:46 [INFO] src.jira_enricher — Enriched 1065 / 1545: YARN-2513
+2026-06-25 12:49:47 [INFO] src.jira_enricher — Enriched 1066 / 1545: YARN-2503
+2026-06-25 12:49:48 [INFO] src.jira_enricher — Enriched 1067 / 1545: YARN-2501
+2026-06-25 12:49:48 [INFO] src.jira_enricher — Enriched 1068 / 1545: YARN-2496
+2026-06-25 12:49:49 [INFO] src.jira_enricher — Enriched 1069 / 1545: YARN-2494
+2026-06-25 12:49:50 [INFO] src.jira_enricher — Enriched 1070 / 1545: YARN-2488
+2026-06-25 12:49:50 [INFO] src.jira_enricher — Enriched 1071 / 1545: YARN-2487
+2026-06-25 12:49:51 [INFO] src.jira_enricher — Enriched 1072 / 1545: YARN-2475
+2026-06-25 12:49:51 [INFO] src.jira_enricher — Enriched 1073 / 1545: YARN-2468
+2026-06-25 12:49:52 [INFO] src.jira_enricher — Enriched 1074 / 1545: YARN-2466
+2026-06-25 12:49:52 [INFO] src.jira_enricher — Enriched 1075 / 1545: YARN-2458
+2026-06-25 12:49:53 [INFO] src.jira_enricher — Enriched 1076 / 1545: YARN-2456
+2026-06-25 12:49:53 [INFO] src.jira_enricher — Enriched 1077 / 1545: YARN-2440
+2026-06-25 12:49:54 [INFO] src.jira_enricher — Enriched 1078 / 1545: YARN-2439
+2026-06-25 12:49:54 [INFO] src.jira_enricher — Enriched 1079 / 1545: YARN-2434
+2026-06-25 12:49:55 [INFO] src.jira_enricher — Enriched 1080 / 1545: YARN-2420
+2026-06-25 12:49:56 [INFO] src.jira_enricher — Enriched 1081 / 1545: YARN-2415
+2026-06-25 12:49:56 [INFO] src.jira_enricher — Enriched 1082 / 1545: YARN-2411
+2026-06-25 12:49:57 [INFO] src.jira_enricher — Enriched 1083 / 1545: YARN-2408
+2026-06-25 12:49:57 [INFO] src.jira_enricher — Enriched 1084 / 1545: YARN-2386
+2026-06-25 12:49:58 [INFO] src.jira_enricher — Enriched 1085 / 1545: YARN-2378
+2026-06-25 12:49:59 [INFO] src.jira_enricher — Enriched 1086 / 1545: YARN-2331
+2026-06-25 12:49:59 [INFO] src.jira_enricher — Enriched 1087 / 1545: YARN-2360
+2026-06-25 12:50:00 [INFO] src.jira_enricher — Enriched 1088 / 1545: YARN-2310
+2026-06-25 12:50:00 [INFO] src.jira_enricher — Enriched 1089 / 1545: YARN-2344
+2026-06-25 12:50:01 [INFO] src.jira_enricher — Enriched 1090 / 1545: YARN-2320
+2026-06-25 12:50:01 [INFO] src.jira_enricher — Enriched 1091 / 1545: YARN-2302
+2026-06-25 12:50:02 [INFO] src.jira_enricher — Enriched 1092 / 1545: YARN-2299
+2026-06-25 12:50:02 [INFO] src.jira_enricher — Enriched 1093 / 1545: YARN-2298
+2026-06-25 12:50:03 [INFO] src.jira_enricher — Enriched 1094 / 1545: YARN-2297
+2026-06-25 12:50:04 [INFO] src.jira_enricher — Enriched 1095 / 1545: YARN-2292
+2026-06-25 12:50:04 [INFO] src.jira_enricher — Enriched 1096 / 1545: YARN-2291
+2026-06-25 12:50:05 [INFO] src.jira_enricher — Enriched 1097 / 1545: YARN-2278
+2026-06-25 12:50:05 [INFO] src.jira_enricher — Enriched 1098 / 1545: YARN-2257
+2026-06-25 12:50:06 [INFO] src.jira_enricher — Enriched 1099 / 1545: YARN-2253
+2026-06-25 12:50:06 [INFO] src.jira_enricher — Enriched 1100 / 1545: YARN-2248
+2026-06-25 12:50:07 [INFO] src.jira_enricher — Enriched 1101 / 1545: YARN-2233
+2026-06-25 12:50:07 [INFO] src.jira_enricher — Enriched 1102 / 1545: YARN-2227
+2026-06-25 12:50:08 [INFO] src.jira_enricher — Enriched 1103 / 1545: YARN-2207
+2026-06-25 12:50:09 [INFO] src.jira_enricher — Enriched 1104 / 1545: YARN-2198
+2026-06-25 12:50:09 [INFO] src.jira_enricher — Enriched 1105 / 1545: YARN-2188
+2026-06-25 12:50:10 [INFO] src.jira_enricher — Enriched 1106 / 1545: YARN-2186
+2026-06-25 12:50:10 [INFO] src.jira_enricher — Enriched 1107 / 1545: YARN-2185
+2026-06-25 12:50:11 [INFO] src.jira_enricher — Enriched 1108 / 1545: YARN-2181
+2026-06-25 12:50:12 [INFO] src.jira_enricher — Enriched 1109 / 1545: YARN-2179
+2026-06-25 12:50:12 [INFO] src.jira_enricher — Enriched 1110 / 1545: YARN-2177
+2026-06-25 12:50:13 [INFO] src.jira_enricher — Enriched 1111 / 1545: YARN-2176
+2026-06-25 12:50:13 [INFO] src.jira_enricher — Enriched 1112 / 1545: YARN-2174
+2026-06-25 12:50:14 [INFO] src.jira_enricher — Enriched 1113 / 1545: YARN-2172
+2026-06-25 12:50:15 [INFO] src.jira_enricher — Enriched 1114 / 1545: YARN-2069
+2026-06-25 12:50:15 [INFO] src.jira_enricher — Enriched 1115 / 1545: YARN-2154
+2026-06-25 12:50:16 [INFO] src.jira_enricher — Enriched 1116 / 1545: YARN-2151
+2026-06-25 12:50:16 [INFO] src.jira_enricher — Enriched 1117 / 1545: YARN-2144
+2026-06-25 12:50:17 [INFO] src.jira_enricher — Enriched 1118 / 1545: YARN-2141
+2026-06-25 12:50:18 [INFO] src.jira_enricher — Enriched 1119 / 1545: YARN-2140
+2026-06-25 12:50:18 [INFO] src.jira_enricher — Enriched 1120 / 1545: YARN-2139
+2026-06-25 12:50:19 [INFO] src.jira_enricher — Enriched 1121 / 1545: YARN-2086
+2026-06-25 12:50:19 [INFO] src.jira_enricher — Enriched 1122 / 1545: YARN-2113
+2026-06-25 12:50:20 [INFO] src.jira_enricher — Enriched 1123 / 1545: YARN-2102
+2026-06-25 12:50:20 [INFO] src.jira_enricher — Enriched 1124 / 1545: YARN-2099
+2026-06-25 12:50:21 [INFO] src.jira_enricher — Enriched 1125 / 1545: YARN-2098
+2026-06-25 12:50:22 [INFO] src.jira_enricher — Enriched 1126 / 1545: YARN-2084
+2026-06-25 12:50:22 [INFO] src.jira_enricher — Enriched 1127 / 1545: YARN-2082
+2026-06-25 12:50:23 [INFO] src.jira_enricher — Enriched 1128 / 1545: YARN-2080
+2026-06-25 12:50:23 [INFO] src.jira_enricher — Enriched 1129 / 1545: YARN-2049
+2026-06-25 12:50:24 [INFO] src.jira_enricher — Enriched 1130 / 1545: YARN-2041
+2026-06-25 12:50:24 [INFO] src.jira_enricher — Enriched 1131 / 1545: YARN-2040
+2026-06-25 12:50:25 [INFO] src.jira_enricher — Enriched 1132 / 1545: YARN-2037
+2026-06-25 12:50:26 [INFO] src.jira_enricher — Enriched 1133 / 1545: YARN-2033
+2026-06-25 12:50:26 [INFO] src.jira_enricher — Enriched 1134 / 1545: YARN-2032
+2026-06-25 12:50:27 [INFO] src.jira_enricher — Enriched 1135 / 1545: YARN-2031
+2026-06-25 12:50:27 [INFO] src.jira_enricher — Enriched 1136 / 1545: YARN-2026
+2026-06-25 12:50:28 [INFO] src.jira_enricher — Enriched 1137 / 1545: YARN-2010
+2026-06-25 12:50:29 [INFO] src.jira_enricher — Enriched 1138 / 1545: YARN-2005
+2026-06-25 12:50:29 [INFO] src.jira_enricher — Enriched 1139 / 1545: YARN-2004
+2026-06-25 12:50:30 [INFO] src.jira_enricher — Enriched 1140 / 1545: YARN-2001
+2026-06-25 12:50:30 [INFO] src.jira_enricher — Enriched 1141 / 1545: YARN-2000
+2026-06-25 12:50:31 [INFO] src.jira_enricher — Enriched 1142 / 1545: YARN-1996
+2026-06-25 12:50:31 [INFO] src.jira_enricher — Enriched 1143 / 1545: YARN-1994
+2026-06-25 12:50:32 [INFO] src.jira_enricher — Enriched 1144 / 1545: YARN-1993
+2026-06-25 12:50:32 [INFO] src.jira_enricher — Enriched 1145 / 1545: YARN-1990
+2026-06-25 12:50:33 [INFO] src.jira_enricher — Enriched 1146 / 1545: YARN-1983
+2026-06-25 12:50:33 [INFO] src.jira_enricher — Enriched 1147 / 1545: YARN-1972
+2026-06-25 12:50:34 [INFO] src.jira_enricher — Enriched 1148 / 1545: YARN-1954
+2026-06-25 12:50:35 [INFO] src.jira_enricher — Enriched 1149 / 1545: YARN-1953
+2026-06-25 12:50:35 [INFO] src.jira_enricher — Enriched 1150 / 1545: YARN-1969
+2026-06-25 12:50:36 [INFO] src.jira_enricher — Enriched 1151 / 1545: YARN-1968
+2026-06-25 12:50:36 [INFO] src.jira_enricher — Enriched 1152 / 1545: YARN-1963
+2026-06-25 12:50:37 [INFO] src.jira_enricher — Enriched 1153 / 1545: YARN-1938
+2026-06-25 12:50:37 [INFO] src.jira_enricher — Enriched 1154 / 1545: YARN-1937
+2026-06-25 12:50:38 [INFO] src.jira_enricher — Enriched 1155 / 1545: YARN-1936
+2026-06-25 12:50:39 [INFO] src.jira_enricher — Enriched 1156 / 1545: YARN-1915
+2026-06-25 12:50:39 [INFO] src.jira_enricher — Enriched 1157 / 1545: YARN-1913
+2026-06-25 12:50:40 [INFO] src.jira_enricher — Enriched 1158 / 1545: YARN-1871
+2026-06-25 12:50:40 [INFO] src.jira_enricher — Enriched 1159 / 1545: YARN-1864
+2026-06-25 12:50:41 [INFO] src.jira_enricher — Enriched 1160 / 1545: YARN-1858
+2026-06-25 12:50:41 [INFO] src.jira_enricher — Enriched 1161 / 1545: YARN-1857
+2026-06-25 12:50:42 [INFO] src.jira_enricher — Enriched 1162 / 1545: YARN-1856
+2026-06-25 12:50:43 [INFO] src.jira_enricher — Enriched 1163 / 1545: YARN-1838
+2026-06-25 12:50:43 [INFO] src.jira_enricher — Enriched 1164 / 1545: YARN-1815
+2026-06-25 12:50:44 [INFO] src.jira_enricher — Enriched 1165 / 1545: YARN-1809
+2026-06-25 12:50:45 [INFO] src.jira_enricher — Enriched 1166 / 1545: YARN-1808
+2026-06-25 12:50:45 [INFO] src.jira_enricher — Enriched 1167 / 1545: YARN-1804
+2026-06-25 12:50:46 [INFO] src.jira_enricher — Enriched 1168 / 1545: YARN-1799
+2026-06-25 12:50:46 [INFO] src.jira_enricher — Enriched 1169 / 1545: YARN-1769
+2026-06-25 12:50:48 [INFO] src.jira_enricher — Enriched 1170 / 1545: YARN-1766
+2026-06-25 12:50:49 [INFO] src.jira_enricher — Enriched 1171 / 1545: YARN-1755
+2026-06-25 12:50:49 [INFO] src.jira_enricher — Enriched 1172 / 1545: YARN-1743
+2026-06-25 12:50:50 [INFO] src.jira_enricher — Enriched 1173 / 1545: YARN-1732
+2026-06-25 12:50:51 [INFO] src.jira_enricher — Enriched 1174 / 1545: YARN-1730
+2026-06-25 12:50:51 [INFO] src.jira_enricher — Enriched 1175 / 1545: YARN-1727
+2026-06-25 12:50:52 [INFO] src.jira_enricher — Enriched 1176 / 1545: YARN-1717
+2026-06-25 12:50:52 [INFO] src.jira_enricher — Enriched 1177 / 1545: YARN-1714
+2026-06-25 12:50:53 [INFO] src.jira_enricher — Enriched 1178 / 1545: YARN-1712
+2026-06-25 12:50:53 [INFO] src.jira_enricher — Enriched 1179 / 1545: YARN-1710
+2026-06-25 12:50:54 [INFO] src.jira_enricher — Enriched 1180 / 1545: YARN-1709
+2026-06-25 12:50:55 [INFO] src.jira_enricher — Enriched 1181 / 1545: YARN-1708
+2026-06-25 12:50:56 [INFO] src.jira_enricher — Enriched 1182 / 1545: YARN-1707
+2026-06-25 12:50:56 [INFO] src.jira_enricher — Enriched 1183 / 1545: YARN-1695
+2026-06-25 12:50:57 [INFO] src.jira_enricher — Enriched 1184 / 1545: YARN-1639
+2026-06-25 12:50:57 [INFO] src.jira_enricher — Enriched 1185 / 1545: YARN-1659
+2026-06-25 12:50:58 [INFO] src.jira_enricher — Enriched 1186 / 1545: YARN-1655
+2026-06-25 12:50:58 [INFO] src.jira_enricher — Enriched 1187 / 1545: YARN-1654
+2026-06-25 12:50:59 [INFO] src.jira_enricher — Enriched 1188 / 1545: YARN-1651
+2026-06-25 12:51:00 [INFO] src.jira_enricher — Enriched 1189 / 1545: YARN-1645
+2026-06-25 12:51:00 [INFO] src.jira_enricher — Enriched 1190 / 1545: YARN-1621
+2026-06-25 12:51:01 [INFO] src.jira_enricher — Enriched 1191 / 1545: YARN-1620
+2026-06-25 12:51:01 [INFO] src.jira_enricher — Enriched 1192 / 1545: YARN-1609
+2026-06-25 12:51:02 [INFO] src.jira_enricher — Enriched 1193 / 1545: YARN-1520
+2026-06-25 12:51:02 [INFO] src.jira_enricher — Enriched 1194 / 1545: YARN-1593
+2026-06-25 12:51:03 [INFO] src.jira_enricher — Enriched 1195 / 1545: YARN-1589
+2026-06-25 12:51:04 [INFO] src.jira_enricher — Enriched 1196 / 1545: YARN-1585
+2026-06-25 12:51:04 [INFO] src.jira_enricher — Enriched 1197 / 1545: YARN-1584
+2026-06-25 12:51:05 [INFO] src.jira_enricher — Enriched 1198 / 1545: YARN-1582
+2026-06-25 12:51:06 [INFO] src.jira_enricher — Enriched 1199 / 1545: YARN-1564
+2026-06-25 12:51:06 [INFO] src.jira_enricher — Enriched 1200 / 1545: YARN-1558
+2026-06-25 12:51:07 [INFO] src.jira_enricher — Enriched 1201 / 1545: YARN-1543
+2026-06-25 12:51:07 [INFO] src.jira_enricher — Enriched 1202 / 1545: YARN-1538
+2026-06-25 12:51:08 [INFO] src.jira_enricher — Enriched 1203 / 1545: YARN-1530
+2026-06-25 12:51:08 [INFO] src.jira_enricher — Enriched 1204 / 1545: YARN-1512
+2026-06-25 12:51:09 [INFO] src.jira_enricher — Enriched 1205 / 1545: YARN-1510
+2026-06-25 12:51:10 [INFO] src.jira_enricher — Enriched 1206 / 1545: YARN-1509
+2026-06-25 12:51:11 [INFO] src.jira_enricher — Enriched 1207 / 1545: YARN-1503
+2026-06-25 12:51:11 [INFO] src.jira_enricher — Enriched 1208 / 1545: YARN-1498
+2026-06-25 12:51:12 [INFO] src.jira_enricher — Enriched 1209 / 1545: YARN-1495
+2026-06-25 12:51:12 [INFO] src.jira_enricher — Enriched 1210 / 1545: YARN-1493
+2026-06-25 12:51:13 [INFO] src.jira_enricher — Enriched 1211 / 1545: YARN-1492
+2026-06-25 12:51:14 [INFO] src.jira_enricher — Enriched 1212 / 1545: YARN-1490
+2026-06-25 12:51:14 [INFO] src.jira_enricher — Enriched 1213 / 1545: YARN-1489
+2026-06-25 12:51:15 [INFO] src.jira_enricher — Enriched 1214 / 1545: YARN-1488
+2026-06-25 12:51:15 [INFO] src.jira_enricher — Enriched 1215 / 1545: YARN-1462
+2026-06-25 12:51:16 [INFO] src.jira_enricher — Enriched 1216 / 1545: YARN-1461
+2026-06-25 12:51:17 [INFO] src.jira_enricher — Enriched 1217 / 1545: YARN-1436
+2026-06-25 12:51:17 [INFO] src.jira_enricher — Enriched 1218 / 1545: YARN-1448
+2026-06-25 12:51:18 [INFO] src.jira_enricher — Enriched 1219 / 1545: YARN-1440
+2026-06-25 12:51:19 [INFO] src.jira_enricher — Enriched 1220 / 1545: YARN-1421
+2026-06-25 12:51:19 [INFO] src.jira_enricher — Enriched 1221 / 1545: YARN-1404
+2026-06-25 12:51:20 [INFO] src.jira_enricher — Enriched 1222 / 1545: YARN-1394
+2026-06-25 12:51:20 [INFO] src.jira_enricher — Enriched 1223 / 1545: YARN-1392
+2026-06-25 12:51:21 [INFO] src.jira_enricher — Enriched 1224 / 1545: YARN-1390
+2026-06-25 12:51:21 [INFO] src.jira_enricher — Enriched 1225 / 1545: YARN-1389
+2026-06-25 12:51:22 [INFO] src.jira_enricher — Enriched 1226 / 1545: YARN-1380
+2026-06-25 12:51:22 [INFO] src.jira_enricher — Enriched 1227 / 1545: YARN-1378
+2026-06-25 12:51:23 [INFO] src.jira_enricher — Enriched 1228 / 1545: YARN-1372
+2026-06-25 12:51:24 [INFO] src.jira_enricher — Enriched 1229 / 1545: YARN-1371
+2026-06-25 12:51:24 [INFO] src.jira_enricher — Enriched 1230 / 1545: YARN-1370
+2026-06-25 12:51:25 [INFO] src.jira_enricher — Enriched 1231 / 1545: YARN-1369
+2026-06-25 12:51:25 [INFO] src.jira_enricher — Enriched 1232 / 1545: YARN-1368
+2026-06-25 12:51:26 [INFO] src.jira_enricher — Enriched 1233 / 1545: YARN-1367
+2026-06-25 12:51:27 [INFO] src.jira_enricher — Enriched 1234 / 1545: YARN-1366
+2026-06-25 12:51:27 [INFO] src.jira_enricher — Enriched 1235 / 1545: YARN-1362
+2026-06-25 12:51:28 [INFO] src.jira_enricher — Enriched 1236 / 1545: YARN-1360
+2026-06-25 12:51:29 [INFO] src.jira_enricher — Enriched 1237 / 1545: YARN-1355
+2026-06-25 12:51:29 [INFO] src.jira_enricher — Enriched 1238 / 1545: YARN-1354
+2026-06-25 12:51:30 [INFO] src.jira_enricher — Enriched 1239 / 1545: YARN-1338
+2026-06-25 12:51:31 [INFO] src.jira_enricher — Enriched 1240 / 1545: YARN-1337
+2026-06-25 12:51:32 [INFO] src.jira_enricher — Enriched 1241 / 1545: YARN-1336
+2026-06-25 12:51:32 [INFO] src.jira_enricher — Enriched 1242 / 1545: YARN-1324
+2026-06-25 12:51:33 [INFO] src.jira_enricher — Enriched 1243 / 1545: YARN-1318
+2026-06-25 12:51:33 [INFO] src.jira_enricher — Enriched 1244 / 1545: YARN-1317
+2026-06-25 12:51:34 [INFO] src.jira_enricher — Enriched 1245 / 1545: YARN-1292
+2026-06-25 12:51:35 [INFO] src.jira_enricher — Enriched 1246 / 1545: YARN-1290
+2026-06-25 12:51:35 [INFO] src.jira_enricher — Enriched 1247 / 1545: YARN-1276
+2026-06-25 12:51:36 [INFO] src.jira_enricher — Enriched 1248 / 1545: YARN-1253
+2026-06-25 12:51:36 [INFO] src.jira_enricher — Enriched 1249 / 1545: YARN-1250
+2026-06-25 12:51:37 [INFO] src.jira_enricher — Enriched 1250 / 1545: YARN-1249
+2026-06-25 12:51:38 [INFO] src.jira_enricher — Enriched 1251 / 1545: YARN-1228
+2026-06-25 12:51:38 [INFO] src.jira_enricher — Enriched 1252 / 1545: YARN-1210
+2026-06-25 12:51:39 [INFO] src.jira_enricher — Enriched 1253 / 1545: YARN-1200
+2026-06-25 12:51:39 [INFO] src.jira_enricher — Enriched 1254 / 1545: YARN-1197
+2026-06-25 12:51:40 [INFO] src.jira_enricher — Enriched 1255 / 1545: YARN-1187
+2026-06-25 12:51:41 [INFO] src.jira_enricher — Enriched 1256 / 1545: YARN-1186
+2026-06-25 12:51:41 [INFO] src.jira_enricher — Enriched 1257 / 1545: YARN-1177
+2026-06-25 12:51:42 [INFO] src.jira_enricher — Enriched 1258 / 1545: YARN-1155
+2026-06-25 12:51:43 [INFO] src.jira_enricher — Enriched 1259 / 1545: YARN-1151
+2026-06-25 12:51:43 [INFO] src.jira_enricher — Enriched 1260 / 1545: YARN-1133
+2026-06-25 12:51:44 [INFO] src.jira_enricher — Enriched 1261 / 1545: YARN-1098
+2026-06-25 12:51:44 [INFO] src.jira_enricher — Enriched 1262 / 1545: YARN-1127
+2026-06-25 12:51:45 [INFO] src.jira_enricher — Enriched 1263 / 1545: YARN-1125
+2026-06-25 12:51:46 [INFO] src.jira_enricher — Enriched 1264 / 1545: YARN-1124
+2026-06-25 12:51:47 [INFO] src.jira_enricher — Enriched 1265 / 1545: YARN-1117
+2026-06-25 12:51:47 [INFO] src.jira_enricher — Enriched 1266 / 1545: YARN-1115
+2026-06-25 12:51:48 [INFO] src.jira_enricher — Enriched 1267 / 1545: YARN-1105
+2026-06-25 12:51:49 [INFO] src.jira_enricher — Enriched 1268 / 1545: YARN-1104
+2026-06-25 12:51:49 [INFO] src.jira_enricher — Enriched 1269 / 1545: YARN-1089
+2026-06-25 12:51:50 [INFO] src.jira_enricher — Enriched 1270 / 1545: YARN-1080
+2026-06-25 12:51:51 [INFO] src.jira_enricher — Enriched 1271 / 1545: YARN-1067
+2026-06-25 12:51:51 [INFO] src.jira_enricher — Enriched 1272 / 1545: YARN-1065
+2026-06-25 12:51:52 [INFO] src.jira_enricher — Enriched 1273 / 1545: YARN-1063
+2026-06-25 12:51:53 [INFO] src.jira_enricher — Enriched 1274 / 1545: YARN-1062
+2026-06-25 12:51:53 [INFO] src.jira_enricher — Enriched 1275 / 1545: YARN-1052
+2026-06-25 12:51:54 [INFO] src.jira_enricher — Enriched 1276 / 1545: YARN-1051
+2026-06-25 12:51:54 [INFO] src.jira_enricher — Enriched 1277 / 1545: YARN-1041
+2026-06-25 12:51:55 [INFO] src.jira_enricher — Enriched 1278 / 1545: YARN-1040
+2026-06-25 12:51:56 [INFO] src.jira_enricher — Enriched 1279 / 1545: YARN-1037
+2026-06-25 12:51:56 [INFO] src.jira_enricher — Enriched 1280 / 1545: YARN-1033
+2026-06-25 12:51:57 [INFO] src.jira_enricher — Enriched 1281 / 1545: YARN-1029
+2026-06-25 12:51:58 [INFO] src.jira_enricher — Enriched 1282 / 1545: YARN-1028
+2026-06-25 12:51:58 [INFO] src.jira_enricher — Enriched 1283 / 1545: YARN-1027
+2026-06-25 12:51:59 [INFO] src.jira_enricher — Enriched 1284 / 1545: YARN-1024
+2026-06-25 12:52:00 [INFO] src.jira_enricher — Enriched 1285 / 1545: YARN-1023
+2026-06-25 12:52:01 [INFO] src.jira_enricher — Enriched 1286 / 1545: YARN-1010
+2026-06-25 12:52:01 [INFO] src.jira_enricher — Enriched 1287 / 1545: YARN-1021
+2026-06-25 12:52:02 [INFO] src.jira_enricher — Enriched 1288 / 1545: YARN-1020
+2026-06-25 12:52:02 [INFO] src.jira_enricher — Enriched 1289 / 1545: YARN-1019
+2026-06-25 12:52:03 [INFO] src.jira_enricher — Enriched 1290 / 1545: YARN-1016
+2026-06-25 12:52:03 [INFO] src.jira_enricher — Enriched 1291 / 1545: YARN-1015
+2026-06-25 12:52:04 [INFO] src.jira_enricher — Enriched 1292 / 1545: YARN-1014
+2026-06-25 12:52:05 [INFO] src.jira_enricher — Enriched 1293 / 1545: YARN-1013
+2026-06-25 12:52:05 [INFO] src.jira_enricher — Enriched 1294 / 1545: YARN-1011
+2026-06-25 12:52:06 [INFO] src.jira_enricher — Enriched 1295 / 1545: YARN-1001
+2026-06-25 12:52:07 [INFO] src.jira_enricher — Enriched 1296 / 1545: YARN-1000
+2026-06-25 12:52:07 [INFO] src.jira_enricher — Enriched 1297 / 1545: YARN-997
+2026-06-25 12:52:08 [INFO] src.jira_enricher — Enriched 1298 / 1545: YARN-986
+2026-06-25 12:52:08 [INFO] src.jira_enricher — Enriched 1299 / 1545: YARN-977
+2026-06-25 12:52:09 [INFO] src.jira_enricher — Enriched 1300 / 1545: YARN-975
+2026-06-25 12:52:09 [INFO] src.jira_enricher — Enriched 1301 / 1545: YARN-972
+2026-06-25 12:52:10 [INFO] src.jira_enricher — Enriched 1302 / 1545: YARN-896
+2026-06-25 12:52:11 [INFO] src.jira_enricher — Enriched 1303 / 1545: YARN-958
+2026-06-25 12:52:11 [INFO] src.jira_enricher — Enriched 1304 / 1545: YARN-957
+2026-06-25 12:52:12 [INFO] src.jira_enricher — Enriched 1305 / 1545: YARN-953
+2026-06-25 12:52:13 [INFO] src.jira_enricher — Enriched 1306 / 1545: YARN-951
+2026-06-25 12:52:13 [INFO] src.jira_enricher — Enriched 1307 / 1545: YARN-950
+2026-06-25 12:52:14 [INFO] src.jira_enricher — Enriched 1308 / 1545: YARN-926
+2026-06-25 12:52:15 [INFO] src.jira_enricher — Enriched 1309 / 1545: YARN-925
+2026-06-25 12:52:16 [INFO] src.jira_enricher — Enriched 1310 / 1545: YARN-941
+2026-06-25 12:52:16 [INFO] src.jira_enricher — Enriched 1311 / 1545: YARN-921
+2026-06-25 12:52:17 [INFO] src.jira_enricher — Enriched 1312 / 1545: YARN-914
+2026-06-25 12:52:18 [INFO] src.jira_enricher — Enriched 1313 / 1545: YARN-913
+2026-06-25 12:52:18 [INFO] src.jira_enricher — Enriched 1314 / 1545: YARN-911
+2026-06-25 12:52:19 [INFO] src.jira_enricher — Enriched 1315 / 1545: YARN-910
+2026-06-25 12:52:19 [INFO] src.jira_enricher — Enriched 1316 / 1545: YARN-904
+2026-06-25 12:52:20 [INFO] src.jira_enricher — Enriched 1317 / 1545: YARN-875
+2026-06-25 12:52:21 [INFO] src.jira_enricher — Enriched 1318 / 1545: YARN-867
+2026-06-25 12:52:21 [INFO] src.jira_enricher — Enriched 1319 / 1545: YARN-851
+2026-06-25 12:52:22 [INFO] src.jira_enricher — Enriched 1320 / 1545: YARN-824
+2026-06-25 12:52:22 [INFO] src.jira_enricher — Enriched 1321 / 1545: YARN-813
+2026-06-25 12:52:23 [INFO] src.jira_enricher — Enriched 1322 / 1545: YARN-810
+2026-06-25 12:52:24 [INFO] src.jira_enricher — Enriched 1323 / 1545: YARN-801
+2026-06-25 12:52:24 [INFO] src.jira_enricher — Enriched 1324 / 1545: YARN-781
+2026-06-25 12:52:25 [INFO] src.jira_enricher — Enriched 1325 / 1545: YARN-789
+2026-06-25 12:52:26 [INFO] src.jira_enricher — Enriched 1326 / 1545: YARN-785
+2026-06-25 12:52:26 [INFO] src.jira_enricher — Enriched 1327 / 1545: YARN-779
+2026-06-25 12:52:27 [INFO] src.jira_enricher — Enriched 1328 / 1545: YARN-771
+2026-06-25 12:52:27 [INFO] src.jira_enricher — Enriched 1329 / 1545: YARN-747
+2026-06-25 12:52:28 [INFO] src.jira_enricher — Enriched 1330 / 1545: YARN-740
+2026-06-25 12:52:29 [INFO] src.jira_enricher — Enriched 1331 / 1545: YARN-732
+2026-06-25 12:52:29 [INFO] src.jira_enricher — Enriched 1332 / 1545: YARN-717
+2026-06-25 12:52:30 [INFO] src.jira_enricher — Enriched 1333 / 1545: YARN-714
+2026-06-25 12:52:30 [INFO] src.jira_enricher — Enriched 1334 / 1545: YARN-710
+2026-06-25 12:52:31 [INFO] src.jira_enricher — Enriched 1335 / 1545: YARN-707
+2026-06-25 12:52:31 [INFO] src.jira_enricher — Enriched 1336 / 1545: YARN-696
+2026-06-25 12:52:32 [INFO] src.jira_enricher — Enriched 1337 / 1545: YARN-694
+2026-06-25 12:52:32 [INFO] src.jira_enricher — Enriched 1338 / 1545: YARN-693
+2026-06-25 12:52:33 [INFO] src.jira_enricher — Enriched 1339 / 1545: YARN-692
+2026-06-25 12:52:34 [INFO] src.jira_enricher — Enriched 1340 / 1545: YARN-682
+2026-06-25 12:52:34 [INFO] src.jira_enricher — Enriched 1341 / 1545: YARN-679
+2026-06-25 12:52:35 [INFO] src.jira_enricher — Enriched 1342 / 1545: YARN-672
+2026-06-25 12:52:35 [INFO] src.jira_enricher — Enriched 1343 / 1545: YARN-671
+2026-06-25 12:52:36 [INFO] src.jira_enricher — Enriched 1344 / 1545: YARN-668
+2026-06-25 12:52:36 [INFO] src.jira_enricher — Enriched 1345 / 1545: YARN-666
+2026-06-25 12:52:37 [INFO] src.jira_enricher — Enriched 1346 / 1545: YARN-641
+2026-06-25 12:52:37 [INFO] src.jira_enricher — Enriched 1347 / 1545: YARN-624
+2026-06-25 12:52:38 [INFO] src.jira_enricher — Enriched 1348 / 1545: YARN-616
+2026-06-25 12:52:39 [INFO] src.jira_enricher — Enriched 1349 / 1545: YARN-613
+2026-06-25 12:52:39 [INFO] src.jira_enricher — Enriched 1350 / 1545: YARN-611
+2026-06-25 12:52:40 [INFO] src.jira_enricher — Enriched 1351 / 1545: YARN-608
+2026-06-25 12:52:40 [INFO] src.jira_enricher — Enriched 1352 / 1545: YARN-600
+2026-06-25 12:52:41 [INFO] src.jira_enricher — Enriched 1353 / 1545: YARN-599
+2026-06-25 12:52:41 [INFO] src.jira_enricher — Enriched 1354 / 1545: YARN-596
+2026-06-25 12:52:42 [INFO] src.jira_enricher — Enriched 1355 / 1545: YARN-595
+2026-06-25 12:52:42 [INFO] src.jira_enricher — Enriched 1356 / 1545: YARN-589
+2026-06-25 12:52:43 [INFO] src.jira_enricher — Enriched 1357 / 1545: YARN-582
+2026-06-25 12:52:44 [INFO] src.jira_enricher — Enriched 1358 / 1545: YARN-571
+2026-06-25 12:52:44 [INFO] src.jira_enricher — Enriched 1359 / 1545: YARN-569
+2026-06-25 12:52:45 [INFO] src.jira_enricher — Enriched 1360 / 1545: YARN-568
+2026-06-25 12:52:45 [INFO] src.jira_enricher — Enriched 1361 / 1545: YARN-567
+2026-06-25 12:52:46 [INFO] src.jira_enricher — Enriched 1362 / 1545: YARN-563
+2026-06-25 12:52:47 [INFO] src.jira_enricher — Enriched 1363 / 1545: YARN-561
+2026-06-25 12:52:47 [INFO] src.jira_enricher — Enriched 1364 / 1545: YARN-559
+2026-06-25 12:52:48 [INFO] src.jira_enricher — Enriched 1365 / 1545: YARN-558
+2026-06-25 12:52:48 [INFO] src.jira_enricher — Enriched 1366 / 1545: YARN-556
+2026-06-25 12:52:49 [INFO] src.jira_enricher — Enriched 1367 / 1545: YARN-549
+2026-06-25 12:52:50 [INFO] src.jira_enricher — Enriched 1368 / 1545: YARN-528
+2026-06-25 12:52:50 [INFO] src.jira_enricher — Enriched 1369 / 1545: YARN-521
+2026-06-25 12:52:51 [INFO] src.jira_enricher — Enriched 1370 / 1545: YARN-514
+2026-06-25 12:52:51 [INFO] src.jira_enricher — Enriched 1371 / 1545: YARN-513
+2026-06-25 12:52:52 [INFO] src.jira_enricher — Enriched 1372 / 1545: YARN-506
+2026-06-25 12:52:53 [INFO] src.jira_enricher — Enriched 1373 / 1545: YARN-494
+2026-06-25 12:52:53 [INFO] src.jira_enricher — Enriched 1374 / 1545: YARN-482
+2026-06-25 12:52:54 [INFO] src.jira_enricher — Enriched 1375 / 1545: YARN-479
+2026-06-25 12:52:55 [INFO] src.jira_enricher — Enriched 1376 / 1545: YARN-471
+2026-06-25 12:52:55 [INFO] src.jira_enricher — Enriched 1377 / 1545: YARN-462
+2026-06-25 12:52:56 [INFO] src.jira_enricher — Enriched 1378 / 1545: YARN-453
+2026-06-25 12:52:56 [INFO] src.jira_enricher — Enriched 1379 / 1545: YARN-445
+2026-06-25 12:52:57 [INFO] src.jira_enricher — Enriched 1380 / 1545: YARN-443
+2026-06-25 12:52:58 [INFO] src.jira_enricher — Enriched 1381 / 1545: YARN-438
+2026-06-25 12:52:58 [INFO] src.jira_enricher — Enriched 1382 / 1545: YARN-431
+2026-06-25 12:52:59 [INFO] src.jira_enricher — Enriched 1383 / 1545: YARN-430
+2026-06-25 12:52:59 [INFO] src.jira_enricher — Enriched 1384 / 1545: YARN-424
+2026-06-25 12:53:00 [INFO] src.jira_enricher — Enriched 1385 / 1545: YARN-423
+2026-06-25 12:53:00 [INFO] src.jira_enricher — Enriched 1386 / 1545: YARN-421
+2026-06-25 12:53:01 [INFO] src.jira_enricher — Enriched 1387 / 1545: YARN-420
+2026-06-25 12:53:01 [INFO] src.jira_enricher — Enriched 1388 / 1545: YARN-336
+2026-06-25 12:53:02 [INFO] src.jira_enricher — Enriched 1389 / 1545: YARN-419
+2026-06-25 12:53:02 [INFO] src.jira_enricher — Enriched 1390 / 1545: YARN-418
+2026-06-25 12:53:03 [INFO] src.jira_enricher — Enriched 1391 / 1545: YARN-417
+2026-06-25 12:53:04 [INFO] src.jira_enricher — Enriched 1392 / 1545: YARN-415
+2026-06-25 12:53:04 [INFO] src.jira_enricher — Enriched 1393 / 1545: YARN-405
+2026-06-25 12:53:05 [INFO] src.jira_enricher — Enriched 1394 / 1545: YARN-393
+2026-06-25 12:53:05 [INFO] src.jira_enricher — Enriched 1395 / 1545: YARN-386
+2026-06-25 12:53:06 [INFO] src.jira_enricher — Enriched 1396 / 1545: YARN-378
+2026-06-25 12:53:07 [INFO] src.jira_enricher — Enriched 1397 / 1545: YARN-373
+2026-06-25 12:53:07 [INFO] src.jira_enricher — Enriched 1398 / 1545: YARN-371
+2026-06-25 12:53:08 [INFO] src.jira_enricher — Enriched 1399 / 1545: YARN-366
+2026-06-25 12:53:08 [INFO] src.jira_enricher — Enriched 1400 / 1545: YARN-358
+2026-06-25 12:53:09 [INFO] src.jira_enricher — Enriched 1401 / 1545: YARN-333
+2026-06-25 12:53:09 [INFO] src.jira_enricher — Enriched 1402 / 1545: YARN-327
+2026-06-25 12:53:10 [INFO] src.jira_enricher — Enriched 1403 / 1545: YARN-326
+2026-06-25 12:53:11 [INFO] src.jira_enricher — Enriched 1404 / 1545: YARN-321
+2026-06-25 12:53:11 [INFO] src.jira_enricher — Enriched 1405 / 1545: YARN-314
+2026-06-25 12:53:12 [INFO] src.jira_enricher — Enriched 1406 / 1545: YARN-311
+2026-06-25 12:53:12 [INFO] src.jira_enricher — Enriched 1407 / 1545: YARN-309
+2026-06-25 12:53:13 [INFO] src.jira_enricher — Enriched 1408 / 1545: YARN-304
+2026-06-25 12:53:13 [INFO] src.jira_enricher — Enriched 1409 / 1545: YARN-291
+2026-06-25 12:53:14 [INFO] src.jira_enricher — Enriched 1410 / 1545: YARN-286
+2026-06-25 12:53:15 [INFO] src.jira_enricher — Enriched 1411 / 1545: YARN-285
+2026-06-25 12:53:15 [INFO] src.jira_enricher — Enriched 1412 / 1545: YARN-279
+2026-06-25 12:53:16 [INFO] src.jira_enricher — Enriched 1413 / 1545: YARN-276
+2026-06-25 12:53:16 [INFO] src.jira_enricher — Enriched 1414 / 1545: YARN-273
+2026-06-25 12:53:17 [INFO] src.jira_enricher — Enriched 1415 / 1545: YARN-265
+2026-06-25 12:53:17 [INFO] src.jira_enricher — Enriched 1416 / 1545: YARN-261
+2026-06-25 12:53:18 [INFO] src.jira_enricher — Enriched 1417 / 1545: YARN-257
+2026-06-25 12:53:18 [INFO] src.jira_enricher — Enriched 1418 / 1545: YARN-256
+2026-06-25 12:53:19 [INFO] src.jira_enricher — Enriched 1419 / 1545: YARN-250
+2026-06-25 12:53:19 [INFO] src.jira_enricher — Enriched 1420 / 1545: YARN-247
+2026-06-25 12:53:20 [INFO] src.jira_enricher — Enriched 1421 / 1545: YARN-238
+2026-06-25 12:53:20 [INFO] src.jira_enricher — Enriched 1422 / 1545: YARN-232
+2026-06-25 12:53:21 [INFO] src.jira_enricher — Enriched 1423 / 1545: YARN-231
+2026-06-25 12:53:22 [INFO] src.jira_enricher — Enriched 1424 / 1545: YARN-230
+2026-06-25 12:53:22 [INFO] src.jira_enricher — Enriched 1425 / 1545: YARN-222
+2026-06-25 12:53:23 [INFO] src.jira_enricher — Enriched 1426 / 1545: YARN-197
+2026-06-25 12:53:23 [INFO] src.jira_enricher — Enriched 1427 / 1545: YARN-196
+2026-06-25 12:53:24 [INFO] src.jira_enricher — Enriched 1428 / 1545: YARN-195
+2026-06-25 12:53:24 [INFO] src.jira_enricher — Enriched 1429 / 1545: YARN-191
+2026-06-25 12:53:25 [INFO] src.jira_enricher — Enriched 1430 / 1545: YARN-160
+2026-06-25 12:53:25 [INFO] src.jira_enricher — Enriched 1431 / 1545: YARN-153
+2026-06-25 12:53:26 [INFO] src.jira_enricher — Enriched 1432 / 1545: YARN-149
+2026-06-25 12:53:27 [INFO] src.jira_enricher — Enriched 1433 / 1545: YARN-128
+2026-06-25 12:53:27 [INFO] src.jira_enricher — Enriched 1434 / 1545: YARN-125
+2026-06-25 12:53:28 [INFO] src.jira_enricher — Enriched 1435 / 1545: YARN-120
+2026-06-25 12:53:28 [INFO] src.jira_enricher — Enriched 1436 / 1545: YARN-119
+2026-06-25 12:53:29 [INFO] src.jira_enricher — Enriched 1437 / 1545: YARN-118
+2026-06-25 12:53:30 [INFO] src.jira_enricher — Enriched 1438 / 1545: YARN-117
+2026-06-25 12:53:30 [INFO] src.jira_enricher — Enriched 1439 / 1545: YARN-111
+2026-06-25 12:53:31 [INFO] src.jira_enricher — Enriched 1440 / 1545: YARN-103
+2026-06-25 12:53:31 [INFO] src.jira_enricher — Enriched 1441 / 1545: YARN-91
+2026-06-25 12:53:32 [INFO] src.jira_enricher — Enriched 1442 / 1545: YARN-90
+2026-06-25 12:53:32 [INFO] src.jira_enricher — Enriched 1443 / 1545: YARN-80
+2026-06-25 12:53:33 [INFO] src.jira_enricher — Enriched 1444 / 1545: YARN-78
+2026-06-25 12:53:34 [INFO] src.jira_enricher — Enriched 1445 / 1545: YARN-74
+2026-06-25 12:53:34 [INFO] src.jira_enricher — Enriched 1446 / 1545: YARN-73
+2026-06-25 12:53:35 [INFO] src.jira_enricher — Enriched 1447 / 1545: YARN-72
+2026-06-25 12:53:35 [INFO] src.jira_enricher — Enriched 1448 / 1545: YARN-60
+2026-06-25 12:53:36 [INFO] src.jira_enricher — Enriched 1449 / 1545: YARN-45
+2026-06-25 12:53:36 [INFO] src.jira_enricher — Enriched 1450 / 1545: YARN-41
+2026-06-25 12:53:37 [INFO] src.jira_enricher — Enriched 1451 / 1545: YARN-40
+2026-06-25 12:53:37 [INFO] src.jira_enricher — Enriched 1452 / 1545: YARN-39
+2026-06-25 12:53:38 [INFO] src.jira_enricher — Enriched 1453 / 1545: YARN-34
+2026-06-25 12:53:39 [INFO] src.jira_enricher — Enriched 1454 / 1545: YARN-29
+2026-06-25 12:53:39 [INFO] src.jira_enricher — Enriched 1455 / 1545: YARN-19
+2026-06-25 12:53:40 [INFO] src.jira_enricher — Enriched 1456 / 1545: YARN-18
+2026-06-25 12:53:40 [INFO] src.jira_enricher — Enriched 1457 / 1545: YARN-3
+2026-06-25 12:53:41 [INFO] src.jira_enricher — Enriched 1458 / 1545: YARN-1
+2026-06-25 12:53:42 [INFO] src.jira_enricher — Enriched 1459 / 1545: YARN-530
+2026-06-25 12:53:42 [INFO] src.jira_enricher — Enriched 1460 / 1545: YARN-221
+2026-06-25 12:53:43 [INFO] src.jira_enricher — Enriched 1461 / 1545: YARN-3657
+2026-06-25 12:53:43 [INFO] src.jira_enricher — Enriched 1462 / 1545: YARN-3658
+2026-06-25 12:53:44 [INFO] src.jira_enricher — Enriched 1463 / 1545: YARN-4858
+2026-06-25 12:53:44 [INFO] src.jira_enricher — Enriched 1464 / 1545: YARN-6667
+2026-06-25 12:53:45 [INFO] src.jira_enricher — Enriched 1465 / 1545: YARN-6476
+2026-06-25 12:53:45 [INFO] src.jira_enricher — Enriched 1466 / 1545: YARN-5764
+2026-06-25 12:53:46 [INFO] src.jira_enricher — Enriched 1467 / 1545: YARN-6483
+2026-06-25 12:53:47 [INFO] src.jira_enricher — Enriched 1468 / 1545: YARN-5864
+2026-06-25 12:53:47 [INFO] src.jira_enricher — Enriched 1469 / 1545: YARN-5871
+2026-06-25 12:53:48 [INFO] src.jira_enricher — Enriched 1470 / 1545: YARN-6740
+2026-06-25 12:53:48 [INFO] src.jira_enricher — Enriched 1471 / 1545: YARN-7402
+2026-06-25 12:53:49 [INFO] src.jira_enricher — Enriched 1472 / 1545: YARN-7403
+2026-06-25 12:53:50 [INFO] src.jira_enricher — Enriched 1473 / 1545: YARN-8234
+2026-06-25 12:53:50 [INFO] src.jira_enricher — Enriched 1474 / 1545: YARN-8118
+2026-06-25 12:53:51 [INFO] src.jira_enricher — Enriched 1475 / 1545: YARN-7834
+2026-06-25 12:53:52 [INFO] src.jira_enricher — Enriched 1476 / 1545: YARN-7898
+2026-06-25 12:53:52 [INFO] src.jira_enricher — Enriched 1477 / 1545: YARN-7899
+2026-06-25 12:53:53 [INFO] src.jira_enricher — Enriched 1478 / 1545: YARN-8972
+2026-06-25 12:53:53 [INFO] src.jira_enricher — Enriched 1479 / 1545: YARN-9075
+2026-06-25 12:53:54 [INFO] src.jira_enricher — Enriched 1480 / 1545: YARN-9342
+2026-06-25 12:53:54 [INFO] src.jira_enricher — Enriched 1481 / 1545: YARN-9869
+2026-06-25 12:53:55 [INFO] src.jira_enricher — Enriched 1482 / 1545: YARN-9608
+2026-06-25 12:53:55 [INFO] src.jira_enricher — Enriched 1483 / 1545: YARN-8873
+2026-06-25 12:53:56 [INFO] src.jira_enricher — Enriched 1484 / 1545: YARN-8900
+2026-06-25 12:53:57 [INFO] src.jira_enricher — Enriched 1485 / 1545: YARN-9834
+2026-06-25 12:53:57 [INFO] src.jira_enricher — Enriched 1486 / 1545: YARN-9708
+2026-06-25 12:53:58 [INFO] src.jira_enricher — Enriched 1487 / 1545: YARN-10174
+2026-06-25 12:53:58 [INFO] src.jira_enricher — Enriched 1488 / 1545: YARN-10775
+2026-06-25 12:53:59 [INFO] src.jira_enricher — Enriched 1489 / 1545: YARN-10306
+2026-06-25 12:53:59 [INFO] src.jira_enricher — Enriched 1490 / 1545: YARN-10538
+2026-06-25 12:54:00 [INFO] src.jira_enricher — Enriched 1491 / 1545: YARN-10547
+2026-06-25 12:54:00 [INFO] src.jira_enricher — Enriched 1492 / 1545: YARN-10559
+2026-06-25 12:54:01 [INFO] src.jira_enricher — Enriched 1493 / 1545: YARN-10638
+2026-06-25 12:54:02 [INFO] src.jira_enricher — Enriched 1494 / 1545: YARN-10444
+2026-06-25 12:54:02 [INFO] src.jira_enricher — Enriched 1495 / 1545: YARN-10680
+2026-06-25 12:54:03 [INFO] src.jira_enricher — Enriched 1496 / 1545: YARN-10886
+2026-06-25 12:54:03 [INFO] src.jira_enricher — Enriched 1497 / 1545: YARN-10888
+2026-06-25 12:54:04 [INFO] src.jira_enricher — Enriched 1498 / 1545: YARN-11057
+2026-06-25 12:54:04 [INFO] src.jira_enricher — Enriched 1499 / 1545: YARN-10965
+2026-06-25 12:54:05 [INFO] src.jira_enricher — Enriched 1500 / 1545: YARN-11034
+2026-06-25 12:54:06 [INFO] src.jira_enricher — Enriched 1501 / 1545: YARN-11015
+2026-06-25 12:54:06 [INFO] src.jira_enricher — Enriched 1502 / 1545: YARN-11066
+2026-06-25 12:54:07 [INFO] src.jira_enricher — Enriched 1503 / 1545: YARN-11104
+2026-06-25 12:54:07 [INFO] src.jira_enricher — Enriched 1504 / 1545: YARN-11090
+2026-06-25 12:54:08 [INFO] src.jira_enricher — Enriched 1505 / 1545: YARN-11095
+2026-06-25 12:54:08 [INFO] src.jira_enricher — Enriched 1506 / 1545: YARN-11096
+2026-06-25 12:54:09 [INFO] src.jira_enricher — Enriched 1507 / 1545: YARN-11092
+2026-06-25 12:54:09 [INFO] src.jira_enricher — Enriched 1508 / 1545: YARN-11084
+2026-06-25 12:54:10 [INFO] src.jira_enricher — Enriched 1509 / 1545: YARN-11087
+2026-06-25 12:54:11 [INFO] src.jira_enricher — Enriched 1510 / 1545: YARN-11110
+2026-06-25 12:54:11 [INFO] src.jira_enricher — Enriched 1511 / 1545: YARN-11199
+2026-06-25 12:54:12 [INFO] src.jira_enricher — Enriched 1512 / 1545: YARN-11276
+2026-06-25 12:54:12 [INFO] src.jira_enricher — Enriched 1513 / 1545: YARN-11188
+2026-06-25 12:54:13 [INFO] src.jira_enricher — Enriched 1514 / 1545: YARN-11252
+2026-06-25 12:54:13 [INFO] src.jira_enricher — Enriched 1515 / 1545: YARN-11122
+2026-06-25 12:54:14 [INFO] src.jira_enricher — Enriched 1516 / 1545: YARN-11126
+2026-06-25 12:54:14 [INFO] src.jira_enricher — Enriched 1517 / 1545: YARN-11134
+2026-06-25 12:54:15 [INFO] src.jira_enricher — Enriched 1518 / 1545: YARN-11140
+2026-06-25 12:54:16 [INFO] src.jira_enricher — Enriched 1519 / 1545: YARN-11152
+2026-06-25 12:54:16 [INFO] src.jira_enricher — Enriched 1520 / 1545: YARN-11327
+2026-06-25 12:54:17 [INFO] src.jira_enricher — Enriched 1521 / 1545: YARN-11331
+2026-06-25 12:54:17 [INFO] src.jira_enricher — Enriched 1522 / 1545: YARN-11332
+2026-06-25 12:54:18 [INFO] src.jira_enricher — Enriched 1523 / 1545: YARN-11411
+2026-06-25 12:54:18 [INFO] src.jira_enricher — Enriched 1524 / 1545: YARN-11412
+2026-06-25 12:54:19 [INFO] src.jira_enricher — Enriched 1525 / 1545: YARN-11333
+2026-06-25 12:54:19 [INFO] src.jira_enricher — Enriched 1526 / 1545: YARN-11335
+2026-06-25 12:54:20 [INFO] src.jira_enricher — Enriched 1527 / 1545: YARN-11340
+2026-06-25 12:54:21 [INFO] src.jira_enricher — Enriched 1528 / 1545: YARN-11300
+2026-06-25 12:54:21 [INFO] src.jira_enricher — Enriched 1529 / 1545: YARN-11423
+2026-06-25 12:54:22 [INFO] src.jira_enricher — Enriched 1530 / 1545: YARN-11425
+2026-06-25 12:54:22 [INFO] src.jira_enricher — Enriched 1531 / 1545: YARN-11309
+2026-06-25 12:54:23 [INFO] src.jira_enricher — Enriched 1532 / 1545: YARN-11315
+2026-06-25 12:54:23 [INFO] src.jira_enricher — Enriched 1533 / 1545: YARN-11345
+2026-06-25 12:54:24 [INFO] src.jira_enricher — Enriched 1534 / 1545: YARN-11391
+2026-06-25 12:54:24 [INFO] src.jira_enricher — Enriched 1535 / 1545: YARN-11303
+2026-06-25 12:54:25 [INFO] src.jira_enricher — Enriched 1536 / 1545: YARN-11351
+2026-06-25 12:54:26 [INFO] src.jira_enricher — Enriched 1537 / 1545: YARN-11352
+2026-06-25 12:54:26 [INFO] src.jira_enricher — Enriched 1538 / 1545: YARN-11354
+2026-06-25 12:54:27 [INFO] src.jira_enricher — Enriched 1539 / 1545: YARN-11355
+2026-06-25 12:54:27 [INFO] src.jira_enricher — Enriched 1540 / 1545: YARN-11356
+2026-06-25 12:54:28 [INFO] src.jira_enricher — Enriched 1541 / 1545: YARN-11358
+2026-06-25 12:54:29 [INFO] src.jira_enricher — Enriched 1542 / 1545: YARN-11401
+2026-06-25 12:54:29 [INFO] src.jira_enricher — Enriched 1543 / 1545: YARN-11361
+2026-06-25 12:54:30 [INFO] src.jira_enricher — Enriched 1544 / 1545: YARN-11448
+2026-06-25 12:54:30 [INFO] src.jira_enricher — Enriched 1545 / 1545: YARN-11440
+2026-06-25 12:54:31 [INFO] src.jira_enricher — Enrichment complete. Errors: 0
+2026-06-25 12:54:31 [INFO] utils.save_csv — Saved [yarn_issues_enriched] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\raw\yarn_issues_enriched.csv  (1545 rows x 36 cols)
+2026-06-25 12:54:31 [INFO] main — Enrichment complete. Working with enriched data.
+2026-06-25 12:54:31 [INFO] main — [Step 8] Extracting parent issue information…
+2026-06-25 12:54:31 [INFO] src.parent_extractor — Parent extraction results:
+2026-06-25 12:54:31 [INFO] src.parent_extractor —   Total issues          : 1545
+2026-06-25 12:54:31 [INFO] src.parent_extractor —   Issues with parent    : 800  (51.8%)
+2026-06-25 12:54:31 [INFO] src.parent_extractor —   Issues without parent : 745  (48.2%)
+2026-06-25 12:54:31 [INFO] utils.save_csv — Saved [yarn_issues_with_parents] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_with_parents.csv  (1545 rows x 36 cols)
+2026-06-25 12:54:31 [INFO] main — [Step 9] Loading bot comment list from Bot Comments.rtf…
+2026-06-25 12:54:31 [INFO] src.bot_handler — Loaded 35 bot account names from Bot Comments.rtf.
+2026-06-25 12:54:31 [INFO] main — [Step 10] Annotating bot comments…
+2026-06-25 12:54:31 [INFO] src.bot_handler — Bot comment annotation: 894 / 1545 issues have at least one bot comment.
+2026-06-25 12:54:31 [INFO] main — [Step 11] Preprocessing issue text (summary + description)…
+2026-06-25 12:54:35 [INFO] src.preprocessing — Preprocessing 1545 issues with spaCy model 'en_core_web_sm'.
+2026-06-25 12:54:46 [INFO] src.preprocessing — Preprocessing complete: 1545 / 1545 issues have non-empty cleaned text.
+2026-06-25 12:54:46 [INFO] utils.save_csv — Saved [yarn_issues_cleaned] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_cleaned.csv  (1545 rows x 36 cols)
+2026-06-25 12:54:46 [INFO] main — [Step 12] Building vocabulary from token lists…
+2026-06-25 12:54:47 [INFO] src.vocabulary_builder — Total tokens (with repetition): 68419 | Unique vocabulary: 4457
+2026-06-25 12:54:47 [INFO] utils.save_csv — Saved [yarn_vocabulary] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_vocabulary.csv  (4457 rows x 2 cols)
+2026-06-25 12:54:47 [INFO] utils.save_csv — Saved [top_20_tokens] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_20_tokens.csv  (20 rows x 2 cols)
+2026-06-25 12:54:47 [INFO] utils.save_csv — Saved [top_50_tokens] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_50_tokens.csv  (50 rows x 2 cols)
+2026-06-25 12:54:47 [INFO] utils.save_csv — Saved [top_100_tokens] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_100_tokens.csv  (100 rows x 2 cols)
+2026-06-25 12:54:47 [INFO] src.vocabulary_builder — Saved plot → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_20_terms.png
+2026-06-25 12:54:47 [INFO] src.vocabulary_builder — Saved plot → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_50_terms.png
+2026-06-25 12:54:47 [INFO] main — Vocabulary size: 4457 unique tokens
+2026-06-25 12:54:47 [INFO] main — [Step 13] Vocabulary statistics and charts saved.
+2026-06-25 12:54:47 [INFO] main — [Step 14] Flagging ontology and project-specific terms…
+2026-06-25 12:54:49 [INFO] src.ontology_helper — Vocabulary flags summary:
+2026-06-25 12:54:49 [INFO] src.ontology_helper —   Stopword candidates  : 45
+2026-06-25 12:54:49 [INFO] src.ontology_helper —   Yarn-specific terms  : 10
+2026-06-25 12:54:49 [INFO] src.ontology_helper —   Ontology-mapped terms: 39
+2026-06-25 12:54:49 [INFO] utils.save_csv — Saved [yarn_vocabulary_flags] -> D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_vocabulary_flags.csv  (4457 rows x 6 cols)
+2026-06-25 12:54:49 [INFO] main — [Step 15] Ontology replacement is DISABLED (ENABLE_ONTOLOGY_REPLACEMENT=False).
+2026-06-25 12:54:49 [INFO] main — [Step 16] Generating Document-Term Matrix…
+2026-06-25 12:54:49 [INFO] src.dtm_generator — Document-Term Matrix statistics:
+2026-06-25 12:54:49 [INFO] src.dtm_generator —   Documents (rows) : 1545
+2026-06-25 12:54:49 [INFO] src.dtm_generator —   Vocabulary (cols): 4457
+2026-06-25 12:54:49 [INFO] src.dtm_generator —   Dimensions       : 1545 × 4457
+2026-06-25 12:54:49 [INFO] src.dtm_generator —   Non-zero entries : 43596
+2026-06-25 12:54:49 [INFO] src.dtm_generator —   Sparsity         : 99.37%
+2026-06-25 12:54:49 [INFO] src.dtm_generator — Saved sparse DTM → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_document_term_matrix_sparse.npz
+2026-06-25 12:54:49 [WARNING] src.dtm_generator — Dense DTM has 6886065 cells (1545 × 4457). Writing may be slow and the file will be large. Consider using the sparse .npz version for downstream processing.
+2026-06-25 12:54:50 [INFO] src.dtm_generator — Saved dense DTM → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_document_term_matrix.csv  (1545 × 4457)
+2026-06-25 12:54:50 [INFO] src.dtm_generator — Saved DTM features → D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_dtm_features.csv  (4457 features)
+2026-06-25 12:54:50 [INFO] main — ======================================================================
+2026-06-25 12:54:50 [INFO] main — Pipeline complete. Output files:
+2026-06-25 12:54:50 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\raw\yarn_issues_raw.csv
+2026-06-25 12:54:50 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\raw\yarn_issues_enriched.csv
+2026-06-25 12:54:50 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_structured.csv
+2026-06-25 12:54:50 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_with_parents.csv
+2026-06-25 12:54:50 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\processed\yarn_issues_cleaned.csv
+2026-06-25 12:54:50 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_vocabulary.csv
+2026-06-25 12:54:50 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_20_tokens.csv
+2026-06-25 12:54:50 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_50_tokens.csv
+2026-06-25 12:54:50 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_100_tokens.csv
+2026-06-25 12:54:50 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_20_terms.png
+2026-06-25 12:54:50 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_top_50_terms.png
+2026-06-25 12:54:50 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_vocabulary_flags.csv
+2026-06-25 12:54:50 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_document_term_matrix.csv
+2026-06-25 12:54:50 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_document_term_matrix_sparse.npz
+2026-06-25 12:54:50 [INFO] main —   [OK] D:\DSSE\Assignment 3\DSSE-Assignment-3\data\output\yarn_dtm_features.csv
+2026-06-25 12:54:50 [INFO] main — ======================================================================
