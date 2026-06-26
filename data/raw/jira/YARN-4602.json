@@ -1,0 +1,384 @@
+{
+  "downloaded_at": "2026-06-25T10:21:23.679678+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-4602",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-4602?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12932181",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12932181",
+    "key": "YARN-4602",
+    "fields": {
+      "summary": "Simple and Scalable Message Service for YARN application",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12932173",
+        "key": "YARN-4600",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12932173",
+        "fields": {
+          "summary": "More general services provided to application/container by YARN",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+            "description": "The issue is open and ready for the assignee to start work on it.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+            "name": "Open",
+            "id": "1",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/2",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/critical.svg",
+            "name": "Critical",
+            "id": "2"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+            "id": "2",
+            "description": "A new feature of the product, which has yet to be developed.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+            "name": "New Feature",
+            "subtask": false,
+            "avatarId": 21141
+          }
+        }
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319414",
+          "id": "12319414",
+          "name": "applications"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319322",
+          "id": "12319322",
+          "name": "resourcemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2016-01-18T16:01:19.766+0000",
+      "description": "We are proposing to support MR AM restart with work preserving in MAPREDUCE-6608 (https://issues.apache.org/jira/browse/MAPREDUCE-6608) that when AM get failed for some reason, the inflight tasks will keep running/pending until new AM attempt comes back to continue. One of prerequisite is tasks should know where the new AM attempt get launched so TaskUmbilicalProtocol can get retry between clients and new server.\nThere could be the same requirement for other applications running on YARN too. Some application decide to handle message delivery itself, e.g. Long running services can leverage Slider agent to notify messages back and forth. However, vanilla applications on YARN is hard to achieve this because Hadoop RPC mechanism essentially is a single way of communication. Although two directions mechanism like heartbeats (between NM-RM or AM-RM) can get built on top of it, it make less sense to build the same mechanism between AM and its application containers - or it need to handle massive of client connections in AM which could be the new bottleneck for scalability and very complicated in state maintaining. Instead, we need a new message mechanism that is simple and scalable.\n",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [
+        {
+          "id": "12459261",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12459261",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "inwardIssue": {
+            "id": "12848899",
+            "key": "MAPREDUCE-6608",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12848899",
+            "fields": {
+              "summary": "Work Preserving AM Restart for MapReduce",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+                "id": "1",
+                "description": "A problem which impairs or prevents the functions of the product.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+                "name": "Bug",
+                "subtask": false,
+                "avatarId": 21133
+              }
+            }
+          }
+        },
+        {
+          "id": "12459672",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12459672",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "inwardIssue": {
+            "id": "12946685",
+            "key": "YARN-4758",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12946685",
+            "fields": {
+              "summary": "Enable discovery of AMs by containers",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+                "id": "2",
+                "description": "A new feature of the product, which has yet to be developed.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+                "name": "New Feature",
+                "subtask": false,
+                "avatarId": 21141
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12932181/comment/15179660",
+            "id": "15179660",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Some requirements could be: \n1. Message sharing for containers within yarn application, especially AM can notify some simple messages to each container.\n2. Simple message format - string with fixed size.\n3. Scale up to 10 - 100 thousands of message receivers.\n4. Latency insensitive, message could be received between 10 sec - 1 mins\n5. Message won\u2019t get lost (can be recovered) during NM, RM, AM restart.\n6. Message limited to application internal only, not include messages between applications.\n7. Only one message sender (single topic) for the first step",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2016-03-04T10:03:32.643+0000",
+            "updated": "2016-03-04T10:03:32.643+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12932181/comment/15405770",
+            "id": "15405770",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+              "name": "asuresh",
+              "key": "asuresh",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Suresh",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~junping_du], wondering if you've taken a look at apache REEF. It uses an event driven framework called https://reef.apache.org/wake.html that also supports messaging. It uses Netty under the hood.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=johna",
+              "name": "johna",
+              "key": "banjo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=banjo&avatarId=38464",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=banjo&avatarId=38464",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=banjo&avatarId=38464",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=banjo&avatarId=38464"
+              },
+              "displayName": "John Andrunas",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-08-03T11:40:05.799+0000",
+            "updated": "2019-10-25T20:25:06.302+0000"
+          }
+        ],
+        "maxResults": 2,
+        "total": 2,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-4602/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2019-10-25T20:25:06.327+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 2,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12932181/comment/15179660",
+        "id": "15179660",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Some requirements could be: \n1. Message sharing for containers within yarn application, especially AM can notify some simple messages to each container.\n2. Simple message format - string with fixed size.\n3. Scale up to 10 - 100 thousands of message receivers.\n4. Latency insensitive, message could be received between 10 sec - 1 mins\n5. Message won\u2019t get lost (can be recovered) during NM, RM, AM restart.\n6. Message limited to application internal only, not include messages between applications.\n7. Only one message sender (single topic) for the first step",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2016-03-04T10:03:32.643+0000",
+        "updated": "2016-03-04T10:03:32.643+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12932181/comment/15405770",
+        "id": "15405770",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+          "name": "asuresh",
+          "key": "asuresh",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Suresh",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~junping_du], wondering if you've taken a look at apache REEF. It uses an event driven framework called https://reef.apache.org/wake.html that also supports messaging. It uses Netty under the hood.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=johna",
+          "name": "johna",
+          "key": "banjo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=banjo&avatarId=38464",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=banjo&avatarId=38464",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=banjo&avatarId=38464",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=banjo&avatarId=38464"
+          },
+          "displayName": "John Andrunas",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-08-03T11:40:05.799+0000",
+        "updated": "2019-10-25T20:25:06.302+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-4602/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 2,
+        "returned": 2
+      }
+    ]
+  }
+}

@@ -1,0 +1,1224 @@
+{
+  "downloaded_at": "2026-06-25T10:24:41.762922+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-19",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-19?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12559128",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128",
+    "key": "YARN-19",
+    "fields": {
+      "summary": "4-layer topology (with NodeGroup layer) implementation of Container Assignment and Task Scheduling (for YARN)",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+        "id": "2",
+        "description": "A new feature of the product, which has yet to be developed.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+        "name": "New Feature",
+        "subtask": false,
+        "avatarId": 21141
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2012-06-04T06:21:35.185+0000",
+      "description": "There are several classes in YARN\u2019s container assignment and task scheduling algorithms that related to data locality which were updated to give preference to running a container on the same nodegroup. This section summarized the changes in the patch that provides a new implementation to support a four-layer hierarchy.\nWhen the ApplicationMaster makes a resource allocation request to the scheduler of ResourceManager, it will add the node group to the list of attributes in the ResourceRequest. The parameters of the resource request will change from <priority, (host, rack, *), memory, #containers> to <priority, (host, nodegroup, rack, *), memory, #containers>.\nAfter receiving the ResoureRequest the RM scheduler will assign containers for requests in the sequence of data-local, nodegroup-local, rack-local and off-switch.Then, ApplicationMaster schedules tasks on allocated containers in sequence of data- local, nodegroup-local, rack-local and off-switch.\nIn terms of code changes made to YARN task scheduling, we updated the class ContainerRequestEvent so that applications can requests for containers can include anodegroup. In RM schedulers, FifoScheduler and CapacityScheduler were updated. For the FifoScheduler, the changes were in the method assignContainers. For the Capacity Scheduler the method assignContainersOnNode in the class of LeafQueue was updated. In both changes a new method, assignNodeGroupLocalContainers() was added in between the assignment data-local and rack-local.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12530748",
+          "id": "12530748",
+          "filename": "HADOOP-8475-ContainerAssignmentTaskScheduling-withNodeGroup.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+            "name": "junping_du",
+            "key": "djp",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+            },
+            "displayName": "Junping Du",
+            "active": true,
+            "timeZone": "Asia/Shanghai"
+          },
+          "created": "2012-06-04T09:54:12.095+0000",
+          "size": 74500,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12530748/HADOOP-8475-ContainerAssignmentTaskScheduling-withNodeGroup.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12536848",
+          "id": "12536848",
+          "filename": "MAPREDUCE-4310.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+            "name": "junping_du",
+            "key": "djp",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+            },
+            "displayName": "Junping Du",
+            "active": true,
+            "timeZone": "Asia/Shanghai"
+          },
+          "created": "2012-07-17T16:53:32.291+0000",
+          "size": 60306,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12536848/MAPREDUCE-4310.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12537860",
+          "id": "12537860",
+          "filename": "MAPREDUCE-4310-v1.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+            "name": "junping_du",
+            "key": "djp",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+            },
+            "displayName": "Junping Du",
+            "active": true,
+            "timeZone": "Asia/Shanghai"
+          },
+          "created": "2012-07-25T17:20:25.034+0000",
+          "size": 68218,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12537860/MAPREDUCE-4310-v1.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12554122",
+          "id": "12554122",
+          "filename": "YARN-19.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+            "name": "junping_du",
+            "key": "djp",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+            },
+            "displayName": "Junping Du",
+            "active": true,
+            "timeZone": "Asia/Shanghai"
+          },
+          "created": "2012-11-19T06:09:10.580+0000",
+          "size": 38250,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12554122/YARN-19.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12554321",
+          "id": "12554321",
+          "filename": "YARN-19-v2.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+            "name": "junping_du",
+            "key": "djp",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+            },
+            "displayName": "Junping Du",
+            "active": true,
+            "timeZone": "Asia/Shanghai"
+          },
+          "created": "2012-11-20T10:06:22.864+0000",
+          "size": 68034,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12554321/YARN-19-v2.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12571923",
+          "id": "12571923",
+          "filename": "YARN-19-v3-alpha.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+            "name": "junping_du",
+            "key": "djp",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+            },
+            "displayName": "Junping Du",
+            "active": true,
+            "timeZone": "Asia/Shanghai"
+          },
+          "created": "2013-03-04T18:47:56.714+0000",
+          "size": 76447,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12571923/YARN-19-v3-alpha.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12658838",
+          "id": "12658838",
+          "filename": "YARN-19-v4.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=gujilangzi",
+            "name": "gujilangzi",
+            "key": "gujilangzi",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Wenwu Peng",
+            "active": true,
+            "timeZone": "Asia/Hong_Kong"
+          },
+          "created": "2014-07-31T05:02:50.295+0000",
+          "size": 80345,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12658838/YARN-19-v4.patch"
+        }
+      ],
+      "issuelinks": [
+        {
+          "id": "12386594",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12386594",
+          "type": {
+            "id": "10032",
+            "name": "Blocker",
+            "inward": "is blocked by",
+            "outward": "blocks",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10032"
+          },
+          "outwardIssue": {
+            "id": "12708911",
+            "key": "HADOOP-10512",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12708911",
+            "fields": {
+              "summary": "Document usage of node-group layer topology",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12353256",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12353256",
+          "type": {
+            "id": "12310010",
+            "name": "Incorporates",
+            "inward": "is part of",
+            "outward": "incorporates",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310010"
+          },
+          "inwardIssue": {
+            "id": "12559114",
+            "key": "HADOOP-8468",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12559114",
+            "fields": {
+              "summary": "Umbrella of enhancements to support different failure and locality topologies",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+                "id": "2",
+                "description": "A new feature of the product, which has yet to be developed.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+                "name": "New Feature",
+                "subtask": false,
+                "avatarId": 21141
+              }
+            }
+          }
+        },
+        {
+          "id": "12354823",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12354823",
+          "type": {
+            "id": "10001",
+            "name": "dependent",
+            "inward": "is depended upon by",
+            "outward": "depends upon",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10001"
+          },
+          "outwardIssue": {
+            "id": "12559127",
+            "key": "YARN-18",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12559127",
+            "fields": {
+              "summary": "Configurable Hierarchical Topology for YARN",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+                "id": "2",
+                "description": "A new feature of the product, which has yet to be developed.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+                "name": "New Feature",
+                "subtask": false,
+                "avatarId": 21141
+              }
+            }
+          }
+        },
+        {
+          "id": "12354822",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12354822",
+          "type": {
+            "id": "10001",
+            "name": "dependent",
+            "inward": "is depended upon by",
+            "outward": "depends upon",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10001"
+          },
+          "outwardIssue": {
+            "id": "12559124",
+            "key": "HDFS-3601",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12559124",
+            "fields": {
+              "summary": "Implementation of ReplicaPlacementPolicyNodeGroup to support 4-layer network topology",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                "name": "Closed",
+                "id": "6",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+                "id": "2",
+                "description": "A new feature of the product, which has yet to be developed.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+                "name": "New Feature",
+                "subtask": false,
+                "avatarId": 21141
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/13406814",
+            "id": "13406814",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=szetszwo",
+              "name": "szetszwo",
+              "key": "szetszwo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=szetszwo&avatarId=36841",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=szetszwo&avatarId=36841",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=szetszwo&avatarId=36841",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=szetszwo&avatarId=36841"
+              },
+              "displayName": "Tsz-wo Sze",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "I think we should add a subclass of RackResolver to support NodeGroup.  It is similar to what we did for NetworkTopology.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=szetszwo",
+              "name": "szetszwo",
+              "key": "szetszwo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=szetszwo&avatarId=36841",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=szetszwo&avatarId=36841",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=szetszwo&avatarId=36841",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=szetszwo&avatarId=36841"
+              },
+              "displayName": "Tsz-wo Sze",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2012-07-05T01:37:13.008+0000",
+            "updated": "2012-07-05T01:37:13.008+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/13406830",
+            "id": "13406830",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Hi Nicholas,\n   There are two ways to get nodegroup info in plugin:\n1. Adding subclass of RackResolver, then add new interfaces something like resolveNodeGroup() to resolve nodegroup info in plugin.\n2. Keep RackResolver as current, but change comments to resolve() method so that it resolve a networkLocality instead of rack. Then in plugin, it handle getNodeGroup from networkLocality string itself by using NetworkTopology.GetLastHalf(...).  \n  Which way do you suggest here?\n  BTW, this patch depends on \"pluggable\" patch MAPREDUCE-4309.\n\nThanks,\n\nJunping",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2012-07-05T03:25:22.332+0000",
+            "updated": "2012-07-05T03:25:22.332+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/13416357",
+            "id": "13416357",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Update patch as recently YARN scheduler change. \"Patch Available\" still pending on MAPREDUCE-4309 to checked in first.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2012-07-17T16:53:32.323+0000",
+            "updated": "2012-07-17T16:53:32.323+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/13422429",
+            "id": "13422429",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Update the newest patch to fit with v7 patch in MAPREDUCE-4309. It is still blocked by (depends on) MAPREDUCE-4309's checked in, but would help reviewer to review MAPREDUCE-4309. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2012-07-25T17:23:24.670+0000",
+            "updated": "2012-07-25T17:23:24.670+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/13500041",
+            "id": "13500041",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Update patch to recently code base. Note: this patch should be checked in after YARN-18.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2012-11-19T06:09:10.583+0000",
+            "updated": "2012-11-19T06:09:10.583+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/13500956",
+            "id": "13500956",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Add several missing files.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2012-11-20T10:06:22.866+0000",
+            "updated": "2012-11-20T10:06:22.866+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/13500957",
+            "id": "13500957",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "The YARN-19-v2 patch is compatible with YARN-18-v2 (on Jira YARN-18)",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2012-11-20T10:08:22.553+0000",
+            "updated": "2012-11-20T10:08:22.553+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/13592485",
+            "id": "13592485",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Sync up with latest changes on trunk, should work with YARN-18-v3 patch.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2013-03-04T18:47:56.741+0000",
+            "updated": "2013-03-04T18:47:56.741+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/14080499",
+            "id": "14080499",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=gujilangzi",
+              "name": "gujilangzi",
+              "key": "gujilangzi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Wenwu Peng",
+              "active": true,
+              "timeZone": "Asia/Hong_Kong"
+            },
+            "body": "Sync up with latest changes on trunk base on Junping's latest patch, should work with YARN-18.v8.1.patch(on Jira YARN-18)",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=gujilangzi",
+              "name": "gujilangzi",
+              "key": "gujilangzi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Wenwu Peng",
+              "active": true,
+              "timeZone": "Asia/Hong_Kong"
+            },
+            "created": "2014-07-31T05:02:50.301+0000",
+            "updated": "2014-07-31T05:02:50.301+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/14571632",
+            "id": "14571632",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ashahab",
+              "name": "ashahab",
+              "key": "ashahab",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ashahab&avatarId=18562",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ashahab&avatarId=18562",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ashahab&avatarId=18562",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ashahab&avatarId=18562"
+              },
+              "displayName": "Abin Shahab",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Hi [~jdu] Can this be merged in 2.8? We at Altiscale are encountering issues with split NM and DN. If YARN does not know how to schedule a container based on topology, locality suffers. [~raviprakash] and [~aw], what do you guys think?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ashahab",
+              "name": "ashahab",
+              "key": "ashahab",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ashahab&avatarId=18562",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ashahab&avatarId=18562",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ashahab&avatarId=18562",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ashahab&avatarId=18562"
+              },
+              "displayName": "Abin Shahab",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-06-03T20:58:43.584+0000",
+            "updated": "2015-06-03T20:58:43.584+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/14572210",
+            "id": "14572210",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Hi [~ashahab], thanks for your feedback on this! \nI remember long time ago, the community decide to go hierarchical way instead of plugable way so the patch here may not suitable to go forward (please check YARN-18 design doc for details). I haven't get bandwidth to follow up the new design for a new implementation given other priorities. However, if you are interested, please feel free to take over YARN-18 and 19 and move it forward (better to conform with new design), and I will try to help on review.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2015-06-04T05:56:24.677+0000",
+            "updated": "2015-06-04T05:56:24.677+0000"
+          }
+        ],
+        "maxResults": 11,
+        "total": 11,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-19/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2015-06-04T05:56:24.677+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 11,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/13406814",
+        "id": "13406814",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=szetszwo",
+          "name": "szetszwo",
+          "key": "szetszwo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=szetszwo&avatarId=36841",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=szetszwo&avatarId=36841",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=szetszwo&avatarId=36841",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=szetszwo&avatarId=36841"
+          },
+          "displayName": "Tsz-wo Sze",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "I think we should add a subclass of RackResolver to support NodeGroup.  It is similar to what we did for NetworkTopology.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=szetszwo",
+          "name": "szetszwo",
+          "key": "szetszwo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=szetszwo&avatarId=36841",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=szetszwo&avatarId=36841",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=szetszwo&avatarId=36841",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=szetszwo&avatarId=36841"
+          },
+          "displayName": "Tsz-wo Sze",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2012-07-05T01:37:13.008+0000",
+        "updated": "2012-07-05T01:37:13.008+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/13406830",
+        "id": "13406830",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Hi Nicholas,\n   There are two ways to get nodegroup info in plugin:\n1. Adding subclass of RackResolver, then add new interfaces something like resolveNodeGroup() to resolve nodegroup info in plugin.\n2. Keep RackResolver as current, but change comments to resolve() method so that it resolve a networkLocality instead of rack. Then in plugin, it handle getNodeGroup from networkLocality string itself by using NetworkTopology.GetLastHalf(...).  \n  Which way do you suggest here?\n  BTW, this patch depends on \"pluggable\" patch MAPREDUCE-4309.\n\nThanks,\n\nJunping",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2012-07-05T03:25:22.332+0000",
+        "updated": "2012-07-05T03:25:22.332+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/13416357",
+        "id": "13416357",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Update patch as recently YARN scheduler change. \"Patch Available\" still pending on MAPREDUCE-4309 to checked in first.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2012-07-17T16:53:32.323+0000",
+        "updated": "2012-07-17T16:53:32.323+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/13422429",
+        "id": "13422429",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Update the newest patch to fit with v7 patch in MAPREDUCE-4309. It is still blocked by (depends on) MAPREDUCE-4309's checked in, but would help reviewer to review MAPREDUCE-4309. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2012-07-25T17:23:24.670+0000",
+        "updated": "2012-07-25T17:23:24.670+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/13500041",
+        "id": "13500041",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Update patch to recently code base. Note: this patch should be checked in after YARN-18.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2012-11-19T06:09:10.583+0000",
+        "updated": "2012-11-19T06:09:10.583+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/13500956",
+        "id": "13500956",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Add several missing files.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2012-11-20T10:06:22.866+0000",
+        "updated": "2012-11-20T10:06:22.866+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/13500957",
+        "id": "13500957",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "The YARN-19-v2 patch is compatible with YARN-18-v2 (on Jira YARN-18)",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2012-11-20T10:08:22.553+0000",
+        "updated": "2012-11-20T10:08:22.553+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/13592485",
+        "id": "13592485",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Sync up with latest changes on trunk, should work with YARN-18-v3 patch.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2013-03-04T18:47:56.741+0000",
+        "updated": "2013-03-04T18:47:56.741+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/14080499",
+        "id": "14080499",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=gujilangzi",
+          "name": "gujilangzi",
+          "key": "gujilangzi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Wenwu Peng",
+          "active": true,
+          "timeZone": "Asia/Hong_Kong"
+        },
+        "body": "Sync up with latest changes on trunk base on Junping's latest patch, should work with YARN-18.v8.1.patch(on Jira YARN-18)",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=gujilangzi",
+          "name": "gujilangzi",
+          "key": "gujilangzi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Wenwu Peng",
+          "active": true,
+          "timeZone": "Asia/Hong_Kong"
+        },
+        "created": "2014-07-31T05:02:50.301+0000",
+        "updated": "2014-07-31T05:02:50.301+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/14571632",
+        "id": "14571632",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ashahab",
+          "name": "ashahab",
+          "key": "ashahab",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ashahab&avatarId=18562",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ashahab&avatarId=18562",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ashahab&avatarId=18562",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ashahab&avatarId=18562"
+          },
+          "displayName": "Abin Shahab",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Hi [~jdu] Can this be merged in 2.8? We at Altiscale are encountering issues with split NM and DN. If YARN does not know how to schedule a container based on topology, locality suffers. [~raviprakash] and [~aw], what do you guys think?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ashahab",
+          "name": "ashahab",
+          "key": "ashahab",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ashahab&avatarId=18562",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ashahab&avatarId=18562",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ashahab&avatarId=18562",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ashahab&avatarId=18562"
+          },
+          "displayName": "Abin Shahab",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-06-03T20:58:43.584+0000",
+        "updated": "2015-06-03T20:58:43.584+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12559128/comment/14572210",
+        "id": "14572210",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Hi [~ashahab], thanks for your feedback on this! \nI remember long time ago, the community decide to go hierarchical way instead of plugable way so the patch here may not suitable to go forward (please check YARN-18 design doc for details). I haven't get bandwidth to follow up the new design for a new implementation given other priorities. However, if you are interested, please feel free to take over YARN-18 and 19 and move it forward (better to conform with new design), and I will try to help on review.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2015-06-04T05:56:24.677+0000",
+        "updated": "2015-06-04T05:56:24.677+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-19/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 11,
+        "returned": 11
+      }
+    ]
+  }
+}

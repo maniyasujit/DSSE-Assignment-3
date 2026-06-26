@@ -1,0 +1,747 @@
+{
+  "downloaded_at": "2026-06-25T10:20:38.465881+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-5727",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5727?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13011845",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13011845",
+    "key": "YARN-5727",
+    "fields": {
+      "summary": "Improve YARN shared cache support for LinuxContainerExecutor",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "13106534",
+        "key": "YARN-7282",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13106534",
+        "fields": {
+          "summary": "Shared Cache Phase 2",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+            "description": "The issue is open and ready for the assignee to start work on it.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+            "name": "Open",
+            "id": "1",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+            "id": "4",
+            "description": "An improvement or enhancement to an existing feature or task.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+            "name": "Improvement",
+            "subtask": false,
+            "avatarId": 21140
+          }
+        }
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2016-10-12T23:43:55.741+0000",
+      "description": "When running LinuxContainerExecutor in a secure mode ({{yarn.nodemanager.linux-container-executor.nonsecure-mode.limit-users}} set to {{false}}), all localized files are owned by the user that owns the container which localized the resource. This presents a problem for the shared cache when a YARN application requests a resource to be uploaded to the shared cache that has a non-public visibility. The shared cache uploader (running as the node manager user) does not have access to the localized files and can not compute the checksum of the file or upload it to the cache. The solution should ideally satisfy the following three requirements:\n# Localized files should still be safe/secure. Other users that run containers should not be able to modify, or delete the publicly localized files of others.\n# The node manager user should be able to access these files for the purpose of checksumming and uploading to the shared cache without being a privileged user.\n# The solution should avoid making unnecessary copies of the localized files.\n",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [
+        "pull-request-available"
+      ],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12971637",
+          "id": "12971637",
+          "filename": "YARN-5727.001.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=wzzdreamer",
+            "name": "wzzdreamer",
+            "key": "wzzdreamer",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "zhenzhao wang",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2019-06-13T00:35:48.194+0000",
+          "size": 187644,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12971637/YARN-5727.001.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12833003",
+          "id": "12833003",
+          "filename": "YARN-5727-Design-v1.pdf",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+            "name": "ctrezzo",
+            "key": "ctrezzo",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Chris Trezzo",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2016-10-12T23:48:52.990+0000",
+          "size": 73582,
+          "mimeType": "application/pdf",
+          "content": "https://issues.apache.org/jira/secure/attachment/12833003/YARN-5727-Design-v1.pdf"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12971638",
+          "id": "12971638",
+          "filename": "YARN-5727-Design-v2.pdf",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=wzzdreamer",
+            "name": "wzzdreamer",
+            "key": "wzzdreamer",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "zhenzhao wang",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2019-06-13T00:44:09.997+0000",
+          "size": 160867,
+          "mimeType": "application/pdf",
+          "content": "https://issues.apache.org/jira/secure/attachment/12971638/YARN-5727-Design-v2.pdf"
+        }
+      ],
+      "issuelinks": [
+        {
+          "id": "12502146",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12502146",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "inwardIssue": {
+            "id": "12724549",
+            "key": "MAPREDUCE-5951",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12724549",
+            "fields": {
+              "summary": "Add support for the YARN Shared Cache",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+                "id": "2",
+                "description": "A new feature of the product, which has yet to be developed.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+                "name": "New Feature",
+                "subtask": false,
+                "avatarId": 21141
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13011845/comment/15570265",
+            "id": "15570265",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+              "name": "ctrezzo",
+              "key": "ctrezzo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chris Trezzo",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "V1 of a design doc posted. Please let me know your thoughts. Thanks!",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+              "name": "ctrezzo",
+              "key": "ctrezzo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chris Trezzo",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-10-12T23:48:53.010+0000",
+            "updated": "2016-10-12T23:48:53.010+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13011845/comment/15589983",
+            "id": "15589983",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+              "name": "ctrezzo",
+              "key": "ctrezzo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chris Trezzo",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Re-thinking some of the design specifically around the public visibility of the appId directories in the scstaging directory. I will post an updated design doc.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+              "name": "ctrezzo",
+              "key": "ctrezzo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chris Trezzo",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-10-19T21:52:52.574+0000",
+            "updated": "2016-10-19T21:52:52.574+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13011845/comment/16578701",
+            "id": "16578701",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+              "name": "ctrezzo",
+              "key": "ctrezzo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chris Trezzo",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "As stated above, I no longer think that the v1 design attached is the right idea. It takes the approach of assuming that the permissions issue is a problem at the YARN layer. In fact, I think this is more a problem with the way map reduce supports the shared cache. Currently the shared cache only supports public resources (i.e. all resources uploaded to the shared cache will be world readable). The problem is that MapReduce is localizing all of the job resources into the user cache instead of a public one. YARN is then put in a place where it is essentially changing permissions for some resources. Ideally, MapReduce would initially localize resources intended for the shared cache into the public cache to begin with. This would allow the shared cache uploader to checksum and upload the resources even in the case of linux container executor.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+              "name": "ctrezzo",
+              "key": "ctrezzo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chris Trezzo",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-08-13T17:48:59.180+0000",
+            "updated": "2018-08-13T17:48:59.180+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13011845/comment/16578769",
+            "id": "16578769",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+              "name": "ctrezzo",
+              "key": "ctrezzo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chris Trezzo",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Assigning to [~wzzdreamer]. He will start working on a new draft for the design doc.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+              "name": "ctrezzo",
+              "key": "ctrezzo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chris Trezzo",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-08-13T18:37:29.414+0000",
+            "updated": "2018-08-13T18:37:29.414+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13011845/comment/16862605",
+            "id": "16862605",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (x) *{color:red}-1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m  0s{color} | {color:blue} Docker mode activated. {color} |\r\n| {color:red}-1{color} | {color:red} patch {color} | {color:red}  0m  6s{color} | {color:red} YARN-5727 does not apply to trunk. Rebase required? Wrong Branch? See https://wiki.apache.org/hadoop/HowToContribute for help. {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| JIRA Issue | YARN-5727 |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/24263/console |\r\n| Powered by | Apache Yetus 0.8.0   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-06-13T00:57:28.507+0000",
+            "updated": "2019-06-13T00:57:28.507+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13011845/comment/18046954",
+            "id": "18046954",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "github-actions[bot] commented on PR #953:\nURL: https://github.com/apache/hadoop/pull/953#issuecomment-3679800852\n\n   We're closing this stale PR because it has been open for 100 days with no activity. This isn't a judgement on the merit of the PR in any way. It's just a way of keeping the PR queue manageable.\n   If you feel like this was a mistake, or you would like to continue working on it, please feel free to re-open it and ask for a committer to remove the stale tag and review again.\n   Thanks all for your contribution.\n\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2025-12-22T00:30:00.251+0000",
+            "updated": "2025-12-22T00:30:00.251+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13011845/comment/18047153",
+            "id": "18047153",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "github-actions[bot] closed pull request #953: YARN-5727. Support visibility semantic in MapReduce.\nURL: https://github.com/apache/hadoop/pull/953\n\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2025-12-23T00:24:39.070+0000",
+            "updated": "2025-12-23T00:24:39.070+0000"
+          }
+        ],
+        "maxResults": 7,
+        "total": 7,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5727/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2025-12-23T00:24:39.270+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 7,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13011845/comment/15570265",
+        "id": "15570265",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+          "name": "ctrezzo",
+          "key": "ctrezzo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chris Trezzo",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "V1 of a design doc posted. Please let me know your thoughts. Thanks!",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+          "name": "ctrezzo",
+          "key": "ctrezzo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chris Trezzo",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-10-12T23:48:53.010+0000",
+        "updated": "2016-10-12T23:48:53.010+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13011845/comment/15589983",
+        "id": "15589983",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+          "name": "ctrezzo",
+          "key": "ctrezzo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chris Trezzo",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Re-thinking some of the design specifically around the public visibility of the appId directories in the scstaging directory. I will post an updated design doc.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+          "name": "ctrezzo",
+          "key": "ctrezzo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chris Trezzo",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-10-19T21:52:52.574+0000",
+        "updated": "2016-10-19T21:52:52.574+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13011845/comment/16578701",
+        "id": "16578701",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+          "name": "ctrezzo",
+          "key": "ctrezzo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chris Trezzo",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "As stated above, I no longer think that the v1 design attached is the right idea. It takes the approach of assuming that the permissions issue is a problem at the YARN layer. In fact, I think this is more a problem with the way map reduce supports the shared cache. Currently the shared cache only supports public resources (i.e. all resources uploaded to the shared cache will be world readable). The problem is that MapReduce is localizing all of the job resources into the user cache instead of a public one. YARN is then put in a place where it is essentially changing permissions for some resources. Ideally, MapReduce would initially localize resources intended for the shared cache into the public cache to begin with. This would allow the shared cache uploader to checksum and upload the resources even in the case of linux container executor.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+          "name": "ctrezzo",
+          "key": "ctrezzo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chris Trezzo",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-08-13T17:48:59.180+0000",
+        "updated": "2018-08-13T17:48:59.180+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13011845/comment/16578769",
+        "id": "16578769",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+          "name": "ctrezzo",
+          "key": "ctrezzo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chris Trezzo",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Assigning to [~wzzdreamer]. He will start working on a new draft for the design doc.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+          "name": "ctrezzo",
+          "key": "ctrezzo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chris Trezzo",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-08-13T18:37:29.414+0000",
+        "updated": "2018-08-13T18:37:29.414+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13011845/comment/16862605",
+        "id": "16862605",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (x) *{color:red}-1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m  0s{color} | {color:blue} Docker mode activated. {color} |\r\n| {color:red}-1{color} | {color:red} patch {color} | {color:red}  0m  6s{color} | {color:red} YARN-5727 does not apply to trunk. Rebase required? Wrong Branch? See https://wiki.apache.org/hadoop/HowToContribute for help. {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| JIRA Issue | YARN-5727 |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/24263/console |\r\n| Powered by | Apache Yetus 0.8.0   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-06-13T00:57:28.507+0000",
+        "updated": "2019-06-13T00:57:28.507+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13011845/comment/18046954",
+        "id": "18046954",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "github-actions[bot] commented on PR #953:\nURL: https://github.com/apache/hadoop/pull/953#issuecomment-3679800852\n\n   We're closing this stale PR because it has been open for 100 days with no activity. This isn't a judgement on the merit of the PR in any way. It's just a way of keeping the PR queue manageable.\n   If you feel like this was a mistake, or you would like to continue working on it, please feel free to re-open it and ask for a committer to remove the stale tag and review again.\n   Thanks all for your contribution.\n\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2025-12-22T00:30:00.251+0000",
+        "updated": "2025-12-22T00:30:00.251+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13011845/comment/18047153",
+        "id": "18047153",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "github-actions[bot] closed pull request #953: YARN-5727. Support visibility semantic in MapReduce.\nURL: https://github.com/apache/hadoop/pull/953\n\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2025-12-23T00:24:39.070+0000",
+        "updated": "2025-12-23T00:24:39.070+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5727/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 7,
+        "returned": 7
+      }
+    ]
+  }
+}

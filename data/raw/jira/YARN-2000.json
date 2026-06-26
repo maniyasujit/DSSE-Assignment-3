@@ -1,0 +1,497 @@
+{
+  "downloaded_at": "2026-06-25T10:23:15.845713+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-2000",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2000?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12711376",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12711376",
+    "key": "YARN-2000",
+    "fields": {
+      "summary": "Fix ordering of starting services inside the RM",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12641452",
+        "key": "YARN-556",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12641452",
+        "fields": {
+          "summary": "[Umbrella] RM Restart phase 2 - Work preserving restart",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+            "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+            "name": "Resolved",
+            "id": "5",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+            "id": "2",
+            "description": "A new feature of the product, which has yet to be developed.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+            "name": "New Feature",
+            "subtask": false,
+            "avatarId": 21141
+          }
+        }
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319322",
+          "id": "12319322",
+          "name": "resourcemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2014-04-30T04:02:56.057+0000",
+      "description": "The order of starting services in RM would be:\n- Recovery of the app/attempts\n- Start the scheduler and add scheduler app/attempts\n- Start ResourceTrackerService and re-populate the containers in scheduler based on the containers info from NMs \n- ApplicationMasterService either don\u2019t start or start but block until all the previous NMs registers.\n\nOther than these, there are other services like ClientRMService, Webapps which we need to  think about the order too.\n\n",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/6",
+        "id": "6",
+        "description": "The problem isn't valid and it can't be fixed.",
+        "name": "Invalid"
+      },
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12711376/comment/13987760",
+            "id": "13987760",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+              "name": "ozawa",
+              "key": "ozawa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+              },
+              "displayName": "Tsuyoshi Ozawa",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Hi [~jianhe], do you mind finishing YARN-1474? These JIRAs can be conflicted.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+              "name": "ozawa",
+              "key": "ozawa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+              },
+              "displayName": "Tsuyoshi Ozawa",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-05-02T15:04:30.303+0000",
+            "updated": "2014-05-02T15:04:30.303+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12711376/comment/13987764",
+            "id": "13987764",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+              "name": "ozawa",
+              "key": "ozawa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+              },
+              "displayName": "Tsuyoshi Ozawa",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "typoed: s/do you mind finishing/do you mind if you wait for finishing/",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+              "name": "ozawa",
+              "key": "ozawa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+              },
+              "displayName": "Tsuyoshi Ozawa",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-05-02T15:05:15.789+0000",
+            "updated": "2014-05-02T15:05:15.789+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12711376/comment/14031043",
+            "id": "14031043",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+              "name": "jianhe",
+              "key": "jianhe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jian He",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Probably we can have state-store stop last so that all the other services are stopped first and won't accept more requests and send events to state-store.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+              "name": "jianhe",
+              "key": "jianhe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jian He",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-06-13T19:24:37.851+0000",
+            "updated": "2014-06-13T19:24:37.851+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12711376/comment/14031080",
+            "id": "14031080",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+              "name": "ozawa",
+              "key": "ozawa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+              },
+              "displayName": "Tsuyoshi Ozawa",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "It sounds reasonable to me.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+              "name": "ozawa",
+              "key": "ozawa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+              },
+              "displayName": "Tsuyoshi Ozawa",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-06-13T19:57:22.213+0000",
+            "updated": "2014-06-13T19:57:22.213+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12711376/comment/14538822",
+            "id": "14538822",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+              "name": "jianhe",
+              "key": "jianhe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jian He",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "bq. Probably we can have state-store stop last so that all the other services are stopped first and won't accept more requests and send events to state-store.\nEven if state-store stops first, the API calls such as submitApplication won't return true until the state-store operation completes. \nNothing to be done, close.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+              "name": "jianhe",
+              "key": "jianhe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jian He",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-11T22:54:50.225+0000",
+            "updated": "2015-05-11T22:54:50.225+0000"
+          }
+        ],
+        "maxResults": 5,
+        "total": 5,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2000/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2015-05-11T22:54:59.860+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 5,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12711376/comment/13987760",
+        "id": "13987760",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+          "name": "ozawa",
+          "key": "ozawa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+          },
+          "displayName": "Tsuyoshi Ozawa",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Hi [~jianhe], do you mind finishing YARN-1474? These JIRAs can be conflicted.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+          "name": "ozawa",
+          "key": "ozawa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+          },
+          "displayName": "Tsuyoshi Ozawa",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-05-02T15:04:30.303+0000",
+        "updated": "2014-05-02T15:04:30.303+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12711376/comment/13987764",
+        "id": "13987764",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+          "name": "ozawa",
+          "key": "ozawa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+          },
+          "displayName": "Tsuyoshi Ozawa",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "typoed: s/do you mind finishing/do you mind if you wait for finishing/",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+          "name": "ozawa",
+          "key": "ozawa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+          },
+          "displayName": "Tsuyoshi Ozawa",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-05-02T15:05:15.789+0000",
+        "updated": "2014-05-02T15:05:15.789+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12711376/comment/14031043",
+        "id": "14031043",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+          "name": "jianhe",
+          "key": "jianhe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jian He",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Probably we can have state-store stop last so that all the other services are stopped first and won't accept more requests and send events to state-store.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+          "name": "jianhe",
+          "key": "jianhe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jian He",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-06-13T19:24:37.851+0000",
+        "updated": "2014-06-13T19:24:37.851+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12711376/comment/14031080",
+        "id": "14031080",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+          "name": "ozawa",
+          "key": "ozawa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+          },
+          "displayName": "Tsuyoshi Ozawa",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "It sounds reasonable to me.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+          "name": "ozawa",
+          "key": "ozawa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+          },
+          "displayName": "Tsuyoshi Ozawa",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-06-13T19:57:22.213+0000",
+        "updated": "2014-06-13T19:57:22.213+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12711376/comment/14538822",
+        "id": "14538822",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+          "name": "jianhe",
+          "key": "jianhe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jian He",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "bq. Probably we can have state-store stop last so that all the other services are stopped first and won't accept more requests and send events to state-store.\nEven if state-store stops first, the API calls such as submitApplication won't return true until the state-store operation completes. \nNothing to be done, close.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+          "name": "jianhe",
+          "key": "jianhe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jian He",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-11T22:54:50.225+0000",
+        "updated": "2015-05-11T22:54:50.225+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2000/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 5,
+        "returned": 5
+      }
+    ]
+  }
+}

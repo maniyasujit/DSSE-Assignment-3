@@ -1,0 +1,458 @@
+{
+  "downloaded_at": "2026-06-25T10:21:39.984895+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-4189",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-4189?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12888719",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12888719",
+    "key": "YARN-4189",
+    "fields": {
+      "summary": "Capacity Scheduler : Improve location preference waiting mechanism",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12327621",
+          "id": "12327621",
+          "name": "capacity scheduler"
+        }
+      ],
+      "subtasks": [],
+      "created": "2015-09-19T00:37:17.027+0000",
+      "description": "There're some issues with current Capacity Scheduler implementation of delay scheduling:\n\n*1) Waiting time to allocate each container highly depends on cluster availability*\nCurrently, app can only increase missed-opportunity when a node has available resource AND it gets traversed by a scheduler. There\u2019re lots of possibilities that an app doesn\u2019t get traversed by a scheduler, for example:\n\nA cluster has 2 racks (rack1/2), each rack has 40 nodes. Node-locality-delay=40. An application prefers rack1. Node-heartbeat-interval=1s.\nAssume there are 2 nodes available on rack1, delay to allocate one container = 40 sec.\nIf there are 20 nodes available on rack1, delay of allocating one container = 2 sec.\n\n*2) It could violate scheduling policies (Fifo/Priority/Fair)*\n\nAssume a cluster is highly utilized, an app (app1) has higher priority, it wants locality. And there\u2019s another app (app2) has lower priority, but it doesn\u2019t care about locality. When node heartbeats with available resource, app1 decides to wait, so app2 gets the available slot. This should be considered as a bug that we need to fix.\n\nThe same problem could happen when we use FIFO/Fair queue policies.\n\nAnother problem similar to this is related to preemption: when preemption policy preempts some resources from queue-A for queue-B (queue-A is over-satisfied and queue-B is under-satisfied). But queue-B is waiting for the node-locality-delay so queue-A will get resources back. In next round, preemption policy could preempt this resources again from queue-A.\n\nThis JIRA is target to solve these problems.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12761233",
+          "id": "12761233",
+          "filename": "YARN-4189 design v1.pdf",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+            "name": "leftnoteasy",
+            "key": "leftnoteasy",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+            },
+            "displayName": "Wangda Tan",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2015-09-19T00:37:57.152+0000",
+          "size": 181538,
+          "mimeType": "application/pdf",
+          "content": "https://issues.apache.org/jira/secure/attachment/12761233/YARN-4189+design+v1.pdf"
+        }
+      ],
+      "issuelinks": [
+        {
+          "id": "12446702",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12446702",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "12906904",
+            "key": "YARN-4287",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12906904",
+            "fields": {
+              "summary": "Capacity Scheduler: Rack Locality improvement",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+                "id": "4",
+                "description": "An improvement or enhancement to an existing feature or task.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+                "name": "Improvement",
+                "subtask": false,
+                "avatarId": 21140
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12888719/comment/14876871",
+            "id": "14876871",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xinxianyin",
+              "name": "xinxianyin",
+              "key": "xinxianyin",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Xianyin Xin",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Hi [~leftnoteasy], just go through the doc. Please correct me if i am wrong. Can a container that marked as ALLOCATING_WAITING be occupied by other requests? I'm afraid ALLOCATING_WAITING would decline the utilization of the cluster. In a cluster with many nodes and many jobs, it's uneasy to make the most of jobs satisfied with their allocations, especially in the app-oriented allocation mechanism(which maps the newly available resource to appropriate apps). Once a customer asks us \"why we can get 100% locality in MR1 but only up to 60%~70% after making various of optimizations?\". So we can guess there are quite a percents of resource requests which are not satisfied with their allocations in a cluster, thus there would be many containers experience the  ALLOCATING_WAITING phase which makes many resource idle for a period of time.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xinxianyin",
+              "name": "xinxianyin",
+              "key": "xinxianyin",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Xianyin Xin",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2015-09-19T04:21:18.819+0000",
+            "updated": "2015-09-19T04:21:18.819+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12888719/comment/14901075",
+            "id": "14901075",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~xinxianyin],\n\nThanks for looking at the doc, however, I think the approach in the doc shouldn't decline the utilization:\n\nAssume we limit the maximum waiting time for each container is X sec, and average container execution time is Y sec. It will be fine If X << Y.\n\nIn my mind, X is a value close to node heartbeat interval and Y is from minutes to hours.\n\nI don't have any data to prove if my thoughts is true, we need to do some benchmark tests before using it in practice.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-09-21T17:52:22.110+0000",
+            "updated": "2015-09-21T17:52:22.110+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12888719/comment/14901736",
+            "id": "14901736",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xinxianyin",
+              "name": "xinxianyin",
+              "key": "xinxianyin",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Xianyin Xin",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "[~leftnoteasy], convincing analysis. It's fine X << Y and X is close to the heartbeat interval, so, should we limit X to avoid users deploy it freely?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xinxianyin",
+              "name": "xinxianyin",
+              "key": "xinxianyin",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Xianyin Xin",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2015-09-22T01:30:15.674+0000",
+            "updated": "2015-09-22T01:30:15.674+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12888719/comment/14903125",
+            "id": "14903125",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~xinxianyin], I mentioned this in design doc:\n\nbq. To avoid application set a very high delay (such as 10 min), we shall have a global max\u00ad-container-\u00addelay to cap the delay to avoid resource wastage.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-09-22T18:08:10.073+0000",
+            "updated": "2015-09-22T18:08:10.073+0000"
+          }
+        ],
+        "maxResults": 4,
+        "total": 4,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-4189/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2015-10-21T22:32:23.227+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 4,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12888719/comment/14876871",
+        "id": "14876871",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xinxianyin",
+          "name": "xinxianyin",
+          "key": "xinxianyin",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Xianyin Xin",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Hi [~leftnoteasy], just go through the doc. Please correct me if i am wrong. Can a container that marked as ALLOCATING_WAITING be occupied by other requests? I'm afraid ALLOCATING_WAITING would decline the utilization of the cluster. In a cluster with many nodes and many jobs, it's uneasy to make the most of jobs satisfied with their allocations, especially in the app-oriented allocation mechanism(which maps the newly available resource to appropriate apps). Once a customer asks us \"why we can get 100% locality in MR1 but only up to 60%~70% after making various of optimizations?\". So we can guess there are quite a percents of resource requests which are not satisfied with their allocations in a cluster, thus there would be many containers experience the  ALLOCATING_WAITING phase which makes many resource idle for a period of time.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xinxianyin",
+          "name": "xinxianyin",
+          "key": "xinxianyin",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Xianyin Xin",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2015-09-19T04:21:18.819+0000",
+        "updated": "2015-09-19T04:21:18.819+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12888719/comment/14901075",
+        "id": "14901075",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~xinxianyin],\n\nThanks for looking at the doc, however, I think the approach in the doc shouldn't decline the utilization:\n\nAssume we limit the maximum waiting time for each container is X sec, and average container execution time is Y sec. It will be fine If X << Y.\n\nIn my mind, X is a value close to node heartbeat interval and Y is from minutes to hours.\n\nI don't have any data to prove if my thoughts is true, we need to do some benchmark tests before using it in practice.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-09-21T17:52:22.110+0000",
+        "updated": "2015-09-21T17:52:22.110+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12888719/comment/14901736",
+        "id": "14901736",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xinxianyin",
+          "name": "xinxianyin",
+          "key": "xinxianyin",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Xianyin Xin",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "[~leftnoteasy], convincing analysis. It's fine X << Y and X is close to the heartbeat interval, so, should we limit X to avoid users deploy it freely?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xinxianyin",
+          "name": "xinxianyin",
+          "key": "xinxianyin",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Xianyin Xin",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2015-09-22T01:30:15.674+0000",
+        "updated": "2015-09-22T01:30:15.674+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12888719/comment/14903125",
+        "id": "14903125",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~xinxianyin], I mentioned this in design doc:\n\nbq. To avoid application set a very high delay (such as 10 min), we shall have a global max\u00ad-container-\u00addelay to cap the delay to avoid resource wastage.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-09-22T18:08:10.073+0000",
+        "updated": "2015-09-22T18:08:10.073+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-4189/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 4,
+        "returned": 4
+      }
+    ]
+  }
+}

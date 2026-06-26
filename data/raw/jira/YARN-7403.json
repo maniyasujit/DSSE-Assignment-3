@@ -1,0 +1,1311 @@
+{
+  "downloaded_at": "2026-06-25T10:24:46.778332+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-7403",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-7403?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13112439",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439",
+    "key": "YARN-7403",
+    "fields": {
+      "summary": "[GQ] Compute global and local \"IdealAllocation\"",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "13112438",
+        "key": "YARN-7402",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13112438",
+        "fields": {
+          "summary": "Federation V2: Global Optimizations",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+            "description": "The issue is open and ready for the assignee to start work on it.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+            "name": "Open",
+            "id": "1",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+            "id": "2",
+            "description": "A new feature of the product, which has yet to be developed.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+            "name": "New Feature",
+            "subtask": false,
+            "avatarId": 21141
+          }
+        }
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12331064",
+          "id": "12331064",
+          "name": "federation"
+        }
+      ],
+      "subtasks": [],
+      "created": "2017-10-27T00:09:26.467+0000",
+      "description": "This JIRA tracks algorithmic effort to combine the local queue views of capacity guarantee/use/demand and compute the global ideal allocation, and the respective local allocations. This will inform the RMs in each sub-clusters on how to allocate more containers to each queues (allowing for temporary over/under allocations that are locally excessive, but globally correct).",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12895066",
+          "id": "12895066",
+          "filename": "global-queues-preemption.PNG",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+            "name": "curino",
+            "key": "curino",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+            },
+            "displayName": "Carlo Curino",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2017-10-31T20:33:05.252+0000",
+          "size": 92649,
+          "mimeType": "image/png",
+          "content": "https://issues.apache.org/jira/secure/attachment/12895066/global-queues-preemption.PNG"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12894249",
+          "id": "12894249",
+          "filename": "YARN-7403.draft.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+            "name": "curino",
+            "key": "curino",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+            },
+            "displayName": "Carlo Curino",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2017-10-27T00:12:13.387+0000",
+          "size": 69715,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12894249/YARN-7403.draft.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12894252",
+          "id": "12894252",
+          "filename": "YARN-7403.draft2.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+            "name": "curino",
+            "key": "curino",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+            },
+            "displayName": "Carlo Curino",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2017-10-27T00:37:44.885+0000",
+          "size": 74678,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12894252/YARN-7403.draft2.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12895062",
+          "id": "12895062",
+          "filename": "YARN-7403.draft3.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+            "name": "curino",
+            "key": "curino",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+            },
+            "displayName": "Carlo Curino",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2017-10-31T20:28:35.792+0000",
+          "size": 110947,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12895062/YARN-7403.draft3.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12910673",
+          "id": "12910673",
+          "filename": "YARN-7403.v1.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+            "name": "curino",
+            "key": "curino",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+            },
+            "displayName": "Carlo Curino",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2018-02-15T02:17:29.651+0000",
+          "size": 127285,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12910673/YARN-7403.v1.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12911266",
+          "id": "12911266",
+          "filename": "YARN-7403.v2.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+            "name": "curino",
+            "key": "curino",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+            },
+            "displayName": "Carlo Curino",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2018-02-20T19:29:10.286+0000",
+          "size": 128286,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12911266/YARN-7403.v2.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12911481",
+          "id": "12911481",
+          "filename": "YARN-7403.v3.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+            "name": "curino",
+            "key": "curino",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+            },
+            "displayName": "Carlo Curino",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2018-02-22T02:14:58.472+0000",
+          "size": 78543,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12911481/YARN-7403.v3.patch"
+        }
+      ],
+      "issuelinks": [
+        {
+          "id": "12527182",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12527182",
+          "type": {
+            "id": "10032",
+            "name": "Blocker",
+            "inward": "is blocked by",
+            "outward": "blocks",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10032"
+          },
+          "inwardIssue": {
+            "id": "13138628",
+            "key": "YARN-7934",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13138628",
+            "fields": {
+              "summary": "[GQ] Refactor preemption calculators to allow overriding for Federation Global Algos",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12527720",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12527720",
+          "type": {
+            "id": "10032",
+            "name": "Blocker",
+            "inward": "is blocked by",
+            "outward": "blocks",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10032"
+          },
+          "inwardIssue": {
+            "id": "13139973",
+            "key": "YARN-7953",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13139973",
+            "fields": {
+              "summary": "[GQ] Data structures for federation global queues calculations",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16221493",
+            "id": "16221493",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Draft patch re-using the {{PreemptableResourceCalculator}} to compute global preemption, and simple demand-based algorithm to \"split\" the global preemption to local preemptions.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-10-27T00:12:48.767+0000",
+            "updated": "2017-10-27T00:13:19.938+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16221511",
+            "id": "16221511",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Fixing ASF license.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-10-27T00:37:55.434+0000",
+            "updated": "2017-10-27T00:37:55.434+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16221655",
+            "id": "16221655",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (x) *{color:red}-1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 16s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 8 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 14m 12s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 35s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 26s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 40s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green}  9m 49s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m  5s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 23s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 36s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 34s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 34s{color} | {color:green} the patch passed {color} |\r\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 23s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager: The patch generated 27 new + 24 unchanged - 1 fixed = 51 total (was 25) {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 36s{color} | {color:green} the patch passed {color} |\r\n| {color:red}-1{color} | {color:red} whitespace {color} | {color:red}  0m  0s{color} | {color:red} The patch has 5 line(s) that end in whitespace. Use git apply --whitespace=fix <<patch_file>>. Refer https://git-scm.com/docs/git-apply {color} |\r\n| {color:green}+1{color} | {color:green} xml {color} | {color:green}  0m  1s{color} | {color:green} The patch has no ill-formed XML file. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green}  9m 53s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  1m 16s{color} | {color:red} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager generated 2 new + 0 unchanged - 0 fixed = 2 total (was 0) {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 20s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:red}-1{color} | {color:red} unit {color} | {color:red} 58m  9s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 20s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 99m 50s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Reason || Tests ||\r\n| FindBugs | module:hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\r\n|  |  Nullcheck of FedQueue.children at line 137 of value previously dereferenced in org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FedQueue.propagate(ResourceInfo)  At FedQueue.java:137 of value previously dereferenced in org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FedQueue.propagate(ResourceInfo)  At FedQueue.java:[line 130] |\r\n|  |  Write to static field org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FedQueue.jsonjaxbContext from instance method new org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FedQueue()  At FedQueue.java:from instance method new org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FedQueue()  At FedQueue.java:[line 98] |\r\n| Timed out junit tests | org.apache.hadoop.yarn.server.resourcemanager.TestSubmitApplicationWithRMHA |\r\n|   | org.apache.hadoop.yarn.server.resourcemanager.TestReservationSystemWithRMHA |\r\n|   | org.apache.hadoop.yarn.server.resourcemanager.TestKillApplicationWithRMHA |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker |  Image:yetus/hadoop:5b98639 |\r\n| JIRA Issue | YARN-7403 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12894252/YARN-7403.draft2.patch |\r\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  xml  findbugs  checkstyle  |\r\n| uname | Linux 46264f0d1cbc 3.13.0-116-generic #163-Ubuntu SMP Fri Mar 31 14:13:22 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / b1de786 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_131 |\r\n| findbugs | v3.1.0-RC1 |\r\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/18173/artifact/patchprocess/diff-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| whitespace | https://builds.apache.org/job/PreCommit-YARN-Build/18173/artifact/patchprocess/whitespace-eol.txt |\r\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/18173/artifact/patchprocess/new-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.html |\r\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/18173/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/18173/testReport/ |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/18173/console |\r\n| Powered by | Apache Yetus 0.7.0-SNAPSHOT   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-10-27T03:20:17.214+0000",
+            "updated": "2017-10-27T03:20:17.214+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16227507",
+            "id": "16227507",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "The attached screenshot shows an example of \"globally\" calculated local preemption. In particular, it tries to highlight the problem of locality of the demand vs availability of preemptable containers. The code in draf3 patch computes the total preemption to be 100 containers, it splits it among SC1 and SC2 based on B demand (so 66/33) and cap the preemption by the number of preemptable containers in A1 which is 20 in SC2.   \r\n\r\nOther \"splitting\" decisions can be made, enforcing different invariants, e.g., that all 100 containers are preempted etc... I think the current  policy is reasonable, when combined with a stateful AMRMPRoxy policy that \"relax\" locality demand, as the requests from B will eventually be migrated towards the sub-cluster where demand is being fulfilled, i.e., in a later time B's demand should be in SC1 and more preemptiong of A1 containers in SC1 should kick in. \r\n\r\nThoughts?\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-10-31T20:42:37.329+0000",
+            "updated": "2017-10-31T20:42:37.329+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16227697",
+            "id": "16227697",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (x) *{color:red}-1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 10s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 11 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 16m 23s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 41s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 30s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 44s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 11m  8s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  1m 18s{color} | {color:red} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager in trunk has 2 extant Findbugs warnings. {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 29s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 50s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 42s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 42s{color} | {color:green} the patch passed {color} |\r\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 30s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager: The patch generated 23 new + 24 unchanged - 1 fixed = 47 total (was 25) {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 41s{color} | {color:green} the patch passed {color} |\r\n| {color:red}-1{color} | {color:red} whitespace {color} | {color:red}  0m  0s{color} | {color:red} The patch has 3 line(s) that end in whitespace. Use git apply --whitespace=fix <<patch_file>>. Refer https://git-scm.com/docs/git-apply {color} |\r\n| {color:red}-1{color} | {color:red} whitespace {color} | {color:red}  0m  0s{color} | {color:red} The patch 94 line(s) with tabs. {color} |\r\n| {color:green}+1{color} | {color:green} xml {color} | {color:green}  0m  2s{color} | {color:green} The patch has no ill-formed XML file. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 11m 20s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  1m 18s{color} | {color:red} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager generated 3 new + 2 unchanged - 0 fixed = 5 total (was 2) {color} |\r\n| {color:red}-1{color} | {color:red} javadoc {color} | {color:red}  0m 22s{color} | {color:red} hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager generated 1 new + 4 unchanged - 0 fixed = 5 total (was 4) {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green} 56m 43s{color} | {color:green} hadoop-yarn-server-resourcemanager in the patch passed. {color} |\r\n| {color:red}-1{color} | {color:red} asflicense {color} | {color:red}  0m 18s{color} | {color:red} The patch generated 5 ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black}103m 54s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Reason || Tests ||\r\n| FindBugs | module:hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\r\n|  |  Nullcheck of FedQueue.children at line 140 of value previously dereferenced in org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FedQueue.propagate(ResourceInfo)  At FedQueue.java:140 of value previously dereferenced in org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FedQueue.propagate(ResourceInfo)  At FedQueue.java:[line 133] |\r\n|  |  Write to static field org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FedQueue.jsonjaxbContext from instance method new org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FedQueue()  At FedQueue.java:from instance method new org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FedQueue()  At FedQueue.java:[line 101] |\r\n|  |  Write to static field org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FederationGlobalView.jsonjaxbContext from instance method new org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FederationGlobalView()  At FederationGlobalView.java:from instance method new org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FederationGlobalView()  At FederationGlobalView.java:[line 69] |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=17.05.0-ce Server=17.05.0-ce Image:yetus/hadoop:5b98639 |\r\n| JIRA Issue | YARN-7403 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12895062/YARN-7403.draft3.patch |\r\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  xml  findbugs  checkstyle  |\r\n| uname | Linux ea53c1dd4ea3 3.13.0-119-generic #166-Ubuntu SMP Wed May 3 12:18:55 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / ed24da3 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_131 |\r\n| findbugs | v3.1.0-RC1 |\r\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/18275/artifact/out/branch-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager-warnings.html |\r\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/18275/artifact/out/diff-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| whitespace | https://builds.apache.org/job/PreCommit-YARN-Build/18275/artifact/out/whitespace-eol.txt |\r\n| whitespace | https://builds.apache.org/job/PreCommit-YARN-Build/18275/artifact/out/whitespace-tabs.txt |\r\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/18275/artifact/out/new-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.html |\r\n| javadoc | https://builds.apache.org/job/PreCommit-YARN-Build/18275/artifact/out/diff-javadoc-javadoc-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/18275/testReport/ |\r\n| asflicense | https://builds.apache.org/job/PreCommit-YARN-Build/18275/artifact/out/patch-asflicense-problems.txt |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/18275/console |\r\n| Powered by | Apache Yetus 0.7.0-SNAPSHOT   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-10-31T22:15:58.845+0000",
+            "updated": "2017-10-31T22:15:58.845+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16365063",
+            "id": "16365063",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "The v1 patch contains a much reworked version of the code. This depends on YARN-7934 so will not compile. The key idea here is to provide algorithms that will run every few seconds in the GPG and observe the overall state of a federated cluster. The algorithm will leverage some of the {{PreemptableResourceCalculator}} logic (with several additions) to compute what is the ideal allocation for each queues. The extra effort is put into considering \"locality\" among sub-clusters, which require some careful consideration. Various heuristics can be chosen from (we implement two as reference), and once YARN-7885/YARN-7886 will be ready to use we can experiment on which is most closely approximating the behavior of a single {{CapacityScheduler}} overlooking the entire federation.\r\n\r\n\u00a0",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2018-02-15T02:22:41.670+0000",
+            "updated": "2018-02-15T02:22:41.670+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16365084",
+            "id": "16365084",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+              "name": "genericqa",
+              "key": "genericqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+              },
+              "displayName": "genericqa",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (x) *{color:red}-1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 43s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 11 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  0m 56s{color} | {color:blue} Maven dependency ordering for branch {color} |\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 15m 13s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  9m 49s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  1m  6s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  1m 19s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green}  3m 58s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  1m 12s{color} | {color:red} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api in trunk has 1 extant Findbugs warnings. {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 49s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  0m 10s{color} | {color:blue} Maven dependency ordering for patch {color} |\r\n| {color:red}-1{color} | {color:red} mvninstall {color} | {color:red}  0m 19s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} compile {color} | {color:red}  1m 54s{color} | {color:red} hadoop-yarn in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} javac {color} | {color:red}  1m 54s{color} | {color:red} hadoop-yarn in the patch failed. {color} |\r\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 47s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn: The patch generated 34 new + 212 unchanged - 0 fixed = 246 total (was 212) {color} |\r\n| {color:red}-1{color} | {color:red} mvnsite {color} | {color:red}  0m 22s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} whitespace {color} | {color:red}  0m  0s{color} | {color:red} The patch has 3 line(s) that end in whitespace. Use git apply --whitespace=fix <<patch_file>>. Refer https://git-scm.com/docs/git-apply {color} |\r\n| {color:green}+1{color} | {color:green} xml {color} | {color:green}  0m  2s{color} | {color:green} The patch has no ill-formed XML file. {color} |\r\n| {color:red}-1{color} | {color:red} shadedclient {color} | {color:red}  2m 59s{color} | {color:red} patch has errors when building and testing our client artifacts. {color} |\r\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  0m 22s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} javadoc {color} | {color:red}  0m 22s{color} | {color:red} hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager generated 3 new + 4 unchanged - 0 fixed = 7 total (was 4) {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:red}-1{color} | {color:red} unit {color} | {color:red}  0m 33s{color} | {color:red} hadoop-yarn-api in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} unit {color} | {color:red}  0m 22s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} asflicense {color} | {color:red}  0m 17s{color} | {color:red} The patch generated 5 ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 45m 47s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Reason || Tests ||\r\n| Failed junit tests | hadoop.yarn.conf.TestYarnConfigurationFields |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=17.05.0-ce Server=17.05.0-ce Image:yetus/hadoop:5b98639 |\r\n| JIRA Issue | YARN-7403 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12910673/YARN-7403.v1.patch |\r\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  xml  |\r\n| uname | Linux 1da6fcabd56c 4.4.0-64-generic #85-Ubuntu SMP Mon Feb 20 11:50:30 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 8f66aff |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_151 |\r\n| findbugs | v3.1.0-RC1 |\r\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/branch-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-api-warnings.html |\r\n| mvninstall | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/patch-mvninstall-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| compile | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/patch-compile-hadoop-yarn-project_hadoop-yarn.txt |\r\n| javac | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/patch-compile-hadoop-yarn-project_hadoop-yarn.txt |\r\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/diff-checkstyle-hadoop-yarn-project_hadoop-yarn.txt |\r\n| mvnsite | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/patch-mvnsite-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| whitespace | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/whitespace-eol.txt |\r\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/patch-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| javadoc | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/diff-javadoc-javadoc-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-api.txt |\r\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/19696/testReport/ |\r\n| asflicense | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/patch-asflicense-problems.txt |\r\n| Max. process+thread count | 103 (vs. ulimit of 5500) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/19696/console |\r\n| Powered by | Apache Yetus 0.8.0-SNAPSHOT   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+              "name": "genericqa",
+              "key": "genericqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+              },
+              "displayName": "genericqa",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2018-02-15T03:06:25.351+0000",
+            "updated": "2018-02-15T03:06:25.351+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16370506",
+            "id": "16370506",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Fixing TestYarnConfigurationFields unit test failure (the rest still does not compile as depends on YARN-7403).",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2018-02-20T19:29:54.517+0000",
+            "updated": "2018-02-20T19:29:54.517+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16370578",
+            "id": "16370578",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+              "name": "genericqa",
+              "key": "genericqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+              },
+              "displayName": "genericqa",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (x) *{color:red}-1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 15s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 11 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  0m 53s{color} | {color:blue} Maven dependency ordering for branch {color} |\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 16m 11s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  7m 37s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  1m  3s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  2m  9s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 13m 11s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  1m 12s{color} | {color:red} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api in trunk has 1 extant Findbugs warnings. {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  1m 49s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  0m 10s{color} | {color:blue} Maven dependency ordering for patch {color} |\r\n| {color:red}-1{color} | {color:red} mvninstall {color} | {color:red}  0m 21s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} compile {color} | {color:red}  1m 57s{color} | {color:red} hadoop-yarn in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} javac {color} | {color:red}  1m 57s{color} | {color:red} hadoop-yarn in the patch failed. {color} |\r\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 52s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn: The patch generated 34 new + 212 unchanged - 0 fixed = 246 total (was 212) {color} |\r\n| {color:red}-1{color} | {color:red} mvnsite {color} | {color:red}  0m 24s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} whitespace {color} | {color:red}  0m  0s{color} | {color:red} The patch has 3 line(s) that end in whitespace. Use git apply --whitespace=fix <<patch_file>>. Refer https://git-scm.com/docs/git-apply {color} |\r\n| {color:green}+1{color} | {color:green} xml {color} | {color:green}  0m  3s{color} | {color:green} The patch has no ill-formed XML file. {color} |\r\n| {color:red}-1{color} | {color:red} shadedclient {color} | {color:red}  3m 42s{color} | {color:red} patch has errors when building and testing our client artifacts. {color} |\r\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  0m 23s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} javadoc {color} | {color:red}  0m 22s{color} | {color:red} hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager generated 3 new + 4 unchanged - 0 fixed = 7 total (was 4) {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 34s{color} | {color:green} hadoop-yarn-api in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  3m 11s{color} | {color:green} hadoop-yarn-common in the patch passed. {color} |\r\n| {color:red}-1{color} | {color:red} unit {color} | {color:red}  0m 24s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} asflicense {color} | {color:red}  0m 19s{color} | {color:red} The patch generated 5 ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 63m 19s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=17.05.0-ce Server=17.05.0-ce Image:yetus/hadoop:5b98639 |\r\n| JIRA Issue | YARN-7403 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12911266/YARN-7403.v2.patch |\r\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  xml  |\r\n| uname | Linux 4650ebec89e9 4.4.0-43-generic #63-Ubuntu SMP Wed Oct 12 13:48:03 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 7280c5a |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_151 |\r\n| findbugs | v3.1.0-RC1 |\r\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/branch-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-api-warnings.html |\r\n| mvninstall | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/patch-mvninstall-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| compile | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/patch-compile-hadoop-yarn-project_hadoop-yarn.txt |\r\n| javac | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/patch-compile-hadoop-yarn-project_hadoop-yarn.txt |\r\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/diff-checkstyle-hadoop-yarn-project_hadoop-yarn.txt |\r\n| mvnsite | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/patch-mvnsite-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| whitespace | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/whitespace-eol.txt |\r\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/patch-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| javadoc | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/diff-javadoc-javadoc-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/19747/testReport/ |\r\n| asflicense | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/patch-asflicense-problems.txt |\r\n| Max. process+thread count | 395 (vs. ulimit of 5500) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/19747/console |\r\n| Powered by | Apache Yetus 0.8.0-SNAPSHOT   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+              "name": "genericqa",
+              "key": "genericqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+              },
+              "displayName": "genericqa",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2018-02-20T20:33:59.858+0000",
+            "updated": "2018-02-20T20:33:59.858+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16370912",
+            "id": "16370912",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+              "name": "kkaranasos",
+              "key": "kkaranasos",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+              },
+              "displayName": "Konstantinos Karanasos",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks for the patch, [~curino].\r\n\r\nI would suggest to split it in two parts to make it easier to follow.\r\n\r\nThe first can be the data structures to model the federated cluster and the second the algos for rebalancing. Another way would be to add the data structures and the abstract rebalancer, and then add the various implementations as the second jira.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+              "name": "kkaranasos",
+              "key": "kkaranasos",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+              },
+              "displayName": "Konstantinos Karanasos",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-02-21T03:39:13.541+0000",
+            "updated": "2018-02-21T03:39:13.541+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16372324",
+            "id": "16372324",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "[~kkaranasos] thanks for looking at this. I initially put it together because it is not easy to understand why we have certain data structures without the code that use them, but if it is easier to review for you I am ok to split.\r\n# YARN-7953 is now a data-structure only patch (with minor refactoring should now compile fine, and be reasonably self-sustaining)\r\n# YARN-7403 (this patch) is now algo-only and depends on YARN-7953 and YARN-7934 (the hook in CS/preemption code patch)\r\n\r\nBTW the choice of JAX-B is because we are considering REST endpoint as a way to communicate between RM and GPG.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2018-02-22T02:10:05.219+0000",
+            "updated": "2018-02-22T02:10:05.219+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16372375",
+            "id": "16372375",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+              "name": "genericqa",
+              "key": "genericqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+              },
+              "displayName": "genericqa",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (x) *{color:red}-1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue} 17m 57s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 6 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  0m 53s{color} | {color:blue} Maven dependency ordering for branch {color} |\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 17m 41s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  8m 26s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  1m  5s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  2m 15s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 13m 57s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  1m 17s{color} | {color:red} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api in trunk has 1 extant Findbugs warnings. {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  1m 49s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  0m 11s{color} | {color:blue} Maven dependency ordering for patch {color} |\r\n| {color:red}-1{color} | {color:red} mvninstall {color} | {color:red}  0m 24s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} compile {color} | {color:red}  2m 13s{color} | {color:red} hadoop-yarn in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} javac {color} | {color:red}  2m 13s{color} | {color:red} hadoop-yarn in the patch failed. {color} |\r\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 56s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn: The patch generated 27 new + 212 unchanged - 0 fixed = 239 total (was 212) {color} |\r\n| {color:red}-1{color} | {color:red} mvnsite {color} | {color:red}  0m 25s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} whitespace {color} | {color:red}  0m  0s{color} | {color:red} The patch has 1 line(s) that end in whitespace. Use git apply --whitespace=fix <<patch_file>>. Refer https://git-scm.com/docs/git-apply {color} |\r\n| {color:green}+1{color} | {color:green} xml {color} | {color:green}  0m  1s{color} | {color:green} The patch has no ill-formed XML file. {color} |\r\n| {color:red}-1{color} | {color:red} shadedclient {color} | {color:red}  3m 26s{color} | {color:red} patch has errors when building and testing our client artifacts. {color} |\r\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  0m 23s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} javadoc {color} | {color:red}  0m 24s{color} | {color:red} hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager generated 13 new + 4 unchanged - 0 fixed = 17 total (was 4) {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 35s{color} | {color:green} hadoop-yarn-api in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  3m  1s{color} | {color:green} hadoop-yarn-common in the patch passed. {color} |\r\n| {color:red}-1{color} | {color:red} unit {color} | {color:red}  0m 24s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} asflicense {color} | {color:red}  0m 20s{color} | {color:red} The patch generated 5 ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 84m 54s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=17.05.0-ce Server=17.05.0-ce Image:yetus/hadoop:5b98639 |\r\n| JIRA Issue | YARN-7403 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12911481/YARN-7403.v3.patch |\r\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  xml  |\r\n| uname | Linux 9b988e8e9666 3.13.0-137-generic #186-Ubuntu SMP Mon Dec 4 19:09:19 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 3132709 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_151 |\r\n| findbugs | v3.1.0-RC1 |\r\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/branch-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-api-warnings.html |\r\n| mvninstall | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/patch-mvninstall-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| compile | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/patch-compile-hadoop-yarn-project_hadoop-yarn.txt |\r\n| javac | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/patch-compile-hadoop-yarn-project_hadoop-yarn.txt |\r\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/diff-checkstyle-hadoop-yarn-project_hadoop-yarn.txt |\r\n| mvnsite | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/patch-mvnsite-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| whitespace | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/whitespace-eol.txt |\r\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/patch-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| javadoc | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/diff-javadoc-javadoc-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/19770/testReport/ |\r\n| asflicense | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/patch-asflicense-problems.txt |\r\n| Max. process+thread count | 331 (vs. ulimit of 5500) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/19770/console |\r\n| Powered by | Apache Yetus 0.8.0-SNAPSHOT   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+              "name": "genericqa",
+              "key": "genericqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+              },
+              "displayName": "genericqa",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2018-02-22T03:45:40.832+0000",
+            "updated": "2018-02-22T03:45:40.832+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/17609122",
+            "id": "17609122",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=slfan1989",
+              "name": "slfan1989",
+              "key": "slfan1989",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=slfan1989&avatarId=40935",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=slfan1989&avatarId=40935",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=slfan1989&avatarId=40935",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=slfan1989&avatarId=40935"
+              },
+              "displayName": "Shilun Fan",
+              "active": true,
+              "timeZone": "America/Vancouver"
+            },
+            "body": "I will continue to follow up on this pr.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=slfan1989",
+              "name": "slfan1989",
+              "key": "slfan1989",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=slfan1989&avatarId=40935",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=slfan1989&avatarId=40935",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=slfan1989&avatarId=40935",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=slfan1989&avatarId=40935"
+              },
+              "displayName": "Shilun Fan",
+              "active": true,
+              "timeZone": "America/Vancouver"
+            },
+            "created": "2022-09-25T09:40:56.035+0000",
+            "updated": "2022-09-25T09:40:56.035+0000"
+          }
+        ],
+        "maxResults": 13,
+        "total": 13,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-7403/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2022-09-25T09:40:56.035+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/10002",
+        "description": "A patch for this issue has been uploaded to JIRA by a contributor.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/document.png",
+        "name": "Patch Available",
+        "id": "10002",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 13,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16221493",
+        "id": "16221493",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Draft patch re-using the {{PreemptableResourceCalculator}} to compute global preemption, and simple demand-based algorithm to \"split\" the global preemption to local preemptions.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-10-27T00:12:48.767+0000",
+        "updated": "2017-10-27T00:13:19.938+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16221511",
+        "id": "16221511",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Fixing ASF license.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-10-27T00:37:55.434+0000",
+        "updated": "2017-10-27T00:37:55.434+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16221655",
+        "id": "16221655",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (x) *{color:red}-1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 16s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 8 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 14m 12s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 35s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 26s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 40s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green}  9m 49s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m  5s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 23s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 36s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 34s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 34s{color} | {color:green} the patch passed {color} |\r\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 23s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager: The patch generated 27 new + 24 unchanged - 1 fixed = 51 total (was 25) {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 36s{color} | {color:green} the patch passed {color} |\r\n| {color:red}-1{color} | {color:red} whitespace {color} | {color:red}  0m  0s{color} | {color:red} The patch has 5 line(s) that end in whitespace. Use git apply --whitespace=fix <<patch_file>>. Refer https://git-scm.com/docs/git-apply {color} |\r\n| {color:green}+1{color} | {color:green} xml {color} | {color:green}  0m  1s{color} | {color:green} The patch has no ill-formed XML file. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green}  9m 53s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  1m 16s{color} | {color:red} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager generated 2 new + 0 unchanged - 0 fixed = 2 total (was 0) {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 20s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:red}-1{color} | {color:red} unit {color} | {color:red} 58m  9s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 20s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 99m 50s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Reason || Tests ||\r\n| FindBugs | module:hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\r\n|  |  Nullcheck of FedQueue.children at line 137 of value previously dereferenced in org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FedQueue.propagate(ResourceInfo)  At FedQueue.java:137 of value previously dereferenced in org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FedQueue.propagate(ResourceInfo)  At FedQueue.java:[line 130] |\r\n|  |  Write to static field org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FedQueue.jsonjaxbContext from instance method new org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FedQueue()  At FedQueue.java:from instance method new org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FedQueue()  At FedQueue.java:[line 98] |\r\n| Timed out junit tests | org.apache.hadoop.yarn.server.resourcemanager.TestSubmitApplicationWithRMHA |\r\n|   | org.apache.hadoop.yarn.server.resourcemanager.TestReservationSystemWithRMHA |\r\n|   | org.apache.hadoop.yarn.server.resourcemanager.TestKillApplicationWithRMHA |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker |  Image:yetus/hadoop:5b98639 |\r\n| JIRA Issue | YARN-7403 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12894252/YARN-7403.draft2.patch |\r\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  xml  findbugs  checkstyle  |\r\n| uname | Linux 46264f0d1cbc 3.13.0-116-generic #163-Ubuntu SMP Fri Mar 31 14:13:22 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / b1de786 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_131 |\r\n| findbugs | v3.1.0-RC1 |\r\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/18173/artifact/patchprocess/diff-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| whitespace | https://builds.apache.org/job/PreCommit-YARN-Build/18173/artifact/patchprocess/whitespace-eol.txt |\r\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/18173/artifact/patchprocess/new-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.html |\r\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/18173/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/18173/testReport/ |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/18173/console |\r\n| Powered by | Apache Yetus 0.7.0-SNAPSHOT   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-10-27T03:20:17.214+0000",
+        "updated": "2017-10-27T03:20:17.214+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16227507",
+        "id": "16227507",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "The attached screenshot shows an example of \"globally\" calculated local preemption. In particular, it tries to highlight the problem of locality of the demand vs availability of preemptable containers. The code in draf3 patch computes the total preemption to be 100 containers, it splits it among SC1 and SC2 based on B demand (so 66/33) and cap the preemption by the number of preemptable containers in A1 which is 20 in SC2.   \r\n\r\nOther \"splitting\" decisions can be made, enforcing different invariants, e.g., that all 100 containers are preempted etc... I think the current  policy is reasonable, when combined with a stateful AMRMPRoxy policy that \"relax\" locality demand, as the requests from B will eventually be migrated towards the sub-cluster where demand is being fulfilled, i.e., in a later time B's demand should be in SC1 and more preemptiong of A1 containers in SC1 should kick in. \r\n\r\nThoughts?\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-10-31T20:42:37.329+0000",
+        "updated": "2017-10-31T20:42:37.329+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16227697",
+        "id": "16227697",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (x) *{color:red}-1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 10s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 11 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 16m 23s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 41s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 30s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 44s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 11m  8s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  1m 18s{color} | {color:red} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager in trunk has 2 extant Findbugs warnings. {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 29s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 50s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 42s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 42s{color} | {color:green} the patch passed {color} |\r\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 30s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager: The patch generated 23 new + 24 unchanged - 1 fixed = 47 total (was 25) {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 41s{color} | {color:green} the patch passed {color} |\r\n| {color:red}-1{color} | {color:red} whitespace {color} | {color:red}  0m  0s{color} | {color:red} The patch has 3 line(s) that end in whitespace. Use git apply --whitespace=fix <<patch_file>>. Refer https://git-scm.com/docs/git-apply {color} |\r\n| {color:red}-1{color} | {color:red} whitespace {color} | {color:red}  0m  0s{color} | {color:red} The patch 94 line(s) with tabs. {color} |\r\n| {color:green}+1{color} | {color:green} xml {color} | {color:green}  0m  2s{color} | {color:green} The patch has no ill-formed XML file. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 11m 20s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  1m 18s{color} | {color:red} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager generated 3 new + 2 unchanged - 0 fixed = 5 total (was 2) {color} |\r\n| {color:red}-1{color} | {color:red} javadoc {color} | {color:red}  0m 22s{color} | {color:red} hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager generated 1 new + 4 unchanged - 0 fixed = 5 total (was 4) {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green} 56m 43s{color} | {color:green} hadoop-yarn-server-resourcemanager in the patch passed. {color} |\r\n| {color:red}-1{color} | {color:red} asflicense {color} | {color:red}  0m 18s{color} | {color:red} The patch generated 5 ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black}103m 54s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Reason || Tests ||\r\n| FindBugs | module:hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\r\n|  |  Nullcheck of FedQueue.children at line 140 of value previously dereferenced in org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FedQueue.propagate(ResourceInfo)  At FedQueue.java:140 of value previously dereferenced in org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FedQueue.propagate(ResourceInfo)  At FedQueue.java:[line 133] |\r\n|  |  Write to static field org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FedQueue.jsonjaxbContext from instance method new org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FedQueue()  At FedQueue.java:from instance method new org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FedQueue()  At FedQueue.java:[line 101] |\r\n|  |  Write to static field org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FederationGlobalView.jsonjaxbContext from instance method new org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FederationGlobalView()  At FederationGlobalView.java:from instance method new org.apache.hadoop.yarn.server.resourcemanager.federation.globalqueues.FederationGlobalView()  At FederationGlobalView.java:[line 69] |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=17.05.0-ce Server=17.05.0-ce Image:yetus/hadoop:5b98639 |\r\n| JIRA Issue | YARN-7403 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12895062/YARN-7403.draft3.patch |\r\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  xml  findbugs  checkstyle  |\r\n| uname | Linux ea53c1dd4ea3 3.13.0-119-generic #166-Ubuntu SMP Wed May 3 12:18:55 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / ed24da3 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_131 |\r\n| findbugs | v3.1.0-RC1 |\r\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/18275/artifact/out/branch-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager-warnings.html |\r\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/18275/artifact/out/diff-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| whitespace | https://builds.apache.org/job/PreCommit-YARN-Build/18275/artifact/out/whitespace-eol.txt |\r\n| whitespace | https://builds.apache.org/job/PreCommit-YARN-Build/18275/artifact/out/whitespace-tabs.txt |\r\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/18275/artifact/out/new-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.html |\r\n| javadoc | https://builds.apache.org/job/PreCommit-YARN-Build/18275/artifact/out/diff-javadoc-javadoc-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/18275/testReport/ |\r\n| asflicense | https://builds.apache.org/job/PreCommit-YARN-Build/18275/artifact/out/patch-asflicense-problems.txt |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/18275/console |\r\n| Powered by | Apache Yetus 0.7.0-SNAPSHOT   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-10-31T22:15:58.845+0000",
+        "updated": "2017-10-31T22:15:58.845+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16365063",
+        "id": "16365063",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "The v1 patch contains a much reworked version of the code. This depends on YARN-7934 so will not compile. The key idea here is to provide algorithms that will run every few seconds in the GPG and observe the overall state of a federated cluster. The algorithm will leverage some of the {{PreemptableResourceCalculator}} logic (with several additions) to compute what is the ideal allocation for each queues. The extra effort is put into considering \"locality\" among sub-clusters, which require some careful consideration. Various heuristics can be chosen from (we implement two as reference), and once YARN-7885/YARN-7886 will be ready to use we can experiment on which is most closely approximating the behavior of a single {{CapacityScheduler}} overlooking the entire federation.\r\n\r\n\u00a0",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2018-02-15T02:22:41.670+0000",
+        "updated": "2018-02-15T02:22:41.670+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16365084",
+        "id": "16365084",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+          "name": "genericqa",
+          "key": "genericqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+          },
+          "displayName": "genericqa",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (x) *{color:red}-1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 43s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 11 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  0m 56s{color} | {color:blue} Maven dependency ordering for branch {color} |\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 15m 13s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  9m 49s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  1m  6s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  1m 19s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green}  3m 58s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  1m 12s{color} | {color:red} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api in trunk has 1 extant Findbugs warnings. {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 49s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  0m 10s{color} | {color:blue} Maven dependency ordering for patch {color} |\r\n| {color:red}-1{color} | {color:red} mvninstall {color} | {color:red}  0m 19s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} compile {color} | {color:red}  1m 54s{color} | {color:red} hadoop-yarn in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} javac {color} | {color:red}  1m 54s{color} | {color:red} hadoop-yarn in the patch failed. {color} |\r\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 47s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn: The patch generated 34 new + 212 unchanged - 0 fixed = 246 total (was 212) {color} |\r\n| {color:red}-1{color} | {color:red} mvnsite {color} | {color:red}  0m 22s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} whitespace {color} | {color:red}  0m  0s{color} | {color:red} The patch has 3 line(s) that end in whitespace. Use git apply --whitespace=fix <<patch_file>>. Refer https://git-scm.com/docs/git-apply {color} |\r\n| {color:green}+1{color} | {color:green} xml {color} | {color:green}  0m  2s{color} | {color:green} The patch has no ill-formed XML file. {color} |\r\n| {color:red}-1{color} | {color:red} shadedclient {color} | {color:red}  2m 59s{color} | {color:red} patch has errors when building and testing our client artifacts. {color} |\r\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  0m 22s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} javadoc {color} | {color:red}  0m 22s{color} | {color:red} hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager generated 3 new + 4 unchanged - 0 fixed = 7 total (was 4) {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:red}-1{color} | {color:red} unit {color} | {color:red}  0m 33s{color} | {color:red} hadoop-yarn-api in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} unit {color} | {color:red}  0m 22s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} asflicense {color} | {color:red}  0m 17s{color} | {color:red} The patch generated 5 ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 45m 47s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Reason || Tests ||\r\n| Failed junit tests | hadoop.yarn.conf.TestYarnConfigurationFields |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=17.05.0-ce Server=17.05.0-ce Image:yetus/hadoop:5b98639 |\r\n| JIRA Issue | YARN-7403 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12910673/YARN-7403.v1.patch |\r\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  xml  |\r\n| uname | Linux 1da6fcabd56c 4.4.0-64-generic #85-Ubuntu SMP Mon Feb 20 11:50:30 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 8f66aff |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_151 |\r\n| findbugs | v3.1.0-RC1 |\r\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/branch-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-api-warnings.html |\r\n| mvninstall | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/patch-mvninstall-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| compile | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/patch-compile-hadoop-yarn-project_hadoop-yarn.txt |\r\n| javac | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/patch-compile-hadoop-yarn-project_hadoop-yarn.txt |\r\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/diff-checkstyle-hadoop-yarn-project_hadoop-yarn.txt |\r\n| mvnsite | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/patch-mvnsite-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| whitespace | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/whitespace-eol.txt |\r\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/patch-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| javadoc | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/diff-javadoc-javadoc-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-api.txt |\r\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/19696/testReport/ |\r\n| asflicense | https://builds.apache.org/job/PreCommit-YARN-Build/19696/artifact/out/patch-asflicense-problems.txt |\r\n| Max. process+thread count | 103 (vs. ulimit of 5500) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/19696/console |\r\n| Powered by | Apache Yetus 0.8.0-SNAPSHOT   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+          "name": "genericqa",
+          "key": "genericqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+          },
+          "displayName": "genericqa",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2018-02-15T03:06:25.351+0000",
+        "updated": "2018-02-15T03:06:25.351+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16370506",
+        "id": "16370506",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Fixing TestYarnConfigurationFields unit test failure (the rest still does not compile as depends on YARN-7403).",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2018-02-20T19:29:54.517+0000",
+        "updated": "2018-02-20T19:29:54.517+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16370578",
+        "id": "16370578",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+          "name": "genericqa",
+          "key": "genericqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+          },
+          "displayName": "genericqa",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (x) *{color:red}-1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 15s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 11 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  0m 53s{color} | {color:blue} Maven dependency ordering for branch {color} |\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 16m 11s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  7m 37s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  1m  3s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  2m  9s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 13m 11s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  1m 12s{color} | {color:red} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api in trunk has 1 extant Findbugs warnings. {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  1m 49s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  0m 10s{color} | {color:blue} Maven dependency ordering for patch {color} |\r\n| {color:red}-1{color} | {color:red} mvninstall {color} | {color:red}  0m 21s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} compile {color} | {color:red}  1m 57s{color} | {color:red} hadoop-yarn in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} javac {color} | {color:red}  1m 57s{color} | {color:red} hadoop-yarn in the patch failed. {color} |\r\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 52s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn: The patch generated 34 new + 212 unchanged - 0 fixed = 246 total (was 212) {color} |\r\n| {color:red}-1{color} | {color:red} mvnsite {color} | {color:red}  0m 24s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} whitespace {color} | {color:red}  0m  0s{color} | {color:red} The patch has 3 line(s) that end in whitespace. Use git apply --whitespace=fix <<patch_file>>. Refer https://git-scm.com/docs/git-apply {color} |\r\n| {color:green}+1{color} | {color:green} xml {color} | {color:green}  0m  3s{color} | {color:green} The patch has no ill-formed XML file. {color} |\r\n| {color:red}-1{color} | {color:red} shadedclient {color} | {color:red}  3m 42s{color} | {color:red} patch has errors when building and testing our client artifacts. {color} |\r\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  0m 23s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} javadoc {color} | {color:red}  0m 22s{color} | {color:red} hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager generated 3 new + 4 unchanged - 0 fixed = 7 total (was 4) {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 34s{color} | {color:green} hadoop-yarn-api in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  3m 11s{color} | {color:green} hadoop-yarn-common in the patch passed. {color} |\r\n| {color:red}-1{color} | {color:red} unit {color} | {color:red}  0m 24s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} asflicense {color} | {color:red}  0m 19s{color} | {color:red} The patch generated 5 ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 63m 19s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=17.05.0-ce Server=17.05.0-ce Image:yetus/hadoop:5b98639 |\r\n| JIRA Issue | YARN-7403 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12911266/YARN-7403.v2.patch |\r\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  xml  |\r\n| uname | Linux 4650ebec89e9 4.4.0-43-generic #63-Ubuntu SMP Wed Oct 12 13:48:03 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 7280c5a |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_151 |\r\n| findbugs | v3.1.0-RC1 |\r\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/branch-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-api-warnings.html |\r\n| mvninstall | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/patch-mvninstall-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| compile | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/patch-compile-hadoop-yarn-project_hadoop-yarn.txt |\r\n| javac | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/patch-compile-hadoop-yarn-project_hadoop-yarn.txt |\r\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/diff-checkstyle-hadoop-yarn-project_hadoop-yarn.txt |\r\n| mvnsite | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/patch-mvnsite-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| whitespace | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/whitespace-eol.txt |\r\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/patch-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| javadoc | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/diff-javadoc-javadoc-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/19747/testReport/ |\r\n| asflicense | https://builds.apache.org/job/PreCommit-YARN-Build/19747/artifact/out/patch-asflicense-problems.txt |\r\n| Max. process+thread count | 395 (vs. ulimit of 5500) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/19747/console |\r\n| Powered by | Apache Yetus 0.8.0-SNAPSHOT   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+          "name": "genericqa",
+          "key": "genericqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+          },
+          "displayName": "genericqa",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2018-02-20T20:33:59.858+0000",
+        "updated": "2018-02-20T20:33:59.858+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16370912",
+        "id": "16370912",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+          "name": "kkaranasos",
+          "key": "kkaranasos",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+          },
+          "displayName": "Konstantinos Karanasos",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks for the patch, [~curino].\r\n\r\nI would suggest to split it in two parts to make it easier to follow.\r\n\r\nThe first can be the data structures to model the federated cluster and the second the algos for rebalancing. Another way would be to add the data structures and the abstract rebalancer, and then add the various implementations as the second jira.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+          "name": "kkaranasos",
+          "key": "kkaranasos",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+          },
+          "displayName": "Konstantinos Karanasos",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-02-21T03:39:13.541+0000",
+        "updated": "2018-02-21T03:39:13.541+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16372324",
+        "id": "16372324",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "[~kkaranasos] thanks for looking at this. I initially put it together because it is not easy to understand why we have certain data structures without the code that use them, but if it is easier to review for you I am ok to split.\r\n# YARN-7953 is now a data-structure only patch (with minor refactoring should now compile fine, and be reasonably self-sustaining)\r\n# YARN-7403 (this patch) is now algo-only and depends on YARN-7953 and YARN-7934 (the hook in CS/preemption code patch)\r\n\r\nBTW the choice of JAX-B is because we are considering REST endpoint as a way to communicate between RM and GPG.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2018-02-22T02:10:05.219+0000",
+        "updated": "2018-02-22T02:10:05.219+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/16372375",
+        "id": "16372375",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+          "name": "genericqa",
+          "key": "genericqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+          },
+          "displayName": "genericqa",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (x) *{color:red}-1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue} 17m 57s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 6 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  0m 53s{color} | {color:blue} Maven dependency ordering for branch {color} |\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 17m 41s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  8m 26s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  1m  5s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  2m 15s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 13m 57s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  1m 17s{color} | {color:red} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api in trunk has 1 extant Findbugs warnings. {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  1m 49s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  0m 11s{color} | {color:blue} Maven dependency ordering for patch {color} |\r\n| {color:red}-1{color} | {color:red} mvninstall {color} | {color:red}  0m 24s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} compile {color} | {color:red}  2m 13s{color} | {color:red} hadoop-yarn in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} javac {color} | {color:red}  2m 13s{color} | {color:red} hadoop-yarn in the patch failed. {color} |\r\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 56s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn: The patch generated 27 new + 212 unchanged - 0 fixed = 239 total (was 212) {color} |\r\n| {color:red}-1{color} | {color:red} mvnsite {color} | {color:red}  0m 25s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} whitespace {color} | {color:red}  0m  0s{color} | {color:red} The patch has 1 line(s) that end in whitespace. Use git apply --whitespace=fix <<patch_file>>. Refer https://git-scm.com/docs/git-apply {color} |\r\n| {color:green}+1{color} | {color:green} xml {color} | {color:green}  0m  1s{color} | {color:green} The patch has no ill-formed XML file. {color} |\r\n| {color:red}-1{color} | {color:red} shadedclient {color} | {color:red}  3m 26s{color} | {color:red} patch has errors when building and testing our client artifacts. {color} |\r\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  0m 23s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} javadoc {color} | {color:red}  0m 24s{color} | {color:red} hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager generated 13 new + 4 unchanged - 0 fixed = 17 total (was 4) {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 35s{color} | {color:green} hadoop-yarn-api in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  3m  1s{color} | {color:green} hadoop-yarn-common in the patch passed. {color} |\r\n| {color:red}-1{color} | {color:red} unit {color} | {color:red}  0m 24s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:red}-1{color} | {color:red} asflicense {color} | {color:red}  0m 20s{color} | {color:red} The patch generated 5 ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 84m 54s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=17.05.0-ce Server=17.05.0-ce Image:yetus/hadoop:5b98639 |\r\n| JIRA Issue | YARN-7403 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12911481/YARN-7403.v3.patch |\r\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  xml  |\r\n| uname | Linux 9b988e8e9666 3.13.0-137-generic #186-Ubuntu SMP Mon Dec 4 19:09:19 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 3132709 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_151 |\r\n| findbugs | v3.1.0-RC1 |\r\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/branch-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-api-warnings.html |\r\n| mvninstall | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/patch-mvninstall-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| compile | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/patch-compile-hadoop-yarn-project_hadoop-yarn.txt |\r\n| javac | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/patch-compile-hadoop-yarn-project_hadoop-yarn.txt |\r\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/diff-checkstyle-hadoop-yarn-project_hadoop-yarn.txt |\r\n| mvnsite | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/patch-mvnsite-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| whitespace | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/whitespace-eol.txt |\r\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/patch-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| javadoc | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/diff-javadoc-javadoc-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/19770/testReport/ |\r\n| asflicense | https://builds.apache.org/job/PreCommit-YARN-Build/19770/artifact/out/patch-asflicense-problems.txt |\r\n| Max. process+thread count | 331 (vs. ulimit of 5500) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/19770/console |\r\n| Powered by | Apache Yetus 0.8.0-SNAPSHOT   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+          "name": "genericqa",
+          "key": "genericqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+          },
+          "displayName": "genericqa",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2018-02-22T03:45:40.832+0000",
+        "updated": "2018-02-22T03:45:40.832+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13112439/comment/17609122",
+        "id": "17609122",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=slfan1989",
+          "name": "slfan1989",
+          "key": "slfan1989",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=slfan1989&avatarId=40935",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=slfan1989&avatarId=40935",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=slfan1989&avatarId=40935",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=slfan1989&avatarId=40935"
+          },
+          "displayName": "Shilun Fan",
+          "active": true,
+          "timeZone": "America/Vancouver"
+        },
+        "body": "I will continue to follow up on this pr.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=slfan1989",
+          "name": "slfan1989",
+          "key": "slfan1989",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=slfan1989&avatarId=40935",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=slfan1989&avatarId=40935",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=slfan1989&avatarId=40935",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=slfan1989&avatarId=40935"
+          },
+          "displayName": "Shilun Fan",
+          "active": true,
+          "timeZone": "America/Vancouver"
+        },
+        "created": "2022-09-25T09:40:56.035+0000",
+        "updated": "2022-09-25T09:40:56.035+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-7403/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 13,
+        "returned": 13
+      }
+    ]
+  }
+}

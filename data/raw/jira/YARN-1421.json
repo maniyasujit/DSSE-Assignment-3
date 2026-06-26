@@ -1,0 +1,411 @@
+{
+  "downloaded_at": "2026-06-25T10:23:37.545406+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-1421",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1421?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12679809",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12679809",
+    "key": "YARN-1421",
+    "fields": {
+      "summary": "Node managers will not receive application finish event where containers ran before RM restart",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+        "id": "1",
+        "description": "A problem which impairs or prevents the functions of the product.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+        "name": "Bug",
+        "subtask": false,
+        "avatarId": 21133
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2013-11-18T20:23:32.691+0000",
+      "description": "Problem :- Today for every application we track the node managers where containers ran. So when application finishes it notifies all those node managers about application finish event (via node manager heartbeat). However if rm restarts then we forget this past information and those node managers will never get application finish event and will keep reporting finished applications.\n\nProposed Solution :- Instead of remembering the node managers where containers ran for this particular application it would be better if we depend on node manager heartbeat to take this decision. i.e. when node manager heartbeats saying it is running application (app1, app2) then we should check those application's status in RM's memory {code}rmContext.getRMApps(){code} and if either they are not found (very old applications) or they are in their final state (FINISHED, KILLED, FAILED) then we should immediately notify the node manager about the application finish event. By doing this we are reducing the state which we need to store at RM after restart.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/2",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/critical.svg",
+        "name": "Critical",
+        "id": "2"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/3",
+        "id": "3",
+        "description": "The problem is a duplicate of an existing issue.",
+        "name": "Duplicate"
+      },
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [
+        {
+          "id": "12391279",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12391279",
+          "type": {
+            "id": "12310000",
+            "name": "Duplicate",
+            "inward": "is duplicated by",
+            "outward": "duplicates",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310000"
+          },
+          "inwardIssue": {
+            "id": "12704098",
+            "key": "YARN-1885",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12704098",
+            "fields": {
+              "summary": "RM may not send the app-finished signal after RM restart to some nodes where the application ran before RM restarts",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                "name": "Closed",
+                "id": "6",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+                "id": "1",
+                "description": "A problem which impairs or prevents the functions of the product.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+                "name": "Bug",
+                "subtask": false,
+                "avatarId": 21133
+              }
+            }
+          }
+        },
+        {
+          "id": "12386992",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12386992",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "inwardIssue": {
+            "id": "12675858",
+            "key": "YARN-1354",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12675858",
+            "fields": {
+              "summary": "Recover applications upon nodemanager restart",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                "name": "Closed",
+                "id": "6",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12679809/comment/13830331",
+            "id": "13830331",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+              "name": "kkambatl",
+              "key": "kkambatl",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": false,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Reading all the RM apps on each node heartbeat can lead to significant performance overhead. Would be nice to use an alternative mechanism to find \"recently\" finished applications from among the ones the NM reports.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+              "name": "kkambatl",
+              "key": "kkambatl",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": false,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-11-22T21:34:23.058+0000",
+            "updated": "2013-11-22T21:34:23.058+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12679809/comment/14058201",
+            "id": "14058201",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "Was this fixed by YARN-1885?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2014-07-11T01:35:59.352+0000",
+            "updated": "2014-07-11T01:35:59.352+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12679809/comment/14058362",
+            "id": "14058362",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Yes, closing as duplicate..",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2014-07-11T04:39:08.399+0000",
+            "updated": "2014-07-11T04:39:08.399+0000"
+          }
+        ],
+        "maxResults": 3,
+        "total": 3,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1421/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2014-07-11T04:39:08.408+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 3,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12679809/comment/13830331",
+        "id": "13830331",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+          "name": "kkambatl",
+          "key": "kkambatl",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": false,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Reading all the RM apps on each node heartbeat can lead to significant performance overhead. Would be nice to use an alternative mechanism to find \"recently\" finished applications from among the ones the NM reports.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+          "name": "kkambatl",
+          "key": "kkambatl",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": false,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-11-22T21:34:23.058+0000",
+        "updated": "2013-11-22T21:34:23.058+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12679809/comment/14058201",
+        "id": "14058201",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "Was this fixed by YARN-1885?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2014-07-11T01:35:59.352+0000",
+        "updated": "2014-07-11T01:35:59.352+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12679809/comment/14058362",
+        "id": "14058362",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Yes, closing as duplicate..",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2014-07-11T04:39:08.399+0000",
+        "updated": "2014-07-11T04:39:08.399+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1421/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 3,
+        "returned": 3
+      }
+    ]
+  }
+}

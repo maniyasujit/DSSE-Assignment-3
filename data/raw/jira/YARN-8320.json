@@ -1,0 +1,1785 @@
+{
+  "downloaded_at": "2026-06-25T10:19:19.642444+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-8320",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8320?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13160294",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294",
+    "key": "YARN-8320",
+    "fields": {
+      "summary": "[Umbrella] Support CPU isolation for latency-sensitive (LS) service",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+        "id": "2",
+        "description": "A new feature of the product, which has yet to be developed.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+        "name": "New Feature",
+        "subtask": false,
+        "avatarId": 21141
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319323",
+          "id": "12319323",
+          "name": "nodemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2018-05-18T09:17:39.876+0000",
+      "description": "Currently NodeManager uses \u201ccpu.cfs_period_us\u201d, \u201ccpu.cfs_quota_us\u201d and \u201ccpu.shares\u201d to isolate cpu resource. However,\r\n * Linux Completely Fair Scheduling (CFS) is a throughput-oriented scheduler; no support for differentiated latency\r\n * Request latency of services running on container may be frequent shake when all containers share cpus, and latency-sensitive services can not afford in our production environment.\r\n\r\nSo we need more fine-grained cpu isolation.\r\n\r\nHere we propose a solution using cgroup cpuset to binds containers to different processors, this is inspired\u00a0by the isolation technique in\u00a0[Borg system|http://schd.ws/hosted_files/lcccna2016/a7/CAT%20@%20Scale.pdf].",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12924470",
+          "id": "12924470",
+          "filename": "CPU-isolation-for-latency-sensitive-services-v1.pdf",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=yangjiandan",
+            "name": "yangjiandan",
+            "key": "yangjiandan",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yangjiandan&avatarId=32648",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yangjiandan&avatarId=32648",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yangjiandan&avatarId=32648",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yangjiandan&avatarId=32648"
+            },
+            "displayName": "Jiandan Yang ",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2018-05-22T03:24:28.548+0000",
+          "size": 329303,
+          "mimeType": "application/pdf",
+          "content": "https://issues.apache.org/jira/secure/attachment/12924470/CPU-isolation-for-latency-sensitive-services-v1.pdf"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12924734",
+          "id": "12924734",
+          "filename": "CPU-isolation-for-latency-sensitive-services-v2.pdf",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=yangjiandan",
+            "name": "yangjiandan",
+            "key": "yangjiandan",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yangjiandan&avatarId=32648",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yangjiandan&avatarId=32648",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yangjiandan&avatarId=32648",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yangjiandan&avatarId=32648"
+            },
+            "displayName": "Jiandan Yang ",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2018-05-23T10:42:15.455+0000",
+          "size": 325720,
+          "mimeType": "application/pdf",
+          "content": "https://issues.apache.org/jira/secure/attachment/12924734/CPU-isolation-for-latency-sensitive-services-v2.pdf"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12924332",
+          "id": "12924332",
+          "filename": "YARN-8320.001.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=yangjiandan",
+            "name": "yangjiandan",
+            "key": "yangjiandan",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yangjiandan&avatarId=32648",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yangjiandan&avatarId=32648",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yangjiandan&avatarId=32648",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yangjiandan&avatarId=32648"
+            },
+            "displayName": "Jiandan Yang ",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2018-05-21T10:56:25.727+0000",
+          "size": 30994,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12924332/YARN-8320.001.patch"
+        }
+      ],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16480529",
+            "id": "16480529",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=yangjiandan",
+              "name": "yangjiandan",
+              "key": "yangjiandan",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yangjiandan&avatarId=32648",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yangjiandan&avatarId=32648",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yangjiandan&avatarId=32648",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yangjiandan&avatarId=32648"
+              },
+              "displayName": "Jiandan Yang ",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "upload design doc v1.\r\nPlease feel free to let me know your questions / comments. If everyone agrees with the general approach, I will go ahead to create a patch",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=yangjiandan",
+              "name": "yangjiandan",
+              "key": "yangjiandan",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yangjiandan&avatarId=32648",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yangjiandan&avatarId=32648",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yangjiandan&avatarId=32648",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yangjiandan&avatarId=32648"
+              },
+              "displayName": "Jiandan Yang ",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2018-05-18T11:48:00.907+0000",
+            "updated": "2018-05-18T11:48:00.907+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16481002",
+            "id": "16481002",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks [~yangjiandan] This is definitely a\u00a0very interesting feature proposal! Which can benefit use cases like mixed deployment of online / offline jobs.\r\n\r\nAdding several folks who might be interested in this: [~cheersyang], [~asuresh], [~miklos.szegedi@cloudera.com], [~haibo.chen], [~shanekumpf@gmail.com].",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-05-18T18:15:49.819+0000",
+            "updated": "2018-05-18T18:15:49.819+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16481841",
+            "id": "16481841",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "body": "Thanks [~yangjiandan]for the proposal, this is very interesting, will help to extend Yarn to support online services, especially\u00a0latency-sensitive services.\u00a0 I think we should have an umbrella Jira track this effort to support LS services. [~leftnoteasy], what do you think?\r\n\r\nI did take a look at the proposal, there are still some details to be figured out, but overall a good start. Some early comments,\r\n # Section 2 presents 4 modes, which is a bit complex. If possible, we should start to support exclusive and non-exclusive mode in the first phase.\r\n # The proposal needs to add more info about the RM side change. It's not clear to me if\u00a0scheduler\u00a0needs cpu share mode info for its scheduling decisions. And also not clear to me what's the relationship between vcores and cpu share mode. Please add more info, with some examples.\r\n # Update container cpu share mode might also be a phase 2 work.\r\n\r\nI will deep dive into this area next week and share some more comments if I found any. We can have some discussion over this too.\r\n\r\nThanks",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "created": "2018-05-20T05:56:36.439+0000",
+            "updated": "2018-05-20T05:56:36.439+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16482336",
+            "id": "16482336",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=yangjiandan",
+              "name": "yangjiandan",
+              "key": "yangjiandan",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yangjiandan&avatarId=32648",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yangjiandan&avatarId=32648",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yangjiandan&avatarId=32648",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yangjiandan&avatarId=32648"
+              },
+              "displayName": "Jiandan Yang ",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "upload v1 patch to initiate disscussion",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=yangjiandan",
+              "name": "yangjiandan",
+              "key": "yangjiandan",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yangjiandan&avatarId=32648",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yangjiandan&avatarId=32648",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yangjiandan&avatarId=32648",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yangjiandan&avatarId=32648"
+              },
+              "displayName": "Jiandan Yang ",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2018-05-21T09:48:34.940+0000",
+            "updated": "2018-05-21T09:48:34.940+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16483813",
+            "id": "16483813",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "body": "Some updates, I am working with [~yangjiandan] on polishing the design doc, will add more details and explanations this week. We've done some prototype already as the WIP patch [~yangjiandan] has shared. Please feel free to comment and share your thoughts.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "created": "2018-05-22T11:37:20.414+0000",
+            "updated": "2018-05-22T11:39:48.337+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16484553",
+            "id": "16484553",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks [~cheersyang] / [~yangjiandan], I don't have much bandwidth to dig into details of the design. If you think this is a task need to be done in phases and/or sub JIRAs, please move this to umbrella JIRA.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-05-22T20:51:52.255+0000",
+            "updated": "2018-05-22T20:51:52.255+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16487066",
+            "id": "16487066",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=yangjiandan",
+              "name": "yangjiandan",
+              "key": "yangjiandan",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yangjiandan&avatarId=32648",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yangjiandan&avatarId=32648",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yangjiandan&avatarId=32648",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yangjiandan&avatarId=32648"
+              },
+              "displayName": "Jiandan Yang ",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "[~cheersyang] and I discuss design offline together. Add more details in v2 design doc.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=yangjiandan",
+              "name": "yangjiandan",
+              "key": "yangjiandan",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yangjiandan&avatarId=32648",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yangjiandan&avatarId=32648",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yangjiandan&avatarId=32648",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yangjiandan&avatarId=32648"
+              },
+              "displayName": "Jiandan Yang ",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2018-05-23T10:41:59.378+0000",
+            "updated": "2018-05-23T10:41:59.378+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16487596",
+            "id": "16487596",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks [~cheersyang] / [~yangjiandan] for the detailed design, very helpful to understand the contexts. \r\n\r\nI took a quick look at the proposal, a couple of questions / comments: \r\n\r\n1) It seems that the #vcore must be divisible by #physical-core, otherwise it will cause rounding issue and containers will get less/more than requested resources. If admin enable the feature, YARN should take care of checking this value before starting NM.\r\n\r\n2) I'm still trying to understand benefit of RESERVED / SHARED mode. If a RESERVED core can be used by ANY container, in my mind, the RESERVED container can be affected by adhoc ANY container. And similarly, if we allow SHARED containers bind to same set of cores, considering SHARED containers are running LS services and CPU-intensive, they could compute a lot on these SHARED containers. Which could lead to even worse latency and more competitions.\r\n\r\n3) Relationship to other features:\r\n- Related to NUMA allocation on YARN (YARN-5764), to me the two features are related to each other: Allocate reserved cores to a same process on the same or closest NUMA zone(s) has the best performance, but satisfy one condition can break the other one. Should be very careful to make sure the two features can work together.\r\n\r\n- Related to GPU allocation on YARN: On one machine, GPU performance is sensitive to topology of GPUs. Communication latency and bandwidth differs a lot when GPUs are connected by NVLink, PCI-E, etc. It might be valuable to think about is it possible to have a same framework on the same NM to do resource-specific scheduling and placement.\r\n\r\n- Related to ResourcePlugin framework: We added ResourcePlugin framework since YARN-7224, and now GPU/FPGA are using the framework to implement the feature. I'm not sure if this feature can benefit from the ResourcePlugin framework, or some refactoring required to the framework. It's better if we can extract common part and workflow out.\r\n\r\n4) To me only privileged users and applications can request non-ANY CPU mode, how can we enforce this (maybe not in phase#1, but we need a plan here).",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-05-23T16:33:22.863+0000",
+            "updated": "2018-05-23T16:33:22.863+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16488899",
+            "id": "16488899",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "body": "Hi [~leftnoteasy]\r\n\r\nThanks for reviewing the design doc, very good comments. Please see my answers below\r\n\r\nbq. the #vcore must be divisible by #physical-core, otherwise it will cause rounding issue and containers will get less/more than requested resources\r\n\r\nThis is correct, we do need to detect #processors and do the check when this feature is enabled. Even this satisfied on NM, we still need the calculation introduced in section 3.3, there is a formula to transform #vcore a container requested to #processor, this could still be a decimal. So we take the floor integer. Container will still get what they requested (in terms of vcore), but when it binds to processors, it is possible for example a container might get 30% of processors instead of 33% vcore of a node. Under configuration: #vcore = 10 * #processor. I think we should educate people how to set these stuff up in a tutorial to avoid such non-optimal situation happens.\r\n\r\nbq. I'm still trying to understand benefit of RESERVED / SHARED mode\r\n\r\n*Same*:\r\nBoth RESERVED and SHARE modes provide an option for LS (latency-sensitive) service to share some of its cpu with LT (latency-tolerance) tasks, aka offline tasks. If cpu gets busy, LS service can still get enough cpu time by its *cpu.share* (LS service will have much bigger cpu.share than LT tasks). So your comment \"RESERVED  can be affected by adhoc ANY container\", that is correct, but since they have different cpu.share values, it is still under control : ).\r\n\r\n*Difference*:\r\nSHARE mode gives the option for a LS task share cpu with other LS tasks, this will help the case that some of less latency-sensitive tasks (less than EXCLUSIVE and RESERVED) can run together to pull up the cpu utilization. But such LS tasks still want to have higher weight than offline tasks (again by using of cpu.share).\r\n\r\nbq. Related to NUMA allocation on YARN YARN-5764\r\n\r\nThanks for pointing this out, I was not aware. Just looked into the design and implementation, I agree that that feature is related to this one, but I don't think they are highly coupled. By roughly reading the code, I think it is possible to: 1st phase, we only support one over the other, user can either enable NUMA or cpuset, not both; 2nd phase, we can make them work together (by making sure we bind processors under a certain node that loads from NUMA side result). Will update the design doc later with some more details.\r\n\r\nbq. Related to GPU allocation/resource plugin\r\n\r\nWe are not going to think cpuset as any sort of resource, so this is not applicable. Most of work for this feature will be contained on NM side as a cgroups cpuset handler. This is more like the NUMA code.\r\n\r\nbq. To me only privileged users and applications can request non-ANY CPU mode\r\n\r\nValid suggestion. We can add this to phase-2 work with a pre-check. Will update the design doc also.\r\n\r\nThanks\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "created": "2018-05-24T12:33:04.104+0000",
+            "updated": "2018-05-24T12:33:04.104+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16489398",
+            "id": "16489398",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=miklos.szegedi%40cloudera.com",
+              "name": "miklos.szegedi@cloudera.com",
+              "key": "miklos.szegedi@cloudera.com",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342"
+              },
+              "displayName": "Miklos Szegedi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~cheersyang]\u00a0/\u00a0[~yangjiandan], thank you for raising this, this would be a very useful feature.\r\n\r\nThank you\u00a0[~leftnoteasy]\u00a0for the comments.\r\n\r\n1) I agree with\u00a0\u00a0[~leftnoteasy]\u00a0about the special considerations regarding rounding. Because of this it might make sense to use a separate resource type for this feature. See my other comments regarding this below.\r\n\r\n2) I also think like\u00a0[~leftnoteasy]\u00a0that users might not need the RESERVED/SHARED modes. It adds complexity reducing the number of users, who would use the feature. On the other hand I admit it nicely applies to\u00a0cpuset.cpu_exclusive=0/1.\r\n\r\n3) I definitely agree with\u00a0[~leftnoteasy]\u00a0in the use of resource types. It might be straightforward to have a cpuset resource type that the AMs can request and share the cgroups accordingly. This would also make the configuration more standard. The levels might not even be needed in this case. If an application does not request cpuset, it is shared, otherwise it is exclusive.\u00a0The current suggestion would work but please consider using resource types.\r\n\r\n4) The design lets the AM do a delayed exclusive request directly to the NM avoiding the RM. I think it would be more robust to request from the RM in the container launch context and just forward this to the NM. The RM has the chance to decline or delay the request in this case in the future.\r\n\r\n5)\u00a0[~yangjiandan], how can you make sure a parent cgroup does not interfere with a cgroup marked as\u00a0{{cpuset.cpu_exclusive=1}}? What if a system service wakes up?\r\n\r\n6)\u00a0Let me mention\u00a0that this feature negatively affects YARN-1011 and oversubscription. An exclusive CPU with leftover cannot be used by any other container and remains idle. This reduces overall cluster utilization.\r\n\r\n7) Also, latency sensitive applications get exclusive protection but can only be assigned to their cpuset disallowing bursts to other CPUs when needed. I do not know how to solve this though.\r\n\r\n8)\u00a0If a cpuset is not exclusive it is considered as a limit by cgroups not a reserve. The feature uses this as a reserve which practically would mean that other container cgroups need to be changed and reduced every time a reserved container starts. Am I correct?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=miklos.szegedi%40cloudera.com",
+              "name": "miklos.szegedi@cloudera.com",
+              "key": "miklos.szegedi@cloudera.com",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342"
+              },
+              "displayName": "Miklos Szegedi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-05-24T17:02:20.742+0000",
+            "updated": "2018-05-24T17:02:20.742+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16490165",
+            "id": "16490165",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "body": "Hi [~miklos.szegedi@cloudera.com]\r\n\r\nThanks for the comments, please see my points below\r\n\r\nbq. 1) and 3) it might make sense to use a separate resource type for this feature\r\n\r\nExtend resource type might not be straightforward for cpuset. From your suggestion, how can you define how many cpuset resource on a NM and how a AM to request? It's not a numeric value. The problem is cpuset is working on physical cores (processor) but Yarn manages vcores, and a processor can be shared by multiple containers. Hence we can hardly define \"values\" if we consider it as a resource. \r\n\r\nbq. 2) users might not need the RESERVED/SHARED modes\r\n\r\nThis was my first impression too. But after I talked with [~yangjiandan] and some other folks who manage LS services, I change my mind. RESERVE/SHARE helps to improve the utilization and a key for mix-workload environment, that having batch tasks running along with services. It helps to resolve the problems like you mentioned in #6 and #7.\r\n\r\nbq. 4) The design lets the AM do a delayed exclusive request directly to the NM avoiding the RM. I think it would be more robust to request from the RM in the container launch context and just forward this to the NM. The RM has the chance to decline or delay the request in this case in the future.\r\n\r\nI agree. We are not figuring out a way to let RM play its role here, will try harder thinking about this.\r\n\r\nbq. 6) Let me mention that this feature negatively affects YARN-1011 and oversubscription.\r\n\r\nThat's why we have RESERVED/SHARED mode, it allows a LS service to share its CPU with other tasks, including O containers (O containers will be using ANY mode). But if we set a container with EXCLUSIVE mode, then yes, this will occupied the CPU, this is the only way to ensure it runs completely isolated for such highly sensitive tasks. For our existing online services, most of them are using RESERVED or SHARE mode in order to improve the utilization (a typical mixed-workload scenario)\r\n\r\nbq. 5)  how can you make sure a parent cgroup does not interfere with a cgroup marked as cpuset.cpu_exclusive=1? What if a system service wakes up?\r\n\r\nWe are not going to set cpuset.cpu_exclusive=1, at least not in this version of design. We are trying to solve the problem about competing CPU resources between containers, not with system services.\r\n\r\nbq. 7) Also, latency sensitive applications get exclusive protection but can only be assigned to their cpuset disallowing bursts to other CPUs when needed. I do not know how to solve this though.\r\n\r\nUse SHARE mode. We have a lot of online services running under this mode, that allows it to use all processors except those assigned to EXCLUSIVE and RESERVED.\r\n\r\nbq. 8) mean that other container cgroups need to be changed and reduced every time a reserved container starts\r\n\r\nCorrect. When we assign a processor to a container using RESERVED or EXCLUSIVE, then we need to remove it from rest of containers cgroup, this is briefly introduced in section 3.5 of the design doc.\r\n\r\nHope it makes sense, looking forward to hear your feedback.\r\nThanks",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "created": "2018-05-25T03:13:14.507+0000",
+            "updated": "2018-05-25T03:13:14.507+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16491177",
+            "id": "16491177",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks [~cheersyang], \r\n\r\nTo me the benefit of exclusive mode is obvious and straightforward. For SHARED/RESERVED mode, if we plan to do this in phases, could we do the EXCLUSIVE mode first, harden the API, refactoring, etc first. Instead of working on too many changes. What's ur opinion on this?\r\n\r\nIn addition to the JIRA I mentioned, there's an effort to add support to GPU affinity: YARN-7481. I don't quite like the proposed approach (bitmap to represent resources). But it might be good if we can build a common layer to support such use cases since for CPU exclusive usage, etc. we also want ACLs / resource accounting, etc.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-05-25T19:12:03.728+0000",
+            "updated": "2018-05-25T19:12:03.728+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16492301",
+            "id": "16492301",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "body": "[~leftnoteasy], your suggestion makes sense to me, let us see if we can split this to phases. For basis user scenarios, exclusive mode might be good enough to start. Will also take a look YARN-7481. And update these in next design doc. Thanks for the comments !",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "created": "2018-05-28T06:13:07.825+0000",
+            "updated": "2018-05-28T06:13:07.825+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16493112",
+            "id": "16493112",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=miklos.szegedi%40cloudera.com",
+              "name": "miklos.szegedi@cloudera.com",
+              "key": "miklos.szegedi@cloudera.com",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342"
+              },
+              "displayName": "Miklos Szegedi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thank you, [~cheersyang]. For the responses. They make sense to me in general.\r\n{quote}how many cpuset resource on a NM and how a AM to request?\r\n{quote}\r\nIn general, this is an adapter code, passing on a cgroup functionality to another API. As such it can do two things. One is being transparent, the other is making the original API easier to use. You try to do the latter in your design, which makes sense. Being transparent however would mean letting the AM choose cpu resources controlling cpu,cpuacct and cpuset resources controlling cpuset separately. I would\u00a0prefer the latter, since it is transparent keeping all functionality without restrictions and makes any future design easier to implement. cpuset would have as many processors as there are available in\u00a0cpuset.cpus of the container root cgroup that is usually {{hadoop-yarn}}. Individual CPUs are chosen by NM based on the number of cpuset cpus granted by RM.\r\n\r\nHowever, I do not have a strong opinion about this.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=miklos.szegedi%40cloudera.com",
+              "name": "miklos.szegedi@cloudera.com",
+              "key": "miklos.szegedi@cloudera.com",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342"
+              },
+              "displayName": "Miklos Szegedi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-05-29T05:20:17.432+0000",
+            "updated": "2018-05-29T05:20:17.432+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16493538",
+            "id": "16493538",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "body": "Thanks [~miklos.szegedi@cloudera.com] for sharing your idea. You were right that the original idea was to make this easy to use. That says user doesn't need to\u00a0know about what set of cpus their containers will be running on, and how they are configured. They just give us a cpu_share_mode, and we\u00a0do all the tricks\u00a0underneath without exposing too much details.\r\n\r\nMy concern about the approach you suggested is\r\n # It might be complex for user to use\r\n # It should be able to support 2 modes but not very straightforward to support 4 modes\r\n\r\nAllow me take an example like following:\r\n\r\n{noformat}\r\nI have a NM with capacity:\r\n\u00a0 memory: 10gb\r\n\u00a0 vcore: 10\r\n\u00a0 cpus: 10 (0, 1, 2, 3, 4, 5, 6, 7, 8, 9)\r\n\r\nRequest with just cpu number:\r\n\u00a0 memory: 1gb\r\n\u00a0 vcore: 5\r\n\u00a0 cpuset: 5\r\n\r\nAfter allocation, my NM capacity updates to \r\n\u00a0 memory: 9gb\r\n\u00a0 vcore: 5\r\n\u00a0 cpus: 5 (0, 1, 2, 3, 4)\r\n{noformat}\r\n\r\nthere are few problems with such approach\r\n # User might get confused how many cpus to apply in the resource request. Vcore as of today is already a difficult thing to set, adding a new type of resource might make this harder.\r\n # When #vcore is not same as #processor on NM, user will need do some calculation to set a reasonable cpuset value in order not to over/less use cpu resource, and this is hard for RM to check as it doesn't have all the info like NM did\r\n # Difficult to support all 4 modes under current resource APIs\r\n\r\nPlease let me know if there is any wrong in this example and the comments.\r\nI agree we can start from supporting EXCLUSIVE+ANY mode in phase 1, but still want to make sure the design is able to extend to support both modes (because RESERVED/SHARE modes are very useful to improve utilizations). I will consolidate all the comments from you and [~leftnoteasy] and come up with a new version of design doc next week. Look forward for your comments always.\r\n\r\nThanks",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "created": "2018-05-29T13:40:20.316+0000",
+            "updated": "2018-05-29T13:40:20.316+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16494656",
+            "id": "16494656",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=miklos.szegedi%40cloudera.com",
+              "name": "miklos.szegedi@cloudera.com",
+              "key": "miklos.szegedi@cloudera.com",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342"
+              },
+              "displayName": "Miklos Szegedi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thank you [~cheersyang] for the detailed response. The only thing that you are missing I think is that cpu and cpuset are not the same resource in cgroups. They are actually two dimensions of the\u00a0CPU space. cpu,cpuacct controls in general how much time is allocated (one dimension) and cpuset controls how many physical devices are allocated (second dimension). cpu,cpuacct is a compressible, flexible resource more will almost always proportionally reduce the runtime if cpu bound. cpuset is is not flexible, it depends on the thread factor of the container.\r\n\r\nJust to use your example above:\r\n{code:java}\r\nI have a NM with capacity:\r\n\u00a0 memory: 10gb\r\n\u00a0 vcore: 10\r\n\u00a0 cpus: 10 (0, 1, 2, 3, 4, 5, 6, 7, 8, 9)\r\n\r\nRequest with just vcore number (the container runs a single process and single thread !):\r\n\u00a0 memory: 1gb\r\n\u00a0 vcore: 5\r\n\r\nAfter allocation, my NM capacity updates to \r\n\u00a0 memory: 9gb\r\n\u00a0 vcore: 5\r\n\u00a0 cpus: 5 (0, 1, 2, 3, 4) WRONG(!) The process is single threaded, 4 cores are wasted.\r\n\r\nRequest with both vcore number and cpus:\r\n\u00a0 memory: 1gb\r\n\u00a0 vcore(cputime): 5\r\n\u00a0 cpuset: 1\r\n\r\nAfter allocation, my NM capacity updates to \r\n\u00a0 memory: 9gb\r\n\u00a0 vcore(cputime): 5\r\n\u00a0 cpus: 5 (0, 1, 2, 3, 4, 5, 6, 7, 8) GOOD The process is single threaded.\r\n{code}\r\nI understand that you would like to simplify the configuration. However, as you see in the example the situation above will never be able to be solved by YARN anymore. This because of backward compatibility, if the current design is chosen.\r\n\r\nThat being said, if you still would like to follow the simplified path, please go ahead, I just wanted to elaborate my concerns.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=miklos.szegedi%40cloudera.com",
+              "name": "miklos.szegedi@cloudera.com",
+              "key": "miklos.szegedi@cloudera.com",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342"
+              },
+              "displayName": "Miklos Szegedi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-05-30T04:21:35.602+0000",
+            "updated": "2018-05-30T04:23:31.380+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16499938",
+            "id": "16499938",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bibinchundatt",
+              "name": "bibinchundatt",
+              "key": "bibinchundatt",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bibinchundatt&avatarId=29912",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bibinchundatt&avatarId=29912",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bibinchundatt&avatarId=29912",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bibinchundatt&avatarId=29912"
+              },
+              "displayName": "Bibin Chundatt",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Thank you [~cheersyang]/[~yangjiandan] for design doc\r\n\r\n{quote}\r\nWhen a container\u2019s cpu_share_mode is EXCLUSIVE/RESERVED, the number of allocated\r\nprocessor \u200b allocateProcessorNum\u200b = \u200b container_vcore / Vcore_Ratio, \u200b request will be\r\nrejected if\u200b allocateProcessorNum <= 0;\r\n{quote}\r\n# IIUC If we don't  have slots to bind container will be rejecting the container start request. Which will be considered as failed. Scheduler could again allocate container to same nodemanager rt ??\r\n# When nm processors/ nm vcores < 1  and share mode have you considered *strictness per containers* ?? ie using the periods and quota also along with Cpuset assignment ?? If no other process is using  cpu then process will be consuming more than what its supposed to rt ??\r\n\r\nThoughts on having CpuBindHandlerImpl includes 2 Allocators for cgroups subgroups one for cpu and another for cpuset?\r\n\r\nCould you also consider the following in design\r\n\r\n# Using fixed set of folders for assignment in Allocator (Reduce overload of creation and deletion on containers.)\r\n# Resource calculation could go wrong incase of preemption of  containers rt . kill reject could get processed after container start.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bibinchundatt",
+              "name": "bibinchundatt",
+              "key": "bibinchundatt",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bibinchundatt&avatarId=29912",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bibinchundatt&avatarId=29912",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bibinchundatt&avatarId=29912",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bibinchundatt&avatarId=29912"
+              },
+              "displayName": "Bibin Chundatt",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2018-06-04T09:20:47.255+0000",
+            "updated": "2018-06-04T09:20:47.255+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16501927",
+            "id": "16501927",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "body": "Hi [~miklos.szegedi@cloudera.com]/[~bibinchundatt]\r\n\r\nThanks for the comments, here are my thoughts\r\n{quote}I think is that cpu and cpuset are not the same resource in cgroups.\r\n{quote}\r\nActually we don't want to\u00a0say\u00a0*cpuset*\u00a0is a resource, it is an isolation technique against a certain amount of cpu resource. It's not straightforward to set it as a resource in request, just like the example you pointed out. The purpose of this Jira is to give user a way to isolate or partially share cpu resources between containers. For the 1st step when we support exclusive type, once the container is started, we will set cpu quota/shares for them to limit resource usage, and bind the container to same amount of processors for isolation. So we still prefer the \"simplify\" the path, the \"resource\" path doesn't seem to be clear to me.\r\n{quote}If we don't have slots to bind container will be rejecting the container start request. Which will be considered as failed. Scheduler could again allocate container to same nodemanager rt ??\r\n{quote}\r\nWell when a container failed to start like this, in most cases it will not be able to start on any node. Because this means the #vcore in the requested is too small. We are trying to do some pre-check on such conditions to give a fail-fast approach, that should help.\r\n{quote}When nm processors/ nm vcores < 1 and share mode have you considered strictness per containers ?? ie using the periods and quota also along with Cpuset assignment ?? If no other process is using cpu then process will be consuming more than what its supposed to rt ??\r\n{quote}\r\nYes, cpu quota and shares will also be set for containers, that's the thing we depend on to limit the actual cpu usage for each containers. We just need to make sure the values set for them are reasonable when they have bind to certain processors. Thanks for pointing this out, a very good concern.\r\n{quote}Using fixed set of folders for assignment in Allocator (Reduce overload of creation and deletion on containers.\r\n{quote}\r\nThat makes sense.\r\n{quote}Resource calculation could go wrong incase of preemption of containers rt . kill reject could get processed after container start.\r\n{quote}\r\nResource calculation won't be wrong since we don't count cpuset as a resource. But when container is killed, we will need to make sure this is handled and cgroups gets updated correctly. Thanks for pointing this out, I will add some more details into next version of design doc.\r\n\r\nThanks",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "created": "2018-06-05T15:09:33.159+0000",
+            "updated": "2018-06-05T15:09:33.159+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16502128",
+            "id": "16502128",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=miklos.szegedi%40cloudera.com",
+              "name": "miklos.szegedi@cloudera.com",
+              "key": "miklos.szegedi@cloudera.com",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342"
+              },
+              "displayName": "Miklos Szegedi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks [~cheersyang] for the reply.\r\n{quote}It's not straightforward to set it as a resource in request, just like the example you pointed out.\r\n{quote}\r\nI am sorry, I am not sure what do you mean. I actually pointed out the opposite. It is not straightforward to set it as a single vcore resource request.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=miklos.szegedi%40cloudera.com",
+              "name": "miklos.szegedi@cloudera.com",
+              "key": "miklos.szegedi@cloudera.com",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342"
+              },
+              "displayName": "Miklos Szegedi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-06-05T17:07:29.452+0000",
+            "updated": "2018-06-05T17:09:05.481+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16503212",
+            "id": "16503212",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "body": "Hi [~miklos.szegedi@cloudera.com]\r\n\r\nI mean by letting user setup both #vcore and #cpus in their resource request is too complex. Even for phase 1, if only EXCLUSIVE mode is supported, for example:\r\n\r\n{noformat}\r\nNM:\r\n\u00a0 #vcore: 100\r\n\u00a0 #cpu: 10\r\n{noformat}\r\n\r\nUser want to use exclusive, so the request must be like\r\n\r\n{noformat}\r\nRequest1:\r\n\u00a0 #vcore: 10 * N\r\n\u00a0 #cpu: N (0<N<=10)\r\n{noformat}\r\n\r\nif {{#vcore < 10 * N}}, that means some cpu is wasted.\u00a0 If user sets this to\r\n\r\n{noformat}\r\nRequest2:\r\n\u00a0 #vcore: 80\r\n\u00a0 #cpu: 9\r\n{noformat}\r\n\r\nafter allocation, NM capacity left\r\n\r\n{noformat}\r\nNM:\r\n\u00a0 #vcore: 20\r\n\u00a0 #cpu: 1\r\n{noformat}\r\n\r\nnow when a #vcore=20 container landed on this node, it can only get 10% cputime (instead of 20%) since 9 cpus are already occupied by request2. This is not expected. And if you think about RESERVED/SHARED mode, it will be more complex. User will not able to know how many number of cpus to specify in their request to achieve a RESERVED/SHARED mode cpu sharing.\r\n\r\nDoes this make sense?\r\nThanks\r\n\r\n\r\n\r\n\u00a0",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "created": "2018-06-06T12:23:59.420+0000",
+            "updated": "2018-06-06T12:23:59.420+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16503850",
+            "id": "16503850",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=szegedim",
+              "name": "szegedim",
+              "key": "szegedim",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=szegedim&avatarId=40142",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=szegedim&avatarId=40142",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=szegedim&avatarId=40142",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=szegedim&avatarId=40142"
+              },
+              "displayName": "Miklos Szegedi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~cheersyang], it makes sense in general. I think what you are missing here is if you use non-strict mode with simple weights {{cpu.shares}}, those are applied per thread.\u00a0Indeed there is a\u00a0design issue in the existing\u00a0{{CGroupsCPUResourcesHandler}} that it applies {{cpu.shares=vcores}}\u00a0to each thread of a guaranteed container.\r\n\r\nGiven this request in your example above, you will actually get 10 * N * N cpu time with the current code that is wrong.\r\n{code:java}\r\nRequest1:\r\n\u00a0 #vcore: 10 * N\r\n\u00a0 #cpu: N (0<N<=10){code}\r\nHow about another solution? Let's forget about vcores first, so all you need to\u00a0set in cgroups\u00a0in case of exclusive mode is: (this would be the advanced setup)\r\n{code:java}\r\nRequest1:\r\n\u00a0 #cpu.shares: 1024\r\n\u00a0 #cpuset: 9\r\nRequest2:\r\n\u00a0 #cpu.shares: 1024\r\n\u00a0 #cpuset: 1{code}\r\nIf you prefer the simple setup\u00a0the client just needs to\u00a0specify the same request with vcores:\r\n{code:java}\r\nRequest1:\r\n\u00a0 #vcores: 9*1024\r\nRequest2:\r\n\u00a0 #vcores: 1*1024{code}\r\nInside {{CGroupsCPUResourcesHandler}} and {{CGroupsCPUSetResourcesHandler}} these would translate to the following cgroup settings:\r\n{code:java}\r\nRequest1:\r\n\u00a0 #cpu.shares: (#vcores + 1023) % 1024 + 1 = 1024\r\n\u00a0 #cpuset: (#vcores + 1023) / 1024 = 9\r\nRequest2:\r\n\u00a0 #cpu.shares: #vcores % 1024 + 1 = 1024\r\n\u00a0 #cpuset: (#vcores + 1023) / 1024 = 1{code}\r\nEach thread will get the weight and in case of exclusive mode all cpus will be saturated.\r\n\r\nThis solution:\r\n # Provides the simple setup that you prefer. You only need to specify vcores only.\r\n # Provides custom resource type setup for advanced use specifying cpu.shares and cpuset in the future.\r\n # No special flag needs to be added to the container launch context.\r\n # It is backward compatible.\r\n # It allows RESERVED/SHARED/ANY mode by setting {{vcores: 512}} for example for shared/opportunistic containers. This would set {{cpu.shares: 512, cpuset: 1}} sharing a CPU with another request of\u00a0{{vcores: 512 and it even allows precise weighting}}.\r\n # It works with oversubscription by defaulting to {{cpu.shares=1}}\r\n # Drawback: this does not provide a way to request multiple shared cpus for example. That could be a special advanced feature in the future specifying resource types.\r\n # Work: It needs to get {{CGroupsCPUResourcesHandler}} fixed to set weight to constant\r\n # Work: The advanced setup needs to make cpu.shares a second level resource type introducing something like a resource tee for the future.\r\n\r\n\u00a0",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=szegedim",
+              "name": "szegedim",
+              "key": "szegedim",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=szegedim&avatarId=40142",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=szegedim&avatarId=40142",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=szegedim&avatarId=40142",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=szegedim&avatarId=40142"
+              },
+              "displayName": "Miklos Szegedi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-06-06T20:10:51.530+0000",
+            "updated": "2018-06-06T20:10:51.530+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16505950",
+            "id": "16505950",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "body": "Hi [~miklos.szegedi@cloudera.com]\r\n\r\nThe solution you proposed looks like quite interesting, especially the idea about cpu.share. Please see my comments\r\n\r\nIf use the \"simple\" approach you shared,\r\n\r\n1. Such request\r\n{noformat}\r\nRequest1:\r\n  #vcores: 9*1024\r\n{noformat}\r\nthis breaks the basic semantic for vcore we've been using for years, this is core API level incompatible.\r\n\r\n2. For the formula you gave,\r\n{noformat}\r\n  #cpu.shares: (#vcores + 1023) % 1024 + 1 = 1024\r\n{noformat}\r\nWhat if I specify #vcore=8*512 (=4 * 1024), what #cpu.shares and #cpuset will be? I don't think you can get 2 var result from 1 var input.\r\n\r\nIf we consider #cpu.shares and #cpuset as resources,\r\n # NM and RM needs to know all info about physical processors, including their (virtual) shares, this introduces extra complexity for both NM and RM. Moreover, current resource API doesn't support such multidimensional resource.\r\n # Precise weighting sounds like an interesting idea, but I doubt if we really need that much. On our online systems, we don't really control in that fine-grained.\r\n # It will be hard for user to setup {{cpu.share}}, how would an user know what value is meaningful. And what if some user just set some too big or small value in their requests? They will get un-predictable results.\r\n\r\nWe can have some more offline chats about this, thanks for bringing up the idea.\r\n Thanks.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "created": "2018-06-08T12:13:30.771+0000",
+            "updated": "2018-06-08T12:13:30.771+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16516290",
+            "id": "16516290",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=szegedim",
+              "name": "szegedim",
+              "key": "szegedim",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=szegedim&avatarId=40142",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=szegedim&avatarId=40142",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=szegedim&avatarId=40142",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=szegedim&avatarId=40142"
+              },
+              "displayName": "Miklos Szegedi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~cheersyang], thank you for the response. Indeed, I was assuming users will set some typical values for vcores(cores) that translate to cpu.shares and cpuset. These are like 0.2, 0.5 for shareable and 1.0 or 2.0 for exclusive. Values like 4.5 are too hard to understand indeed.\r\n\r\nPlease go ahead with your approach. It would be useful to keep in mind that the system needs to be able to set both cpu.shares and cpuset dimensions some time in the future.\r\n\r\n\u00a0",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=szegedim",
+              "name": "szegedim",
+              "key": "szegedim",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=szegedim&avatarId=40142",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=szegedim&avatarId=40142",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=szegedim&avatarId=40142",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=szegedim&avatarId=40142"
+              },
+              "displayName": "Miklos Szegedi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-06-18T20:03:12.179+0000",
+            "updated": "2018-06-18T20:03:12.179+0000"
+          }
+        ],
+        "maxResults": 23,
+        "total": 23,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8320/votes",
+        "votes": 1,
+        "hasVoted": false
+      },
+      "updated": "2018-06-18T20:03:12.179+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 23,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16480529",
+        "id": "16480529",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=yangjiandan",
+          "name": "yangjiandan",
+          "key": "yangjiandan",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yangjiandan&avatarId=32648",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yangjiandan&avatarId=32648",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yangjiandan&avatarId=32648",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yangjiandan&avatarId=32648"
+          },
+          "displayName": "Jiandan Yang ",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "upload design doc v1.\r\nPlease feel free to let me know your questions / comments. If everyone agrees with the general approach, I will go ahead to create a patch",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=yangjiandan",
+          "name": "yangjiandan",
+          "key": "yangjiandan",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yangjiandan&avatarId=32648",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yangjiandan&avatarId=32648",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yangjiandan&avatarId=32648",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yangjiandan&avatarId=32648"
+          },
+          "displayName": "Jiandan Yang ",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2018-05-18T11:48:00.907+0000",
+        "updated": "2018-05-18T11:48:00.907+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16481002",
+        "id": "16481002",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks [~yangjiandan] This is definitely a\u00a0very interesting feature proposal! Which can benefit use cases like mixed deployment of online / offline jobs.\r\n\r\nAdding several folks who might be interested in this: [~cheersyang], [~asuresh], [~miklos.szegedi@cloudera.com], [~haibo.chen], [~shanekumpf@gmail.com].",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-05-18T18:15:49.819+0000",
+        "updated": "2018-05-18T18:15:49.819+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16481841",
+        "id": "16481841",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "body": "Thanks [~yangjiandan]for the proposal, this is very interesting, will help to extend Yarn to support online services, especially\u00a0latency-sensitive services.\u00a0 I think we should have an umbrella Jira track this effort to support LS services. [~leftnoteasy], what do you think?\r\n\r\nI did take a look at the proposal, there are still some details to be figured out, but overall a good start. Some early comments,\r\n # Section 2 presents 4 modes, which is a bit complex. If possible, we should start to support exclusive and non-exclusive mode in the first phase.\r\n # The proposal needs to add more info about the RM side change. It's not clear to me if\u00a0scheduler\u00a0needs cpu share mode info for its scheduling decisions. And also not clear to me what's the relationship between vcores and cpu share mode. Please add more info, with some examples.\r\n # Update container cpu share mode might also be a phase 2 work.\r\n\r\nI will deep dive into this area next week and share some more comments if I found any. We can have some discussion over this too.\r\n\r\nThanks",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "created": "2018-05-20T05:56:36.439+0000",
+        "updated": "2018-05-20T05:56:36.439+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16482336",
+        "id": "16482336",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=yangjiandan",
+          "name": "yangjiandan",
+          "key": "yangjiandan",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yangjiandan&avatarId=32648",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yangjiandan&avatarId=32648",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yangjiandan&avatarId=32648",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yangjiandan&avatarId=32648"
+          },
+          "displayName": "Jiandan Yang ",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "upload v1 patch to initiate disscussion",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=yangjiandan",
+          "name": "yangjiandan",
+          "key": "yangjiandan",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yangjiandan&avatarId=32648",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yangjiandan&avatarId=32648",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yangjiandan&avatarId=32648",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yangjiandan&avatarId=32648"
+          },
+          "displayName": "Jiandan Yang ",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2018-05-21T09:48:34.940+0000",
+        "updated": "2018-05-21T09:48:34.940+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16483813",
+        "id": "16483813",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "body": "Some updates, I am working with [~yangjiandan] on polishing the design doc, will add more details and explanations this week. We've done some prototype already as the WIP patch [~yangjiandan] has shared. Please feel free to comment and share your thoughts.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "created": "2018-05-22T11:37:20.414+0000",
+        "updated": "2018-05-22T11:39:48.337+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16484553",
+        "id": "16484553",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks [~cheersyang] / [~yangjiandan], I don't have much bandwidth to dig into details of the design. If you think this is a task need to be done in phases and/or sub JIRAs, please move this to umbrella JIRA.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-05-22T20:51:52.255+0000",
+        "updated": "2018-05-22T20:51:52.255+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16487066",
+        "id": "16487066",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=yangjiandan",
+          "name": "yangjiandan",
+          "key": "yangjiandan",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yangjiandan&avatarId=32648",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yangjiandan&avatarId=32648",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yangjiandan&avatarId=32648",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yangjiandan&avatarId=32648"
+          },
+          "displayName": "Jiandan Yang ",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "[~cheersyang] and I discuss design offline together. Add more details in v2 design doc.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=yangjiandan",
+          "name": "yangjiandan",
+          "key": "yangjiandan",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yangjiandan&avatarId=32648",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yangjiandan&avatarId=32648",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yangjiandan&avatarId=32648",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yangjiandan&avatarId=32648"
+          },
+          "displayName": "Jiandan Yang ",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2018-05-23T10:41:59.378+0000",
+        "updated": "2018-05-23T10:41:59.378+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16487596",
+        "id": "16487596",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks [~cheersyang] / [~yangjiandan] for the detailed design, very helpful to understand the contexts. \r\n\r\nI took a quick look at the proposal, a couple of questions / comments: \r\n\r\n1) It seems that the #vcore must be divisible by #physical-core, otherwise it will cause rounding issue and containers will get less/more than requested resources. If admin enable the feature, YARN should take care of checking this value before starting NM.\r\n\r\n2) I'm still trying to understand benefit of RESERVED / SHARED mode. If a RESERVED core can be used by ANY container, in my mind, the RESERVED container can be affected by adhoc ANY container. And similarly, if we allow SHARED containers bind to same set of cores, considering SHARED containers are running LS services and CPU-intensive, they could compute a lot on these SHARED containers. Which could lead to even worse latency and more competitions.\r\n\r\n3) Relationship to other features:\r\n- Related to NUMA allocation on YARN (YARN-5764), to me the two features are related to each other: Allocate reserved cores to a same process on the same or closest NUMA zone(s) has the best performance, but satisfy one condition can break the other one. Should be very careful to make sure the two features can work together.\r\n\r\n- Related to GPU allocation on YARN: On one machine, GPU performance is sensitive to topology of GPUs. Communication latency and bandwidth differs a lot when GPUs are connected by NVLink, PCI-E, etc. It might be valuable to think about is it possible to have a same framework on the same NM to do resource-specific scheduling and placement.\r\n\r\n- Related to ResourcePlugin framework: We added ResourcePlugin framework since YARN-7224, and now GPU/FPGA are using the framework to implement the feature. I'm not sure if this feature can benefit from the ResourcePlugin framework, or some refactoring required to the framework. It's better if we can extract common part and workflow out.\r\n\r\n4) To me only privileged users and applications can request non-ANY CPU mode, how can we enforce this (maybe not in phase#1, but we need a plan here).",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-05-23T16:33:22.863+0000",
+        "updated": "2018-05-23T16:33:22.863+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16488899",
+        "id": "16488899",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "body": "Hi [~leftnoteasy]\r\n\r\nThanks for reviewing the design doc, very good comments. Please see my answers below\r\n\r\nbq. the #vcore must be divisible by #physical-core, otherwise it will cause rounding issue and containers will get less/more than requested resources\r\n\r\nThis is correct, we do need to detect #processors and do the check when this feature is enabled. Even this satisfied on NM, we still need the calculation introduced in section 3.3, there is a formula to transform #vcore a container requested to #processor, this could still be a decimal. So we take the floor integer. Container will still get what they requested (in terms of vcore), but when it binds to processors, it is possible for example a container might get 30% of processors instead of 33% vcore of a node. Under configuration: #vcore = 10 * #processor. I think we should educate people how to set these stuff up in a tutorial to avoid such non-optimal situation happens.\r\n\r\nbq. I'm still trying to understand benefit of RESERVED / SHARED mode\r\n\r\n*Same*:\r\nBoth RESERVED and SHARE modes provide an option for LS (latency-sensitive) service to share some of its cpu with LT (latency-tolerance) tasks, aka offline tasks. If cpu gets busy, LS service can still get enough cpu time by its *cpu.share* (LS service will have much bigger cpu.share than LT tasks). So your comment \"RESERVED  can be affected by adhoc ANY container\", that is correct, but since they have different cpu.share values, it is still under control : ).\r\n\r\n*Difference*:\r\nSHARE mode gives the option for a LS task share cpu with other LS tasks, this will help the case that some of less latency-sensitive tasks (less than EXCLUSIVE and RESERVED) can run together to pull up the cpu utilization. But such LS tasks still want to have higher weight than offline tasks (again by using of cpu.share).\r\n\r\nbq. Related to NUMA allocation on YARN YARN-5764\r\n\r\nThanks for pointing this out, I was not aware. Just looked into the design and implementation, I agree that that feature is related to this one, but I don't think they are highly coupled. By roughly reading the code, I think it is possible to: 1st phase, we only support one over the other, user can either enable NUMA or cpuset, not both; 2nd phase, we can make them work together (by making sure we bind processors under a certain node that loads from NUMA side result). Will update the design doc later with some more details.\r\n\r\nbq. Related to GPU allocation/resource plugin\r\n\r\nWe are not going to think cpuset as any sort of resource, so this is not applicable. Most of work for this feature will be contained on NM side as a cgroups cpuset handler. This is more like the NUMA code.\r\n\r\nbq. To me only privileged users and applications can request non-ANY CPU mode\r\n\r\nValid suggestion. We can add this to phase-2 work with a pre-check. Will update the design doc also.\r\n\r\nThanks\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "created": "2018-05-24T12:33:04.104+0000",
+        "updated": "2018-05-24T12:33:04.104+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16489398",
+        "id": "16489398",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=miklos.szegedi%40cloudera.com",
+          "name": "miklos.szegedi@cloudera.com",
+          "key": "miklos.szegedi@cloudera.com",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342"
+          },
+          "displayName": "Miklos Szegedi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~cheersyang]\u00a0/\u00a0[~yangjiandan], thank you for raising this, this would be a very useful feature.\r\n\r\nThank you\u00a0[~leftnoteasy]\u00a0for the comments.\r\n\r\n1) I agree with\u00a0\u00a0[~leftnoteasy]\u00a0about the special considerations regarding rounding. Because of this it might make sense to use a separate resource type for this feature. See my other comments regarding this below.\r\n\r\n2) I also think like\u00a0[~leftnoteasy]\u00a0that users might not need the RESERVED/SHARED modes. It adds complexity reducing the number of users, who would use the feature. On the other hand I admit it nicely applies to\u00a0cpuset.cpu_exclusive=0/1.\r\n\r\n3) I definitely agree with\u00a0[~leftnoteasy]\u00a0in the use of resource types. It might be straightforward to have a cpuset resource type that the AMs can request and share the cgroups accordingly. This would also make the configuration more standard. The levels might not even be needed in this case. If an application does not request cpuset, it is shared, otherwise it is exclusive.\u00a0The current suggestion would work but please consider using resource types.\r\n\r\n4) The design lets the AM do a delayed exclusive request directly to the NM avoiding the RM. I think it would be more robust to request from the RM in the container launch context and just forward this to the NM. The RM has the chance to decline or delay the request in this case in the future.\r\n\r\n5)\u00a0[~yangjiandan], how can you make sure a parent cgroup does not interfere with a cgroup marked as\u00a0{{cpuset.cpu_exclusive=1}}? What if a system service wakes up?\r\n\r\n6)\u00a0Let me mention\u00a0that this feature negatively affects YARN-1011 and oversubscription. An exclusive CPU with leftover cannot be used by any other container and remains idle. This reduces overall cluster utilization.\r\n\r\n7) Also, latency sensitive applications get exclusive protection but can only be assigned to their cpuset disallowing bursts to other CPUs when needed. I do not know how to solve this though.\r\n\r\n8)\u00a0If a cpuset is not exclusive it is considered as a limit by cgroups not a reserve. The feature uses this as a reserve which practically would mean that other container cgroups need to be changed and reduced every time a reserved container starts. Am I correct?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=miklos.szegedi%40cloudera.com",
+          "name": "miklos.szegedi@cloudera.com",
+          "key": "miklos.szegedi@cloudera.com",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342"
+          },
+          "displayName": "Miklos Szegedi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-05-24T17:02:20.742+0000",
+        "updated": "2018-05-24T17:02:20.742+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16490165",
+        "id": "16490165",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "body": "Hi [~miklos.szegedi@cloudera.com]\r\n\r\nThanks for the comments, please see my points below\r\n\r\nbq. 1) and 3) it might make sense to use a separate resource type for this feature\r\n\r\nExtend resource type might not be straightforward for cpuset. From your suggestion, how can you define how many cpuset resource on a NM and how a AM to request? It's not a numeric value. The problem is cpuset is working on physical cores (processor) but Yarn manages vcores, and a processor can be shared by multiple containers. Hence we can hardly define \"values\" if we consider it as a resource. \r\n\r\nbq. 2) users might not need the RESERVED/SHARED modes\r\n\r\nThis was my first impression too. But after I talked with [~yangjiandan] and some other folks who manage LS services, I change my mind. RESERVE/SHARE helps to improve the utilization and a key for mix-workload environment, that having batch tasks running along with services. It helps to resolve the problems like you mentioned in #6 and #7.\r\n\r\nbq. 4) The design lets the AM do a delayed exclusive request directly to the NM avoiding the RM. I think it would be more robust to request from the RM in the container launch context and just forward this to the NM. The RM has the chance to decline or delay the request in this case in the future.\r\n\r\nI agree. We are not figuring out a way to let RM play its role here, will try harder thinking about this.\r\n\r\nbq. 6) Let me mention that this feature negatively affects YARN-1011 and oversubscription.\r\n\r\nThat's why we have RESERVED/SHARED mode, it allows a LS service to share its CPU with other tasks, including O containers (O containers will be using ANY mode). But if we set a container with EXCLUSIVE mode, then yes, this will occupied the CPU, this is the only way to ensure it runs completely isolated for such highly sensitive tasks. For our existing online services, most of them are using RESERVED or SHARE mode in order to improve the utilization (a typical mixed-workload scenario)\r\n\r\nbq. 5)  how can you make sure a parent cgroup does not interfere with a cgroup marked as cpuset.cpu_exclusive=1? What if a system service wakes up?\r\n\r\nWe are not going to set cpuset.cpu_exclusive=1, at least not in this version of design. We are trying to solve the problem about competing CPU resources between containers, not with system services.\r\n\r\nbq. 7) Also, latency sensitive applications get exclusive protection but can only be assigned to their cpuset disallowing bursts to other CPUs when needed. I do not know how to solve this though.\r\n\r\nUse SHARE mode. We have a lot of online services running under this mode, that allows it to use all processors except those assigned to EXCLUSIVE and RESERVED.\r\n\r\nbq. 8) mean that other container cgroups need to be changed and reduced every time a reserved container starts\r\n\r\nCorrect. When we assign a processor to a container using RESERVED or EXCLUSIVE, then we need to remove it from rest of containers cgroup, this is briefly introduced in section 3.5 of the design doc.\r\n\r\nHope it makes sense, looking forward to hear your feedback.\r\nThanks",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "created": "2018-05-25T03:13:14.507+0000",
+        "updated": "2018-05-25T03:13:14.507+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16491177",
+        "id": "16491177",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks [~cheersyang], \r\n\r\nTo me the benefit of exclusive mode is obvious and straightforward. For SHARED/RESERVED mode, if we plan to do this in phases, could we do the EXCLUSIVE mode first, harden the API, refactoring, etc first. Instead of working on too many changes. What's ur opinion on this?\r\n\r\nIn addition to the JIRA I mentioned, there's an effort to add support to GPU affinity: YARN-7481. I don't quite like the proposed approach (bitmap to represent resources). But it might be good if we can build a common layer to support such use cases since for CPU exclusive usage, etc. we also want ACLs / resource accounting, etc.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-05-25T19:12:03.728+0000",
+        "updated": "2018-05-25T19:12:03.728+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16492301",
+        "id": "16492301",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "body": "[~leftnoteasy], your suggestion makes sense to me, let us see if we can split this to phases. For basis user scenarios, exclusive mode might be good enough to start. Will also take a look YARN-7481. And update these in next design doc. Thanks for the comments !",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "created": "2018-05-28T06:13:07.825+0000",
+        "updated": "2018-05-28T06:13:07.825+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16493112",
+        "id": "16493112",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=miklos.szegedi%40cloudera.com",
+          "name": "miklos.szegedi@cloudera.com",
+          "key": "miklos.szegedi@cloudera.com",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342"
+          },
+          "displayName": "Miklos Szegedi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thank you, [~cheersyang]. For the responses. They make sense to me in general.\r\n{quote}how many cpuset resource on a NM and how a AM to request?\r\n{quote}\r\nIn general, this is an adapter code, passing on a cgroup functionality to another API. As such it can do two things. One is being transparent, the other is making the original API easier to use. You try to do the latter in your design, which makes sense. Being transparent however would mean letting the AM choose cpu resources controlling cpu,cpuacct and cpuset resources controlling cpuset separately. I would\u00a0prefer the latter, since it is transparent keeping all functionality without restrictions and makes any future design easier to implement. cpuset would have as many processors as there are available in\u00a0cpuset.cpus of the container root cgroup that is usually {{hadoop-yarn}}. Individual CPUs are chosen by NM based on the number of cpuset cpus granted by RM.\r\n\r\nHowever, I do not have a strong opinion about this.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=miklos.szegedi%40cloudera.com",
+          "name": "miklos.szegedi@cloudera.com",
+          "key": "miklos.szegedi@cloudera.com",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342"
+          },
+          "displayName": "Miklos Szegedi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-05-29T05:20:17.432+0000",
+        "updated": "2018-05-29T05:20:17.432+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16493538",
+        "id": "16493538",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "body": "Thanks [~miklos.szegedi@cloudera.com] for sharing your idea. You were right that the original idea was to make this easy to use. That says user doesn't need to\u00a0know about what set of cpus their containers will be running on, and how they are configured. They just give us a cpu_share_mode, and we\u00a0do all the tricks\u00a0underneath without exposing too much details.\r\n\r\nMy concern about the approach you suggested is\r\n # It might be complex for user to use\r\n # It should be able to support 2 modes but not very straightforward to support 4 modes\r\n\r\nAllow me take an example like following:\r\n\r\n{noformat}\r\nI have a NM with capacity:\r\n\u00a0 memory: 10gb\r\n\u00a0 vcore: 10\r\n\u00a0 cpus: 10 (0, 1, 2, 3, 4, 5, 6, 7, 8, 9)\r\n\r\nRequest with just cpu number:\r\n\u00a0 memory: 1gb\r\n\u00a0 vcore: 5\r\n\u00a0 cpuset: 5\r\n\r\nAfter allocation, my NM capacity updates to \r\n\u00a0 memory: 9gb\r\n\u00a0 vcore: 5\r\n\u00a0 cpus: 5 (0, 1, 2, 3, 4)\r\n{noformat}\r\n\r\nthere are few problems with such approach\r\n # User might get confused how many cpus to apply in the resource request. Vcore as of today is already a difficult thing to set, adding a new type of resource might make this harder.\r\n # When #vcore is not same as #processor on NM, user will need do some calculation to set a reasonable cpuset value in order not to over/less use cpu resource, and this is hard for RM to check as it doesn't have all the info like NM did\r\n # Difficult to support all 4 modes under current resource APIs\r\n\r\nPlease let me know if there is any wrong in this example and the comments.\r\nI agree we can start from supporting EXCLUSIVE+ANY mode in phase 1, but still want to make sure the design is able to extend to support both modes (because RESERVED/SHARE modes are very useful to improve utilizations). I will consolidate all the comments from you and [~leftnoteasy] and come up with a new version of design doc next week. Look forward for your comments always.\r\n\r\nThanks",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "created": "2018-05-29T13:40:20.316+0000",
+        "updated": "2018-05-29T13:40:20.316+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16494656",
+        "id": "16494656",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=miklos.szegedi%40cloudera.com",
+          "name": "miklos.szegedi@cloudera.com",
+          "key": "miklos.szegedi@cloudera.com",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342"
+          },
+          "displayName": "Miklos Szegedi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thank you [~cheersyang] for the detailed response. The only thing that you are missing I think is that cpu and cpuset are not the same resource in cgroups. They are actually two dimensions of the\u00a0CPU space. cpu,cpuacct controls in general how much time is allocated (one dimension) and cpuset controls how many physical devices are allocated (second dimension). cpu,cpuacct is a compressible, flexible resource more will almost always proportionally reduce the runtime if cpu bound. cpuset is is not flexible, it depends on the thread factor of the container.\r\n\r\nJust to use your example above:\r\n{code:java}\r\nI have a NM with capacity:\r\n\u00a0 memory: 10gb\r\n\u00a0 vcore: 10\r\n\u00a0 cpus: 10 (0, 1, 2, 3, 4, 5, 6, 7, 8, 9)\r\n\r\nRequest with just vcore number (the container runs a single process and single thread !):\r\n\u00a0 memory: 1gb\r\n\u00a0 vcore: 5\r\n\r\nAfter allocation, my NM capacity updates to \r\n\u00a0 memory: 9gb\r\n\u00a0 vcore: 5\r\n\u00a0 cpus: 5 (0, 1, 2, 3, 4) WRONG(!) The process is single threaded, 4 cores are wasted.\r\n\r\nRequest with both vcore number and cpus:\r\n\u00a0 memory: 1gb\r\n\u00a0 vcore(cputime): 5\r\n\u00a0 cpuset: 1\r\n\r\nAfter allocation, my NM capacity updates to \r\n\u00a0 memory: 9gb\r\n\u00a0 vcore(cputime): 5\r\n\u00a0 cpus: 5 (0, 1, 2, 3, 4, 5, 6, 7, 8) GOOD The process is single threaded.\r\n{code}\r\nI understand that you would like to simplify the configuration. However, as you see in the example the situation above will never be able to be solved by YARN anymore. This because of backward compatibility, if the current design is chosen.\r\n\r\nThat being said, if you still would like to follow the simplified path, please go ahead, I just wanted to elaborate my concerns.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=miklos.szegedi%40cloudera.com",
+          "name": "miklos.szegedi@cloudera.com",
+          "key": "miklos.szegedi@cloudera.com",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342"
+          },
+          "displayName": "Miklos Szegedi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-05-30T04:21:35.602+0000",
+        "updated": "2018-05-30T04:23:31.380+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16499938",
+        "id": "16499938",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bibinchundatt",
+          "name": "bibinchundatt",
+          "key": "bibinchundatt",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bibinchundatt&avatarId=29912",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bibinchundatt&avatarId=29912",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bibinchundatt&avatarId=29912",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bibinchundatt&avatarId=29912"
+          },
+          "displayName": "Bibin Chundatt",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Thank you [~cheersyang]/[~yangjiandan] for design doc\r\n\r\n{quote}\r\nWhen a container\u2019s cpu_share_mode is EXCLUSIVE/RESERVED, the number of allocated\r\nprocessor \u200b allocateProcessorNum\u200b = \u200b container_vcore / Vcore_Ratio, \u200b request will be\r\nrejected if\u200b allocateProcessorNum <= 0;\r\n{quote}\r\n# IIUC If we don't  have slots to bind container will be rejecting the container start request. Which will be considered as failed. Scheduler could again allocate container to same nodemanager rt ??\r\n# When nm processors/ nm vcores < 1  and share mode have you considered *strictness per containers* ?? ie using the periods and quota also along with Cpuset assignment ?? If no other process is using  cpu then process will be consuming more than what its supposed to rt ??\r\n\r\nThoughts on having CpuBindHandlerImpl includes 2 Allocators for cgroups subgroups one for cpu and another for cpuset?\r\n\r\nCould you also consider the following in design\r\n\r\n# Using fixed set of folders for assignment in Allocator (Reduce overload of creation and deletion on containers.)\r\n# Resource calculation could go wrong incase of preemption of  containers rt . kill reject could get processed after container start.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bibinchundatt",
+          "name": "bibinchundatt",
+          "key": "bibinchundatt",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bibinchundatt&avatarId=29912",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bibinchundatt&avatarId=29912",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bibinchundatt&avatarId=29912",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bibinchundatt&avatarId=29912"
+          },
+          "displayName": "Bibin Chundatt",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2018-06-04T09:20:47.255+0000",
+        "updated": "2018-06-04T09:20:47.255+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16501927",
+        "id": "16501927",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "body": "Hi [~miklos.szegedi@cloudera.com]/[~bibinchundatt]\r\n\r\nThanks for the comments, here are my thoughts\r\n{quote}I think is that cpu and cpuset are not the same resource in cgroups.\r\n{quote}\r\nActually we don't want to\u00a0say\u00a0*cpuset*\u00a0is a resource, it is an isolation technique against a certain amount of cpu resource. It's not straightforward to set it as a resource in request, just like the example you pointed out. The purpose of this Jira is to give user a way to isolate or partially share cpu resources between containers. For the 1st step when we support exclusive type, once the container is started, we will set cpu quota/shares for them to limit resource usage, and bind the container to same amount of processors for isolation. So we still prefer the \"simplify\" the path, the \"resource\" path doesn't seem to be clear to me.\r\n{quote}If we don't have slots to bind container will be rejecting the container start request. Which will be considered as failed. Scheduler could again allocate container to same nodemanager rt ??\r\n{quote}\r\nWell when a container failed to start like this, in most cases it will not be able to start on any node. Because this means the #vcore in the requested is too small. We are trying to do some pre-check on such conditions to give a fail-fast approach, that should help.\r\n{quote}When nm processors/ nm vcores < 1 and share mode have you considered strictness per containers ?? ie using the periods and quota also along with Cpuset assignment ?? If no other process is using cpu then process will be consuming more than what its supposed to rt ??\r\n{quote}\r\nYes, cpu quota and shares will also be set for containers, that's the thing we depend on to limit the actual cpu usage for each containers. We just need to make sure the values set for them are reasonable when they have bind to certain processors. Thanks for pointing this out, a very good concern.\r\n{quote}Using fixed set of folders for assignment in Allocator (Reduce overload of creation and deletion on containers.\r\n{quote}\r\nThat makes sense.\r\n{quote}Resource calculation could go wrong incase of preemption of containers rt . kill reject could get processed after container start.\r\n{quote}\r\nResource calculation won't be wrong since we don't count cpuset as a resource. But when container is killed, we will need to make sure this is handled and cgroups gets updated correctly. Thanks for pointing this out, I will add some more details into next version of design doc.\r\n\r\nThanks",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "created": "2018-06-05T15:09:33.159+0000",
+        "updated": "2018-06-05T15:09:33.159+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16502128",
+        "id": "16502128",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=miklos.szegedi%40cloudera.com",
+          "name": "miklos.szegedi@cloudera.com",
+          "key": "miklos.szegedi@cloudera.com",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342"
+          },
+          "displayName": "Miklos Szegedi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks [~cheersyang] for the reply.\r\n{quote}It's not straightforward to set it as a resource in request, just like the example you pointed out.\r\n{quote}\r\nI am sorry, I am not sure what do you mean. I actually pointed out the opposite. It is not straightforward to set it as a single vcore resource request.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=miklos.szegedi%40cloudera.com",
+          "name": "miklos.szegedi@cloudera.com",
+          "key": "miklos.szegedi@cloudera.com",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=miklos.szegedi%40cloudera.com&avatarId=32342"
+          },
+          "displayName": "Miklos Szegedi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-06-05T17:07:29.452+0000",
+        "updated": "2018-06-05T17:09:05.481+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16503212",
+        "id": "16503212",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "body": "Hi [~miklos.szegedi@cloudera.com]\r\n\r\nI mean by letting user setup both #vcore and #cpus in their resource request is too complex. Even for phase 1, if only EXCLUSIVE mode is supported, for example:\r\n\r\n{noformat}\r\nNM:\r\n\u00a0 #vcore: 100\r\n\u00a0 #cpu: 10\r\n{noformat}\r\n\r\nUser want to use exclusive, so the request must be like\r\n\r\n{noformat}\r\nRequest1:\r\n\u00a0 #vcore: 10 * N\r\n\u00a0 #cpu: N (0<N<=10)\r\n{noformat}\r\n\r\nif {{#vcore < 10 * N}}, that means some cpu is wasted.\u00a0 If user sets this to\r\n\r\n{noformat}\r\nRequest2:\r\n\u00a0 #vcore: 80\r\n\u00a0 #cpu: 9\r\n{noformat}\r\n\r\nafter allocation, NM capacity left\r\n\r\n{noformat}\r\nNM:\r\n\u00a0 #vcore: 20\r\n\u00a0 #cpu: 1\r\n{noformat}\r\n\r\nnow when a #vcore=20 container landed on this node, it can only get 10% cputime (instead of 20%) since 9 cpus are already occupied by request2. This is not expected. And if you think about RESERVED/SHARED mode, it will be more complex. User will not able to know how many number of cpus to specify in their request to achieve a RESERVED/SHARED mode cpu sharing.\r\n\r\nDoes this make sense?\r\nThanks\r\n\r\n\r\n\r\n\u00a0",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "created": "2018-06-06T12:23:59.420+0000",
+        "updated": "2018-06-06T12:23:59.420+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16503850",
+        "id": "16503850",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=szegedim",
+          "name": "szegedim",
+          "key": "szegedim",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=szegedim&avatarId=40142",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=szegedim&avatarId=40142",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=szegedim&avatarId=40142",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=szegedim&avatarId=40142"
+          },
+          "displayName": "Miklos Szegedi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~cheersyang], it makes sense in general. I think what you are missing here is if you use non-strict mode with simple weights {{cpu.shares}}, those are applied per thread.\u00a0Indeed there is a\u00a0design issue in the existing\u00a0{{CGroupsCPUResourcesHandler}} that it applies {{cpu.shares=vcores}}\u00a0to each thread of a guaranteed container.\r\n\r\nGiven this request in your example above, you will actually get 10 * N * N cpu time with the current code that is wrong.\r\n{code:java}\r\nRequest1:\r\n\u00a0 #vcore: 10 * N\r\n\u00a0 #cpu: N (0<N<=10){code}\r\nHow about another solution? Let's forget about vcores first, so all you need to\u00a0set in cgroups\u00a0in case of exclusive mode is: (this would be the advanced setup)\r\n{code:java}\r\nRequest1:\r\n\u00a0 #cpu.shares: 1024\r\n\u00a0 #cpuset: 9\r\nRequest2:\r\n\u00a0 #cpu.shares: 1024\r\n\u00a0 #cpuset: 1{code}\r\nIf you prefer the simple setup\u00a0the client just needs to\u00a0specify the same request with vcores:\r\n{code:java}\r\nRequest1:\r\n\u00a0 #vcores: 9*1024\r\nRequest2:\r\n\u00a0 #vcores: 1*1024{code}\r\nInside {{CGroupsCPUResourcesHandler}} and {{CGroupsCPUSetResourcesHandler}} these would translate to the following cgroup settings:\r\n{code:java}\r\nRequest1:\r\n\u00a0 #cpu.shares: (#vcores + 1023) % 1024 + 1 = 1024\r\n\u00a0 #cpuset: (#vcores + 1023) / 1024 = 9\r\nRequest2:\r\n\u00a0 #cpu.shares: #vcores % 1024 + 1 = 1024\r\n\u00a0 #cpuset: (#vcores + 1023) / 1024 = 1{code}\r\nEach thread will get the weight and in case of exclusive mode all cpus will be saturated.\r\n\r\nThis solution:\r\n # Provides the simple setup that you prefer. You only need to specify vcores only.\r\n # Provides custom resource type setup for advanced use specifying cpu.shares and cpuset in the future.\r\n # No special flag needs to be added to the container launch context.\r\n # It is backward compatible.\r\n # It allows RESERVED/SHARED/ANY mode by setting {{vcores: 512}} for example for shared/opportunistic containers. This would set {{cpu.shares: 512, cpuset: 1}} sharing a CPU with another request of\u00a0{{vcores: 512 and it even allows precise weighting}}.\r\n # It works with oversubscription by defaulting to {{cpu.shares=1}}\r\n # Drawback: this does not provide a way to request multiple shared cpus for example. That could be a special advanced feature in the future specifying resource types.\r\n # Work: It needs to get {{CGroupsCPUResourcesHandler}} fixed to set weight to constant\r\n # Work: The advanced setup needs to make cpu.shares a second level resource type introducing something like a resource tee for the future.\r\n\r\n\u00a0",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=szegedim",
+          "name": "szegedim",
+          "key": "szegedim",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=szegedim&avatarId=40142",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=szegedim&avatarId=40142",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=szegedim&avatarId=40142",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=szegedim&avatarId=40142"
+          },
+          "displayName": "Miklos Szegedi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-06-06T20:10:51.530+0000",
+        "updated": "2018-06-06T20:10:51.530+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16505950",
+        "id": "16505950",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "body": "Hi [~miklos.szegedi@cloudera.com]\r\n\r\nThe solution you proposed looks like quite interesting, especially the idea about cpu.share. Please see my comments\r\n\r\nIf use the \"simple\" approach you shared,\r\n\r\n1. Such request\r\n{noformat}\r\nRequest1:\r\n  #vcores: 9*1024\r\n{noformat}\r\nthis breaks the basic semantic for vcore we've been using for years, this is core API level incompatible.\r\n\r\n2. For the formula you gave,\r\n{noformat}\r\n  #cpu.shares: (#vcores + 1023) % 1024 + 1 = 1024\r\n{noformat}\r\nWhat if I specify #vcore=8*512 (=4 * 1024), what #cpu.shares and #cpuset will be? I don't think you can get 2 var result from 1 var input.\r\n\r\nIf we consider #cpu.shares and #cpuset as resources,\r\n # NM and RM needs to know all info about physical processors, including their (virtual) shares, this introduces extra complexity for both NM and RM. Moreover, current resource API doesn't support such multidimensional resource.\r\n # Precise weighting sounds like an interesting idea, but I doubt if we really need that much. On our online systems, we don't really control in that fine-grained.\r\n # It will be hard for user to setup {{cpu.share}}, how would an user know what value is meaningful. And what if some user just set some too big or small value in their requests? They will get un-predictable results.\r\n\r\nWe can have some more offline chats about this, thanks for bringing up the idea.\r\n Thanks.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "created": "2018-06-08T12:13:30.771+0000",
+        "updated": "2018-06-08T12:13:30.771+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160294/comment/16516290",
+        "id": "16516290",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=szegedim",
+          "name": "szegedim",
+          "key": "szegedim",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=szegedim&avatarId=40142",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=szegedim&avatarId=40142",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=szegedim&avatarId=40142",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=szegedim&avatarId=40142"
+          },
+          "displayName": "Miklos Szegedi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~cheersyang], thank you for the response. Indeed, I was assuming users will set some typical values for vcores(cores) that translate to cpu.shares and cpuset. These are like 0.2, 0.5 for shareable and 1.0 or 2.0 for exclusive. Values like 4.5 are too hard to understand indeed.\r\n\r\nPlease go ahead with your approach. It would be useful to keep in mind that the system needs to be able to set both cpu.shares and cpuset dimensions some time in the future.\r\n\r\n\u00a0",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=szegedim",
+          "name": "szegedim",
+          "key": "szegedim",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=szegedim&avatarId=40142",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=szegedim&avatarId=40142",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=szegedim&avatarId=40142",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=szegedim&avatarId=40142"
+          },
+          "displayName": "Miklos Szegedi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-06-18T20:03:12.179+0000",
+        "updated": "2018-06-18T20:03:12.179+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8320/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 23,
+        "returned": 23
+      }
+    ]
+  }
+}

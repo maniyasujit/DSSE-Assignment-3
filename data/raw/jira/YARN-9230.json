@@ -1,0 +1,421 @@
+{
+  "downloaded_at": "2026-06-25T10:18:51.643154+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-9230",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9230?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13211409",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13211409",
+    "key": "YARN-9230",
+    "fields": {
+      "summary": "Write a go hdfs driver for Docker Registry",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "13211387",
+        "key": "YARN-9228",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13211387",
+        "fields": {
+          "summary": "[Umbrella] Docker image life cycle management on HDFS",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+            "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+            "name": "Resolved",
+            "id": "5",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+            "id": "2",
+            "description": "A new feature of the product, which has yet to be developed.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+            "name": "New Feature",
+            "subtask": false,
+            "avatarId": 21141
+          }
+        }
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2019-01-24T00:02:10.434+0000",
+      "description": "A number of people have developed go client library for HDFS.  [Example 1|https://medium.com/sqooba/making-hdfs-a-hundred-times-faster-ac75b8b5e0b4] [Example 2|https://github.com/colinmarc/hdfs].\r\n\r\nThis can be enhanced into a real storage driver for Docker registry.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/7",
+        "id": "7",
+        "description": "Later",
+        "name": "Later"
+      },
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13211409/comment/16755444",
+            "id": "16755444",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks to [~shanekumpf@gmail.com], I was able to rebase his [hdfs docker driver|https://github.com/sakserv/distribution] for Docker Registry to latest Docker registry code, and run the same benchmark as YARN-9229.  The performance is quite good:\r\n\r\n| | Remote | Local |\r\n| Pull | 18.673s | 13.109s |\r\n| Push | 26.113s | 25.917s |\r\n\r\nThe numbers are measured on the same hardware that was used to measure NFS Gateway flavor of Docker Registry.\r\n\r\nThe only drawback of this approach is Go HDFS client library does not fully support Kerberos enabled environment.  User will encounter [\"unexpected sequence number\"|https://github.com/colinmarc/hdfs/issues/144] issue.  Some GSSAPI encryption related problems that are not fully resolved in Colin's Go HDFS library.\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-01-29T22:44:11.877+0000",
+            "updated": "2019-01-29T22:44:11.877+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13211409/comment/16755470",
+            "id": "16755470",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "The rebased driver can be found at: https://github.com/eyanghwx/distribution/commit/08491b13c74305c159e1801dc26c6105447a9dc8\r\n\r\nThis is a docker registry code change.  There is nothing to be done in YARN to improve the user experience.  Hence, I am inclined to close this as no plan to fix.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-01-29T23:19:33.772+0000",
+            "updated": "2019-01-29T23:19:33.772+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13211409/comment/16756164",
+            "id": "16756164",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanekumpf%40gmail.com",
+              "name": "shanekumpf@gmail.com",
+              "key": "shanekumpf@gmail.com",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Shane Kumpf",
+              "active": true,
+              "timeZone": "America/Denver"
+            },
+            "body": "Thanks for taking another look at the library, [~eyang]. It sounds like some improvements have been made, but gaps still exist. The security gaps in the go HDFS client is likely a non-starter for many. I'm inclined to agree that a registry storage driver for HDFS won't be implemented until this gap is fixed and fixing the gap is outside of the scope of YARN. The issue could be reopened if security is properly implemented.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanekumpf%40gmail.com",
+              "name": "shanekumpf@gmail.com",
+              "key": "shanekumpf@gmail.com",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Shane Kumpf",
+              "active": true,
+              "timeZone": "America/Denver"
+            },
+            "created": "2019-01-30T14:28:10.077+0000",
+            "updated": "2019-01-30T14:28:10.077+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13211409/comment/16762245",
+            "id": "16762245",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Close as Later when go hdfs driver implements GSSAPI encryption properly to support kerberos enabled HDFS.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-02-06T23:39:03.238+0000",
+            "updated": "2019-02-06T23:39:03.238+0000"
+          }
+        ],
+        "maxResults": 4,
+        "total": 4,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9230/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2019-02-06T23:39:03.244+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 4,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13211409/comment/16755444",
+        "id": "16755444",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks to [~shanekumpf@gmail.com], I was able to rebase his [hdfs docker driver|https://github.com/sakserv/distribution] for Docker Registry to latest Docker registry code, and run the same benchmark as YARN-9229.  The performance is quite good:\r\n\r\n| | Remote | Local |\r\n| Pull | 18.673s | 13.109s |\r\n| Push | 26.113s | 25.917s |\r\n\r\nThe numbers are measured on the same hardware that was used to measure NFS Gateway flavor of Docker Registry.\r\n\r\nThe only drawback of this approach is Go HDFS client library does not fully support Kerberos enabled environment.  User will encounter [\"unexpected sequence number\"|https://github.com/colinmarc/hdfs/issues/144] issue.  Some GSSAPI encryption related problems that are not fully resolved in Colin's Go HDFS library.\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-01-29T22:44:11.877+0000",
+        "updated": "2019-01-29T22:44:11.877+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13211409/comment/16755470",
+        "id": "16755470",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "The rebased driver can be found at: https://github.com/eyanghwx/distribution/commit/08491b13c74305c159e1801dc26c6105447a9dc8\r\n\r\nThis is a docker registry code change.  There is nothing to be done in YARN to improve the user experience.  Hence, I am inclined to close this as no plan to fix.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-01-29T23:19:33.772+0000",
+        "updated": "2019-01-29T23:19:33.772+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13211409/comment/16756164",
+        "id": "16756164",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanekumpf%40gmail.com",
+          "name": "shanekumpf@gmail.com",
+          "key": "shanekumpf@gmail.com",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Shane Kumpf",
+          "active": true,
+          "timeZone": "America/Denver"
+        },
+        "body": "Thanks for taking another look at the library, [~eyang]. It sounds like some improvements have been made, but gaps still exist. The security gaps in the go HDFS client is likely a non-starter for many. I'm inclined to agree that a registry storage driver for HDFS won't be implemented until this gap is fixed and fixing the gap is outside of the scope of YARN. The issue could be reopened if security is properly implemented.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanekumpf%40gmail.com",
+          "name": "shanekumpf@gmail.com",
+          "key": "shanekumpf@gmail.com",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Shane Kumpf",
+          "active": true,
+          "timeZone": "America/Denver"
+        },
+        "created": "2019-01-30T14:28:10.077+0000",
+        "updated": "2019-01-30T14:28:10.077+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13211409/comment/16762245",
+        "id": "16762245",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Close as Later when go hdfs driver implements GSSAPI encryption properly to support kerberos enabled HDFS.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-02-06T23:39:03.238+0000",
+        "updated": "2019-02-06T23:39:03.238+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9230/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 4,
+        "returned": 4
+      }
+    ]
+  }
+}

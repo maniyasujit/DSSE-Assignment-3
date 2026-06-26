@@ -1,0 +1,519 @@
+{
+  "downloaded_at": "2026-06-25T10:18:48.554284+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-9421",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9421?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13224426",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13224426",
+    "key": "YARN-9421",
+    "fields": {
+      "summary": "Implement SafeMode for ResourceManager by defining a resource threshold",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+        "id": "2",
+        "description": "A new feature of the product, which has yet to be developed.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+        "name": "New Feature",
+        "subtask": false,
+        "avatarId": 21141
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2019-03-27T21:07:44.526+0000",
+      "description": "We have a hypothetical testcase in our test suite that tests Resource Types.\r\n The test does the following: \r\n 1. Sets up a resource named \"gpu\"\r\n 2. Out of 9 NodeManager nodes, 1 node\u00a0has 100 of \"gpu\".\r\n 3. It executes a sleep job with resoure requests: \r\n \"-Dmapreduce.reduce.resource.gpu=7\" and \"-Dyarn.app.mapreduce.am.resource.gpu=11\"\r\n\r\nSometimes, we encounter situations when the app submission fails with: \r\n{code:java}\r\n2019-02-25 06:09:56,795 WARN org.apache.hadoop.yarn.server.resourcemanager.RMAppManager: RM app submission failed in validating AM resource request for application application_1551103768202_0001\r\n org.apache.hadoop.yarn.exceptions.InvalidResourceRequestException: Invalid resource request! Cannot allocate containers as requested resource is greater than maximum allowed allocation. Requested resource type=[gpu], Requested resource=<memory:1024, vCores:1, gpu: 11>, maximum allowed allocation=<memory:8192, vCores:1>, please note that maximum allowed allocation is calculated by scheduler based on maximum resource of registered NodeManagers, which might be less than configured maximum allocation=<memory:16003, vCores:4, gpu: 9223372036854775807>{code}\r\nIt's clearly visible that the maximum allowed allocation does not have any \"gpu\" resources.\r\n\r\n\u00a0\r\n\r\nLooking into the logs further, I realized that sometimes the node having the \"gpu\" resources are registered after the app is submitted.\r\n In a real world situation and even with this very special test exexution, we can't be sure which order NMs are registering with RM.\r\n With the advent of resource types, this issue was more likely surface.\r\n\r\nIf we have a cluster with some \"rare\" resources like GPUs only on some nodes out of a 100, we can quickly run into a situation when the NMs with GPUs are registering later than the normal nodes. While the critical NMs are still registering, we will most likely experience the same InvalidResourceRequestException if we submit jobs requesting GPUs.\r\n\r\nThere is a naive solution to this: \r\n 1. Give some time for RM to wait for NMs to be able to register themselves and put submitted applications on hold. This could work in some situations but it's not the most flexible solution as different clusters can have different requirements. Of course, we can make this more flexible by making the timeout value configurable.\r\n\r\n*A more flexible alternative would be:*\r\n 2. We define a threshold of Resource capability: While we haven't reached this threshold, we put submitted jobs on hold. Once we reached the threshold, we enable jobs to pass through. \r\n This is very similar to an already existing concept, the SafeMode in HDFS ([https://hadoop.apache.org/docs/r2.4.1/hadoop-project-dist/hadoop-hdfs/HdfsUserGuide.html#Safemode]).\r\n Back to my GPU example above, the threshold could be: 8 vcores, 16GB, 3 GPUs. \r\n Defining a threshold like this, we can ensure most of the submitted jobs won't be lost, just \"parked\" until NMs are registered.\r\n\r\nThe final solution could be the Resource threshold, or the combination of the threshold and timeout value. I'm open for any other suggestion as well.\r\n\r\n*Last but not least, a very easy way to reproduce the issue on a 3 node cluster:* \r\n 1. Configure a resource type, named 'testres'.\r\n 2. Node1 runs RM, Node 2/3 runs NMs\r\n 3. Node2 has 1 testres\r\n 4. Node3 has 0 testres\r\n 5. Stop all nodes\r\n 6. Start RM on Node1\r\n 7. Start NM on Node3 (the one without the resource)\r\n 8. Start a pi job, request 1 testres for the AM\r\n\r\nHere's the command to start the job:\r\n{code:java}\r\nMY_HADOOP_VERSION=3.3.0-SNAPSHOT;pushd /opt/hadoop;bin/yarn jar \"./share/hadoop/mapreduce/hadoop-mapreduce-examples-$MY_HADOOP_VERSION.jar\" pi -Dyarn.app.mapreduce.am.resource.testres=1 1 1000;popd{code}\r\n\u00a0\r\n\r\n*Configurations*: \r\n node1: yarn-site.xml of ResourceManager:\r\n{code:java}\r\n<property>\r\n <name>yarn.resource-types</name>\r\n <value>testres</value>\r\n</property>{code}\r\nnode2: yarn-site.xml of NodeManager:\r\n{code:java}\r\n<property>\r\n <name>yarn.resource-types</name>\r\n <value>testres</value>\r\n</property>\r\n<property>\r\n <name>yarn.nodemanager.resource-type.testres</name>\r\n <value>1</value>\r\n</property>{code}\r\nnode3: yarn-site.xml of NodeManager:\r\n{code:java}\r\n<property>\r\n <name>yarn.resource-types</name>\r\n <value>testres</value>\r\n</property>{code}\r\nPlease see full process logs from RM, NM, YARN-client attached.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12963952",
+          "id": "12963952",
+          "filename": "client-log.log",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+            "name": "snemeth",
+            "key": "snemeth",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+            },
+            "displayName": "Szilard Nemeth",
+            "active": true,
+            "timeZone": "Europe/Budapest"
+          },
+          "created": "2019-03-27T21:32:29.175+0000",
+          "size": 13215,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12963952/client-log.log"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12963951",
+          "id": "12963951",
+          "filename": "nodemanager.log",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+            "name": "snemeth",
+            "key": "snemeth",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+            },
+            "displayName": "Szilard Nemeth",
+            "active": true,
+            "timeZone": "Europe/Budapest"
+          },
+          "created": "2019-03-27T21:32:29.167+0000",
+          "size": 36239,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12963951/nodemanager.log"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12963953",
+          "id": "12963953",
+          "filename": "resourcemanager.log",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+            "name": "snemeth",
+            "key": "snemeth",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+            },
+            "displayName": "Szilard Nemeth",
+            "active": true,
+            "timeZone": "Europe/Budapest"
+          },
+          "created": "2019-03-27T21:32:29.329+0000",
+          "size": 42764,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12963953/resourcemanager.log"
+        }
+      ],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13224426/comment/16803416",
+            "id": "16803416",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "There is a few corner cases to consider.  If the size of the YARN cluster changes frequently, safe mode mechanism might kick in at random time?  If the jobs are queued during safe mode, job queue tracking also increase memory usage of resource manager.  At some point, the queue size will be full because there is finite amount of tracking memory for resource manager.  \r\n\r\nWhat happen if job queue length is full, and what happens if jobs take too long to start and missed SLA?  If job queue is full, and it falls back to the same type of error messages for showing resource unavailable.  It might be better to let client side retry decision kicking sooner rather than queuing and found out queue is full later.  Option 2 is a option to mask transient problem, but retry logic still depends on the client to make the right decision.  I think the default behavior does not need to change for production cluster, but option 2 is nice to have for improving user experience for testing cluster.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-03-27T22:21:03.796+0000",
+            "updated": "2019-03-27T22:21:03.796+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13224426/comment/16804805",
+            "id": "16804805",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+              "name": "adam.antal",
+              "key": "adam.antal",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+              },
+              "displayName": "Adam Antal",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Thanks for filing this [~snemeth], it is an interesting proposal.\r\n\r\nJust to add another corner case: what if we have three NMs with 1-1-2 testres. We have an app requesting 2 testres, and have a safemode threshold for 2 testres. If the first two NMs are coming up first then the cluster will have 2 testres, will exit safemode, but the app still fails with the exception, as the only node that could handle 2 testres is not yet available.\r\n\r\nWhat is the key feature we try to accomplish? I see the problem here and in your example that we rather depend on specific node(s) to come up?\u00a0",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+              "name": "adam.antal",
+              "key": "adam.antal",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+              },
+              "displayName": "Adam Antal",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-03-29T10:48:21.681+0000",
+            "updated": "2019-03-29T10:48:21.681+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13224426/comment/16808563",
+            "id": "16808563",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+              "name": "snemeth",
+              "key": "snemeth",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+              },
+              "displayName": "Szilard Nemeth",
+              "active": true,
+              "timeZone": "Europe/Budapest"
+            },
+            "body": "As per our further discussion with [~wilfreds]: \r\n\r\nLet\u2019s give a minimum percentage of nodes, e.g. 75% of nodes are registered or combined with the timeout.\r\nFor percentage, we should check if the NM whitelist file is always present. \r\nIf we don\u2019t have this file or it's empty, we need to drop the percentage criteria and only use the timeout value.\r\nThis should be configurable as flexible as possible.\r\n\r\nAnother corner case: What if the whitelist contains more machines than really available (IP whitelist, etc)? \r\nWe can also add number of nodes to wait for as a 3rd grade of threshold, but this is optional.\r\nWhat we need to do with the applications: Park applications until we reached the threshold.\r\nWe need to pay attention to give an upper-limit of the timeout value so user's don't have the freedom to accidentally provide some very high (e.g. 100 minutes) value. I would define the maximum of timeout as 1 minute.\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+              "name": "snemeth",
+              "key": "snemeth",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+              },
+              "displayName": "Szilard Nemeth",
+              "active": true,
+              "timeZone": "Europe/Budapest"
+            },
+            "created": "2019-04-03T09:59:10.342+0000",
+            "updated": "2019-04-03T09:59:10.342+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13224426/comment/16808567",
+            "id": "16808567",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+              "name": "snemeth",
+              "key": "snemeth",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+              },
+              "displayName": "Szilard Nemeth",
+              "active": true,
+              "timeZone": "Europe/Budapest"
+            },
+            "body": "[~adam.antal]: Coming back to your corner case: As [~wilfreds] said: This case can happen with any default resources like memory, vcores, etc.\r\nDo you still have concerns?\r\n\r\n[~eyang]: Thanks for your comments!\r\nYou are right about the concern of cluster can change frequently. I haven't mentioned but I meant to: I want to use the safemode mechanism only on startup. If we define a low enough timeout value, jobs can't queue up so we don't use much memory. I agree with you as the safemode concept wouldn't be a default behavior and I never wanted to be like that: This is definitely planned as an opt-in feature.\r\nDoes this answer all of your concerns / questions? I didn't really get the SLA part, sorry.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+              "name": "snemeth",
+              "key": "snemeth",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+              },
+              "displayName": "Szilard Nemeth",
+              "active": true,
+              "timeZone": "Europe/Budapest"
+            },
+            "created": "2019-04-03T10:04:34.925+0000",
+            "updated": "2019-04-03T10:05:00.723+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13224426/comment/16808945",
+            "id": "16808945",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~snemeth] SLA are predefined time window that a program is allowed to run.  If resources gone away, and cause the job to queued up without running.  (admin setup cron job to automatically restart YARN when system is down.) Application may miss their opportunity to execute for remaining in safe mode for extended period of time.  \r\n\r\nThe proposal is optional feature and default to be disabled.  Hence, my concern is addressed.  Thank you",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-04-03T17:22:17.654+0000",
+            "updated": "2019-04-03T17:22:17.654+0000"
+          }
+        ],
+        "maxResults": 5,
+        "total": 5,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9421/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2024-02-23T14:29:52.325+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 5,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13224426/comment/16803416",
+        "id": "16803416",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "There is a few corner cases to consider.  If the size of the YARN cluster changes frequently, safe mode mechanism might kick in at random time?  If the jobs are queued during safe mode, job queue tracking also increase memory usage of resource manager.  At some point, the queue size will be full because there is finite amount of tracking memory for resource manager.  \r\n\r\nWhat happen if job queue length is full, and what happens if jobs take too long to start and missed SLA?  If job queue is full, and it falls back to the same type of error messages for showing resource unavailable.  It might be better to let client side retry decision kicking sooner rather than queuing and found out queue is full later.  Option 2 is a option to mask transient problem, but retry logic still depends on the client to make the right decision.  I think the default behavior does not need to change for production cluster, but option 2 is nice to have for improving user experience for testing cluster.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-03-27T22:21:03.796+0000",
+        "updated": "2019-03-27T22:21:03.796+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13224426/comment/16804805",
+        "id": "16804805",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+          "name": "adam.antal",
+          "key": "adam.antal",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+          },
+          "displayName": "Adam Antal",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Thanks for filing this [~snemeth], it is an interesting proposal.\r\n\r\nJust to add another corner case: what if we have three NMs with 1-1-2 testres. We have an app requesting 2 testres, and have a safemode threshold for 2 testres. If the first two NMs are coming up first then the cluster will have 2 testres, will exit safemode, but the app still fails with the exception, as the only node that could handle 2 testres is not yet available.\r\n\r\nWhat is the key feature we try to accomplish? I see the problem here and in your example that we rather depend on specific node(s) to come up?\u00a0",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+          "name": "adam.antal",
+          "key": "adam.antal",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+          },
+          "displayName": "Adam Antal",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-03-29T10:48:21.681+0000",
+        "updated": "2019-03-29T10:48:21.681+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13224426/comment/16808563",
+        "id": "16808563",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+          "name": "snemeth",
+          "key": "snemeth",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+          },
+          "displayName": "Szilard Nemeth",
+          "active": true,
+          "timeZone": "Europe/Budapest"
+        },
+        "body": "As per our further discussion with [~wilfreds]: \r\n\r\nLet\u2019s give a minimum percentage of nodes, e.g. 75% of nodes are registered or combined with the timeout.\r\nFor percentage, we should check if the NM whitelist file is always present. \r\nIf we don\u2019t have this file or it's empty, we need to drop the percentage criteria and only use the timeout value.\r\nThis should be configurable as flexible as possible.\r\n\r\nAnother corner case: What if the whitelist contains more machines than really available (IP whitelist, etc)? \r\nWe can also add number of nodes to wait for as a 3rd grade of threshold, but this is optional.\r\nWhat we need to do with the applications: Park applications until we reached the threshold.\r\nWe need to pay attention to give an upper-limit of the timeout value so user's don't have the freedom to accidentally provide some very high (e.g. 100 minutes) value. I would define the maximum of timeout as 1 minute.\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+          "name": "snemeth",
+          "key": "snemeth",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+          },
+          "displayName": "Szilard Nemeth",
+          "active": true,
+          "timeZone": "Europe/Budapest"
+        },
+        "created": "2019-04-03T09:59:10.342+0000",
+        "updated": "2019-04-03T09:59:10.342+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13224426/comment/16808567",
+        "id": "16808567",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+          "name": "snemeth",
+          "key": "snemeth",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+          },
+          "displayName": "Szilard Nemeth",
+          "active": true,
+          "timeZone": "Europe/Budapest"
+        },
+        "body": "[~adam.antal]: Coming back to your corner case: As [~wilfreds] said: This case can happen with any default resources like memory, vcores, etc.\r\nDo you still have concerns?\r\n\r\n[~eyang]: Thanks for your comments!\r\nYou are right about the concern of cluster can change frequently. I haven't mentioned but I meant to: I want to use the safemode mechanism only on startup. If we define a low enough timeout value, jobs can't queue up so we don't use much memory. I agree with you as the safemode concept wouldn't be a default behavior and I never wanted to be like that: This is definitely planned as an opt-in feature.\r\nDoes this answer all of your concerns / questions? I didn't really get the SLA part, sorry.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+          "name": "snemeth",
+          "key": "snemeth",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+          },
+          "displayName": "Szilard Nemeth",
+          "active": true,
+          "timeZone": "Europe/Budapest"
+        },
+        "created": "2019-04-03T10:04:34.925+0000",
+        "updated": "2019-04-03T10:05:00.723+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13224426/comment/16808945",
+        "id": "16808945",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~snemeth] SLA are predefined time window that a program is allowed to run.  If resources gone away, and cause the job to queued up without running.  (admin setup cron job to automatically restart YARN when system is down.) Application may miss their opportunity to execute for remaining in safe mode for extended period of time.  \r\n\r\nThe proposal is optional feature and default to be disabled.  Hence, my concern is addressed.  Thank you",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-04-03T17:22:17.654+0000",
+        "updated": "2019-04-03T17:22:17.654+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9421/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 5,
+        "returned": 5
+      }
+    ]
+  }
+}

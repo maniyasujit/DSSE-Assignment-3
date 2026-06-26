@@ -1,0 +1,2143 @@
+{
+  "downloaded_at": "2026-06-25T10:23:45.170077+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-1253",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1253?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12671408",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408",
+    "key": "YARN-1253",
+    "fields": {
+      "summary": "Changes to LinuxContainerExecutor to run containers as a single dedicated user in non-secure mode",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+        "id": "2",
+        "description": "A new feature of the product, which has yet to be developed.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+        "name": "New Feature",
+        "subtask": false,
+        "avatarId": 21141
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319323",
+          "id": "12319323",
+          "name": "nodemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2013-09-30T17:41:14.430+0000",
+      "description": "When using cgroups we require LCE to be configured in the cluster to start containers. \n\nWhen LCE starts containers as the user that submitted the job. While this works correctly in a secure setup, in an un-secure setup this presents a couple issues:\n\n* LCE requires all Hadoop users submitting jobs to be Unix users in all nodes\n* Because users can impersonate other users, any user would have access to any local file of other users\n\nParticularly, the second issue is not desirable as a user could get access to ssh keys of other users in the nodes or if there are NFS mounts, get to other users data outside of the cluster.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/1",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/blocker.svg",
+        "name": "Blocker",
+        "id": "1"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/1",
+        "id": "1",
+        "description": "A fix for this issue is checked into the tree and tested.",
+        "name": "Fixed"
+      },
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12606170",
+          "id": "12606170",
+          "filename": "YARN-1253.patch.txt",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+            "name": "rvs",
+            "key": "rvs",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+            },
+            "displayName": "Roman Shaposhnik",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2013-10-01T19:46:13.803+0000",
+          "size": 33334,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12606170/YARN-1253.patch.txt"
+        }
+      ],
+      "issuelinks": [
+        {
+          "id": "12394329",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12394329",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "12734607",
+            "key": "YARN-2424",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12734607",
+            "fields": {
+              "summary": "LCE should support non-cgroups, non-secure mode",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                "name": "Closed",
+                "id": "6",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/1",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/blocker.svg",
+                "name": "Blocker",
+                "id": "1"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+                "id": "1",
+                "description": "A problem which impairs or prevents the functions of the product.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+                "name": "Bug",
+                "subtask": false,
+                "avatarId": 21133
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13782038",
+            "id": "13782038",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "body": "When using {{LinuxContainerExecutor.java}} in unsecure mode, we should have a {{yarn.nodemanager.linux-container-executor.unsecure-mode.local-user}} (with {{yarnuser}} as default) property that defines the local user LCE should use to start containers when used in unsecure mode.\n\nThe {{container-executor.c}} should received and extra parameter with the runAsUser, differentiating it from the user (which is used to create the usercache/$USER/ directory. (the {{container-executor.c}} code already is already prepared to handle this differentiation, the changes are minimal, just passing the extra parameter and wiring it in the right places.\n\nThe {{yarnuser}} should be provisioned as system user in the nodes and added to the whitelisted system users in the {{container-executor.cfg}} configuration, YARN-1137.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "created": "2013-09-30T17:41:35.588+0000",
+            "updated": "2013-09-30T17:41:35.588+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13782426",
+            "id": "13782426",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+              "name": "acmurthy",
+              "key": "acmurthy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Murthy",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "AFAIK, LCE already works in non-secure more. \n\nCan you please help me understand what is the extra ask here? Is the intent to ensure only NM can use LCE to run as other users?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+              "name": "acmurthy",
+              "key": "acmurthy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Murthy",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-09-30T23:34:05.606+0000",
+            "updated": "2013-09-30T23:34:05.606+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13782431",
+            "id": "13782431",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+              "name": "acmurthy",
+              "key": "acmurthy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Murthy",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "It would help to understand what LCE+nonsecure doesn't solve yet... ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+              "name": "acmurthy",
+              "key": "acmurthy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Murthy",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-09-30T23:39:09.595+0000",
+            "updated": "2013-09-30T23:39:09.595+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13782435",
+            "id": "13782435",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "body": "LCE it works in a no-secure setup, but it has 2 issues as stated in the description of the JIRA:\n\n----\n* LCE requires all Hadoop users submitting jobs to be Unix users in all nodes\n* Because users can impersonate other users, any user would have access to any local file of other users\n\nParticularly, the second issue is not desirable as a user could get access to ssh keys of other users in the nodes or if there are NFS mounts, get to other users data outside of the cluster.\n----\n\nIt could be argued that the first one could be a requirement (though, doing an analogy, it is not for HDFS permissions in unsecure mode)\n\nThe second issue is the, IMO, severe one. Specially for the the scenarios mentioned in the following up paragraph \"Particularly, ....\"\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "created": "2013-09-30T23:45:51.217+0000",
+            "updated": "2013-09-30T23:45:51.217+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13782548",
+            "id": "13782548",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+              "name": "acmurthy",
+              "key": "acmurthy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Murthy",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "bq. Because users can impersonate other users, any user would have access to any local file of other users\n\nYou mean by submitting a job as someone else? \n\n----\n\nI think we need to step back - is the requirement that we need to use cgroups in non-secure mode for resource isolation? If so, LCE in non-secure mode is sufficient.\n\nLet's not confuse this with security, we already have the problem where someone can delete all data in HDFS in non-secure mode... which is why we have a security in the first place. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+              "name": "acmurthy",
+              "key": "acmurthy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Murthy",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-10-01T01:52:39.108+0000",
+            "updated": "2013-10-01T01:52:39.108+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13782571",
+            "id": "13782571",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+              "name": "rvs",
+              "key": "rvs",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+              },
+              "displayName": "Roman Shaposhnik",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "I've started doing some preliminary work on this JIRA, so hopefully I can explain some of the things that my patch is about to address:\n  # the reason to use LCE in a non-secure mode is to be able to take advantage of cgroups mechanism, now perhaps cgroups functionality should be independent from the rest of LCE functionality, but re-using the current LCE design is also quite easy -- hence lets assume that for cgroups we need LCE\n  # in a fully secure deployment, LCE works perfectly and makes YARN users correspond 1-1 with the local UNIX users provisioned on each worker node\n  # in a non-secure deployment this 1-1 correspondence feels like a  burden that doesn't necessarily have to be there\n\nThus, the proposal is really to add a tiny bit of functionality to LCE where in a non-secure case it would be able to run all tasks under a single designated user (different from a user running nodemanager). On top of that, the notion of the YARN user (which no longer has to have a corresponding UNIX user) get preserved in everything else that LCE does (which really boils down to paths in the local filesystem used for localization).",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+              "name": "rvs",
+              "key": "rvs",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+              },
+              "displayName": "Roman Shaposhnik",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-10-01T02:22:41.456+0000",
+            "updated": "2013-10-01T02:22:41.456+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13782572",
+            "id": "13782572",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Agree with [~acmurthy], LCE + unsecure mode can already be used to do cgroup. If there are bugs, we should fix them.\n\nbq. LCE requires all Hadoop users submitting jobs to be Unix users in all nodes\nYes, this has always been a requirement. I think there is some effort going on in the Windows world of Hadoop to change this, you should look at it.\n\nbq. Because users can impersonate other users, any user would have access to any local file of other users\nEven if the jobs run as a single 'yarnuser', security isn't still there - like Arun said, any body can bomb HDFS directories of other users, any user can kill any other user's tasks/containers, any one can delete any one else's local dirs, log-dir and so on. We could argue which is worse - stealing user's passwords or deleting other user's data on DFS - it depends on who you ask. If you want security, you should enable security.\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2013-10-01T02:22:57.541+0000",
+            "updated": "2013-10-01T02:22:57.541+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783161",
+            "id": "13783161",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "body": "If we say that today people should use LCE for cgroups in unsecure mode, then this JIRA is a bug. If we say that LCE is not supported in unsecure mode, then this is an improvement to enable such. IMO, this JIRA is a bug, but I'm OK either way.\n\nCorrect, in unsecure mode, any user can delete all data in HDFS. If we look at what any user can do in the node local filesystem:\n\n* Using DCE, it can access/modify all data owned by yarn user.\n* Using LCE, it can access/modify all data owned by any non-system user.\n\nThe second scenario is particularly dangerous because any user could get access to private ssh keys of other users available in the nodes (this would typically be a cluster admin user) or in the case of automatic NFS mounts available to cluster (which I've seen in multiple setups) any user could gain access to data of other users outside of the cluster.\n\nThis JIRA is proposing adding LCE to run container processes a fixed local run-as-user, it could be 'nobody' by default. \n\nBy running the container processes with the run-as-user being 'nobody' we restricting local filesystem access to the permissions of the 'nobody' user in unsecure mode.\n\nThis run-as-user should be configurable for audit purposes as in some setups admins may want to track with a special user all container processes.\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "created": "2013-10-01T17:47:10.069+0000",
+            "updated": "2013-10-01T17:47:10.069+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783236",
+            "id": "13783236",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tlipcon",
+              "name": "tlipcon",
+              "key": "tlipcon",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tlipcon&avatarId=26804",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tlipcon&avatarId=26804",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tlipcon&avatarId=26804",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tlipcon&avatarId=26804"
+              },
+              "displayName": "Todd Lipcon",
+              "active": true,
+              "timeZone": "America/Tijuana"
+            },
+            "body": "On the security front, I see this as an improvement in compartmentalization. Sometimes people have an HDFS cluster with lax security concerns for the data within that cluster -- or already restrict access to submit jobs on the cluster to folks who are considered trusted to access all of the data. Given that, the concern of a malicious user masquerading as another on the cluster isn't a big one -- or else they'd set up Kerberos security as you mentioned above.\n\nThat said, these clusters may still be configured with automatic NFS mounts, and non-Kerberized NFS, in which case the ability to masquerade as another Unix user is a big problem.\n\nLet me give an example from my past -- a univerisity CS department where I helped as a system administrator. In this environment, all users used non-Kerberized nfs v3 to access a big filer with home directories. Users on the sysadmin staff had a great deal of access on the filer, as well as general sudo type access, sensitive SSH keys, etc stored within their home directories. Obviously, students did not. In this same environment, we had shared compute clusters (typically traditional HPCC, but some early experiments with Hadoop as well back in ancient days). Different grad students shared these compute clusters to perform their research jobs on, but security would not have been an important consideration - within a trusted environment like a small university research department, convenience outweighed security. That said, resource allocation and isolation between users was important - I had many cases I had to handle where students or professors up against a paper deadline got pretty pissed off that some undergrad was monopolizing CPU cycles on shared machines.\n\nIn such an environment, the setup proposed by this JIRA would help. We could not have simply used LCE, because that would have opened an attack vector: any student could submit a job as \"toddlipcon\" and then use my NFS access to essentially gain department-wide root. Without using LCE, there would be poor resource isolation (lacking cgroups).\n\nI'm certain that there are other environments as well where Unix user masquerading opens a lot of attack vectors, but where within-Hadoop strong auth is not a requirement.\n\n\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tlipcon",
+              "name": "tlipcon",
+              "key": "tlipcon",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tlipcon&avatarId=26804",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tlipcon&avatarId=26804",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tlipcon&avatarId=26804",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tlipcon&avatarId=26804"
+              },
+              "displayName": "Todd Lipcon",
+              "active": true,
+              "timeZone": "America/Tijuana"
+            },
+            "created": "2013-10-01T19:09:22.939+0000",
+            "updated": "2013-10-01T19:09:22.939+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783247",
+            "id": "13783247",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "[~tucu00], please change the title of this JIRA. \"Changes to LinuxContainerExecutor to use cgroups in unsecure mode\" isn't a problem description. If you had started with the problem description or your use case, we wouldn't have been arguing as much.\n\nWith that out of the way..\n\nbq. On the security front, I see this as an improvement in compartmentalization\nLike I said, the Windows folks are trying to solve the same set of issues. And as I said in my previous comment, I am neither positive nor negative about it. Which brings us down to..\n\nbq. If we say that today people should use LCE for cgroups in unsecure mode, then this JIRA is a bug.\nI was never a fan of putting it in LCE. We should refactor that code out to be able to use it as a standalone library/binary (which doesn't bring in the extra baggage of user-accounts etc.) - that's the correct fix IMO. Putting in a _local-user_ is an easy short-term solution, but if we go down this route, I'm afraid it'll become worse and worse as more functionality gets added.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2013-10-01T19:29:25.836+0000",
+            "updated": "2013-10-01T19:29:25.836+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783250",
+            "id": "13783250",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+              "name": "rvs",
+              "key": "rvs",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+              },
+              "displayName": "Roman Shaposhnik",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~vinodkv] I think changing the name of the JIRA is a fair request. Done.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+              "name": "rvs",
+              "key": "rvs",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+              },
+              "displayName": "Roman Shaposhnik",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-10-01T19:32:32.804+0000",
+            "updated": "2013-10-01T19:32:32.804+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783271",
+            "id": "13783271",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "body": "First of all, apologies for the old summary as it created confusion on the purpose of this JIRA. \n\nbq. I was never a fan of putting it in LCE.\n\nIn YARN-3 there was a long discussion and strong push to get cgroups in LCE.\n\nbq. (which doesn't bring in the extra baggage of user-accounts etc.)\n\nAFAIK, with the proposed changes you don't need user accounts in all nodes. You just need the RM and the NM to be configured to an LDAP/AD to get group info for permissions and ACL.\n\nbq. We should refactor that code out to be able to use it as a standalone library/binary\n\nMy take would be trimming down LCE to just do root/setup stuff and delegate all the other stuff to Java via jvsc.\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "created": "2013-10-01T19:57:49.218+0000",
+            "updated": "2013-10-01T19:57:49.218+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783288",
+            "id": "13783288",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+              "name": "rvs",
+              "key": "rvs",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+              },
+              "displayName": "Roman Shaposhnik",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Attached a patch. Please review. I also deployed a cluster with the patches LCE and tried it out running simple jobs. Everything seems to work as expected.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+              "name": "rvs",
+              "key": "rvs",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+              },
+              "displayName": "Roman Shaposhnik",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-10-01T20:12:44.436+0000",
+            "updated": "2013-10-01T20:12:44.436+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783318",
+            "id": "13783318",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tlipcon",
+              "name": "tlipcon",
+              "key": "tlipcon",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tlipcon&avatarId=26804",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tlipcon&avatarId=26804",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tlipcon&avatarId=26804",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tlipcon&avatarId=26804"
+              },
+              "displayName": "Todd Lipcon",
+              "active": true,
+              "timeZone": "America/Tijuana"
+            },
+            "body": "bq. We should refactor that code out to be able to use it as a standalone library/binary (which doesn't bring in the extra baggage of user-accounts etc.) - that's the correct fix IMO. Putting in a local-user is an easy short-term solution\n\nI think separating the local \"run-as\" user from the daemon user has other benefits as well, separate from cgroups. This is a long-standing tradition in Unix services - eg Apache httpd typically runs CGI scripts as \"nobody\" unless suexec is configured. So this change still has value.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tlipcon",
+              "name": "tlipcon",
+              "key": "tlipcon",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tlipcon&avatarId=26804",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tlipcon&avatarId=26804",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tlipcon&avatarId=26804",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tlipcon&avatarId=26804"
+              },
+              "displayName": "Todd Lipcon",
+              "active": true,
+              "timeZone": "America/Tijuana"
+            },
+            "created": "2013-10-01T20:39:29.475+0000",
+            "updated": "2013-10-01T20:39:29.475+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783335",
+            "id": "13783335",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12606170/YARN-1253.patch.txt\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 3 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-common-project/hadoop-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/2057//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/2057//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-10-01T21:00:32.230+0000",
+            "updated": "2013-10-01T21:00:32.230+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783431",
+            "id": "13783431",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "body": "+1. I've deployed and tested in a cluster setup.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "created": "2013-10-01T22:37:37.514+0000",
+            "updated": "2013-10-01T22:37:37.514+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783502",
+            "id": "13783502",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "body": "setting target version to 2.1.2-beta as this is enables using cgroups without an important security issue in non-secure clusters.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "created": "2013-10-01T23:59:14.263+0000",
+            "updated": "2013-10-01T23:59:14.263+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783618",
+            "id": "13783618",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+              "name": "acmurthy",
+              "key": "acmurthy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Murthy",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~tlipcon] There is no doubt we can & should support cgroups in non-secure mode - the security angle was a red herring and I'm glad we are past it. \n\nThe question at hand is whether:\n# We add a new standalone binary for cgroups in non-secure (maybe even secure mode) as [~vinodkv] suggested\n# Amend existing LCE with a new feature as in the current patch.\n\nI'm not clear, I'll need to think more.\n\nIAC, I'm strongly against putting this in branch-2.1-beta - we should whet it more and not put this in at the last minute. Let's decide on the previous question and put this in trunk/branch-2. Makes sense? Thanks.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+              "name": "acmurthy",
+              "key": "acmurthy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Murthy",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-10-02T03:53:09.907+0000",
+            "updated": "2013-10-02T03:53:09.907+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783624",
+            "id": "13783624",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+              "name": "rvs",
+              "key": "rvs",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+              },
+              "displayName": "Roman Shaposhnik",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~acmurthy] on the subject of moving cgroups management functionality to a standalone module -- it may be of interest to note that Linux community has recently thrown in the towel on making naked cgroups trees be the nexus for resource management. Basically, there is a realization that no matter how much Pax Groupiana they write this is simply not a reliable approach. Their current approach is to provide resource management arbitration as a centralized service (under the covers, of course, using naked cgroups trees) via systemd and make all the clients talk to systemd via the DBus api to request resources, etc. It may be interesting to exploit this angle as well and have an implementation that bypasses the native part for cgroups altogether making YARN Java implementation talk to systemd (or an equivalent). ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+              "name": "rvs",
+              "key": "rvs",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+              },
+              "displayName": "Roman Shaposhnik",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-10-02T04:08:10.578+0000",
+            "updated": "2013-10-02T04:08:10.578+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783626",
+            "id": "13783626",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+              "name": "rvs",
+              "key": "rvs",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+              },
+              "displayName": "Roman Shaposhnik",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Here's a link to a recap on cgroups decisions at FD: http://www.freedesktop.org/wiki/Software/systemd/PaxControlGroups/",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+              "name": "rvs",
+              "key": "rvs",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+              },
+              "displayName": "Roman Shaposhnik",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-10-02T04:09:23.099+0000",
+            "updated": "2013-10-02T04:09:23.099+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783627",
+            "id": "13783627",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "body": "[~acmurthy],  doing cgroups outside of LCE was the original approach suggested in YARN-3, you were part of that discussion. That is why is this way. If we want to refactor it out, I would do it in a follow up JIRA probably taking as initial idea what was proposed in YARN-3. I'll open a JIRA to follow up on this one doing such refactoring.\n\nOn which branches to commit this. My preference for branch-2.1-beta is that cgroups is an important new feature in Hadoop 2 and we want people to use it and abuse it. Having cgroups working in nonsecure cluster with the current risks (discussed above) may lower the amount of users playing with it. That is my preference, but I'm OK with having it in trunk/branch-2.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "created": "2013-10-02T04:11:33.048+0000",
+            "updated": "2013-10-02T04:11:33.048+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13784667",
+            "id": "13784667",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "body": "Created YARN-1267 to refactor and decouple cgroups from LCE.\n\nThinking a bit, I agree with Arun about leaving this JIRA out of branch-2.1-beta, only trunk/branch-2.\n\nI've reviewed and tested the patch already, I'll wait till Friday noon for comments from other reviewers before committing.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "created": "2013-10-03T00:10:12.210+0000",
+            "updated": "2013-10-03T00:18:45.395+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13786675",
+            "id": "13786675",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "body": "Thanks Roman. Committed to trunk and branch-2.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "created": "2013-10-04T22:00:24.036+0000",
+            "updated": "2013-10-04T22:00:24.036+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13786679",
+            "id": "13786679",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "SUCCESS: Integrated in Hadoop-trunk-Commit #4541 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/4541/])\nYARN-1253. Changes to LinuxContainerExecutor to run containers as a single dedicated user in non-secure mode. (rvs via tucu) (tucu: http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1529325)\n* /hadoop/common/trunk/hadoop-common-project/hadoop-common/src/site/apt/ClusterSetup.apt.vm\n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/LinuxContainerExecutor.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/impl/container-executor.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/impl/main.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/test/test-container-executor.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/TestLinuxContainerExecutor.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/TestLinuxContainerExecutorWithMocks.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-10-04T22:07:50.888+0000",
+            "updated": "2013-10-04T22:07:50.888+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13787170",
+            "id": "13787170",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "SUCCESS: Integrated in Hadoop-Yarn-trunk #353 (See [https://builds.apache.org/job/Hadoop-Yarn-trunk/353/])\nYARN-1253. Changes to LinuxContainerExecutor to run containers as a single dedicated user in non-secure mode. (rvs via tucu) (tucu: http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1529325)\n* /hadoop/common/trunk/hadoop-common-project/hadoop-common/src/site/apt/ClusterSetup.apt.vm\n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/LinuxContainerExecutor.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/impl/container-executor.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/impl/main.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/test/test-container-executor.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/TestLinuxContainerExecutor.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/TestLinuxContainerExecutorWithMocks.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-10-05T11:00:33.976+0000",
+            "updated": "2013-10-05T11:00:33.976+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13787214",
+            "id": "13787214",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "SUCCESS: Integrated in Hadoop-Hdfs-trunk #1543 (See [https://builds.apache.org/job/Hadoop-Hdfs-trunk/1543/])\nYARN-1253. Changes to LinuxContainerExecutor to run containers as a single dedicated user in non-secure mode. (rvs via tucu) (tucu: http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1529325)\n* /hadoop/common/trunk/hadoop-common-project/hadoop-common/src/site/apt/ClusterSetup.apt.vm\n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/LinuxContainerExecutor.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/impl/container-executor.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/impl/main.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/test/test-container-executor.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/TestLinuxContainerExecutor.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/TestLinuxContainerExecutorWithMocks.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-10-05T13:30:55.017+0000",
+            "updated": "2013-10-05T13:30:55.017+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13787230",
+            "id": "13787230",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "FAILURE: Integrated in Hadoop-Mapreduce-trunk #1569 (See [https://builds.apache.org/job/Hadoop-Mapreduce-trunk/1569/])\nYARN-1253. Changes to LinuxContainerExecutor to run containers as a single dedicated user in non-secure mode. (rvs via tucu) (tucu: http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1529325)\n* /hadoop/common/trunk/hadoop-common-project/hadoop-common/src/site/apt/ClusterSetup.apt.vm\n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/LinuxContainerExecutor.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/impl/container-executor.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/impl/main.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/test/test-container-executor.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/TestLinuxContainerExecutor.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/TestLinuxContainerExecutorWithMocks.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-10-05T14:22:16.071+0000",
+            "updated": "2013-10-05T14:22:16.071+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13969803",
+            "id": "13969803",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jayunit100",
+              "name": "jayunit100",
+              "key": "jayunit100",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=jayunit100&avatarId=19577",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=jayunit100&avatarId=19577",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=jayunit100&avatarId=19577",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=jayunit100&avatarId=19577"
+              },
+              "displayName": "jay vyas",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "At this point, ANYONE who is running hadoop in SIMPLE mode cannot use a LinuxContainerExector in  a multitenant sort of way, at all. \n\nAre we 100% sure that this is the only way to implement the security improvements?  Or is there a way we can make this more flexible?  \n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jayunit100",
+              "name": "jayunit100",
+              "key": "jayunit100",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=jayunit100&avatarId=19577",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=jayunit100&avatarId=19577",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=jayunit100&avatarId=19577",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=jayunit100&avatarId=19577"
+              },
+              "displayName": "jay vyas",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-04-15T17:45:59.095+0000",
+            "updated": "2014-04-15T17:45:59.095+0000"
+          }
+        ],
+        "maxResults": 28,
+        "total": 28,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1253/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2014-08-16T17:28:08.691+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+        "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+        "name": "Closed",
+        "id": "6",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 28,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13782038",
+        "id": "13782038",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "body": "When using {{LinuxContainerExecutor.java}} in unsecure mode, we should have a {{yarn.nodemanager.linux-container-executor.unsecure-mode.local-user}} (with {{yarnuser}} as default) property that defines the local user LCE should use to start containers when used in unsecure mode.\n\nThe {{container-executor.c}} should received and extra parameter with the runAsUser, differentiating it from the user (which is used to create the usercache/$USER/ directory. (the {{container-executor.c}} code already is already prepared to handle this differentiation, the changes are minimal, just passing the extra parameter and wiring it in the right places.\n\nThe {{yarnuser}} should be provisioned as system user in the nodes and added to the whitelisted system users in the {{container-executor.cfg}} configuration, YARN-1137.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "created": "2013-09-30T17:41:35.588+0000",
+        "updated": "2013-09-30T17:41:35.588+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13782426",
+        "id": "13782426",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+          "name": "acmurthy",
+          "key": "acmurthy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Murthy",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "AFAIK, LCE already works in non-secure more. \n\nCan you please help me understand what is the extra ask here? Is the intent to ensure only NM can use LCE to run as other users?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+          "name": "acmurthy",
+          "key": "acmurthy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Murthy",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-09-30T23:34:05.606+0000",
+        "updated": "2013-09-30T23:34:05.606+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13782431",
+        "id": "13782431",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+          "name": "acmurthy",
+          "key": "acmurthy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Murthy",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "It would help to understand what LCE+nonsecure doesn't solve yet... ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+          "name": "acmurthy",
+          "key": "acmurthy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Murthy",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-09-30T23:39:09.595+0000",
+        "updated": "2013-09-30T23:39:09.595+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13782435",
+        "id": "13782435",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "body": "LCE it works in a no-secure setup, but it has 2 issues as stated in the description of the JIRA:\n\n----\n* LCE requires all Hadoop users submitting jobs to be Unix users in all nodes\n* Because users can impersonate other users, any user would have access to any local file of other users\n\nParticularly, the second issue is not desirable as a user could get access to ssh keys of other users in the nodes or if there are NFS mounts, get to other users data outside of the cluster.\n----\n\nIt could be argued that the first one could be a requirement (though, doing an analogy, it is not for HDFS permissions in unsecure mode)\n\nThe second issue is the, IMO, severe one. Specially for the the scenarios mentioned in the following up paragraph \"Particularly, ....\"\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "created": "2013-09-30T23:45:51.217+0000",
+        "updated": "2013-09-30T23:45:51.217+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13782548",
+        "id": "13782548",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+          "name": "acmurthy",
+          "key": "acmurthy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Murthy",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "bq. Because users can impersonate other users, any user would have access to any local file of other users\n\nYou mean by submitting a job as someone else? \n\n----\n\nI think we need to step back - is the requirement that we need to use cgroups in non-secure mode for resource isolation? If so, LCE in non-secure mode is sufficient.\n\nLet's not confuse this with security, we already have the problem where someone can delete all data in HDFS in non-secure mode... which is why we have a security in the first place. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+          "name": "acmurthy",
+          "key": "acmurthy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Murthy",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-10-01T01:52:39.108+0000",
+        "updated": "2013-10-01T01:52:39.108+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13782571",
+        "id": "13782571",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+          "name": "rvs",
+          "key": "rvs",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+          },
+          "displayName": "Roman Shaposhnik",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "I've started doing some preliminary work on this JIRA, so hopefully I can explain some of the things that my patch is about to address:\n  # the reason to use LCE in a non-secure mode is to be able to take advantage of cgroups mechanism, now perhaps cgroups functionality should be independent from the rest of LCE functionality, but re-using the current LCE design is also quite easy -- hence lets assume that for cgroups we need LCE\n  # in a fully secure deployment, LCE works perfectly and makes YARN users correspond 1-1 with the local UNIX users provisioned on each worker node\n  # in a non-secure deployment this 1-1 correspondence feels like a  burden that doesn't necessarily have to be there\n\nThus, the proposal is really to add a tiny bit of functionality to LCE where in a non-secure case it would be able to run all tasks under a single designated user (different from a user running nodemanager). On top of that, the notion of the YARN user (which no longer has to have a corresponding UNIX user) get preserved in everything else that LCE does (which really boils down to paths in the local filesystem used for localization).",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+          "name": "rvs",
+          "key": "rvs",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+          },
+          "displayName": "Roman Shaposhnik",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-10-01T02:22:41.456+0000",
+        "updated": "2013-10-01T02:22:41.456+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13782572",
+        "id": "13782572",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Agree with [~acmurthy], LCE + unsecure mode can already be used to do cgroup. If there are bugs, we should fix them.\n\nbq. LCE requires all Hadoop users submitting jobs to be Unix users in all nodes\nYes, this has always been a requirement. I think there is some effort going on in the Windows world of Hadoop to change this, you should look at it.\n\nbq. Because users can impersonate other users, any user would have access to any local file of other users\nEven if the jobs run as a single 'yarnuser', security isn't still there - like Arun said, any body can bomb HDFS directories of other users, any user can kill any other user's tasks/containers, any one can delete any one else's local dirs, log-dir and so on. We could argue which is worse - stealing user's passwords or deleting other user's data on DFS - it depends on who you ask. If you want security, you should enable security.\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2013-10-01T02:22:57.541+0000",
+        "updated": "2013-10-01T02:22:57.541+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783161",
+        "id": "13783161",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "body": "If we say that today people should use LCE for cgroups in unsecure mode, then this JIRA is a bug. If we say that LCE is not supported in unsecure mode, then this is an improvement to enable such. IMO, this JIRA is a bug, but I'm OK either way.\n\nCorrect, in unsecure mode, any user can delete all data in HDFS. If we look at what any user can do in the node local filesystem:\n\n* Using DCE, it can access/modify all data owned by yarn user.\n* Using LCE, it can access/modify all data owned by any non-system user.\n\nThe second scenario is particularly dangerous because any user could get access to private ssh keys of other users available in the nodes (this would typically be a cluster admin user) or in the case of automatic NFS mounts available to cluster (which I've seen in multiple setups) any user could gain access to data of other users outside of the cluster.\n\nThis JIRA is proposing adding LCE to run container processes a fixed local run-as-user, it could be 'nobody' by default. \n\nBy running the container processes with the run-as-user being 'nobody' we restricting local filesystem access to the permissions of the 'nobody' user in unsecure mode.\n\nThis run-as-user should be configurable for audit purposes as in some setups admins may want to track with a special user all container processes.\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "created": "2013-10-01T17:47:10.069+0000",
+        "updated": "2013-10-01T17:47:10.069+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783236",
+        "id": "13783236",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tlipcon",
+          "name": "tlipcon",
+          "key": "tlipcon",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tlipcon&avatarId=26804",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tlipcon&avatarId=26804",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tlipcon&avatarId=26804",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tlipcon&avatarId=26804"
+          },
+          "displayName": "Todd Lipcon",
+          "active": true,
+          "timeZone": "America/Tijuana"
+        },
+        "body": "On the security front, I see this as an improvement in compartmentalization. Sometimes people have an HDFS cluster with lax security concerns for the data within that cluster -- or already restrict access to submit jobs on the cluster to folks who are considered trusted to access all of the data. Given that, the concern of a malicious user masquerading as another on the cluster isn't a big one -- or else they'd set up Kerberos security as you mentioned above.\n\nThat said, these clusters may still be configured with automatic NFS mounts, and non-Kerberized NFS, in which case the ability to masquerade as another Unix user is a big problem.\n\nLet me give an example from my past -- a univerisity CS department where I helped as a system administrator. In this environment, all users used non-Kerberized nfs v3 to access a big filer with home directories. Users on the sysadmin staff had a great deal of access on the filer, as well as general sudo type access, sensitive SSH keys, etc stored within their home directories. Obviously, students did not. In this same environment, we had shared compute clusters (typically traditional HPCC, but some early experiments with Hadoop as well back in ancient days). Different grad students shared these compute clusters to perform their research jobs on, but security would not have been an important consideration - within a trusted environment like a small university research department, convenience outweighed security. That said, resource allocation and isolation between users was important - I had many cases I had to handle where students or professors up against a paper deadline got pretty pissed off that some undergrad was monopolizing CPU cycles on shared machines.\n\nIn such an environment, the setup proposed by this JIRA would help. We could not have simply used LCE, because that would have opened an attack vector: any student could submit a job as \"toddlipcon\" and then use my NFS access to essentially gain department-wide root. Without using LCE, there would be poor resource isolation (lacking cgroups).\n\nI'm certain that there are other environments as well where Unix user masquerading opens a lot of attack vectors, but where within-Hadoop strong auth is not a requirement.\n\n\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tlipcon",
+          "name": "tlipcon",
+          "key": "tlipcon",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tlipcon&avatarId=26804",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tlipcon&avatarId=26804",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tlipcon&avatarId=26804",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tlipcon&avatarId=26804"
+          },
+          "displayName": "Todd Lipcon",
+          "active": true,
+          "timeZone": "America/Tijuana"
+        },
+        "created": "2013-10-01T19:09:22.939+0000",
+        "updated": "2013-10-01T19:09:22.939+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783247",
+        "id": "13783247",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "[~tucu00], please change the title of this JIRA. \"Changes to LinuxContainerExecutor to use cgroups in unsecure mode\" isn't a problem description. If you had started with the problem description or your use case, we wouldn't have been arguing as much.\n\nWith that out of the way..\n\nbq. On the security front, I see this as an improvement in compartmentalization\nLike I said, the Windows folks are trying to solve the same set of issues. And as I said in my previous comment, I am neither positive nor negative about it. Which brings us down to..\n\nbq. If we say that today people should use LCE for cgroups in unsecure mode, then this JIRA is a bug.\nI was never a fan of putting it in LCE. We should refactor that code out to be able to use it as a standalone library/binary (which doesn't bring in the extra baggage of user-accounts etc.) - that's the correct fix IMO. Putting in a _local-user_ is an easy short-term solution, but if we go down this route, I'm afraid it'll become worse and worse as more functionality gets added.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2013-10-01T19:29:25.836+0000",
+        "updated": "2013-10-01T19:29:25.836+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783250",
+        "id": "13783250",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+          "name": "rvs",
+          "key": "rvs",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+          },
+          "displayName": "Roman Shaposhnik",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~vinodkv] I think changing the name of the JIRA is a fair request. Done.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+          "name": "rvs",
+          "key": "rvs",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+          },
+          "displayName": "Roman Shaposhnik",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-10-01T19:32:32.804+0000",
+        "updated": "2013-10-01T19:32:32.804+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783271",
+        "id": "13783271",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "body": "First of all, apologies for the old summary as it created confusion on the purpose of this JIRA. \n\nbq. I was never a fan of putting it in LCE.\n\nIn YARN-3 there was a long discussion and strong push to get cgroups in LCE.\n\nbq. (which doesn't bring in the extra baggage of user-accounts etc.)\n\nAFAIK, with the proposed changes you don't need user accounts in all nodes. You just need the RM and the NM to be configured to an LDAP/AD to get group info for permissions and ACL.\n\nbq. We should refactor that code out to be able to use it as a standalone library/binary\n\nMy take would be trimming down LCE to just do root/setup stuff and delegate all the other stuff to Java via jvsc.\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "created": "2013-10-01T19:57:49.218+0000",
+        "updated": "2013-10-01T19:57:49.218+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783288",
+        "id": "13783288",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+          "name": "rvs",
+          "key": "rvs",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+          },
+          "displayName": "Roman Shaposhnik",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Attached a patch. Please review. I also deployed a cluster with the patches LCE and tried it out running simple jobs. Everything seems to work as expected.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+          "name": "rvs",
+          "key": "rvs",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+          },
+          "displayName": "Roman Shaposhnik",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-10-01T20:12:44.436+0000",
+        "updated": "2013-10-01T20:12:44.436+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783318",
+        "id": "13783318",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tlipcon",
+          "name": "tlipcon",
+          "key": "tlipcon",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tlipcon&avatarId=26804",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tlipcon&avatarId=26804",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tlipcon&avatarId=26804",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tlipcon&avatarId=26804"
+          },
+          "displayName": "Todd Lipcon",
+          "active": true,
+          "timeZone": "America/Tijuana"
+        },
+        "body": "bq. We should refactor that code out to be able to use it as a standalone library/binary (which doesn't bring in the extra baggage of user-accounts etc.) - that's the correct fix IMO. Putting in a local-user is an easy short-term solution\n\nI think separating the local \"run-as\" user from the daemon user has other benefits as well, separate from cgroups. This is a long-standing tradition in Unix services - eg Apache httpd typically runs CGI scripts as \"nobody\" unless suexec is configured. So this change still has value.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tlipcon",
+          "name": "tlipcon",
+          "key": "tlipcon",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tlipcon&avatarId=26804",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tlipcon&avatarId=26804",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tlipcon&avatarId=26804",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tlipcon&avatarId=26804"
+          },
+          "displayName": "Todd Lipcon",
+          "active": true,
+          "timeZone": "America/Tijuana"
+        },
+        "created": "2013-10-01T20:39:29.475+0000",
+        "updated": "2013-10-01T20:39:29.475+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783335",
+        "id": "13783335",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12606170/YARN-1253.patch.txt\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 3 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-common-project/hadoop-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/2057//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/2057//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-10-01T21:00:32.230+0000",
+        "updated": "2013-10-01T21:00:32.230+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783431",
+        "id": "13783431",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "body": "+1. I've deployed and tested in a cluster setup.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "created": "2013-10-01T22:37:37.514+0000",
+        "updated": "2013-10-01T22:37:37.514+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783502",
+        "id": "13783502",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "body": "setting target version to 2.1.2-beta as this is enables using cgroups without an important security issue in non-secure clusters.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "created": "2013-10-01T23:59:14.263+0000",
+        "updated": "2013-10-01T23:59:14.263+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783618",
+        "id": "13783618",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+          "name": "acmurthy",
+          "key": "acmurthy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Murthy",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~tlipcon] There is no doubt we can & should support cgroups in non-secure mode - the security angle was a red herring and I'm glad we are past it. \n\nThe question at hand is whether:\n# We add a new standalone binary for cgroups in non-secure (maybe even secure mode) as [~vinodkv] suggested\n# Amend existing LCE with a new feature as in the current patch.\n\nI'm not clear, I'll need to think more.\n\nIAC, I'm strongly against putting this in branch-2.1-beta - we should whet it more and not put this in at the last minute. Let's decide on the previous question and put this in trunk/branch-2. Makes sense? Thanks.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+          "name": "acmurthy",
+          "key": "acmurthy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Murthy",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-10-02T03:53:09.907+0000",
+        "updated": "2013-10-02T03:53:09.907+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783624",
+        "id": "13783624",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+          "name": "rvs",
+          "key": "rvs",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+          },
+          "displayName": "Roman Shaposhnik",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~acmurthy] on the subject of moving cgroups management functionality to a standalone module -- it may be of interest to note that Linux community has recently thrown in the towel on making naked cgroups trees be the nexus for resource management. Basically, there is a realization that no matter how much Pax Groupiana they write this is simply not a reliable approach. Their current approach is to provide resource management arbitration as a centralized service (under the covers, of course, using naked cgroups trees) via systemd and make all the clients talk to systemd via the DBus api to request resources, etc. It may be interesting to exploit this angle as well and have an implementation that bypasses the native part for cgroups altogether making YARN Java implementation talk to systemd (or an equivalent). ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+          "name": "rvs",
+          "key": "rvs",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+          },
+          "displayName": "Roman Shaposhnik",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-10-02T04:08:10.578+0000",
+        "updated": "2013-10-02T04:08:10.578+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783626",
+        "id": "13783626",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+          "name": "rvs",
+          "key": "rvs",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+          },
+          "displayName": "Roman Shaposhnik",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Here's a link to a recap on cgroups decisions at FD: http://www.freedesktop.org/wiki/Software/systemd/PaxControlGroups/",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rvs",
+          "name": "rvs",
+          "key": "rvs",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rvs&avatarId=13930",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rvs&avatarId=13930",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rvs&avatarId=13930",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rvs&avatarId=13930"
+          },
+          "displayName": "Roman Shaposhnik",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-10-02T04:09:23.099+0000",
+        "updated": "2013-10-02T04:09:23.099+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13783627",
+        "id": "13783627",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "body": "[~acmurthy],  doing cgroups outside of LCE was the original approach suggested in YARN-3, you were part of that discussion. That is why is this way. If we want to refactor it out, I would do it in a follow up JIRA probably taking as initial idea what was proposed in YARN-3. I'll open a JIRA to follow up on this one doing such refactoring.\n\nOn which branches to commit this. My preference for branch-2.1-beta is that cgroups is an important new feature in Hadoop 2 and we want people to use it and abuse it. Having cgroups working in nonsecure cluster with the current risks (discussed above) may lower the amount of users playing with it. That is my preference, but I'm OK with having it in trunk/branch-2.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "created": "2013-10-02T04:11:33.048+0000",
+        "updated": "2013-10-02T04:11:33.048+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13784667",
+        "id": "13784667",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "body": "Created YARN-1267 to refactor and decouple cgroups from LCE.\n\nThinking a bit, I agree with Arun about leaving this JIRA out of branch-2.1-beta, only trunk/branch-2.\n\nI've reviewed and tested the patch already, I'll wait till Friday noon for comments from other reviewers before committing.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "created": "2013-10-03T00:10:12.210+0000",
+        "updated": "2013-10-03T00:18:45.395+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13786675",
+        "id": "13786675",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "body": "Thanks Roman. Committed to trunk and branch-2.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "created": "2013-10-04T22:00:24.036+0000",
+        "updated": "2013-10-04T22:00:24.036+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13786679",
+        "id": "13786679",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "SUCCESS: Integrated in Hadoop-trunk-Commit #4541 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/4541/])\nYARN-1253. Changes to LinuxContainerExecutor to run containers as a single dedicated user in non-secure mode. (rvs via tucu) (tucu: http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1529325)\n* /hadoop/common/trunk/hadoop-common-project/hadoop-common/src/site/apt/ClusterSetup.apt.vm\n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/LinuxContainerExecutor.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/impl/container-executor.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/impl/main.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/test/test-container-executor.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/TestLinuxContainerExecutor.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/TestLinuxContainerExecutorWithMocks.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-10-04T22:07:50.888+0000",
+        "updated": "2013-10-04T22:07:50.888+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13787170",
+        "id": "13787170",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "SUCCESS: Integrated in Hadoop-Yarn-trunk #353 (See [https://builds.apache.org/job/Hadoop-Yarn-trunk/353/])\nYARN-1253. Changes to LinuxContainerExecutor to run containers as a single dedicated user in non-secure mode. (rvs via tucu) (tucu: http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1529325)\n* /hadoop/common/trunk/hadoop-common-project/hadoop-common/src/site/apt/ClusterSetup.apt.vm\n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/LinuxContainerExecutor.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/impl/container-executor.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/impl/main.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/test/test-container-executor.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/TestLinuxContainerExecutor.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/TestLinuxContainerExecutorWithMocks.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-10-05T11:00:33.976+0000",
+        "updated": "2013-10-05T11:00:33.976+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13787214",
+        "id": "13787214",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "SUCCESS: Integrated in Hadoop-Hdfs-trunk #1543 (See [https://builds.apache.org/job/Hadoop-Hdfs-trunk/1543/])\nYARN-1253. Changes to LinuxContainerExecutor to run containers as a single dedicated user in non-secure mode. (rvs via tucu) (tucu: http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1529325)\n* /hadoop/common/trunk/hadoop-common-project/hadoop-common/src/site/apt/ClusterSetup.apt.vm\n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/LinuxContainerExecutor.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/impl/container-executor.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/impl/main.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/test/test-container-executor.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/TestLinuxContainerExecutor.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/TestLinuxContainerExecutorWithMocks.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-10-05T13:30:55.017+0000",
+        "updated": "2013-10-05T13:30:55.017+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13787230",
+        "id": "13787230",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "FAILURE: Integrated in Hadoop-Mapreduce-trunk #1569 (See [https://builds.apache.org/job/Hadoop-Mapreduce-trunk/1569/])\nYARN-1253. Changes to LinuxContainerExecutor to run containers as a single dedicated user in non-secure mode. (rvs via tucu) (tucu: http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1529325)\n* /hadoop/common/trunk/hadoop-common-project/hadoop-common/src/site/apt/ClusterSetup.apt.vm\n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/LinuxContainerExecutor.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/impl/container-executor.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/impl/main.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/test/test-container-executor.c\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/TestLinuxContainerExecutor.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/TestLinuxContainerExecutorWithMocks.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-10-05T14:22:16.071+0000",
+        "updated": "2013-10-05T14:22:16.071+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12671408/comment/13969803",
+        "id": "13969803",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jayunit100",
+          "name": "jayunit100",
+          "key": "jayunit100",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=jayunit100&avatarId=19577",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=jayunit100&avatarId=19577",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=jayunit100&avatarId=19577",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=jayunit100&avatarId=19577"
+          },
+          "displayName": "jay vyas",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "At this point, ANYONE who is running hadoop in SIMPLE mode cannot use a LinuxContainerExector in  a multitenant sort of way, at all. \n\nAre we 100% sure that this is the only way to implement the security improvements?  Or is there a way we can make this more flexible?  \n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jayunit100",
+          "name": "jayunit100",
+          "key": "jayunit100",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=jayunit100&avatarId=19577",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=jayunit100&avatarId=19577",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=jayunit100&avatarId=19577",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=jayunit100&avatarId=19577"
+          },
+          "displayName": "jay vyas",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-04-15T17:45:59.095+0000",
+        "updated": "2014-04-15T17:45:59.095+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1253/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 28,
+        "returned": 28
+      }
+    ]
+  }
+}

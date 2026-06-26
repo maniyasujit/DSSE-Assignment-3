@@ -1,0 +1,716 @@
+{
+  "downloaded_at": "2026-06-25T10:19:21.144091+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-8256",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8256?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13157720",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13157720",
+    "key": "YARN-8256",
+    "fields": {
+      "summary": "Pluggable provider for node membership management",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+        "id": "2",
+        "description": "A new feature of the product, which has yet to be developed.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+        "name": "New Feature",
+        "subtask": false,
+        "avatarId": 21141
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319322",
+          "id": "12319322",
+          "name": "resourcemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2018-05-07T21:43:18.041+0000",
+      "description": "h1. Background\r\n\r\nHDFS-7541 introduced a pluggable provider framework for node membership management, which gives HDFS the flexibility to have different ways to manage node membership for different needs.\r\n\r\n[org.apache.hadoop.hdfs.server.blockmanagement.HostConfigManager|https://github.com/apache/hadoop/blob/trunk/hadoop-hdfs-project/hadoop-hdfs/src/main/java/org/apache/hadoop/hdfs/server/blockmanagement/HostConfigManager.java] is the class which provides the abstraction. Currently, there are 2 implementations in the HDFS codebase:\r\n\r\n1) [org.apache.hadoop.hdfs.server.blockmanagement.HostFileManager|https://github.com/apache/hadoop/blob/trunk/hadoop-hdfs-project/hadoop-hdfs/src/main/java/org/apache/hadoop/hdfs/server/blockmanagement/HostFileManager.java] which uses 2 config files which are defined by the properties dfs.hosts and dfs.hosts.exclude.\r\n\r\n2) [org.apache.hadoop.hdfs.server.blockmanagement.CombinedHostFileManager|https://github.com/apache/hadoop/blob/trunk/hadoop-hdfs-project/hadoop-hdfs/src/main/java/org/apache/hadoop/hdfs/server/blockmanagement/CombinedHostFileManager.java] which uses a single JSON file defined by the property dfs.hosts.\r\n\r\ndfs.namenode.hosts.provider.classname is the property determining which implementation is used\r\nh1. Problem\r\n\r\nYARN should be consistent with HDFS in terms of pluggable provider for node membership management. The absence of it makes YARN impossible to have other config sources, e.g., ZooKeeper, database, other config file formats, etc.\r\nh1. Proposed solution\r\n\r\n[org.apache.hadoop.yarn.server.resourcemanager.NodesListManager|https://github.com/apache/hadoop/blob/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/NodesListManager.java]\u00a0is the class\u00a0for managing YARN node membership today. It uses [HostsFileReader|https://github.com/apache/hadoop/blob/trunk/hadoop-common-project/hadoop-common/src/main/java/org/apache/hadoop/util/HostsFileReader.java]\u00a0to read config files specified by the property yarn.resourcemanager.nodes.include-path for nodes to include and yarn.resourcemanager.nodes.nodes.exclude-path for nodes to exclude.\r\n\r\nThe proposed solution is to\r\n\r\n1) introduce a new interface {color:#008000}HostsConfigManager{color} which provides the abstraction for node membership management. Update {color:#008000}NodeListManager{color} to depend on {color:#008000}HostsConfigManager{color} instead of {color:#008000}HostsFileReader{color}. Then create a wrapper class for {color:#008000}HostsFileReader{color} which implements the interface.\r\n\r\n2) introduce a new config property {color:#008000}yarn.resourcemanager.hosts-config.manager.class{color} for specifying the implementation class. Set the default value to the wrapper class of {color:#008000}HostsFileReader{color} for backward compatibility between new code and old config.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [
+        "pull-request-available"
+      ],
+      "attachment": [],
+      "issuelinks": [
+        {
+          "id": "12533487",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12533487",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "inwardIssue": {
+            "id": "12762366",
+            "key": "HDFS-7541",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12762366",
+            "fields": {
+              "summary": "Upgrade Domains in HDFS",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+                "id": "4",
+                "description": "An improvement or enhancement to an existing feature or task.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+                "name": "Improvement",
+                "subtask": false,
+                "avatarId": 21140
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13157720/comment/16467929",
+            "id": "16467929",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "GitHub user functicons opened a pull request:\n\n    https://github.com/apache/hadoop/pull/384\n\n    YARN-8256. Support pluggable node membership manager in YARN.\n\n    [YARN-8256](https://issues.apache.org/jira/browse/YARN-8256): Support pluggable node membership manager in YARN.\n\nYou can merge this pull request into a Git repository by running:\n\n    $ git pull https://github.com/functicons/hadoop trunk\n\nAlternatively you can review and apply these changes as the patch at:\n\n    https://github.com/apache/hadoop/pull/384.patch\n\nTo close this pull request, make a commit to your master/trunk branch\nwith (at least) the following in the commit message:\n\n    This closes #384\n    \n----\ncommit 57a92fc8712d4fb4c6b88dc390baa2c5b30471ca\nAuthor: Dagang Wei <functicons@...>\nDate:   2018-05-07T20:41:59Z\n\n    Support YARN pluggable node membership.\n\n----\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2018-05-08T20:25:05.360+0000",
+            "updated": "2018-05-08T20:25:05.360+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13157720/comment/16482695",
+            "id": "16482695",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=functicons",
+              "name": "functicons",
+              "key": "functicons",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34045",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34045",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34045",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34045"
+              },
+              "displayName": "Dagang Wei",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Friendly ping.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=functicons",
+              "name": "functicons",
+              "key": "functicons",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34045",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34045",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34045",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34045"
+              },
+              "displayName": "Dagang Wei",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-05-21T16:34:40.318+0000",
+            "updated": "2018-05-21T16:34:40.318+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13157720/comment/16495933",
+            "id": "16495933",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=functicons",
+              "name": "functicons",
+              "key": "functicons",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34045",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34045",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34045",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34045"
+              },
+              "displayName": "Dagang Wei",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Friendly ping. Thanks!",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=functicons",
+              "name": "functicons",
+              "key": "functicons",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34045",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34045",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34045",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34045"
+              },
+              "displayName": "Dagang Wei",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-05-31T00:27:52.308+0000",
+            "updated": "2018-05-31T00:27:52.308+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13157720/comment/16690270",
+            "id": "16690270",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Bulk update: moved all 3.2.0 non-blocker issues, please move back if it is a blocker.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2018-11-17T03:23:08.800+0000",
+            "updated": "2018-11-17T03:23:08.800+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13157720/comment/17079699",
+            "id": "17079699",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=brahmareddy",
+              "name": "brahmareddy",
+              "key": "brahmareddy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=brahmareddy&avatarId=24624",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=brahmareddy&avatarId=24624",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=brahmareddy&avatarId=24624",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=brahmareddy&avatarId=24624"
+              },
+              "displayName": "Brahma Reddy Battula",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Bulk update: moved all 3.3.0 non-blocker issues, please move back if it is a blocker.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=brahmareddy",
+              "name": "brahmareddy",
+              "key": "brahmareddy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=brahmareddy&avatarId=24624",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=brahmareddy&avatarId=24624",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=brahmareddy&avatarId=24624",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=brahmareddy&avatarId=24624"
+              },
+              "displayName": "Brahma Reddy Battula",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2020-04-09T18:41:31.807+0000",
+            "updated": "2020-04-09T18:41:31.807+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13157720/comment/17802681",
+            "id": "17802681",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=slfan1989",
+              "name": "slfan1989",
+              "key": "slfan1989",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=slfan1989&avatarId=40935",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=slfan1989&avatarId=40935",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=slfan1989&avatarId=40935",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=slfan1989&avatarId=40935"
+              },
+              "displayName": "Shilun Fan",
+              "active": true,
+              "timeZone": "America/Vancouver"
+            },
+            "body": "Bulk update: moved all 3.4.0 non-blocker issues, please move back if it is a blocker. Retarget 3.5.0.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=slfan1989",
+              "name": "slfan1989",
+              "key": "slfan1989",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=slfan1989&avatarId=40935",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=slfan1989&avatarId=40935",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=slfan1989&avatarId=40935",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=slfan1989&avatarId=40935"
+              },
+              "displayName": "Shilun Fan",
+              "active": true,
+              "timeZone": "America/Vancouver"
+            },
+            "created": "2024-01-04T08:41:39.485+0000",
+            "updated": "2024-01-04T08:41:39.485+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13157720/comment/18047845",
+            "id": "18047845",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "github-actions[bot] commented on PR #384:\nURL: https://github.com/apache/hadoop/pull/384#issuecomment-3694325955\n\n   We're closing this stale PR because it has been open for 100 days with no activity. This isn't a judgement on the merit of the PR in any way. It's just a way of keeping the PR queue manageable.\n   If you feel like this was a mistake, or you would like to continue working on it, please feel free to re-open it and ask for a committer to remove the stale tag and review again.\n   Thanks all for your contribution.\n\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2025-12-28T00:29:40.755+0000",
+            "updated": "2025-12-28T00:29:40.755+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13157720/comment/18047946",
+            "id": "18047946",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "github-actions[bot] closed pull request #384: YARN-8256. Support pluggable node membership manager in YARN.\nURL: https://github.com/apache/hadoop/pull/384\n\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2025-12-29T00:27:33.975+0000",
+            "updated": "2025-12-29T00:27:33.975+0000"
+          }
+        ],
+        "maxResults": 8,
+        "total": 8,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8256/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2026-02-12T22:20:45.825+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 8,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13157720/comment/16467929",
+        "id": "16467929",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "GitHub user functicons opened a pull request:\n\n    https://github.com/apache/hadoop/pull/384\n\n    YARN-8256. Support pluggable node membership manager in YARN.\n\n    [YARN-8256](https://issues.apache.org/jira/browse/YARN-8256): Support pluggable node membership manager in YARN.\n\nYou can merge this pull request into a Git repository by running:\n\n    $ git pull https://github.com/functicons/hadoop trunk\n\nAlternatively you can review and apply these changes as the patch at:\n\n    https://github.com/apache/hadoop/pull/384.patch\n\nTo close this pull request, make a commit to your master/trunk branch\nwith (at least) the following in the commit message:\n\n    This closes #384\n    \n----\ncommit 57a92fc8712d4fb4c6b88dc390baa2c5b30471ca\nAuthor: Dagang Wei <functicons@...>\nDate:   2018-05-07T20:41:59Z\n\n    Support YARN pluggable node membership.\n\n----\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2018-05-08T20:25:05.360+0000",
+        "updated": "2018-05-08T20:25:05.360+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13157720/comment/16482695",
+        "id": "16482695",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=functicons",
+          "name": "functicons",
+          "key": "functicons",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34045",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34045",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34045",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34045"
+          },
+          "displayName": "Dagang Wei",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Friendly ping.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=functicons",
+          "name": "functicons",
+          "key": "functicons",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34045",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34045",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34045",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34045"
+          },
+          "displayName": "Dagang Wei",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-05-21T16:34:40.318+0000",
+        "updated": "2018-05-21T16:34:40.318+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13157720/comment/16495933",
+        "id": "16495933",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=functicons",
+          "name": "functicons",
+          "key": "functicons",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34045",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34045",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34045",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34045"
+          },
+          "displayName": "Dagang Wei",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Friendly ping. Thanks!",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=functicons",
+          "name": "functicons",
+          "key": "functicons",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34045",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34045",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34045",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34045"
+          },
+          "displayName": "Dagang Wei",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-05-31T00:27:52.308+0000",
+        "updated": "2018-05-31T00:27:52.308+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13157720/comment/16690270",
+        "id": "16690270",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Bulk update: moved all 3.2.0 non-blocker issues, please move back if it is a blocker.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2018-11-17T03:23:08.800+0000",
+        "updated": "2018-11-17T03:23:08.800+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13157720/comment/17079699",
+        "id": "17079699",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=brahmareddy",
+          "name": "brahmareddy",
+          "key": "brahmareddy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=brahmareddy&avatarId=24624",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=brahmareddy&avatarId=24624",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=brahmareddy&avatarId=24624",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=brahmareddy&avatarId=24624"
+          },
+          "displayName": "Brahma Reddy Battula",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Bulk update: moved all 3.3.0 non-blocker issues, please move back if it is a blocker.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=brahmareddy",
+          "name": "brahmareddy",
+          "key": "brahmareddy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=brahmareddy&avatarId=24624",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=brahmareddy&avatarId=24624",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=brahmareddy&avatarId=24624",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=brahmareddy&avatarId=24624"
+          },
+          "displayName": "Brahma Reddy Battula",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2020-04-09T18:41:31.807+0000",
+        "updated": "2020-04-09T18:41:31.807+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13157720/comment/17802681",
+        "id": "17802681",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=slfan1989",
+          "name": "slfan1989",
+          "key": "slfan1989",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=slfan1989&avatarId=40935",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=slfan1989&avatarId=40935",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=slfan1989&avatarId=40935",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=slfan1989&avatarId=40935"
+          },
+          "displayName": "Shilun Fan",
+          "active": true,
+          "timeZone": "America/Vancouver"
+        },
+        "body": "Bulk update: moved all 3.4.0 non-blocker issues, please move back if it is a blocker. Retarget 3.5.0.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=slfan1989",
+          "name": "slfan1989",
+          "key": "slfan1989",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=slfan1989&avatarId=40935",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=slfan1989&avatarId=40935",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=slfan1989&avatarId=40935",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=slfan1989&avatarId=40935"
+          },
+          "displayName": "Shilun Fan",
+          "active": true,
+          "timeZone": "America/Vancouver"
+        },
+        "created": "2024-01-04T08:41:39.485+0000",
+        "updated": "2024-01-04T08:41:39.485+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13157720/comment/18047845",
+        "id": "18047845",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "github-actions[bot] commented on PR #384:\nURL: https://github.com/apache/hadoop/pull/384#issuecomment-3694325955\n\n   We're closing this stale PR because it has been open for 100 days with no activity. This isn't a judgement on the merit of the PR in any way. It's just a way of keeping the PR queue manageable.\n   If you feel like this was a mistake, or you would like to continue working on it, please feel free to re-open it and ask for a committer to remove the stale tag and review again.\n   Thanks all for your contribution.\n\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2025-12-28T00:29:40.755+0000",
+        "updated": "2025-12-28T00:29:40.755+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13157720/comment/18047946",
+        "id": "18047946",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "github-actions[bot] closed pull request #384: YARN-8256. Support pluggable node membership manager in YARN.\nURL: https://github.com/apache/hadoop/pull/384\n\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2025-12-29T00:27:33.975+0000",
+        "updated": "2025-12-29T00:27:33.975+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8256/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 8,
+        "returned": 8
+      }
+    ]
+  }
+}

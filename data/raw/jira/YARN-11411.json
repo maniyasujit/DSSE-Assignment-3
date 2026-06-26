@@ -1,0 +1,386 @@
+{
+  "downloaded_at": "2026-06-25T10:24:59.838223+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-11411",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-11411?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13517182",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13517182",
+    "key": "YARN-11411",
+    "fields": {
+      "summary": "[Umbrella] Build Concurrent Yarn Scheduler",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+        "id": "2",
+        "description": "A new feature of the product, which has yet to be developed.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+        "name": "New Feature",
+        "subtask": false,
+        "avatarId": 21141
+      },
+      "components": [],
+      "subtasks": [
+        {
+          "id": "13517185",
+          "key": "YARN-11412",
+          "self": "https://issues.apache.org/jira/rest/api/2/issue/13517185",
+          "fields": {
+            "summary": "Create a Concurrent Users Manager to enable thread safe concurrent resource usage tracking of user",
+            "status": {
+              "self": "https://issues.apache.org/jira/rest/api/2/status/3",
+              "description": "This issue is being actively worked on at the moment by the assignee.",
+              "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/inprogress.png",
+              "name": "In Progress",
+              "id": "3",
+              "statusCategory": {
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+                "id": 4,
+                "key": "indeterminate",
+                "colorName": "yellow",
+                "name": "In Progress"
+              }
+            },
+            "priority": {
+              "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+              "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+              "name": "Major",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+              "id": "7",
+              "description": "The sub-task of the issue",
+              "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+              "name": "Sub-task",
+              "subtask": true,
+              "avatarId": 21146
+            }
+          }
+        },
+        {
+          "id": "13525210",
+          "key": "YARN-11440",
+          "self": "https://issues.apache.org/jira/rest/api/2/issue/13525210",
+          "fields": {
+            "summary": "Create a Concurrent Leaf Queue to enable thread safe concurrent & performant scheduler",
+            "status": {
+              "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+              "description": "The issue is open and ready for the assignee to start work on it.",
+              "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+              "name": "Open",
+              "id": "1",
+              "statusCategory": {
+                "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+              "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+              "name": "Major",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+              "id": "7",
+              "description": "The sub-task of the issue",
+              "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+              "name": "Sub-task",
+              "subtask": true,
+              "avatarId": 21146
+            }
+          }
+        }
+      ],
+      "created": "2023-01-09T05:46:52.462+0000",
+      "description": "We operate multiple yarn clusters with each cluster capped to ~ 10k nodes which is its scalability limit. We expect multiple benefits with fewer clusters & larger cluster sizes (better elasticity, operational simplicity, larger queues).\u00a0\r\n\r\nThus, we want to scale a single yarn cluster to as much as possible in terms of number of nodes heartbeating to the cluster (& proportionally increase container allocation rate) without degradation in overall quantiles (p50 / p75 / p95) of container allocation delay\u00a0\r\n\r\nThe scalability limit of a yarn cluster is primarily driven by RM\u2019s processing of node heartbeats & container allocation. The CPU usage of our RM is < 10% & RM is primarily bottlenecked on global queue & user read/write locks for container allocation\r\n\r\nBy removing these locks (through a very naive & incorrect implementation), we were able to scale RM to 25k nodes (& proportional increase in container allocs/sec) with avg RM CPU utilization of 20% (so there is still room for improvement to use more CPU / scale up further).\r\n\r\nThis primarily requires\r\n # Async scheduling to decouple scheduling from node heartbeats (existing feature)\r\n # Removing global write locks in scheduler path (primarily to maintain queues and users)\r\n # Multi threaded event queue dispatcher to process events parallelly\r\n\r\nAdditionally we need to probably scale RPC handling, DT management, preemption flows, Timeline server, RM HA failover.\u00a0",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [
+        "pull-request-available"
+      ],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13517182/comment/17678485",
+            "id": "17678485",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "krishan1390 opened a new pull request, #5313:\nURL: https://github.com/apache/hadoop/pull/5313\n\n   As part of https://issues.apache.org/jira/browse/YARN-11412 to build a concurrent users manager, I am planning to isolate user management into a package and limit its public APIs. This will help maintain the thread safety guarantees of the classes better and not allow certain internal behaviours (like caches) from escaping which will help to modify implementations as per need.\r\n   \r\n   This PR is encapsulating certain APIs and making the required changes in dependent classes and test cases. \n\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2023-01-19T04:45:52.451+0000",
+            "updated": "2023-01-19T04:45:52.451+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13517182/comment/17678550",
+            "id": "17678550",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "hadoop-yetus commented on PR #5313:\nURL: https://github.com/apache/hadoop/pull/5313#issuecomment-1396596316\n\n   :broken_heart: **-1 overall**\r\n   \r\n   \r\n   \r\n   \r\n   \r\n   \r\n   | Vote | Subsystem | Runtime |  Logfile | Comment |\r\n   |:----:|----------:|--------:|:--------:|:-------:|\r\n   | +0 :ok: |  reexec  |   0m 57s |  |  Docker mode activated.  |\r\n   |||| _ Prechecks _ |\r\n   | +1 :green_heart: |  dupname  |   0m  0s |  |  No case conflicting files found.  |\r\n   | +0 :ok: |  codespell  |   0m  0s |  |  codespell was not available.  |\r\n   | +0 :ok: |  detsecrets  |   0m  0s |  |  detect-secrets was not available.  |\r\n   | +1 :green_heart: |  @author  |   0m  0s |  |  The patch does not contain any @author tags.  |\r\n   | +1 :green_heart: |  test4tests  |   0m  0s |  |  The patch appears to include 5 new or modified test files.  |\r\n   |||| _ trunk Compile Tests _ |\r\n   | +1 :green_heart: |  mvninstall  |  43m 56s |  |  trunk passed  |\r\n   | +1 :green_heart: |  compile  |   1m  3s |  |  trunk passed with JDK Ubuntu-11.0.17+8-post-Ubuntu-1ubuntu220.04  |\r\n   | +1 :green_heart: |  compile  |   0m 59s |  |  trunk passed with JDK Private Build-1.8.0_352-8u352-ga-1~20.04-b08  |\r\n   | +1 :green_heart: |  checkstyle  |   0m 58s |  |  trunk passed  |\r\n   | +1 :green_heart: |  mvnsite  |   1m  5s |  |  trunk passed  |\r\n   | -1 :x: |  javadoc  |   0m 57s | [/branch-javadoc-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager-jdkUbuntu-11.0.17+8-post-Ubuntu-1ubuntu220.04.txt](https://ci-hadoop.apache.org/job/hadoop-multibranch/job/PR-5313/1/artifact/out/branch-javadoc-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager-jdkUbuntu-11.0.17+8-post-Ubuntu-1ubuntu220.04.txt) |  hadoop-yarn-server-resourcemanager in trunk failed with JDK Ubuntu-11.0.17+8-post-Ubuntu-1ubuntu220.04.  |\r\n   | +1 :green_heart: |  javadoc  |   0m 44s |  |  trunk passed with JDK Private Build-1.8.0_352-8u352-ga-1~20.04-b08  |\r\n   | +1 :green_heart: |  spotbugs  |   2m  8s |  |  trunk passed  |\r\n   | +1 :green_heart: |  shadedclient  |  24m 19s |  |  branch has no errors when building and testing our client artifacts.  |\r\n   |||| _ Patch Compile Tests _ |\r\n   | +1 :green_heart: |  mvninstall  |   0m 59s |  |  the patch passed  |\r\n   | +1 :green_heart: |  compile  |   0m 56s |  |  the patch passed with JDK Ubuntu-11.0.17+8-post-Ubuntu-1ubuntu220.04  |\r\n   | +1 :green_heart: |  javac  |   0m 56s |  |  the patch passed  |\r\n   | +1 :green_heart: |  compile  |   0m 49s |  |  the patch passed with JDK Private Build-1.8.0_352-8u352-ga-1~20.04-b08  |\r\n   | +1 :green_heart: |  javac  |   0m 49s |  |  the patch passed  |\r\n   | +1 :green_heart: |  blanks  |   0m  0s |  |  The patch has no blanks issues.  |\r\n   | -0 :warning: |  checkstyle  |   0m 42s | [/results-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt](https://ci-hadoop.apache.org/job/hadoop-multibranch/job/PR-5313/1/artifact/out/results-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt) |  hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager: The patch generated 47 new + 303 unchanged - 47 fixed = 350 total (was 350)  |\r\n   | +1 :green_heart: |  mvnsite  |   0m 53s |  |  the patch passed  |\r\n   | -1 :x: |  javadoc  |   0m 40s | [/patch-javadoc-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager-jdkUbuntu-11.0.17+8-post-Ubuntu-1ubuntu220.04.txt](https://ci-hadoop.apache.org/job/hadoop-multibranch/job/PR-5313/1/artifact/out/patch-javadoc-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager-jdkUbuntu-11.0.17+8-post-Ubuntu-1ubuntu220.04.txt) |  hadoop-yarn-server-resourcemanager in the patch failed with JDK Ubuntu-11.0.17+8-post-Ubuntu-1ubuntu220.04.  |\r\n   | +1 :green_heart: |  javadoc  |   0m 38s |  |  the patch passed with JDK Private Build-1.8.0_352-8u352-ga-1~20.04-b08  |\r\n   | +1 :green_heart: |  spotbugs  |   1m 55s |  |  the patch passed  |\r\n   | +1 :green_heart: |  shadedclient  |  24m 31s |  |  patch has no errors when building and testing our client artifacts.  |\r\n   |||| _ Other Tests _ |\r\n   | -1 :x: |  unit  | 101m 20s | [/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt](https://ci-hadoop.apache.org/job/hadoop-multibranch/job/PR-5313/1/artifact/out/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt) |  hadoop-yarn-server-resourcemanager in the patch passed.  |\r\n   | +0 :ok: |  asflicense  |   0m 25s |  |  ASF License check generated no output?  |\r\n   |  |   | 210m 40s |  |  |\r\n   \r\n   \r\n   | Reason | Tests |\r\n   |-------:|:------|\r\n   | Failed junit tests | hadoop.yarn.server.resourcemanager.monitor.capacity.TestProportionalCapacityPreemptionPolicyIntraQueueFairOrdering |\r\n   |   | hadoop.yarn.server.resourcemanager.scheduler.capacity.TestUsersManager |\r\n   |   | hadoop.yarn.server.resourcemanager.monitor.capacity.TestProportionalCapacityPreemptionPolicyIntraQueueUserLimit |\r\n   |   | hadoop.yarn.server.resourcemanager.monitor.capacity.TestProportionalCapacityPreemptionPolicyIntraQueue |\r\n   |   | hadoop.yarn.server.resourcemanager.scheduler.capacity.TestAbsoluteResourceWithAutoQueue |\r\n   |   | hadoop.yarn.server.resourcemanager.monitor.capacity.TestProportionalCapacityPreemptionPolicyIntraQueueWithDRF |\r\n   \r\n   \r\n   | Subsystem | Report/Notes |\r\n   |----------:|:-------------|\r\n   | Docker | ClientAPI=1.41 ServerAPI=1.41 base: https://ci-hadoop.apache.org/job/hadoop-multibranch/job/PR-5313/1/artifact/out/Dockerfile |\r\n   | GITHUB PR | https://github.com/apache/hadoop/pull/5313 |\r\n   | Optional Tests | dupname asflicense compile javac javadoc mvninstall mvnsite unit shadedclient spotbugs checkstyle codespell detsecrets |\r\n   | uname | Linux d637227e0d3a 4.15.0-200-generic #211-Ubuntu SMP Thu Nov 24 18:16:04 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux |\r\n   | Build tool | maven |\r\n   | Personality | dev-support/bin/hadoop.sh |\r\n   | git revision | trunk / 10ab900be279b2f545e9fff9afdd3eb6c8f07b97 |\r\n   | Default Java | Private Build-1.8.0_352-8u352-ga-1~20.04-b08 |\r\n   | Multi-JDK versions | /usr/lib/jvm/java-11-openjdk-amd64:Ubuntu-11.0.17+8-post-Ubuntu-1ubuntu220.04 /usr/lib/jvm/java-8-openjdk-amd64:Private Build-1.8.0_352-8u352-ga-1~20.04-b08 |\r\n   |  Test Results | https://ci-hadoop.apache.org/job/hadoop-multibranch/job/PR-5313/1/testReport/ |\r\n   | Max. process+thread count | 946 (vs. ulimit of 5500) |\r\n   | modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\r\n   | Console output | https://ci-hadoop.apache.org/job/hadoop-multibranch/job/PR-5313/1/console |\r\n   | versions | git=2.25.1 maven=3.6.3 spotbugs=4.2.2 |\r\n   | Powered by | Apache Yetus 0.14.0 https://yetus.apache.org |\r\n   \r\n   \r\n   This message was automatically generated.\r\n   \r\n   \n\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2023-01-19T08:17:52.167+0000",
+            "updated": "2023-01-19T08:17:52.167+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13517182/comment/17678613",
+            "id": "17678613",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "krishan1390 closed pull request #5313: YARN-11411 Encapsulating certain User Manager APIs by making it private\nURL: https://github.com/apache/hadoop/pull/5313\n\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2023-01-19T10:46:37.861+0000",
+            "updated": "2023-01-19T10:46:37.861+0000"
+          }
+        ],
+        "maxResults": 3,
+        "total": 3,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-11411/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2023-01-19T10:46:38.055+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/3",
+        "description": "This issue is being actively worked on at the moment by the assignee.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/inprogress.png",
+        "name": "In Progress",
+        "id": "3",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 3,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13517182/comment/17678485",
+        "id": "17678485",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "krishan1390 opened a new pull request, #5313:\nURL: https://github.com/apache/hadoop/pull/5313\n\n   As part of https://issues.apache.org/jira/browse/YARN-11412 to build a concurrent users manager, I am planning to isolate user management into a package and limit its public APIs. This will help maintain the thread safety guarantees of the classes better and not allow certain internal behaviours (like caches) from escaping which will help to modify implementations as per need.\r\n   \r\n   This PR is encapsulating certain APIs and making the required changes in dependent classes and test cases. \n\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2023-01-19T04:45:52.451+0000",
+        "updated": "2023-01-19T04:45:52.451+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13517182/comment/17678550",
+        "id": "17678550",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "hadoop-yetus commented on PR #5313:\nURL: https://github.com/apache/hadoop/pull/5313#issuecomment-1396596316\n\n   :broken_heart: **-1 overall**\r\n   \r\n   \r\n   \r\n   \r\n   \r\n   \r\n   | Vote | Subsystem | Runtime |  Logfile | Comment |\r\n   |:----:|----------:|--------:|:--------:|:-------:|\r\n   | +0 :ok: |  reexec  |   0m 57s |  |  Docker mode activated.  |\r\n   |||| _ Prechecks _ |\r\n   | +1 :green_heart: |  dupname  |   0m  0s |  |  No case conflicting files found.  |\r\n   | +0 :ok: |  codespell  |   0m  0s |  |  codespell was not available.  |\r\n   | +0 :ok: |  detsecrets  |   0m  0s |  |  detect-secrets was not available.  |\r\n   | +1 :green_heart: |  @author  |   0m  0s |  |  The patch does not contain any @author tags.  |\r\n   | +1 :green_heart: |  test4tests  |   0m  0s |  |  The patch appears to include 5 new or modified test files.  |\r\n   |||| _ trunk Compile Tests _ |\r\n   | +1 :green_heart: |  mvninstall  |  43m 56s |  |  trunk passed  |\r\n   | +1 :green_heart: |  compile  |   1m  3s |  |  trunk passed with JDK Ubuntu-11.0.17+8-post-Ubuntu-1ubuntu220.04  |\r\n   | +1 :green_heart: |  compile  |   0m 59s |  |  trunk passed with JDK Private Build-1.8.0_352-8u352-ga-1~20.04-b08  |\r\n   | +1 :green_heart: |  checkstyle  |   0m 58s |  |  trunk passed  |\r\n   | +1 :green_heart: |  mvnsite  |   1m  5s |  |  trunk passed  |\r\n   | -1 :x: |  javadoc  |   0m 57s | [/branch-javadoc-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager-jdkUbuntu-11.0.17+8-post-Ubuntu-1ubuntu220.04.txt](https://ci-hadoop.apache.org/job/hadoop-multibranch/job/PR-5313/1/artifact/out/branch-javadoc-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager-jdkUbuntu-11.0.17+8-post-Ubuntu-1ubuntu220.04.txt) |  hadoop-yarn-server-resourcemanager in trunk failed with JDK Ubuntu-11.0.17+8-post-Ubuntu-1ubuntu220.04.  |\r\n   | +1 :green_heart: |  javadoc  |   0m 44s |  |  trunk passed with JDK Private Build-1.8.0_352-8u352-ga-1~20.04-b08  |\r\n   | +1 :green_heart: |  spotbugs  |   2m  8s |  |  trunk passed  |\r\n   | +1 :green_heart: |  shadedclient  |  24m 19s |  |  branch has no errors when building and testing our client artifacts.  |\r\n   |||| _ Patch Compile Tests _ |\r\n   | +1 :green_heart: |  mvninstall  |   0m 59s |  |  the patch passed  |\r\n   | +1 :green_heart: |  compile  |   0m 56s |  |  the patch passed with JDK Ubuntu-11.0.17+8-post-Ubuntu-1ubuntu220.04  |\r\n   | +1 :green_heart: |  javac  |   0m 56s |  |  the patch passed  |\r\n   | +1 :green_heart: |  compile  |   0m 49s |  |  the patch passed with JDK Private Build-1.8.0_352-8u352-ga-1~20.04-b08  |\r\n   | +1 :green_heart: |  javac  |   0m 49s |  |  the patch passed  |\r\n   | +1 :green_heart: |  blanks  |   0m  0s |  |  The patch has no blanks issues.  |\r\n   | -0 :warning: |  checkstyle  |   0m 42s | [/results-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt](https://ci-hadoop.apache.org/job/hadoop-multibranch/job/PR-5313/1/artifact/out/results-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt) |  hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager: The patch generated 47 new + 303 unchanged - 47 fixed = 350 total (was 350)  |\r\n   | +1 :green_heart: |  mvnsite  |   0m 53s |  |  the patch passed  |\r\n   | -1 :x: |  javadoc  |   0m 40s | [/patch-javadoc-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager-jdkUbuntu-11.0.17+8-post-Ubuntu-1ubuntu220.04.txt](https://ci-hadoop.apache.org/job/hadoop-multibranch/job/PR-5313/1/artifact/out/patch-javadoc-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager-jdkUbuntu-11.0.17+8-post-Ubuntu-1ubuntu220.04.txt) |  hadoop-yarn-server-resourcemanager in the patch failed with JDK Ubuntu-11.0.17+8-post-Ubuntu-1ubuntu220.04.  |\r\n   | +1 :green_heart: |  javadoc  |   0m 38s |  |  the patch passed with JDK Private Build-1.8.0_352-8u352-ga-1~20.04-b08  |\r\n   | +1 :green_heart: |  spotbugs  |   1m 55s |  |  the patch passed  |\r\n   | +1 :green_heart: |  shadedclient  |  24m 31s |  |  patch has no errors when building and testing our client artifacts.  |\r\n   |||| _ Other Tests _ |\r\n   | -1 :x: |  unit  | 101m 20s | [/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt](https://ci-hadoop.apache.org/job/hadoop-multibranch/job/PR-5313/1/artifact/out/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt) |  hadoop-yarn-server-resourcemanager in the patch passed.  |\r\n   | +0 :ok: |  asflicense  |   0m 25s |  |  ASF License check generated no output?  |\r\n   |  |   | 210m 40s |  |  |\r\n   \r\n   \r\n   | Reason | Tests |\r\n   |-------:|:------|\r\n   | Failed junit tests | hadoop.yarn.server.resourcemanager.monitor.capacity.TestProportionalCapacityPreemptionPolicyIntraQueueFairOrdering |\r\n   |   | hadoop.yarn.server.resourcemanager.scheduler.capacity.TestUsersManager |\r\n   |   | hadoop.yarn.server.resourcemanager.monitor.capacity.TestProportionalCapacityPreemptionPolicyIntraQueueUserLimit |\r\n   |   | hadoop.yarn.server.resourcemanager.monitor.capacity.TestProportionalCapacityPreemptionPolicyIntraQueue |\r\n   |   | hadoop.yarn.server.resourcemanager.scheduler.capacity.TestAbsoluteResourceWithAutoQueue |\r\n   |   | hadoop.yarn.server.resourcemanager.monitor.capacity.TestProportionalCapacityPreemptionPolicyIntraQueueWithDRF |\r\n   \r\n   \r\n   | Subsystem | Report/Notes |\r\n   |----------:|:-------------|\r\n   | Docker | ClientAPI=1.41 ServerAPI=1.41 base: https://ci-hadoop.apache.org/job/hadoop-multibranch/job/PR-5313/1/artifact/out/Dockerfile |\r\n   | GITHUB PR | https://github.com/apache/hadoop/pull/5313 |\r\n   | Optional Tests | dupname asflicense compile javac javadoc mvninstall mvnsite unit shadedclient spotbugs checkstyle codespell detsecrets |\r\n   | uname | Linux d637227e0d3a 4.15.0-200-generic #211-Ubuntu SMP Thu Nov 24 18:16:04 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux |\r\n   | Build tool | maven |\r\n   | Personality | dev-support/bin/hadoop.sh |\r\n   | git revision | trunk / 10ab900be279b2f545e9fff9afdd3eb6c8f07b97 |\r\n   | Default Java | Private Build-1.8.0_352-8u352-ga-1~20.04-b08 |\r\n   | Multi-JDK versions | /usr/lib/jvm/java-11-openjdk-amd64:Ubuntu-11.0.17+8-post-Ubuntu-1ubuntu220.04 /usr/lib/jvm/java-8-openjdk-amd64:Private Build-1.8.0_352-8u352-ga-1~20.04-b08 |\r\n   |  Test Results | https://ci-hadoop.apache.org/job/hadoop-multibranch/job/PR-5313/1/testReport/ |\r\n   | Max. process+thread count | 946 (vs. ulimit of 5500) |\r\n   | modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\r\n   | Console output | https://ci-hadoop.apache.org/job/hadoop-multibranch/job/PR-5313/1/console |\r\n   | versions | git=2.25.1 maven=3.6.3 spotbugs=4.2.2 |\r\n   | Powered by | Apache Yetus 0.14.0 https://yetus.apache.org |\r\n   \r\n   \r\n   This message was automatically generated.\r\n   \r\n   \n\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2023-01-19T08:17:52.167+0000",
+        "updated": "2023-01-19T08:17:52.167+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13517182/comment/17678613",
+        "id": "17678613",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "krishan1390 closed pull request #5313: YARN-11411 Encapsulating certain User Manager APIs by making it private\nURL: https://github.com/apache/hadoop/pull/5313\n\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2023-01-19T10:46:37.861+0000",
+        "updated": "2023-01-19T10:46:37.861+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-11411/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 3,
+        "returned": 3
+      }
+    ]
+  }
+}

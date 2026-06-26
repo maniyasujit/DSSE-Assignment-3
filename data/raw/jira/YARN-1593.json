@@ -1,0 +1,1754 @@
+{
+  "downloaded_at": "2026-06-25T10:23:30.081099+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-1593",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1593?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12688637",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637",
+    "key": "YARN-1593",
+    "fields": {
+      "summary": "support out-of-proc AuxiliaryServices",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319323",
+          "id": "12319323",
+          "name": "nodemanager"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12326916",
+          "id": "12326916",
+          "name": "rolling upgrade",
+          "description": "RM/NM restart work preserving"
+        }
+      ],
+      "subtasks": [],
+      "created": "2014-01-13T23:45:59.965+0000",
+      "description": "AuxiliaryServices such as ShuffleHandler currently run in the same process as NM. There are some benefits to host them in dedicated processes.\n\n1. NM rolling restart. If we want to upgrade YARN , NM restart will force the ShuffleHandler restart. If ShuffleHandler runs as a separate process, ShuffleHandler can continue to run during NM restart. NM can reconnect the the running ShuffleHandler after restart.\n\n2. Resource management. It is possible another type of AuxiliaryServices will be implemented. AuxiliaryServices are considered YARN application specific and could consume lots of resources. Running AuxiliaryServices in separate processes allow easier resource management. NM could potentially stop a specific AuxiliaryServices process from running if it consumes resource way above its allocation.\n\n\nHere are some high level ideas:\n\n1. NM provides a hosting process for each AuxiliaryService. Existing AuxiliaryService API doesn't change.\n\n2. The hosting process provides RPC server for AuxiliaryService proxy object inside NM to connect to.\n\n3. When we rolling restart NM, the existing AuxiliaryService processes will continue to run. NM could reconnect to the running AuxiliaryService processes upon restart.\n\n4. Policy and resource management of AuxiliaryServices. So far we don't have immediate need for this. AuxiliaryService could run inside a container and its resource utilization could be taken into account by RM and RM could consider a specific type of applications overutilize cluster resource.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12838204",
+          "id": "12838204",
+          "filename": "SystemContainersandSystemServices.pdf",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+            "name": "vvasudev",
+            "key": "vvasudev",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Varun Vasudev",
+            "active": true,
+            "timeZone": "Asia/Kolkata"
+          },
+          "created": "2016-11-09T18:10:13.491+0000",
+          "size": 63500,
+          "mimeType": "application/msword",
+          "content": "https://issues.apache.org/jira/secure/attachment/12838204/SystemContainersandSystemServices.pdf"
+        }
+      ],
+      "issuelinks": [
+        {
+          "id": "12513122",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12513122",
+          "type": {
+            "id": "12310000",
+            "name": "Duplicate",
+            "inward": "is duplicated by",
+            "outward": "duplicates",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310000"
+          },
+          "inwardIssue": {
+            "id": "13097907",
+            "key": "YARN-7110",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13097907",
+            "fields": {
+              "summary": "NodeManager always crash for spark shuffle service out of memory",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/2",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/critical.svg",
+                "name": "Critical",
+                "id": "2"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+                "id": "1",
+                "description": "A problem which impairs or prevents the functions of the product.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+                "name": "Bug",
+                "subtask": false,
+                "avatarId": 21133
+              }
+            }
+          }
+        },
+        {
+          "id": "12483032",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12483032",
+          "type": {
+            "id": "12310000",
+            "name": "Duplicate",
+            "inward": "is duplicated by",
+            "outward": "duplicates",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310000"
+          },
+          "inwardIssue": {
+            "id": "13012144",
+            "key": "YARN-5732",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13012144",
+            "fields": {
+              "summary": "Run auxiliary services in system containers",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+                "id": "2",
+                "description": "A new feature of the product, which has yet to be developed.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+                "name": "New Feature",
+                "subtask": false,
+                "avatarId": 21141
+              }
+            }
+          }
+        },
+        {
+          "id": "12503553",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12503553",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "13071951",
+            "key": "YARN-6601",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13071951",
+            "fields": {
+              "summary": "Allow service to be started as System Services during serviceapi start up",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12390315",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12390315",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "inwardIssue": {
+            "id": "12675101",
+            "key": "YARN-1336",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12675101",
+            "fields": {
+              "summary": "[Umbrella] Work-preserving nodemanager restart",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+                "id": "2",
+                "description": "A new feature of the product, which has yet to be developed.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+                "name": "New Feature",
+                "subtask": false,
+                "avatarId": 21141
+              }
+            }
+          }
+        },
+        {
+          "id": "12483144",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12483144",
+          "type": {
+            "id": "10001",
+            "name": "dependent",
+            "inward": "is depended upon by",
+            "outward": "depends upon",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10001"
+          },
+          "inwardIssue": {
+            "id": "13012153",
+            "key": "YARN-5733",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13012153",
+            "fields": {
+              "summary": "Run PerNodeTimelineCollectorsAuxService in a system container",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12454284",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12454284",
+          "type": {
+            "id": "10001",
+            "name": "dependent",
+            "inward": "is depended upon by",
+            "outward": "depends upon",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10001"
+          },
+          "inwardIssue": {
+            "id": "12929868",
+            "key": "SPARK-12807",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12929868",
+            "fields": {
+              "summary": "Spark External Shuffle not working in Hadoop clusters with Jackson 2.2.3",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/2",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/critical.svg",
+                "name": "Critical",
+                "id": "2"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+                "id": "1",
+                "description": "A problem which impairs or prevents the functions of the product.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+                "name": "Bug",
+                "subtask": false,
+                "avatarId": 21133
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15102821",
+            "id": "15102821",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sjlee0",
+              "name": "sjlee0",
+              "key": "sjlee0",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=sjlee0&avatarId=16831",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=sjlee0&avatarId=16831",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=sjlee0&avatarId=16831",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=sjlee0&avatarId=16831"
+              },
+              "displayName": "Sangjin Lee",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Just a quick observation that making auxiliary services out of process still likely requires some kind of classloading isolation. It will still run hadoop code, and the hadoop classpath will carry over into the out-of-process aux service.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sjlee0",
+              "name": "sjlee0",
+              "key": "sjlee0",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=sjlee0&avatarId=16831",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=sjlee0&avatarId=16831",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=sjlee0&avatarId=16831",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=sjlee0&avatarId=16831"
+              },
+              "displayName": "Sangjin Lee",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-01-16T01:03:43.116+0000",
+            "updated": "2016-01-16T01:03:43.116+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15573534",
+            "id": "15573534",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Hi, [~junping_du]. Are you actively working on this? As part of the ATS v2 effort, I have been recently looking at this issue. If you have not started working on this, mind if I take it over?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=johna",
+              "name": "johna",
+              "key": "banjo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=banjo&avatarId=38464",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=banjo&avatarId=38464",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=banjo&avatarId=38464",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=banjo&avatarId=38464"
+              },
+              "displayName": "John Andrunas",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-10-13T23:33:27.401+0000",
+            "updated": "2019-10-25T20:25:27.204+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15574396",
+            "id": "15574396",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Thanks [~haibochen] for checking me on this. Actually, [~vvasudev] and I are working on design for this issue. We will put up a design doc for review in next one day or 2. It would be great if you can help to review and comments afterwards.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2016-10-14T06:23:32.135+0000",
+            "updated": "2016-10-14T06:23:32.135+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15612519",
+            "id": "15612519",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~junping_du] Any update?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=johna",
+              "name": "johna",
+              "key": "banjo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=banjo&avatarId=38464",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=banjo&avatarId=38464",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=banjo&avatarId=38464",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=banjo&avatarId=38464"
+              },
+              "displayName": "John Andrunas",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-10-27T17:10:44.098+0000",
+            "updated": "2019-10-25T20:25:56.059+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15627911",
+            "id": "15627911",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+              "name": "vvasudev",
+              "key": "vvasudev",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Vasudev",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "[~haibochen] - my apologies - I was out for a few days. I'll have a document ready soon.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+              "name": "vvasudev",
+              "key": "vvasudev",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Vasudev",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-11-02T06:17:36.838+0000",
+            "updated": "2016-11-02T06:17:36.838+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15651632",
+            "id": "15651632",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+              "name": "vvasudev",
+              "key": "vvasudev",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Vasudev",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Uploaded a document with our initial thoughts. This is not a comprehensive design document because we're interested in what folks in the community think about some of these issues. Once we have some feedback, we can do a second revision which can be closer to a design document.\n\n[~haibochen], [~kasha], [~asuresh], [~chris.douglas], [~jlowe] - we'd really appreciate your thoughts. Thanks!",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+              "name": "vvasudev",
+              "key": "vvasudev",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Vasudev",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-11-09T18:10:13.507+0000",
+            "updated": "2016-11-09T18:10:13.507+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15651723",
+            "id": "15651723",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hitesh",
+              "name": "hitesh",
+              "key": "hitesh",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hitesh Shah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~vvasudev] One question on the design doc. The doc does not seem to cover how user applications can define dependencies on these system services. For example, how to ensure that an MR/Tez/xyz container that requires the shuffle service does not get launched on a node where the system service is not running. This has 2 aspects - firstly how to ensure container allocations happen on correct nodes where these services are running and secondly, the service might be down when the container actually gets launched and therefore how the behavior will change as a result ( does the container eventually fail, does the NM itself stop the launch of the container and send an error back, etc).\n\nIs this something that will be looked at later or should it be designed for from now itself to simplify the use of system services for user applications? ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hitesh",
+              "name": "hitesh",
+              "key": "hitesh",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hitesh Shah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-11-09T18:52:22.992+0000",
+            "updated": "2016-11-09T18:55:09.593+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15663162",
+            "id": "15663162",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+              "name": "vvasudev",
+              "key": "vvasudev",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Vasudev",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Good question [~hitesh] - this is one piece where we're looking for feedback on the approach.\n\nbq. The doc does not seem to cover how user applications can define dependencies on these system services. For example, how to ensure that an MR/Tez/xyz container that requires the shuffle service does not get launched on a node where the system service is not running. This has 2 aspects - firstly how to ensure container allocations happen on correct nodes where these services are running and secondly, the service might be down when the container actually gets launched and therefore how the behavior will change as a result ( does the container eventually fail, does the NM itself stop the launch of the container and send an error back, etc).\n\nThere are two modes to system containers and services - and I suspect we need a hybrid mode. The first mode is to launch them as YARN services(e.g. Tez shuffle service). Tez would then add an affinity requirement between the containers it launches and the Tez shuffle service containers. This would require changes on both the application and YARN level. The second mode is to launch Tez shuffle on all nodes (like we do with auxiliary services today) as \"system\" containers which are managed by YARN. The NMs will not accept container requests until the system containers are up and running. In this mode - Tez requires no change at all - since the Tez shuffle is running on every container.\n\nDoes that answer your question?\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+              "name": "vvasudev",
+              "key": "vvasudev",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Vasudev",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-11-14T08:39:38.972+0000",
+            "updated": "2016-11-14T08:39:38.972+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15664849",
+            "id": "15664849",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+              "name": "asuresh",
+              "key": "asuresh",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Suresh",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks for driving this [~vvasudev]\n\nAt first glance, this looks similar in spirit to YARN-5501, and maybe even supersedes it. It would be advantageous to model pooled containers as a system container.\n\nFurther to the point raised by [~hitesh] about formalizing how we affinitize an application's container to a Node on a which a dependent system container is run, we were also investigating a scenario where an application might also need a countable number of system containers on a Node. An initial thought was to probably expose the container as a Generalized resource (YARN-3926). For eg, assume spark Executors can be started as Pre-started containers on select nodes. Assume a node A has 2 pre-started spark executors, and Node B has 4. A spark app might have 3 ContainerRequests that requires <4 VCores, 2 GB, 2 spark-executors>, in which case the ResourceManager will ensure that 1 such container is allocated on Node A and 2 on Node B.\n\nThoughts ?\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+              "name": "asuresh",
+              "key": "asuresh",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Suresh",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-11-14T19:56:55.364+0000",
+            "updated": "2016-11-14T19:56:55.364+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15665094",
+            "id": "15665094",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hitesh",
+              "name": "hitesh",
+              "key": "hitesh",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hitesh Shah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks [~vvasudev]. It does so partially. \n\nMy concern is around the feedback loop in terms of failure handling by the apps when the system container dies at any of the following points: \n  - system container dies before an allocated container is launched on that node\n  - it dies while a container is running\n  - it dies after a container has completed\n\nWould applications that define affinity to these system services now be getting updates (notifications) when system service containers go down or come back up?  \n\nIn addition to the feedback loop, is there any behavior change as a result of this? i.e. if the system container is not alive, will the app container still get launched given that its dependent service is down ( for shuffle, this might be ok if the system container eventually comes up but there might be other services that provide more synchronous functionality such as a caching layer? ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hitesh",
+              "name": "hitesh",
+              "key": "hitesh",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hitesh Shah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-11-14T21:32:21.083+0000",
+            "updated": "2016-11-14T21:32:21.083+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15667624",
+            "id": "15667624",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+              "name": "vvasudev",
+              "key": "vvasudev",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Vasudev",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "[~hitesh] - \n{quote}\nMy concern is around the feedback loop in terms of failure handling by the apps when the system container dies at any of the following points:\n\n    system container dies before an allocated container is launched on that node\n    it dies while a container is running\n    it dies after a container has completed\n\nWould applications that define affinity to these system services now be getting updates (notifications) when system service containers go down or come back up?\n{quote}\nAll of these are questions that we have to solve for the general services scenarios and I suspect that they might take some time to get right. Our solution till we have a well rounded story for these questions is to use the second method I mentioned above where we launch the Tez shuffle service on every node. That way Tez doesn't need to change any behaviour for now. Once we have the services scheduling and notification pieces sorted out we can start moving to the affinity model. \n\n{quote}\nIn addition to the feedback loop, is there any behavior change as a result of this? i.e. if the system container is not alive, will the app container still get launched given that its dependent service is down ( for shuffle, this might be ok if the system container eventually comes up but there might be other services that provide more synchronous functionality such as a caching layer? \n{quote}\nThis depends on whether it's a system service or a system container (the difference is that the first one has an AM running whereas the second is more like auxiliary services running as a container). In case of system containers - the NM will stop accepting container requests until the system container is back up. In case of the system service, the NM will continue to accept container requests.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+              "name": "vvasudev",
+              "key": "vvasudev",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Vasudev",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-11-15T16:48:28.317+0000",
+            "updated": "2016-11-15T16:48:28.317+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15667638",
+            "id": "15667638",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+              "name": "vvasudev",
+              "key": "vvasudev",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Vasudev",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "[~asuresh] - \n{quote}\nThanks for driving this Varun Vasudev\n\nAt first glance, this looks similar in spirit to YARN-5501, and maybe even supersedes it. It would be advantageous to model pooled containers as a system container.\n\nFurther to the point raised by Hitesh Shah about formalizing how we affinitize an application's container to a Node on a which a dependent system container is run, we were also investigating a scenario where an application might also need a countable number of system containers on a Node. An initial thought was to probably expose the container as a Generalized resource (YARN-3926). For eg, assume spark Executors can be started as Pre-started containers on select nodes. Assume a node A has 2 pre-started spark executors, and Node B has 4. A spark app might have 3 ContainerRequests that requires <4 VCores, 2 GB, 2 spark-executors>, in which case the ResourceManager will ensure that 1 such container is allocated on Node A and 2 on Node B.\n\nThoughts ?\n{quote}\nI think there's quite a bit of overlap. Couple of questions about pooled containers - \n1) If they fail to come up should the NM continue to accept container requests so should it stop accepting container requests? \n2) Are they meant to run on a subset of nodes or on all nodes? Is this controlled by an admin?\n\nLike I mentioned to Hitesh above - the affinity stuff is something we think is the long term solution, but we also realize that a solution which is essentially \"launch this container on every node\" will help bridge the gap for now. Hence, the inclusion of both in the design doc.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+              "name": "vvasudev",
+              "key": "vvasudev",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Vasudev",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-11-15T16:54:22.691+0000",
+            "updated": "2016-11-15T16:54:22.691+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15668499",
+            "id": "15668499",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sjlee0",
+              "name": "sjlee0",
+              "key": "sjlee0",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=sjlee0&avatarId=16831",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=sjlee0&avatarId=16831",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=sjlee0&avatarId=16831",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=sjlee0&avatarId=16831"
+              },
+              "displayName": "Sangjin Lee",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks for starting the proposal!\n\nI took a quick look at it, and here are some of my initial thoughts (maybe more later).\n\nOne use case that is not mentioned is the timeline service v.2 collector (writer). We can think of it in two possible approaches: (1) another system container/service that needs to be launched on every node before NM can serve containers, or (2) system container that can be started on demand when an app is started (one container per app). I think (1) fits nicely with the system container you're envisioning. (2) is much more dynamic than any of the approaches discussed in the doc. FYI.\n\nI think discovery is going to be one major piece that needs to be addressed from the beginning. Even in the most basic use cases (e.g. MR shuffle handler, timeline reader, etc.), the discoverability of the containers and their endpoints is hugely important. It would be great if it is addressed in the first design.\n\nI also agree that localization is going to be a problem, and I think it's going to be an issue no matter which option you take. If the system container needs to run as long as the node is up, it's hard to avoid the issue of localization unless you pre-deliver the bits as part of setting up the nodes.\n\nIn terms of the approaches, I lean slightly towards (3). It feels awkward to treat it as \"just another app\" as they have different semantics from any other app. If we're elevating the notion of the system containers to first class, we might as well be explicit while still trying to reuse a lot of the pieces for implementation. That's my 2 cents.\n\nOne question: what do we do with the resource utilization of these system containers? Should they be reported just like any container (I'm thinking of {{ContainersMonitorImpl}}, {{NMTimelinePublisher}} and so on)? Or should they be considered outside the monitoring scope, like a YARN daemon today? Have you thought about that?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sjlee0",
+              "name": "sjlee0",
+              "key": "sjlee0",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=sjlee0&avatarId=16831",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=sjlee0&avatarId=16831",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=sjlee0&avatarId=16831",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=sjlee0&avatarId=16831"
+              },
+              "displayName": "Sangjin Lee",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-11-15T21:52:30.761+0000",
+            "updated": "2016-11-15T21:52:30.761+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15668649",
+            "id": "15668649",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hrsharma",
+              "name": "hrsharma",
+              "key": "hrsharma",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hitesh Sharma",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks [~asuresh] for pointing to [YARN-5501]. Agree with you folks that there is some overlap and we will be happy to converge and discuss the best way to leverage the efforts here.\n\n[~vvasudev], with regards to pooled container the behavior is to allow NM to serve container requests even if the pre-initialized container is not ready. For container pooling this behavior makes sense as we eventually want to advertise pre-initialized container as a resource and have the AM ask for it. \n\nRegarding the 2nd point, current implementation starts a fixed number of pre-initialized container on each node (what to start, resources to localize, and other details are currently passed via config files). Eventually we intend the RM to pick up some nodes where the pre-initialized container should be started. This is something we are starting to work upon.\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hrsharma",
+              "name": "hrsharma",
+              "key": "hrsharma",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hitesh Sharma",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-11-15T22:57:27.895+0000",
+            "updated": "2016-11-15T22:57:27.895+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15668916",
+            "id": "15668916",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+              "name": "kkaranasos",
+              "key": "kkaranasos",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+              },
+              "displayName": "Konstantinos Karanasos",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks for starting this! As [~asuresh] and [~hrsharma] pointed out, this is very related to the container pooling we have been thinking of, so it's great to see there is more work to this direction.\n\nHere are some first thoughts:\n- There seems to be a common need to have containers not belonging to an AM. I like your analysis about the pros and cons of the three approaches. Ideally, and if possible, it would be good to agree on an approach that is not hybrid, i.e., to not have some containers going through option (1) and some others through option (3), but rather have a unified approach. In container pooling we have thought of having a component in the RM that manages how many \"system\" containers will running at each node, but we are willing to adopt another approach if it is more suitable.\n- Looking both at your document and the comments above, it seems that no approach can properly tackle the dependencies problem. Probably we should solve this in the scheduler: just like there will be support for (anti-)affinity constraints, we can add support for dependencies in the scheduler, e.g., to not schedule that container to a node before a shuffle container is running on that node.\n- Although I like your proposal of using a new ExecutionType for the system containers, I am not sure it is always desirable to couple system containers with the highest priority ExecutionType. For instance, there can be system containers that are not as important and can be preempted to make space if needed. Also, apart from the execution priority, I am not sure if the ExecutionType should determine whether a container should be automatically relaunched. If we end up having a component managing those containers, maybe it is its role to determine if they get restarted upon failure (irrespective of their ExecutionType).",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+              "name": "kkaranasos",
+              "key": "kkaranasos",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+              },
+              "displayName": "Konstantinos Karanasos",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-11-16T00:58:34.281+0000",
+            "updated": "2016-11-16T00:58:34.281+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15710178",
+            "id": "15710178",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks for starting the work on this, [~vvasudev]!\n\nI\u2019d like to understand the proposal better. A few comments/questions on the proposal. Please correct me as necessary. \n\nIt seems like system containers are overloaded in the design doc.  From a NM\u2019s perspective, my understanding is that system containers are special container runtime (relative to the container types we have today in NM) provided by NM to be used by system services to run their components/instances. In other cases, system containers represent components/instances of system services on the worker nodes.  In the former case, we may only need to be concerned with issues such as classpath and container executors. For ShuffleHandler for instance, it is an alternative of the in-process runtime it gets from NM today. The latter, is where we discuss whether RM or NM does the heavy-lifting of managing system containers.\n\nAs you mention, no one option suits all use cases. Option 1 suits some, while option 3 suits others. I wonder if this is because we are conflating two different types of containers in the proposal - (1) framework-specific services like MR shuffle, and (2) application-specific services. Framework services are to be run on all nodes that support the framework (e.g. MR). Since these run on every node, node-level configs (option 3) would work best. Application-services (e.g. ATS AM-companion-collector), on the other hand, are application specific and need to run on a subset of cluster nodes; option 1 readily applies to these.  Is this categorization accurate? And, do you see merit in differentiating between these two?\nbq. Allow shuffle to run on the NodeManagers without requiring it to be setup as an AuxiliaryService\nNot sure if I understand this correctly, IHO, we could let the user continue with their current configuration for AuxiliaryService, but just run them in containers with AuxiliaryService proxy like Junping said in the jira description.\nbq. Handling container status for system-containers - we will need to add logic to not act upon the container status of a system-container.\nCan you please elaborate more on this? Shouldn\u2019t NM try to relaunch system containers? Does this mean that RM will take the responsibility of handling system container failures?\nbq. I think discovery is going to be one major piece that needs to be addressed from the beginning\nAgree with Sangjin that discovery problem needs to be addressed right at the beginning. For option 3, I think we can add a queryable registry in AuxiliaryServices when NM launches a proxied AuxiliaryService assuming that NM will launch the AuxiliaryServices in the right order and each AuxiliaryService knows its dependent services.\nbq. the NodeManager will block container requests until all the system-containers are running\nWith global scheduling and resource affinity, NM does not necessarily need to block container launching. NM can launch system containers asynchronously and report to resource manager upon launch success, and RM can only schedule containers on those nodes if the services that the containers depend on have been launched on those nodes.  But that\u2019s way in the future I guess\nbq.  We can\u2019t solve the dependency management and affinity/anti-affinity requirements. (One of cons in option 3)\nNot quite sure how option 1 solves the affinity requirement. Can you elaborate a little more on this?  To solve the dependency management issue, one thing that occurred to me, but I have not thought about in much details, is, we could have RM manages all system services together and construct a DAG of system services that need to be launched on each NM. Alternatively, RM can just decide what services need to be launched on which nodes with their dependency clearly defined, and then NM can construct the DAG themselves and launches them in topological order. This however, does put some burden on RM.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-11-30T23:24:50.095+0000",
+            "updated": "2016-11-30T23:25:32.895+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15854528",
+            "id": "15854528",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~vvasudev] Want to check to see if you have some time to address some of the comments above?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-02-06T18:45:18.118+0000",
+            "updated": "2017-02-06T18:45:18.118+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15980954",
+            "id": "15980954",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+              "name": "rohithsharma",
+              "key": "rohithsharma",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Rohith Sharma K S",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "body": "Thanks [~vvasudev] for detailed doc and thanks to other folks for design discussions. \n\nThe doc talks about both system container and system services. IIUC, these 2 use cases and scopes are different.  System_services are admin configuration and managed via native service layer along with AppMaster. And system_containers are special containers requested by individual NodeManager to replace auxiliary services. These are independent containers  which do not need app-master.\n\nCould we separate system_containers and system_services into separate JIRA? \nP.S : For flow-collector launching we are looking for system services so that any arbitrary client should be able to publish data into ATSv2. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+              "name": "rohithsharma",
+              "key": "rohithsharma",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Rohith Sharma K S",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "created": "2017-04-24T10:02:09.928+0000",
+            "updated": "2017-04-24T10:02:09.928+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/16010805",
+            "id": "16010805",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "It seems system services are now addressed by YARN-6601 separately. Do you have plans in the short term to update the design doc and maybe work on system container [~vvasudev]? ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-05-15T16:31:06.708+0000",
+            "updated": "2017-05-15T16:31:06.708+0000"
+          }
+        ],
+        "maxResults": 19,
+        "total": 19,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1593/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2019-10-25T20:25:56.083+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 19,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15102821",
+        "id": "15102821",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sjlee0",
+          "name": "sjlee0",
+          "key": "sjlee0",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=sjlee0&avatarId=16831",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=sjlee0&avatarId=16831",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=sjlee0&avatarId=16831",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=sjlee0&avatarId=16831"
+          },
+          "displayName": "Sangjin Lee",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Just a quick observation that making auxiliary services out of process still likely requires some kind of classloading isolation. It will still run hadoop code, and the hadoop classpath will carry over into the out-of-process aux service.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sjlee0",
+          "name": "sjlee0",
+          "key": "sjlee0",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=sjlee0&avatarId=16831",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=sjlee0&avatarId=16831",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=sjlee0&avatarId=16831",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=sjlee0&avatarId=16831"
+          },
+          "displayName": "Sangjin Lee",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-01-16T01:03:43.116+0000",
+        "updated": "2016-01-16T01:03:43.116+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15573534",
+        "id": "15573534",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Hi, [~junping_du]. Are you actively working on this? As part of the ATS v2 effort, I have been recently looking at this issue. If you have not started working on this, mind if I take it over?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=johna",
+          "name": "johna",
+          "key": "banjo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=banjo&avatarId=38464",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=banjo&avatarId=38464",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=banjo&avatarId=38464",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=banjo&avatarId=38464"
+          },
+          "displayName": "John Andrunas",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-10-13T23:33:27.401+0000",
+        "updated": "2019-10-25T20:25:27.204+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15574396",
+        "id": "15574396",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Thanks [~haibochen] for checking me on this. Actually, [~vvasudev] and I are working on design for this issue. We will put up a design doc for review in next one day or 2. It would be great if you can help to review and comments afterwards.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2016-10-14T06:23:32.135+0000",
+        "updated": "2016-10-14T06:23:32.135+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15612519",
+        "id": "15612519",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~junping_du] Any update?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=johna",
+          "name": "johna",
+          "key": "banjo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=banjo&avatarId=38464",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=banjo&avatarId=38464",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=banjo&avatarId=38464",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=banjo&avatarId=38464"
+          },
+          "displayName": "John Andrunas",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-10-27T17:10:44.098+0000",
+        "updated": "2019-10-25T20:25:56.059+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15627911",
+        "id": "15627911",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+          "name": "vvasudev",
+          "key": "vvasudev",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Vasudev",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "[~haibochen] - my apologies - I was out for a few days. I'll have a document ready soon.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+          "name": "vvasudev",
+          "key": "vvasudev",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Vasudev",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-11-02T06:17:36.838+0000",
+        "updated": "2016-11-02T06:17:36.838+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15651632",
+        "id": "15651632",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+          "name": "vvasudev",
+          "key": "vvasudev",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Vasudev",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Uploaded a document with our initial thoughts. This is not a comprehensive design document because we're interested in what folks in the community think about some of these issues. Once we have some feedback, we can do a second revision which can be closer to a design document.\n\n[~haibochen], [~kasha], [~asuresh], [~chris.douglas], [~jlowe] - we'd really appreciate your thoughts. Thanks!",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+          "name": "vvasudev",
+          "key": "vvasudev",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Vasudev",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-11-09T18:10:13.507+0000",
+        "updated": "2016-11-09T18:10:13.507+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15651723",
+        "id": "15651723",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hitesh",
+          "name": "hitesh",
+          "key": "hitesh",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hitesh Shah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~vvasudev] One question on the design doc. The doc does not seem to cover how user applications can define dependencies on these system services. For example, how to ensure that an MR/Tez/xyz container that requires the shuffle service does not get launched on a node where the system service is not running. This has 2 aspects - firstly how to ensure container allocations happen on correct nodes where these services are running and secondly, the service might be down when the container actually gets launched and therefore how the behavior will change as a result ( does the container eventually fail, does the NM itself stop the launch of the container and send an error back, etc).\n\nIs this something that will be looked at later or should it be designed for from now itself to simplify the use of system services for user applications? ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hitesh",
+          "name": "hitesh",
+          "key": "hitesh",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hitesh Shah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-11-09T18:52:22.992+0000",
+        "updated": "2016-11-09T18:55:09.593+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15663162",
+        "id": "15663162",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+          "name": "vvasudev",
+          "key": "vvasudev",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Vasudev",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Good question [~hitesh] - this is one piece where we're looking for feedback on the approach.\n\nbq. The doc does not seem to cover how user applications can define dependencies on these system services. For example, how to ensure that an MR/Tez/xyz container that requires the shuffle service does not get launched on a node where the system service is not running. This has 2 aspects - firstly how to ensure container allocations happen on correct nodes where these services are running and secondly, the service might be down when the container actually gets launched and therefore how the behavior will change as a result ( does the container eventually fail, does the NM itself stop the launch of the container and send an error back, etc).\n\nThere are two modes to system containers and services - and I suspect we need a hybrid mode. The first mode is to launch them as YARN services(e.g. Tez shuffle service). Tez would then add an affinity requirement between the containers it launches and the Tez shuffle service containers. This would require changes on both the application and YARN level. The second mode is to launch Tez shuffle on all nodes (like we do with auxiliary services today) as \"system\" containers which are managed by YARN. The NMs will not accept container requests until the system containers are up and running. In this mode - Tez requires no change at all - since the Tez shuffle is running on every container.\n\nDoes that answer your question?\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+          "name": "vvasudev",
+          "key": "vvasudev",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Vasudev",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-11-14T08:39:38.972+0000",
+        "updated": "2016-11-14T08:39:38.972+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15664849",
+        "id": "15664849",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+          "name": "asuresh",
+          "key": "asuresh",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Suresh",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks for driving this [~vvasudev]\n\nAt first glance, this looks similar in spirit to YARN-5501, and maybe even supersedes it. It would be advantageous to model pooled containers as a system container.\n\nFurther to the point raised by [~hitesh] about formalizing how we affinitize an application's container to a Node on a which a dependent system container is run, we were also investigating a scenario where an application might also need a countable number of system containers on a Node. An initial thought was to probably expose the container as a Generalized resource (YARN-3926). For eg, assume spark Executors can be started as Pre-started containers on select nodes. Assume a node A has 2 pre-started spark executors, and Node B has 4. A spark app might have 3 ContainerRequests that requires <4 VCores, 2 GB, 2 spark-executors>, in which case the ResourceManager will ensure that 1 such container is allocated on Node A and 2 on Node B.\n\nThoughts ?\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+          "name": "asuresh",
+          "key": "asuresh",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Suresh",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-11-14T19:56:55.364+0000",
+        "updated": "2016-11-14T19:56:55.364+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15665094",
+        "id": "15665094",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hitesh",
+          "name": "hitesh",
+          "key": "hitesh",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hitesh Shah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks [~vvasudev]. It does so partially. \n\nMy concern is around the feedback loop in terms of failure handling by the apps when the system container dies at any of the following points: \n  - system container dies before an allocated container is launched on that node\n  - it dies while a container is running\n  - it dies after a container has completed\n\nWould applications that define affinity to these system services now be getting updates (notifications) when system service containers go down or come back up?  \n\nIn addition to the feedback loop, is there any behavior change as a result of this? i.e. if the system container is not alive, will the app container still get launched given that its dependent service is down ( for shuffle, this might be ok if the system container eventually comes up but there might be other services that provide more synchronous functionality such as a caching layer? ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hitesh",
+          "name": "hitesh",
+          "key": "hitesh",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hitesh Shah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-11-14T21:32:21.083+0000",
+        "updated": "2016-11-14T21:32:21.083+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15667624",
+        "id": "15667624",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+          "name": "vvasudev",
+          "key": "vvasudev",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Vasudev",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "[~hitesh] - \n{quote}\nMy concern is around the feedback loop in terms of failure handling by the apps when the system container dies at any of the following points:\n\n    system container dies before an allocated container is launched on that node\n    it dies while a container is running\n    it dies after a container has completed\n\nWould applications that define affinity to these system services now be getting updates (notifications) when system service containers go down or come back up?\n{quote}\nAll of these are questions that we have to solve for the general services scenarios and I suspect that they might take some time to get right. Our solution till we have a well rounded story for these questions is to use the second method I mentioned above where we launch the Tez shuffle service on every node. That way Tez doesn't need to change any behaviour for now. Once we have the services scheduling and notification pieces sorted out we can start moving to the affinity model. \n\n{quote}\nIn addition to the feedback loop, is there any behavior change as a result of this? i.e. if the system container is not alive, will the app container still get launched given that its dependent service is down ( for shuffle, this might be ok if the system container eventually comes up but there might be other services that provide more synchronous functionality such as a caching layer? \n{quote}\nThis depends on whether it's a system service or a system container (the difference is that the first one has an AM running whereas the second is more like auxiliary services running as a container). In case of system containers - the NM will stop accepting container requests until the system container is back up. In case of the system service, the NM will continue to accept container requests.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+          "name": "vvasudev",
+          "key": "vvasudev",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Vasudev",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-11-15T16:48:28.317+0000",
+        "updated": "2016-11-15T16:48:28.317+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15667638",
+        "id": "15667638",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+          "name": "vvasudev",
+          "key": "vvasudev",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Vasudev",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "[~asuresh] - \n{quote}\nThanks for driving this Varun Vasudev\n\nAt first glance, this looks similar in spirit to YARN-5501, and maybe even supersedes it. It would be advantageous to model pooled containers as a system container.\n\nFurther to the point raised by Hitesh Shah about formalizing how we affinitize an application's container to a Node on a which a dependent system container is run, we were also investigating a scenario where an application might also need a countable number of system containers on a Node. An initial thought was to probably expose the container as a Generalized resource (YARN-3926). For eg, assume spark Executors can be started as Pre-started containers on select nodes. Assume a node A has 2 pre-started spark executors, and Node B has 4. A spark app might have 3 ContainerRequests that requires <4 VCores, 2 GB, 2 spark-executors>, in which case the ResourceManager will ensure that 1 such container is allocated on Node A and 2 on Node B.\n\nThoughts ?\n{quote}\nI think there's quite a bit of overlap. Couple of questions about pooled containers - \n1) If they fail to come up should the NM continue to accept container requests so should it stop accepting container requests? \n2) Are they meant to run on a subset of nodes or on all nodes? Is this controlled by an admin?\n\nLike I mentioned to Hitesh above - the affinity stuff is something we think is the long term solution, but we also realize that a solution which is essentially \"launch this container on every node\" will help bridge the gap for now. Hence, the inclusion of both in the design doc.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vvasudev",
+          "name": "vvasudev",
+          "key": "vvasudev",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Vasudev",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-11-15T16:54:22.691+0000",
+        "updated": "2016-11-15T16:54:22.691+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15668499",
+        "id": "15668499",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sjlee0",
+          "name": "sjlee0",
+          "key": "sjlee0",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=sjlee0&avatarId=16831",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=sjlee0&avatarId=16831",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=sjlee0&avatarId=16831",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=sjlee0&avatarId=16831"
+          },
+          "displayName": "Sangjin Lee",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks for starting the proposal!\n\nI took a quick look at it, and here are some of my initial thoughts (maybe more later).\n\nOne use case that is not mentioned is the timeline service v.2 collector (writer). We can think of it in two possible approaches: (1) another system container/service that needs to be launched on every node before NM can serve containers, or (2) system container that can be started on demand when an app is started (one container per app). I think (1) fits nicely with the system container you're envisioning. (2) is much more dynamic than any of the approaches discussed in the doc. FYI.\n\nI think discovery is going to be one major piece that needs to be addressed from the beginning. Even in the most basic use cases (e.g. MR shuffle handler, timeline reader, etc.), the discoverability of the containers and their endpoints is hugely important. It would be great if it is addressed in the first design.\n\nI also agree that localization is going to be a problem, and I think it's going to be an issue no matter which option you take. If the system container needs to run as long as the node is up, it's hard to avoid the issue of localization unless you pre-deliver the bits as part of setting up the nodes.\n\nIn terms of the approaches, I lean slightly towards (3). It feels awkward to treat it as \"just another app\" as they have different semantics from any other app. If we're elevating the notion of the system containers to first class, we might as well be explicit while still trying to reuse a lot of the pieces for implementation. That's my 2 cents.\n\nOne question: what do we do with the resource utilization of these system containers? Should they be reported just like any container (I'm thinking of {{ContainersMonitorImpl}}, {{NMTimelinePublisher}} and so on)? Or should they be considered outside the monitoring scope, like a YARN daemon today? Have you thought about that?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sjlee0",
+          "name": "sjlee0",
+          "key": "sjlee0",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=sjlee0&avatarId=16831",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=sjlee0&avatarId=16831",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=sjlee0&avatarId=16831",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=sjlee0&avatarId=16831"
+          },
+          "displayName": "Sangjin Lee",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-11-15T21:52:30.761+0000",
+        "updated": "2016-11-15T21:52:30.761+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15668649",
+        "id": "15668649",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hrsharma",
+          "name": "hrsharma",
+          "key": "hrsharma",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hitesh Sharma",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks [~asuresh] for pointing to [YARN-5501]. Agree with you folks that there is some overlap and we will be happy to converge and discuss the best way to leverage the efforts here.\n\n[~vvasudev], with regards to pooled container the behavior is to allow NM to serve container requests even if the pre-initialized container is not ready. For container pooling this behavior makes sense as we eventually want to advertise pre-initialized container as a resource and have the AM ask for it. \n\nRegarding the 2nd point, current implementation starts a fixed number of pre-initialized container on each node (what to start, resources to localize, and other details are currently passed via config files). Eventually we intend the RM to pick up some nodes where the pre-initialized container should be started. This is something we are starting to work upon.\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hrsharma",
+          "name": "hrsharma",
+          "key": "hrsharma",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hitesh Sharma",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-11-15T22:57:27.895+0000",
+        "updated": "2016-11-15T22:57:27.895+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15668916",
+        "id": "15668916",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+          "name": "kkaranasos",
+          "key": "kkaranasos",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+          },
+          "displayName": "Konstantinos Karanasos",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks for starting this! As [~asuresh] and [~hrsharma] pointed out, this is very related to the container pooling we have been thinking of, so it's great to see there is more work to this direction.\n\nHere are some first thoughts:\n- There seems to be a common need to have containers not belonging to an AM. I like your analysis about the pros and cons of the three approaches. Ideally, and if possible, it would be good to agree on an approach that is not hybrid, i.e., to not have some containers going through option (1) and some others through option (3), but rather have a unified approach. In container pooling we have thought of having a component in the RM that manages how many \"system\" containers will running at each node, but we are willing to adopt another approach if it is more suitable.\n- Looking both at your document and the comments above, it seems that no approach can properly tackle the dependencies problem. Probably we should solve this in the scheduler: just like there will be support for (anti-)affinity constraints, we can add support for dependencies in the scheduler, e.g., to not schedule that container to a node before a shuffle container is running on that node.\n- Although I like your proposal of using a new ExecutionType for the system containers, I am not sure it is always desirable to couple system containers with the highest priority ExecutionType. For instance, there can be system containers that are not as important and can be preempted to make space if needed. Also, apart from the execution priority, I am not sure if the ExecutionType should determine whether a container should be automatically relaunched. If we end up having a component managing those containers, maybe it is its role to determine if they get restarted upon failure (irrespective of their ExecutionType).",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+          "name": "kkaranasos",
+          "key": "kkaranasos",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+          },
+          "displayName": "Konstantinos Karanasos",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-11-16T00:58:34.281+0000",
+        "updated": "2016-11-16T00:58:34.281+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15710178",
+        "id": "15710178",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks for starting the work on this, [~vvasudev]!\n\nI\u2019d like to understand the proposal better. A few comments/questions on the proposal. Please correct me as necessary. \n\nIt seems like system containers are overloaded in the design doc.  From a NM\u2019s perspective, my understanding is that system containers are special container runtime (relative to the container types we have today in NM) provided by NM to be used by system services to run their components/instances. In other cases, system containers represent components/instances of system services on the worker nodes.  In the former case, we may only need to be concerned with issues such as classpath and container executors. For ShuffleHandler for instance, it is an alternative of the in-process runtime it gets from NM today. The latter, is where we discuss whether RM or NM does the heavy-lifting of managing system containers.\n\nAs you mention, no one option suits all use cases. Option 1 suits some, while option 3 suits others. I wonder if this is because we are conflating two different types of containers in the proposal - (1) framework-specific services like MR shuffle, and (2) application-specific services. Framework services are to be run on all nodes that support the framework (e.g. MR). Since these run on every node, node-level configs (option 3) would work best. Application-services (e.g. ATS AM-companion-collector), on the other hand, are application specific and need to run on a subset of cluster nodes; option 1 readily applies to these.  Is this categorization accurate? And, do you see merit in differentiating between these two?\nbq. Allow shuffle to run on the NodeManagers without requiring it to be setup as an AuxiliaryService\nNot sure if I understand this correctly, IHO, we could let the user continue with their current configuration for AuxiliaryService, but just run them in containers with AuxiliaryService proxy like Junping said in the jira description.\nbq. Handling container status for system-containers - we will need to add logic to not act upon the container status of a system-container.\nCan you please elaborate more on this? Shouldn\u2019t NM try to relaunch system containers? Does this mean that RM will take the responsibility of handling system container failures?\nbq. I think discovery is going to be one major piece that needs to be addressed from the beginning\nAgree with Sangjin that discovery problem needs to be addressed right at the beginning. For option 3, I think we can add a queryable registry in AuxiliaryServices when NM launches a proxied AuxiliaryService assuming that NM will launch the AuxiliaryServices in the right order and each AuxiliaryService knows its dependent services.\nbq. the NodeManager will block container requests until all the system-containers are running\nWith global scheduling and resource affinity, NM does not necessarily need to block container launching. NM can launch system containers asynchronously and report to resource manager upon launch success, and RM can only schedule containers on those nodes if the services that the containers depend on have been launched on those nodes.  But that\u2019s way in the future I guess\nbq.  We can\u2019t solve the dependency management and affinity/anti-affinity requirements. (One of cons in option 3)\nNot quite sure how option 1 solves the affinity requirement. Can you elaborate a little more on this?  To solve the dependency management issue, one thing that occurred to me, but I have not thought about in much details, is, we could have RM manages all system services together and construct a DAG of system services that need to be launched on each NM. Alternatively, RM can just decide what services need to be launched on which nodes with their dependency clearly defined, and then NM can construct the DAG themselves and launches them in topological order. This however, does put some burden on RM.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-11-30T23:24:50.095+0000",
+        "updated": "2016-11-30T23:25:32.895+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15854528",
+        "id": "15854528",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~vvasudev] Want to check to see if you have some time to address some of the comments above?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-02-06T18:45:18.118+0000",
+        "updated": "2017-02-06T18:45:18.118+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/15980954",
+        "id": "15980954",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+          "name": "rohithsharma",
+          "key": "rohithsharma",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Rohith Sharma K S",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "body": "Thanks [~vvasudev] for detailed doc and thanks to other folks for design discussions. \n\nThe doc talks about both system container and system services. IIUC, these 2 use cases and scopes are different.  System_services are admin configuration and managed via native service layer along with AppMaster. And system_containers are special containers requested by individual NodeManager to replace auxiliary services. These are independent containers  which do not need app-master.\n\nCould we separate system_containers and system_services into separate JIRA? \nP.S : For flow-collector launching we are looking for system services so that any arbitrary client should be able to publish data into ATSv2. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+          "name": "rohithsharma",
+          "key": "rohithsharma",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Rohith Sharma K S",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "created": "2017-04-24T10:02:09.928+0000",
+        "updated": "2017-04-24T10:02:09.928+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12688637/comment/16010805",
+        "id": "16010805",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "It seems system services are now addressed by YARN-6601 separately. Do you have plans in the short term to update the design doc and maybe work on system container [~vvasudev]? ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-05-15T16:31:06.708+0000",
+        "updated": "2017-05-15T16:31:06.708+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1593/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 19,
+        "returned": 19
+      }
+    ]
+  }
+}

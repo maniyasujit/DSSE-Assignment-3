@@ -1,0 +1,941 @@
+{
+  "downloaded_at": "2026-06-25T10:18:19.648496+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-10738",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-10738?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13372540",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540",
+    "key": "YARN-10738",
+    "fields": {
+      "summary": "When multi thread scheduling with multi node, we should shuffle with a gap to prevent hot accessing nodes.",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2021-04-15T05:58:34.624+0000",
+      "description": "Now the multi threading scheduling\u00a0with multi node is not reasonable.\r\n\r\nIn large clusters, it will cause the hot accessing nodes, which will lead the abnormal boom node.\r\n\r\nSolution:\r\n\r\nI think we should shuffle the sorted node (such the available resource sort policy) with an interval.\u00a0\r\n\r\nI will solve the above problem, and avoid the hot accessing node.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [
+        "pull-request-available"
+      ],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/17321926",
+            "id": "17321926",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "cc [~ztang]\u00a0\u00a0[~snemeth]\u00a0[~pbacsko]\u00a0[~gandras]\u00a0[~ebadger]\u00a0[~epayne]\u00a0\u00a0\r\n\r\nWhat's your opinions about this?\r\n\r\nI think it's very important for large clusters to prevent hot accessing node.\r\n\r\nThanks.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2021-04-15T06:10:03.301+0000",
+            "updated": "2021-04-15T06:10:03.301+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/17321928",
+            "id": "17321928",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bibinchundatt",
+              "name": "bibinchundatt",
+              "key": "bibinchundatt",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bibinchundatt&avatarId=29912",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bibinchundatt&avatarId=29912",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bibinchundatt&avatarId=29912",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bibinchundatt&avatarId=29912"
+              },
+              "displayName": "Bibin Chundatt",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "[~zhuqi] I think this should be part of the *MultiNodeLookupPolicy * implementation.\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bibinchundatt",
+              "name": "bibinchundatt",
+              "key": "bibinchundatt",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bibinchundatt&avatarId=29912",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bibinchundatt&avatarId=29912",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bibinchundatt&avatarId=29912",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bibinchundatt&avatarId=29912"
+              },
+              "displayName": "Bibin Chundatt",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2021-04-15T06:14:04.121+0000",
+            "updated": "2021-04-15T06:14:04.121+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/17321936",
+            "id": "17321936",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Thanks\u00a0a lot [~bibinchundatt]\u00a0for reply.\u00a0:D\r\n\r\nI will move it to\u00a0MultiNodeLookupPolicy related.\r\n\r\n\u00a0",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2021-04-15T06:31:23.572+0000",
+            "updated": "2021-04-15T06:31:23.572+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/17322004",
+            "id": "17322004",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "I have changed to *MultiNodeLookupPolicy * implementation in latest PR , as suggested by [~bibinchundatt].\r\n\r\nThanks.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2021-04-15T08:19:42.281+0000",
+            "updated": "2021-04-15T08:19:42.281+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/17322560",
+            "id": "17322560",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "[~Jim_Brennan]\r\n\r\nCould you help review this, when you are free?\r\n\r\nThanks.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2021-04-16T02:07:41.433+0000",
+            "updated": "2021-04-16T02:07:41.433+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/17335017",
+            "id": "17335017",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jbrennan",
+              "name": "jbrennan",
+              "key": "jim_brennan",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=jim_brennan&avatarId=43169",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=jim_brennan&avatarId=43169",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=jim_brennan&avatarId=43169",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=jim_brennan&avatarId=43169"
+              },
+              "displayName": "Jim Brennan",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "[~zhuqi], I am not very familiar with the multi-threaded scheduling code - we have not started using it yet.  So it would be very helpful if you could provide more details about what you are observing in your cluster, and how you think this will fix it.  Is your cluster made up of many nodes that are the same size, or do you have a mix of different sizes?  If you have any data that shows some nodes being more heavily utilized than others, that would be helpful.\r\n\r\nLooking at  {{ResourceUsageMultiNodeLookupPolicy}}, it seems to sort by allocated resources to a node, so this seems to be trying to ensure we allocate more evenly across nodes.  It doesn't consider the relative sizes of the nodes though, so in a heterogenous cluster, I could see it leading to smaller nodes being busier than larger nodes.   I wonder if a reverse sort by unallocated resources might be more fair, because it would favor nodes that have more room for new resource requests, rather than those that currently have fewer resources allocated.\r\n\r\nAnother option to consider would be to have a policy that uses node utilization, which should more accurately reflect how busy the node is.\r\n\r\nWith respect to the policy proposed in this ticket, I am not convinced it will help very much?  It's doing the same sort by allocated resources, but just adding a shuffle of every 10 nodes.  I'm not sure how much that will help in practice on a large cluster.  A rack is usually more than 10 nodes, so it's possible the same set of racks will be over-utilized.   Again, it would be helpful if you had some before/after data to show how it helps in a real cluster.\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jbrennan",
+              "name": "jbrennan",
+              "key": "jim_brennan",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=jim_brennan&avatarId=43169",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=jim_brennan&avatarId=43169",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=jim_brennan&avatarId=43169",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=jim_brennan&avatarId=43169"
+              },
+              "displayName": "Jim Brennan",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2021-04-28T21:11:09.757+0000",
+            "updated": "2021-04-28T21:11:09.757+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/17335104",
+            "id": "17335104",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Thanks [~Jim_Brennan]\u00a0for review and very patient investigation.\r\n\r\nThe original ResourceUsageMultiNodeLookupPolicy policy sometimes cause the hot node in test cluster, and after the gap shuffle about more than 50% reduce the hot node case, but the gap 10 we should discuss about it, it related to the size of the cluster, and it will get better result if we choose the good gap.\r\n\r\nI agree with you, that another option to consider would be to have a policy that uses node utilization, which should more accurately reflect how busy the node is. And we should also shuffle based the node utilization, because multi thread scheduling without node heartbeat scheduling, may will all commit to the first same node, it will cause the hot node, and the hot node is the big bottleneck of real time cluster.\u00a0\r\n\r\nAnd actually the hot node is mainly affected the real time cluster, because it is more restrict to the delay of job.\r\n\r\nI agree with you we should do more test and practice to push this issue, and i think it will be helpful to large scale cluster, especially the real time clusters, i will help a lot.\r\n\r\nThanks again [~Jim_Brennan] .",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2021-04-29T02:44:05.393+0000",
+            "updated": "2021-04-29T02:48:09.758+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/17338910",
+            "id": "17338910",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bibinchundatt",
+              "name": "bibinchundatt",
+              "key": "bibinchundatt",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bibinchundatt&avatarId=29912",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bibinchundatt&avatarId=29912",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bibinchundatt&avatarId=29912",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bibinchundatt&avatarId=29912"
+              },
+              "displayName": "Bibin Chundatt",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "[~zhuqi] \r\n\r\nFollowing are the probable issue  i see with using ResourceUsageMultiNodeLookupPolicy  on large cluster which could cause hot spots\r\n\r\nThe sorting happens based on available resource consider memory , cpu then nodes ID. \r\n# If the memory is available on node and vcores is full still we use the full nodes  for allocation attempt . \r\n# On the cluster if we have nodes of diff resource sizes the hotspot cases become more serious. The larger machines get preferred always creating under utilization in lower profile machines.\r\n# If all the nodes are of same size and not used then the ordering is based on nodeID which could cause machines allocation attempt  in canonical order",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bibinchundatt",
+              "name": "bibinchundatt",
+              "key": "bibinchundatt",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bibinchundatt&avatarId=29912",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bibinchundatt&avatarId=29912",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bibinchundatt&avatarId=29912",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bibinchundatt&avatarId=29912"
+              },
+              "displayName": "Bibin Chundatt",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2021-05-04T10:58:09.691+0000",
+            "updated": "2021-05-04T10:58:09.691+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/17340599",
+            "id": "17340599",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Thanks\u00a0a lot [~bibinchundatt]\u00a0for reply and value information.\r\n\r\nFor above hot spots case, if we can allocate based the\u00a0dominated resource utilization, if the vcore is full, the vcore is dominated, we will allocate other nodes whose dominated resource utilization is not full.\r\n\r\n\u00a0\r\n\r\nBased the dominated resource utilization, i think we still need to shuffle but the shuffle gap may be consistent with the cluster size.\r\n\r\n\u00a0",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2021-05-07T06:23:15.924+0000",
+            "updated": "2021-05-07T06:23:15.924+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/17802645",
+            "id": "17802645",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=slfan1989",
+              "name": "slfan1989",
+              "key": "slfan1989",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=slfan1989&avatarId=40935",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=slfan1989&avatarId=40935",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=slfan1989&avatarId=40935",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=slfan1989&avatarId=40935"
+              },
+              "displayName": "Shilun Fan",
+              "active": true,
+              "timeZone": "America/Vancouver"
+            },
+            "body": "Bulk update: moved all 3.4.0 non-blocker issues, please move back if it is a blocker. Retarget 3.5.0.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=slfan1989",
+              "name": "slfan1989",
+              "key": "slfan1989",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=slfan1989&avatarId=40935",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=slfan1989&avatarId=40935",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=slfan1989&avatarId=40935",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=slfan1989&avatarId=40935"
+              },
+              "displayName": "Shilun Fan",
+              "active": true,
+              "timeZone": "America/Vancouver"
+            },
+            "created": "2024-01-04T08:30:51.658+0000",
+            "updated": "2024-01-04T08:30:51.658+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/18042040",
+            "id": "18042040",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "github-actions[bot] commented on PR #2912:\nURL: https://github.com/apache/hadoop/pull/2912#issuecomment-3599561613\n\n   We're closing this stale PR because it has been open for 100 days with no activity. This isn't a judgement on the merit of the PR in any way. It's just a way of keeping the PR queue manageable.\n   If you feel like this was a mistake, or you would like to continue working on it, please feel free to re-open it and ask for a committer to remove the stale tag and review again.\n   Thanks all for your contribution.\n\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2025-12-02T00:24:16.086+0000",
+            "updated": "2025-12-02T00:24:16.086+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/18042335",
+            "id": "18042335",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "github-actions[bot] closed pull request #2912: YARN-10738: When multi thread scheduling with multi node, we should s\u2026\nURL: https://github.com/apache/hadoop/pull/2912\n\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2025-12-03T00:23:34.947+0000",
+            "updated": "2025-12-03T00:23:34.947+0000"
+          }
+        ],
+        "maxResults": 12,
+        "total": 12,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-10738/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2026-02-12T22:20:41.919+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/10002",
+        "description": "A patch for this issue has been uploaded to JIRA by a contributor.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/document.png",
+        "name": "Patch Available",
+        "id": "10002",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 12,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/17321926",
+        "id": "17321926",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "cc [~ztang]\u00a0\u00a0[~snemeth]\u00a0[~pbacsko]\u00a0[~gandras]\u00a0[~ebadger]\u00a0[~epayne]\u00a0\u00a0\r\n\r\nWhat's your opinions about this?\r\n\r\nI think it's very important for large clusters to prevent hot accessing node.\r\n\r\nThanks.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2021-04-15T06:10:03.301+0000",
+        "updated": "2021-04-15T06:10:03.301+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/17321928",
+        "id": "17321928",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bibinchundatt",
+          "name": "bibinchundatt",
+          "key": "bibinchundatt",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bibinchundatt&avatarId=29912",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bibinchundatt&avatarId=29912",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bibinchundatt&avatarId=29912",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bibinchundatt&avatarId=29912"
+          },
+          "displayName": "Bibin Chundatt",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "[~zhuqi] I think this should be part of the *MultiNodeLookupPolicy * implementation.\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bibinchundatt",
+          "name": "bibinchundatt",
+          "key": "bibinchundatt",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bibinchundatt&avatarId=29912",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bibinchundatt&avatarId=29912",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bibinchundatt&avatarId=29912",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bibinchundatt&avatarId=29912"
+          },
+          "displayName": "Bibin Chundatt",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2021-04-15T06:14:04.121+0000",
+        "updated": "2021-04-15T06:14:04.121+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/17321936",
+        "id": "17321936",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Thanks\u00a0a lot [~bibinchundatt]\u00a0for reply.\u00a0:D\r\n\r\nI will move it to\u00a0MultiNodeLookupPolicy related.\r\n\r\n\u00a0",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2021-04-15T06:31:23.572+0000",
+        "updated": "2021-04-15T06:31:23.572+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/17322004",
+        "id": "17322004",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "I have changed to *MultiNodeLookupPolicy * implementation in latest PR , as suggested by [~bibinchundatt].\r\n\r\nThanks.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2021-04-15T08:19:42.281+0000",
+        "updated": "2021-04-15T08:19:42.281+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/17322560",
+        "id": "17322560",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "[~Jim_Brennan]\r\n\r\nCould you help review this, when you are free?\r\n\r\nThanks.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2021-04-16T02:07:41.433+0000",
+        "updated": "2021-04-16T02:07:41.433+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/17335017",
+        "id": "17335017",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jbrennan",
+          "name": "jbrennan",
+          "key": "jim_brennan",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=jim_brennan&avatarId=43169",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=jim_brennan&avatarId=43169",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=jim_brennan&avatarId=43169",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=jim_brennan&avatarId=43169"
+          },
+          "displayName": "Jim Brennan",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "[~zhuqi], I am not very familiar with the multi-threaded scheduling code - we have not started using it yet.  So it would be very helpful if you could provide more details about what you are observing in your cluster, and how you think this will fix it.  Is your cluster made up of many nodes that are the same size, or do you have a mix of different sizes?  If you have any data that shows some nodes being more heavily utilized than others, that would be helpful.\r\n\r\nLooking at  {{ResourceUsageMultiNodeLookupPolicy}}, it seems to sort by allocated resources to a node, so this seems to be trying to ensure we allocate more evenly across nodes.  It doesn't consider the relative sizes of the nodes though, so in a heterogenous cluster, I could see it leading to smaller nodes being busier than larger nodes.   I wonder if a reverse sort by unallocated resources might be more fair, because it would favor nodes that have more room for new resource requests, rather than those that currently have fewer resources allocated.\r\n\r\nAnother option to consider would be to have a policy that uses node utilization, which should more accurately reflect how busy the node is.\r\n\r\nWith respect to the policy proposed in this ticket, I am not convinced it will help very much?  It's doing the same sort by allocated resources, but just adding a shuffle of every 10 nodes.  I'm not sure how much that will help in practice on a large cluster.  A rack is usually more than 10 nodes, so it's possible the same set of racks will be over-utilized.   Again, it would be helpful if you had some before/after data to show how it helps in a real cluster.\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jbrennan",
+          "name": "jbrennan",
+          "key": "jim_brennan",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=jim_brennan&avatarId=43169",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=jim_brennan&avatarId=43169",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=jim_brennan&avatarId=43169",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=jim_brennan&avatarId=43169"
+          },
+          "displayName": "Jim Brennan",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2021-04-28T21:11:09.757+0000",
+        "updated": "2021-04-28T21:11:09.757+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/17335104",
+        "id": "17335104",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Thanks [~Jim_Brennan]\u00a0for review and very patient investigation.\r\n\r\nThe original ResourceUsageMultiNodeLookupPolicy policy sometimes cause the hot node in test cluster, and after the gap shuffle about more than 50% reduce the hot node case, but the gap 10 we should discuss about it, it related to the size of the cluster, and it will get better result if we choose the good gap.\r\n\r\nI agree with you, that another option to consider would be to have a policy that uses node utilization, which should more accurately reflect how busy the node is. And we should also shuffle based the node utilization, because multi thread scheduling without node heartbeat scheduling, may will all commit to the first same node, it will cause the hot node, and the hot node is the big bottleneck of real time cluster.\u00a0\r\n\r\nAnd actually the hot node is mainly affected the real time cluster, because it is more restrict to the delay of job.\r\n\r\nI agree with you we should do more test and practice to push this issue, and i think it will be helpful to large scale cluster, especially the real time clusters, i will help a lot.\r\n\r\nThanks again [~Jim_Brennan] .",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2021-04-29T02:44:05.393+0000",
+        "updated": "2021-04-29T02:48:09.758+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/17338910",
+        "id": "17338910",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bibinchundatt",
+          "name": "bibinchundatt",
+          "key": "bibinchundatt",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bibinchundatt&avatarId=29912",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bibinchundatt&avatarId=29912",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bibinchundatt&avatarId=29912",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bibinchundatt&avatarId=29912"
+          },
+          "displayName": "Bibin Chundatt",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "[~zhuqi] \r\n\r\nFollowing are the probable issue  i see with using ResourceUsageMultiNodeLookupPolicy  on large cluster which could cause hot spots\r\n\r\nThe sorting happens based on available resource consider memory , cpu then nodes ID. \r\n# If the memory is available on node and vcores is full still we use the full nodes  for allocation attempt . \r\n# On the cluster if we have nodes of diff resource sizes the hotspot cases become more serious. The larger machines get preferred always creating under utilization in lower profile machines.\r\n# If all the nodes are of same size and not used then the ordering is based on nodeID which could cause machines allocation attempt  in canonical order",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bibinchundatt",
+          "name": "bibinchundatt",
+          "key": "bibinchundatt",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bibinchundatt&avatarId=29912",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bibinchundatt&avatarId=29912",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bibinchundatt&avatarId=29912",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bibinchundatt&avatarId=29912"
+          },
+          "displayName": "Bibin Chundatt",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2021-05-04T10:58:09.691+0000",
+        "updated": "2021-05-04T10:58:09.691+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/17340599",
+        "id": "17340599",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Thanks\u00a0a lot [~bibinchundatt]\u00a0for reply and value information.\r\n\r\nFor above hot spots case, if we can allocate based the\u00a0dominated resource utilization, if the vcore is full, the vcore is dominated, we will allocate other nodes whose dominated resource utilization is not full.\r\n\r\n\u00a0\r\n\r\nBased the dominated resource utilization, i think we still need to shuffle but the shuffle gap may be consistent with the cluster size.\r\n\r\n\u00a0",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2021-05-07T06:23:15.924+0000",
+        "updated": "2021-05-07T06:23:15.924+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/17802645",
+        "id": "17802645",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=slfan1989",
+          "name": "slfan1989",
+          "key": "slfan1989",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=slfan1989&avatarId=40935",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=slfan1989&avatarId=40935",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=slfan1989&avatarId=40935",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=slfan1989&avatarId=40935"
+          },
+          "displayName": "Shilun Fan",
+          "active": true,
+          "timeZone": "America/Vancouver"
+        },
+        "body": "Bulk update: moved all 3.4.0 non-blocker issues, please move back if it is a blocker. Retarget 3.5.0.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=slfan1989",
+          "name": "slfan1989",
+          "key": "slfan1989",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=slfan1989&avatarId=40935",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=slfan1989&avatarId=40935",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=slfan1989&avatarId=40935",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=slfan1989&avatarId=40935"
+          },
+          "displayName": "Shilun Fan",
+          "active": true,
+          "timeZone": "America/Vancouver"
+        },
+        "created": "2024-01-04T08:30:51.658+0000",
+        "updated": "2024-01-04T08:30:51.658+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/18042040",
+        "id": "18042040",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "github-actions[bot] commented on PR #2912:\nURL: https://github.com/apache/hadoop/pull/2912#issuecomment-3599561613\n\n   We're closing this stale PR because it has been open for 100 days with no activity. This isn't a judgement on the merit of the PR in any way. It's just a way of keeping the PR queue manageable.\n   If you feel like this was a mistake, or you would like to continue working on it, please feel free to re-open it and ask for a committer to remove the stale tag and review again.\n   Thanks all for your contribution.\n\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2025-12-02T00:24:16.086+0000",
+        "updated": "2025-12-02T00:24:16.086+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13372540/comment/18042335",
+        "id": "18042335",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "github-actions[bot] closed pull request #2912: YARN-10738: When multi thread scheduling with multi node, we should s\u2026\nURL: https://github.com/apache/hadoop/pull/2912\n\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2025-12-03T00:23:34.947+0000",
+        "updated": "2025-12-03T00:23:34.947+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-10738/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 12,
+        "returned": 12
+      }
+    ]
+  }
+}

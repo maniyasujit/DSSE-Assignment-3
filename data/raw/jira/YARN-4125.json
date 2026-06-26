@@ -1,0 +1,224 @@
+{
+  "downloaded_at": "2026-06-25T10:21:42.363983+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-4125",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-4125?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12862297",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12862297",
+    "key": "YARN-4125",
+    "fields": {
+      "summary": "In addition to aggregate availability for an app, headroom should provide information on largest container that can be allcoated",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319325",
+          "id": "12319325",
+          "name": "scheduler"
+        }
+      ],
+      "subtasks": [],
+      "created": "2015-09-08T02:48:42.242+0000",
+      "description": "Today, headroom is an indicator to an application on the resources available to it. It is an aggregate across all nodes. If all the nodes have either only memory or only cpu available, no container can be allocated. The headroom should hint at this too, so apps can make decisions sooner. MAPREDUCE-6470 is a case of this, and has an example for the curious. \n\nMay be, we should add an API that returns both aggregate headroom and large container allocatable. ",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [
+        {
+          "id": "12436722",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12436722",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "12862292",
+            "key": "MAPREDUCE-6470",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12862292",
+            "fields": {
+              "summary": "ApplicationMaster may fail to preempt Reduce task",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+                "id": "1",
+                "description": "A problem which impairs or prevents the functions of the product.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+                "name": "Bug",
+                "subtask": false,
+                "avatarId": 21133
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12862297/comment/14734168",
+            "id": "14734168",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=colorant",
+              "name": "colorant",
+              "key": "colorant",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Raymond Liu",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "[~kasha@cloudera.com] regarding provide the information about largest container allocatable.  how would you decide the value? \nsay if the <memory, cpu> capability is:\n<4096, 0>\n<3172, 1>\n<2048, 2>\n<1024, 3>\n<0, 4>\nwhich one will be the largest container allocatable?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=colorant",
+              "name": "colorant",
+              "key": "colorant",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Raymond Liu",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2015-09-08T03:06:24.895+0000",
+            "updated": "2015-09-08T03:06:24.895+0000"
+          }
+        ],
+        "maxResults": 1,
+        "total": 1,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-4125/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2015-09-08T03:06:24.895+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 1,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12862297/comment/14734168",
+        "id": "14734168",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=colorant",
+          "name": "colorant",
+          "key": "colorant",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Raymond Liu",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "[~kasha@cloudera.com] regarding provide the information about largest container allocatable.  how would you decide the value? \nsay if the <memory, cpu> capability is:\n<4096, 0>\n<3172, 1>\n<2048, 2>\n<1024, 3>\n<0, 4>\nwhich one will be the largest container allocatable?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=colorant",
+          "name": "colorant",
+          "key": "colorant",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Raymond Liu",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2015-09-08T03:06:24.895+0000",
+        "updated": "2015-09-08T03:06:24.895+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-4125/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 1,
+        "returned": 1
+      }
+    ]
+  }
+}

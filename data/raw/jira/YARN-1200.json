@@ -1,0 +1,697 @@
+{
+  "downloaded_at": "2026-06-25T10:23:46.508282+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-1200",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1200?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12668618",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12668618",
+    "key": "YARN-1200",
+    "fields": {
+      "summary": "Provide a central view for rack topologies",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319322",
+          "id": "12319322",
+          "name": "resourcemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2013-09-14T04:24:39.450+0000",
+      "description": "It appears that with YARN, any AM (such as the MRv2 AM) that tries to do rack-info-based work, will need to resolve racks locally rather than get rack info from YARN directly: https://github.com/apache/hadoop-common/blob/trunk/hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app/src/main/java/org/apache/hadoop/mapreduce/v2/app/rm/RMContainerAllocator.java#L1054 and its use of a simple implementation of https://github.com/apache/hadoop-common/blob/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/java/org/apache/hadoop/yarn/util/RackResolver.java\n\nThis is a regression, as we've traditionally only had users maintain rack mappings and its associated script on a single master role node (JobTracker), not at every compute node. Task spawning hosts have never done/needed rack resolution of their own.\n\nIt is silly to have to maintain rack configs and their changes on all nodes. We should have the RM host a stable interface service so that there's only a single view of the topology across the cluster, and document for AMs to use that instead.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/3",
+        "id": "3",
+        "description": "The problem is a duplicate of an existing issue.",
+        "name": "Duplicate"
+      },
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [
+        {
+          "id": "12453000",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12453000",
+          "type": {
+            "id": "12310000",
+            "name": "Duplicate",
+            "inward": "is duplicated by",
+            "outward": "duplicates",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310000"
+          },
+          "outwardIssue": {
+            "id": "12634714",
+            "key": "YARN-435",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12634714",
+            "fields": {
+              "summary": "Make it easier to access cluster topology information in an AM",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12375284",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12375284",
+          "type": {
+            "id": "10001",
+            "name": "dependent",
+            "inward": "is depended upon by",
+            "outward": "depends upon",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10001"
+          },
+          "inwardIssue": {
+            "id": "12655952",
+            "key": "YARN-896",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12655952",
+            "fields": {
+              "summary": "Roll up for long-lived services in YARN",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+                "id": "2",
+                "description": "A new feature of the product, which has yet to be developed.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+                "name": "New Feature",
+                "subtask": false,
+                "avatarId": 21141
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12668618/comment/13767406",
+            "id": "13767406",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "+1 to this idea -without it AMs can't track topologies that change over time.\n\nThis should include\n# failure domain topology\n# time last updated\n\nHaving a timestamp will let the AMs decide whether or not to rebuild their local datastructures when querying the rack.\n\nActually, having a notification that the topology has changed could be even more useful for some applications, but that is very much feature creep.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2013-09-14T07:52:31.061+0000",
+            "updated": "2013-09-14T07:52:31.061+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12668618/comment/13767431",
+            "id": "13767431",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Thanks Harsh for nice catch on this. We do need a central topology view for consistence and easy maintenances.\nI like Steve's comments, but a few more to add:\nbq. +1 to this idea -without it AMs can't track topologies that change over time.\nThat's right. The worse case is YARN (and HDFS) doesn't provide a mechanism to track topology changes (remove the network location that previous cached). The only use case now to trigger cache clear is fault topology in Datanode registering (it also should be optimised later to clear only one item instead of clear all items now). I will file a JIRA and work on it if no one file it before.\n\nbq. Actually, having a notification that the topology has changed could be even more useful for some applications, but that is very much feature creep.\nThat's a great idea. We do need a broadcasting mechanism for YARN rather than individual heartbeat between AMs/RM. Here is a typical case. I guess we should file some JIRA against this. Thoughts?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2013-09-14T09:55:17.514+0000",
+            "updated": "2013-09-14T09:55:17.514+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12668618/comment/13768157",
+            "id": "13768157",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "I don't think we should rush to add a broadcast mechanism, esp. as multicasts and the like don't work on public cloud infrastructures\n\n# The heartbeats can include a field declaring when the topology was last updated; AMs that care about it could then ask for the information\n# The HA RM depends on ZK, so we could just add the ability of the RM to publish topo information to ZK; AMs and anything else that cares could just listen to that bit of the ZK tree",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2013-09-16T08:28:38.881+0000",
+            "updated": "2013-09-16T08:28:38.881+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12668618/comment/13768195",
+            "id": "13768195",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=qwertymaniac",
+              "name": "qwertymaniac",
+              "key": "qwertymaniac",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Harsh J",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "A reasonable regression-fixing first step is to match that of the HDFS functionality: Each NameNode (and NameNode alone) needs the rack resolution script, not all the DNs.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=qwertymaniac",
+              "name": "qwertymaniac",
+              "key": "qwertymaniac",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Harsh J",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2013-09-16T09:30:56.577+0000",
+            "updated": "2013-09-16T09:30:56.577+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12668618/comment/13768228",
+            "id": "13768228",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "bq. A reasonable regression-fixing first step is to match that of the HDFS functionality: Each NameNode (and NameNode alone) needs the rack resolution script, not all the DNs.\nRight. I also agree this is the first step we should address. However, I think this is not a simple fix that we should quickly make a decision. The reason is as below:\nYarn, unlike MRV1, actually separate two layers of scheduling (resource scheduling and task scheduling) out for simplicity: For resource scheduling, AM translate tasks (TaskAttempt) from Job into ContainerRequest and later encode to ResourceRequests and send to RM scheduler for container allocation. For task scheduling, AM schedule map tasks based on locality on allocated containers. For the first step, the AM resolve topology to create several (typically 3: node, rack and ANY/*) ResourceRequest from one ContainerRequest asked for specific nodes. The second step is decided by AM only which means AM has to understand the topology at least for some specific nodes. Although we may get rid of resolving topology in the first step by simplifying ResourceRequest between AM and RM, i.e. sending only 1 (node) ResourceRequest instead of 3 RRs, we still need to resolve it in second step.\nGiven we cannot get rid of resolve topology in AM, we may prefer cache instead of running the script on each node. I have a draft proposal below:\n- Setup a cache <node, network_location> in AM\n- In response come back from AMRM heartbeat, AM can get topology info on related nodes (nodes in request and assignedContainer) and add into cache \n- Remove all RackResolver call in AM side with accessing cache\n- If cache missing in sending node's ResourceRequest for rack, resolve its rack location to something unusual (like:UNKNOWN), then RM will replace with correct rack info. Heartbeat back will fill the cache later.\n- The cache is not only be filled but also be refreshed. So if topology changes and aware in RM side, the changes may not updated immediately to all AMs, but gradually be updated to related AMs (request node's resource or get assigned containers).\nThoughts?  \n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2013-09-16T11:06:24.303+0000",
+            "updated": "2013-09-16T11:06:24.303+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12668618/comment/13768577",
+            "id": "13768577",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Duplicate of YARN-435.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2013-09-16T18:22:15.941+0000",
+            "updated": "2013-09-16T18:22:15.941+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12668618/comment/13768826",
+            "id": "13768826",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Hi Vinod, thanks for pointing to YARN-435. I like the idea to use ClientRMProtocol (now should be ApplicationClientProtocol) in AM which make things much simpler. However, does that JIRA also cover replacing RackResolver.resolve() and maintain a topology cache in AM? I don't see any discussions on this but just want to understand the scope of that JIRA. Thanks!",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2013-09-16T21:48:18.467+0000",
+            "updated": "2013-09-16T21:48:18.467+0000"
+          }
+        ],
+        "maxResults": 7,
+        "total": 7,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1200/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2015-12-29T10:15:47.027+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 7,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12668618/comment/13767406",
+        "id": "13767406",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "+1 to this idea -without it AMs can't track topologies that change over time.\n\nThis should include\n# failure domain topology\n# time last updated\n\nHaving a timestamp will let the AMs decide whether or not to rebuild their local datastructures when querying the rack.\n\nActually, having a notification that the topology has changed could be even more useful for some applications, but that is very much feature creep.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2013-09-14T07:52:31.061+0000",
+        "updated": "2013-09-14T07:52:31.061+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12668618/comment/13767431",
+        "id": "13767431",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Thanks Harsh for nice catch on this. We do need a central topology view for consistence and easy maintenances.\nI like Steve's comments, but a few more to add:\nbq. +1 to this idea -without it AMs can't track topologies that change over time.\nThat's right. The worse case is YARN (and HDFS) doesn't provide a mechanism to track topology changes (remove the network location that previous cached). The only use case now to trigger cache clear is fault topology in Datanode registering (it also should be optimised later to clear only one item instead of clear all items now). I will file a JIRA and work on it if no one file it before.\n\nbq. Actually, having a notification that the topology has changed could be even more useful for some applications, but that is very much feature creep.\nThat's a great idea. We do need a broadcasting mechanism for YARN rather than individual heartbeat between AMs/RM. Here is a typical case. I guess we should file some JIRA against this. Thoughts?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2013-09-14T09:55:17.514+0000",
+        "updated": "2013-09-14T09:55:17.514+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12668618/comment/13768157",
+        "id": "13768157",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "I don't think we should rush to add a broadcast mechanism, esp. as multicasts and the like don't work on public cloud infrastructures\n\n# The heartbeats can include a field declaring when the topology was last updated; AMs that care about it could then ask for the information\n# The HA RM depends on ZK, so we could just add the ability of the RM to publish topo information to ZK; AMs and anything else that cares could just listen to that bit of the ZK tree",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2013-09-16T08:28:38.881+0000",
+        "updated": "2013-09-16T08:28:38.881+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12668618/comment/13768195",
+        "id": "13768195",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=qwertymaniac",
+          "name": "qwertymaniac",
+          "key": "qwertymaniac",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Harsh J",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "A reasonable regression-fixing first step is to match that of the HDFS functionality: Each NameNode (and NameNode alone) needs the rack resolution script, not all the DNs.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=qwertymaniac",
+          "name": "qwertymaniac",
+          "key": "qwertymaniac",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Harsh J",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2013-09-16T09:30:56.577+0000",
+        "updated": "2013-09-16T09:30:56.577+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12668618/comment/13768228",
+        "id": "13768228",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "bq. A reasonable regression-fixing first step is to match that of the HDFS functionality: Each NameNode (and NameNode alone) needs the rack resolution script, not all the DNs.\nRight. I also agree this is the first step we should address. However, I think this is not a simple fix that we should quickly make a decision. The reason is as below:\nYarn, unlike MRV1, actually separate two layers of scheduling (resource scheduling and task scheduling) out for simplicity: For resource scheduling, AM translate tasks (TaskAttempt) from Job into ContainerRequest and later encode to ResourceRequests and send to RM scheduler for container allocation. For task scheduling, AM schedule map tasks based on locality on allocated containers. For the first step, the AM resolve topology to create several (typically 3: node, rack and ANY/*) ResourceRequest from one ContainerRequest asked for specific nodes. The second step is decided by AM only which means AM has to understand the topology at least for some specific nodes. Although we may get rid of resolving topology in the first step by simplifying ResourceRequest between AM and RM, i.e. sending only 1 (node) ResourceRequest instead of 3 RRs, we still need to resolve it in second step.\nGiven we cannot get rid of resolve topology in AM, we may prefer cache instead of running the script on each node. I have a draft proposal below:\n- Setup a cache <node, network_location> in AM\n- In response come back from AMRM heartbeat, AM can get topology info on related nodes (nodes in request and assignedContainer) and add into cache \n- Remove all RackResolver call in AM side with accessing cache\n- If cache missing in sending node's ResourceRequest for rack, resolve its rack location to something unusual (like:UNKNOWN), then RM will replace with correct rack info. Heartbeat back will fill the cache later.\n- The cache is not only be filled but also be refreshed. So if topology changes and aware in RM side, the changes may not updated immediately to all AMs, but gradually be updated to related AMs (request node's resource or get assigned containers).\nThoughts?  \n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2013-09-16T11:06:24.303+0000",
+        "updated": "2013-09-16T11:06:24.303+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12668618/comment/13768577",
+        "id": "13768577",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Duplicate of YARN-435.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2013-09-16T18:22:15.941+0000",
+        "updated": "2013-09-16T18:22:15.941+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12668618/comment/13768826",
+        "id": "13768826",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Hi Vinod, thanks for pointing to YARN-435. I like the idea to use ClientRMProtocol (now should be ApplicationClientProtocol) in AM which make things much simpler. However, does that JIRA also cover replacing RackResolver.resolve() and maintain a topology cache in AM? I don't see any discussions on this but just want to understand the scope of that JIRA. Thanks!",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2013-09-16T21:48:18.467+0000",
+        "updated": "2013-09-16T21:48:18.467+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1200/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 7,
+        "returned": 7
+      }
+    ]
+  }
+}

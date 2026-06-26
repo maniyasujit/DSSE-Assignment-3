@@ -1,0 +1,665 @@
+{
+  "downloaded_at": "2026-06-25T10:23:12.500275+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-2041",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2041?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12713424",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12713424",
+    "key": "YARN-2041",
+    "fields": {
+      "summary": "Hard to co-locate MR2 and Spark jobs on the same cluster in YARN",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319323",
+          "id": "12319323",
+          "name": "nodemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2014-05-09T23:54:41.589+0000",
+      "description": "Performance of MR2 jobs falls drastically as YARN config parameter yarn.nodemanager.resource.memory-mb  is increased beyond a certain value. \n\nPerformance of Spark falls drastically as the value of yarn.nodemanager.resource.memory-mb is decreased beyond a certain value for a large data set.\n\nThis makes it hard to co-locate MR2 and Spark jobs in YARN.\n\nThe experiments are being conducted on a 6-node cluster. The following workloads are being run: TeraGen, TeraSort, TeraValidate, WordCount, ShuffleText and PageRank.\n\nWill add more details to this JIRA over time.\n",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12713424/comment/13999786",
+            "id": "13999786",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tgraves",
+              "name": "tgraves",
+              "key": "tgraves",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Thomas Graves",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "Can you please clarify but what you mean by performance, what is actually be affected, and in general more details about how you are running these tests?   Are you perhaps referring to the fact that if you set memory-mb high, it allows a lot of MR jobs on a single node at once and overload the cpu?  If so then you should be using cpu scheduling. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tgraves",
+              "name": "tgraves",
+              "key": "tgraves",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Thomas Graves",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2014-05-16T13:16:38.994+0000",
+            "updated": "2014-05-16T13:16:38.994+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12713424/comment/14000601",
+            "id": "14000601",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+              "name": "kkambatl",
+              "key": "kkambatl",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": false,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "yarn.nodemanager.resource.memory-mb should ideally be fixed per node in a YARN cluster. As [~tgaves] said, we should look at how the individual tasks are scheduled (spread out) and other relevant information. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+              "name": "kkambatl",
+              "key": "kkambatl",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": false,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-05-17T01:54:21.402+0000",
+            "updated": "2014-05-17T01:54:21.402+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12713424/comment/14000602",
+            "id": "14000602",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+              "name": "kkambatl",
+              "key": "kkambatl",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": false,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Also, the Fix Version is to track what versions the fix has gone into, usually set by the committer committing the patch. Please use Target Version to express intended target the fix should make it to.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+              "name": "kkambatl",
+              "key": "kkambatl",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": false,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-05-17T01:56:05.449+0000",
+            "updated": "2014-05-17T01:56:05.449+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12713424/comment/14000747",
+            "id": "14000747",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+              "name": "ozawa",
+              "key": "ozawa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+              },
+              "displayName": "Tsuyoshi Ozawa",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~nravi], what scheduler are you using? If you use CapacityScheduler, YARN-893 can be related issue. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+              "name": "ozawa",
+              "key": "ozawa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+              },
+              "displayName": "Tsuyoshi Ozawa",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-05-17T11:34:42.507+0000",
+            "updated": "2014-05-17T11:34:42.507+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12713424/comment/14001327",
+            "id": "14001327",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=nravi",
+              "name": "nravi",
+              "key": "nravi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Nishkam Ravi",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Experiments were done with FIFO and Fair schedulers under two different settings: single-job and multi-job modes. \nIn the single-job mode, one instance of a workload executes in the cluster at a time. In the multi-job mode, multiple instances (10 in this case) of the same job are spawned and execute in parallel on the cluster. This is done for six different workloads. Average run time is measured and reported.\n\nPerformance drop was observed with FIFO in both single-job and multi-job modes (at the time of opening this JIRA). And has been verified. Fair scheduler performs fine even with increased container size. \n\nFair to conclude that FIFO was the problem. No problem with co-locating MR2 and Spark jobs using Fair scheduler.  Will try Capacity scheduler as well while we are at it. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=nravi",
+              "name": "nravi",
+              "key": "nravi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Nishkam Ravi",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-05-19T01:49:40.359+0000",
+            "updated": "2014-05-19T01:49:40.359+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12713424/comment/14011844",
+            "id": "14011844",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=nravi",
+              "name": "nravi",
+              "key": "nravi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Nishkam Ravi",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Unlike FIFO, whose performance deteriorates consistently across multiple benchmarks as value of yarn.nodemanager.resource.memory-mb is increased from 16GB to 40GB, Capacity scheduler performs well for all benchmarks except for TeraValidate. \n\nFor TeraValidate in single-job mode:\n\nExec. time with Fair: 38 sec (yarn.nodemanager.resource.memory-mb = 16GB)\nExec. time with Fair: 38 sec (yarn.nodemanager.resource.memory-mb = 40GB)\nExec. time with Capacity: 51 sec (yarn.nodemanager.resource.memory-mb = 16GB)\nExec. time with Capacity: 100 sec (yarn.nodemanager.resource.memory-mb = 40GB)\n\nAlso, in multi-job mode, Capacity seems to be behaving like FIFO. Scheduling one job at a time for execution. \n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=nravi",
+              "name": "nravi",
+              "key": "nravi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Nishkam Ravi",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-05-28T23:53:32.593+0000",
+            "updated": "2014-05-28T23:53:32.593+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12713424/comment/14011982",
+            "id": "14011982",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Tx for all the updates, [~nravi], but can you please make clear the issues that you think are needed to be fixed?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2014-05-29T02:27:26.113+0000",
+            "updated": "2014-05-29T02:27:26.113+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12713424/comment/14012134",
+            "id": "14012134",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=nravi",
+              "name": "nravi",
+              "key": "nravi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Nishkam Ravi",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Sure. There seem to be multiple issues. Two seem to clearly stand out:\n\n1. Performance degrades with FIFO for large values of memory-mb in both single-job and multi-job mode. Observed for multiple benchmarks including TeraSort, TeraValidate, TeraGen, WordCount, ShuffleText. Issue: FIFO seems to be allocating too many jobs at once on a single node.\n2. Performance with Capacity scheduler suffers for large values of memory-mb only for TeraValidate (in single-job mode). Issue: why does Capacity scheduler regress for TeraValidate? ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=nravi",
+              "name": "nravi",
+              "key": "nravi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Nishkam Ravi",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-05-29T06:56:58.836+0000",
+            "updated": "2014-05-29T06:56:58.836+0000"
+          }
+        ],
+        "maxResults": 8,
+        "total": 8,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2041/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2014-05-29T06:56:58.836+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 8,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12713424/comment/13999786",
+        "id": "13999786",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tgraves",
+          "name": "tgraves",
+          "key": "tgraves",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Thomas Graves",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "Can you please clarify but what you mean by performance, what is actually be affected, and in general more details about how you are running these tests?   Are you perhaps referring to the fact that if you set memory-mb high, it allows a lot of MR jobs on a single node at once and overload the cpu?  If so then you should be using cpu scheduling. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tgraves",
+          "name": "tgraves",
+          "key": "tgraves",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Thomas Graves",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2014-05-16T13:16:38.994+0000",
+        "updated": "2014-05-16T13:16:38.994+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12713424/comment/14000601",
+        "id": "14000601",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+          "name": "kkambatl",
+          "key": "kkambatl",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": false,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "yarn.nodemanager.resource.memory-mb should ideally be fixed per node in a YARN cluster. As [~tgaves] said, we should look at how the individual tasks are scheduled (spread out) and other relevant information. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+          "name": "kkambatl",
+          "key": "kkambatl",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": false,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-05-17T01:54:21.402+0000",
+        "updated": "2014-05-17T01:54:21.402+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12713424/comment/14000602",
+        "id": "14000602",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+          "name": "kkambatl",
+          "key": "kkambatl",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": false,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Also, the Fix Version is to track what versions the fix has gone into, usually set by the committer committing the patch. Please use Target Version to express intended target the fix should make it to.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+          "name": "kkambatl",
+          "key": "kkambatl",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": false,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-05-17T01:56:05.449+0000",
+        "updated": "2014-05-17T01:56:05.449+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12713424/comment/14000747",
+        "id": "14000747",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+          "name": "ozawa",
+          "key": "ozawa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+          },
+          "displayName": "Tsuyoshi Ozawa",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~nravi], what scheduler are you using? If you use CapacityScheduler, YARN-893 can be related issue. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+          "name": "ozawa",
+          "key": "ozawa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+          },
+          "displayName": "Tsuyoshi Ozawa",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-05-17T11:34:42.507+0000",
+        "updated": "2014-05-17T11:34:42.507+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12713424/comment/14001327",
+        "id": "14001327",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=nravi",
+          "name": "nravi",
+          "key": "nravi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Nishkam Ravi",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Experiments were done with FIFO and Fair schedulers under two different settings: single-job and multi-job modes. \nIn the single-job mode, one instance of a workload executes in the cluster at a time. In the multi-job mode, multiple instances (10 in this case) of the same job are spawned and execute in parallel on the cluster. This is done for six different workloads. Average run time is measured and reported.\n\nPerformance drop was observed with FIFO in both single-job and multi-job modes (at the time of opening this JIRA). And has been verified. Fair scheduler performs fine even with increased container size. \n\nFair to conclude that FIFO was the problem. No problem with co-locating MR2 and Spark jobs using Fair scheduler.  Will try Capacity scheduler as well while we are at it. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=nravi",
+          "name": "nravi",
+          "key": "nravi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Nishkam Ravi",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-05-19T01:49:40.359+0000",
+        "updated": "2014-05-19T01:49:40.359+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12713424/comment/14011844",
+        "id": "14011844",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=nravi",
+          "name": "nravi",
+          "key": "nravi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Nishkam Ravi",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Unlike FIFO, whose performance deteriorates consistently across multiple benchmarks as value of yarn.nodemanager.resource.memory-mb is increased from 16GB to 40GB, Capacity scheduler performs well for all benchmarks except for TeraValidate. \n\nFor TeraValidate in single-job mode:\n\nExec. time with Fair: 38 sec (yarn.nodemanager.resource.memory-mb = 16GB)\nExec. time with Fair: 38 sec (yarn.nodemanager.resource.memory-mb = 40GB)\nExec. time with Capacity: 51 sec (yarn.nodemanager.resource.memory-mb = 16GB)\nExec. time with Capacity: 100 sec (yarn.nodemanager.resource.memory-mb = 40GB)\n\nAlso, in multi-job mode, Capacity seems to be behaving like FIFO. Scheduling one job at a time for execution. \n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=nravi",
+          "name": "nravi",
+          "key": "nravi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Nishkam Ravi",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-05-28T23:53:32.593+0000",
+        "updated": "2014-05-28T23:53:32.593+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12713424/comment/14011982",
+        "id": "14011982",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Tx for all the updates, [~nravi], but can you please make clear the issues that you think are needed to be fixed?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2014-05-29T02:27:26.113+0000",
+        "updated": "2014-05-29T02:27:26.113+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12713424/comment/14012134",
+        "id": "14012134",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=nravi",
+          "name": "nravi",
+          "key": "nravi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Nishkam Ravi",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Sure. There seem to be multiple issues. Two seem to clearly stand out:\n\n1. Performance degrades with FIFO for large values of memory-mb in both single-job and multi-job mode. Observed for multiple benchmarks including TeraSort, TeraValidate, TeraGen, WordCount, ShuffleText. Issue: FIFO seems to be allocating too many jobs at once on a single node.\n2. Performance with Capacity scheduler suffers for large values of memory-mb only for TeraValidate (in single-job mode). Issue: why does Capacity scheduler regress for TeraValidate? ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=nravi",
+          "name": "nravi",
+          "key": "nravi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Nishkam Ravi",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-05-29T06:56:58.836+0000",
+        "updated": "2014-05-29T06:56:58.836+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2041/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 8,
+        "returned": 8
+      }
+    ]
+  }
+}

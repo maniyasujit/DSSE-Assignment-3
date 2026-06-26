@@ -1,0 +1,1555 @@
+{
+  "downloaded_at": "2026-06-25T10:18:45.939605+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-9607",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9607?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13237925",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925",
+    "key": "YARN-9607",
+    "fields": {
+      "summary": "Auto-configuring rollover-size of IFile format for non-appendable filesystems",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "13090334",
+        "key": "YARN-6875",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13090334",
+        "fields": {
+          "summary": "New aggregated log file format for YARN log aggregation.",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+            "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+            "name": "Resolved",
+            "id": "5",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+            "id": "2",
+            "description": "A new feature of the product, which has yet to be developed.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+            "name": "New Feature",
+            "subtask": false,
+            "avatarId": 21141
+          }
+        }
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12322905",
+          "id": "12322905",
+          "name": "log-aggregation",
+          "description": "Log aggregation feature"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12325004",
+          "id": "12325004",
+          "name": "yarn"
+        }
+      ],
+      "subtasks": [],
+      "created": "2019-06-06T10:02:44.456+0000",
+      "description": "In YARN-9525, we made IFile format compatible with remote folders with s3a scheme. In rolling fashioned log-aggregation IFile still fails with the \"append is not supported\" error message, which is a known limitation of the format by design. \r\n\r\nThere is a workaround though: setting the rollover size in the configuration of the IFile format, in each rolling cycle a new aggregated log file will be created, thus we eliminated the append from the process. Setting this config globally would cause performance problems in the regular log-aggregation, so I'm suggesting to enforcing this config to zero, if the scheme of the URI is s3a (or any other non-appendable filesystem).",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/1",
+        "id": "1",
+        "description": "A fix for this issue is checked into the tree and tested.",
+        "name": "Fixed"
+      },
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12971592",
+          "id": "12971592",
+          "filename": "YARN-9607.001.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+            "name": "adam.antal",
+            "key": "adam.antal",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+            },
+            "displayName": "Adam Antal",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2019-06-12T14:23:54.019+0000",
+          "size": 5099,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12971592/YARN-9607.001.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12972213",
+          "id": "12972213",
+          "filename": "YARN-9607.002.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+            "name": "adam.antal",
+            "key": "adam.antal",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+            },
+            "displayName": "Adam Antal",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2019-06-19T14:38:37.825+0000",
+          "size": 4786,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12972213/YARN-9607.002.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12985708",
+          "id": "12985708",
+          "filename": "YARN-9607.003.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+            "name": "adam.antal",
+            "key": "adam.antal",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+            },
+            "displayName": "Adam Antal",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2019-11-13T09:11:39.288+0000",
+          "size": 7761,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12985708/YARN-9607.003.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12986814",
+          "id": "12986814",
+          "filename": "YARN-9607.004.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+            "name": "adam.antal",
+            "key": "adam.antal",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+            },
+            "displayName": "Adam Antal",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2019-11-26T15:21:23.156+0000",
+          "size": 7534,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12986814/YARN-9607.004.patch"
+        }
+      ],
+      "issuelinks": [
+        {
+          "id": "12563678",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12563678",
+          "type": {
+            "id": "12310040",
+            "name": "Required",
+            "inward": "is required by",
+            "outward": "requires",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310040"
+          },
+          "outwardIssue": {
+            "id": "13180785",
+            "key": "HADOOP-15691",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13180785",
+            "fields": {
+              "summary": "Add PathCapabilities to FS and FC to complement StreamCapabilities",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+                "id": "2",
+                "description": "A new feature of the product, which has yet to be developed.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+                "name": "New Feature",
+                "subtask": false,
+                "avatarId": 21141
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16858066",
+            "id": "16858066",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=wangda",
+              "name": "wangda",
+              "key": "wangda",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=wangda&avatarId=16956",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=wangda&avatarId=16956",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=wangda&avatarId=16956",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=wangda&avatarId=16956"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Thanks [~adam.antal],\r\n\r\nI\u00a0would vote to enforcing the roll size to zero if the scheme is known to be a non-appendable file system. (We may need a list of non-appendable FS to make it to be more comprehensive).\r\n\r\ncc: [~stevel@apache.org]",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=wangda",
+              "name": "wangda",
+              "key": "wangda",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=wangda&avatarId=16956",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=wangda&avatarId=16956",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=wangda&avatarId=16956",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=wangda&avatarId=16956"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-06-06T20:40:48.907+0000",
+            "updated": "2019-06-06T20:40:48.907+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16862164",
+            "id": "16862164",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Hi [~adam.antal]\r\n\r\nCould we add a new config which says \"yarn.logaggregation.non-appendable-fs.enable\" or similar and can be set to TRUE. So for any cloud storages, we can set this and we dnt need to add all filesystems in if conditions. Thoughts ?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2019-06-12T14:29:51.762+0000",
+            "updated": "2019-06-12T14:29:51.762+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16862215",
+            "id": "16862215",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (/) *{color:green}+1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 30s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 17m 33s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 40s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 26s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 42s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 12m 31s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 22s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 42s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 38s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 36s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 36s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 25s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 44s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 13m 51s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 37s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 56s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  4m 16s{color} | {color:green} hadoop-yarn-common in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 28s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 58m  3s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=18.09.5 Server=18.09.5 Image:yetus/hadoop:bdbca0e53b4 |\r\n| JIRA Issue | YARN-9607 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12971592/YARN-9607.001.patch |\r\n| Optional Tests |  dupname  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux c1302a7f274c 4.15.0-48-generic #51-Ubuntu SMP Wed Apr 3 08:28:49 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 3b31694 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_212 |\r\n| findbugs | v3.1.0-RC1 |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/24262/testReport/ |\r\n| Max. process+thread count | 330 (vs. ulimit of 5500) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/24262/console |\r\n| Powered by | Apache Yetus 0.8.0   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-06-12T15:28:57.426+0000",
+            "updated": "2019-06-12T15:28:57.426+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16862984",
+            "id": "16862984",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+              "name": "snemeth",
+              "key": "snemeth",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+              },
+              "displayName": "Szilard Nemeth",
+              "active": true,
+              "timeZone": "Europe/Budapest"
+            },
+            "body": "Hi [~adam.antal]!\r\n2 comments: \r\n\r\n1. In the test code, you are testing IFile format but the error messages are wrong, like: \"TFile controller... \" Those should start with IFile, right?\r\n2. With the code where you are checking for the non-appendable schemes: I would put the non-appendable scheme strings into a Set and simply check if the string is in the set or not, so the if condition could be more straightforward.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+              "name": "snemeth",
+              "key": "snemeth",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+              },
+              "displayName": "Szilard Nemeth",
+              "active": true,
+              "timeZone": "Europe/Budapest"
+            },
+            "created": "2019-06-13T11:39:13.706+0000",
+            "updated": "2019-06-13T11:39:13.706+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16862988",
+            "id": "16862988",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+              "name": "snemeth",
+              "key": "snemeth",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+              },
+              "displayName": "Szilard Nemeth",
+              "active": true,
+              "timeZone": "Europe/Budapest"
+            },
+            "body": "Oh, one more thing: \r\nAs you are overriding the config in LogAggregationIndexedFileController.getRollOverLogMaxSize, at least you need to log a statement that you overridden the value so users wouldn't be confused by any chance why the value ended up to be zero.\r\nDo you agree [~adam.antal]? \r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+              "name": "snemeth",
+              "key": "snemeth",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+              },
+              "displayName": "Szilard Nemeth",
+              "active": true,
+              "timeZone": "Europe/Budapest"
+            },
+            "created": "2019-06-13T11:44:19.965+0000",
+            "updated": "2019-06-13T11:44:19.965+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16867716",
+            "id": "16867716",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+              "name": "adam.antal",
+              "key": "adam.antal",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+              },
+              "displayName": "Adam Antal",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Uploaded patch v2.\r\n\r\nThere has been changed a lot since the last updated, and let me update each and every one of you:\r\n\r\n[~sunilg] I think introducing a global config is not a good idea. The problem is that a global configuration is not depending on the filesystem: we still have to get the information whether the filesystem supports append or not, and it makes no sense to disable that configuration: that would make it broken anyways. The cleanest and easiest solution to collect the schemes that we want to support, and add a contract-based test (look YARN-9525).\r\n\r\n[~wangda]: the config is now enforced.\r\n\r\nI also removed s3n since it's deprecated, and I missed the fact the wasb and adls supports append (according to their filesystem contract xml).\r\n\r\n[~stevel@apache.org], I don't know whether do we have to explicitly define the set of filesystems where append is not supported. I didn't find any elegant way to get this information (whether append is supported) directly from either the FileSystem or its subclass. Any suggestions on that one?\r\n\r\n[~snemeth]: Since the tests got removed, so the first point of yours is no longer valid. The other ones are incorporated in the patch.\r\n\r\nThe tests got removed, since I make a comprehensive filesystem contract based test in YARN-9525 which will also incorporate the checking of rollover size. Jenkins will probably say a -1 on this, but this is a precondition of YARN-9525, so we have to push this in first.\r\n\r\nLet me know if you have any concerns.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+              "name": "adam.antal",
+              "key": "adam.antal",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+              },
+              "displayName": "Adam Antal",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-06-19T14:38:05.479+0000",
+            "updated": "2019-06-19T14:38:05.479+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16867775",
+            "id": "16867775",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (x) *{color:red}-1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue} 25m 48s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:red}-1{color} | {color:red} test4tests {color} | {color:red}  0m  0s{color} | {color:red} The patch doesn't appear to include any new or modified tests. Please justify why no new tests are needed for this patch. Also please list what manual steps were performed to verify this patch. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 21m 53s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 46s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 33s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 52s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 13m 45s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 28s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 48s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 40s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 40s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 40s{color} | {color:green} the patch passed {color} |\r\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 26s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common: The patch generated 1 new + 24 unchanged - 0 fixed = 25 total (was 24) {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 41s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 12m 36s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 28s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 43s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  3m 46s{color} | {color:green} hadoop-yarn-common in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 32s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 87m 18s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=18.09.5 Server=18.09.5 Image:yetus/hadoop:bdbca0e53b4 |\r\n| JIRA Issue | YARN-9607 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12972213/YARN-9607.002.patch |\r\n| Optional Tests |  dupname  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux 4bf29579d092 4.15.0-48-generic #51-Ubuntu SMP Wed Apr 3 08:28:49 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 9d68425 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_212 |\r\n| findbugs | v3.1.0-RC1 |\r\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/24286/artifact/out/diff-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-common.txt |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/24286/testReport/ |\r\n| Max. process+thread count | 307 (vs. ulimit of 5500) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/24286/console |\r\n| Powered by | Apache Yetus 0.8.0   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-06-19T16:08:33.203+0000",
+            "updated": "2019-06-19T16:08:33.203+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16867857",
+            "id": "16867857",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "HADOOP-15691 proposes adding a new method, getPathCapabilities to allow you check exactly that. Sadly, its received approximate 0 reviews, and is only something I'm working on in my spare time.\r\n\r\nI would like to see it in, and given that YARN is shipped in sync with everything else, now is a good time for other people to offer to get in involved in this\r\n\r\nIf I offer to update that patch, who in this JIRA discussion promises to review it with a goal of getting it committed? As once it is in, the check would as simple as \r\n\r\n{code}\r\n if (fs.hasPathCapability(\"fs.feature.append\", path)) {\r\n ...\r\n} else {\r\n //fallback\r\n}\r\n{code}\r\n\r\nthat's it: no need to second guess things downstream, write code which only works on some stores, as determined by trial and error and support calls.\r\n\r\nBut: if nobody puts their hand up to say \"I need this and will help get it in\" -you aren't going to get it",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2019-06-19T17:30:44.327+0000",
+            "updated": "2019-06-19T17:30:44.327+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16868326",
+            "id": "16868326",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+              "name": "adam.antal",
+              "key": "adam.antal",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+              },
+              "displayName": "Adam Antal",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Thanks for the comment [~stevel@apache.org]. \r\n\r\nHADOOP-15691 would be really convenient. I'm on reviewing it. As I can see you were working on lately on the PR, so I take a look at that patch.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+              "name": "adam.antal",
+              "key": "adam.antal",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+              },
+              "displayName": "Adam Antal",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-06-20T08:08:30.312+0000",
+            "updated": "2019-06-20T08:08:30.312+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16915831",
+            "id": "16915831",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+              "name": "tangzhankun",
+              "key": "tangzhankun",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Zhankun Tang",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Bulk update:\u00a0Preparing for 3.1.3 release. moved all 3.1.3 non-blocker issues to 3.1.4, please move back if it is a blocker for you.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+              "name": "tangzhankun",
+              "key": "tangzhankun",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Zhankun Tang",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-08-26T14:23:55.684+0000",
+            "updated": "2019-08-26T14:23:55.684+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16937721",
+            "id": "16937721",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+              "name": "adam.antal",
+              "key": "adam.antal",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+              },
+              "displayName": "Adam Antal",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "HADOOP-15691 got committed, working on this can be continued.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+              "name": "adam.antal",
+              "key": "adam.antal",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+              },
+              "displayName": "Adam Antal",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-09-25T13:16:42.050+0000",
+            "updated": "2019-09-25T13:16:42.050+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16973161",
+            "id": "16973161",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+              "name": "adam.antal",
+              "key": "adam.antal",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+              },
+              "displayName": "Adam Antal",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Uploaded patch using the {{PathCapabilities}} interface committed in HADOOP-15691, also added a test for the {{LogAggregationIndexedFileController#getRollOverLogMaxSize}} method. Please review.\r\n\r\nAlso I had to add an exception [~stevel@apache.org]. If I want to use the {{LocalFileSystem}} for local files which is the default for this log aggregation, it says the it does not support Append. What is the reason behind this? From the code all I can see is that it inherits this from CheckSumFileSystem where Append is not supported, but for local file systems I think this is not the case.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+              "name": "adam.antal",
+              "key": "adam.antal",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+              },
+              "displayName": "Adam Antal",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-11-13T09:20:38.428+0000",
+            "updated": "2019-11-13T09:20:38.428+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16973213",
+            "id": "16973213",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (/) *{color:green}+1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 21s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 17m 40s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 38s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 29s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 43s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 12m 48s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 24s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 46s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 41s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 35s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 35s{color} | {color:green} the patch passed {color} |\r\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 25s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common: The patch generated 3 new + 26 unchanged - 0 fixed = 29 total (was 26) {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 37s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 12m  8s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 26s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 42s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  3m 46s{color} | {color:green} hadoop-yarn-common in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 30s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 55m 49s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=19.03.4 Server=19.03.4 Image:yetus/hadoop:104ccca9169 |\r\n| JIRA Issue | YARN-9607 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12985708/YARN-9607.003.patch |\r\n| Optional Tests |  dupname  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux e514ebd57ae2 4.15.0-58-generic #64-Ubuntu SMP Tue Aug 6 11:12:41 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / df6b316 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_222 |\r\n| findbugs | v3.1.0-RC1 |\r\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/25148/artifact/out/diff-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-common.txt |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/25148/testReport/ |\r\n| Max. process+thread count | 451 (vs. ulimit of 5500) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/25148/console |\r\n| Powered by | Apache Yetus 0.8.0   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-11-13T10:16:28.638+0000",
+            "updated": "2019-11-13T10:16:28.638+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16982596",
+            "id": "16982596",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+              "name": "adam.antal",
+              "key": "adam.antal",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+              },
+              "displayName": "Adam Antal",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Rebased & removed whitespaces.\r\n\r\nAnyone fancy a review please? [~stevel@apache.org], [~sunilg], [~snemeth], [~prabhujoseph]",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+              "name": "adam.antal",
+              "key": "adam.antal",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+              },
+              "displayName": "Adam Antal",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-11-26T15:24:07.580+0000",
+            "updated": "2019-11-26T15:24:07.580+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16982654",
+            "id": "16982654",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (/) *{color:green}+1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 41s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 19m 40s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 41s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 30s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 43s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 13m 15s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 21s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 42s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 38s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 37s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 37s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 25s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 40s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 12m 27s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 29s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 41s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  3m 50s{color} | {color:green} hadoop-yarn-common in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 29s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 58m 59s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=19.03.5 Server=19.03.5 Image:yetus/hadoop:104ccca9169 |\r\n| JIRA Issue | YARN-9607 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12986814/YARN-9607.004.patch |\r\n| Optional Tests |  dupname  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux b5abffd9f0b6 4.15.0-60-generic #67-Ubuntu SMP Thu Aug 22 16:55:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 448ffb1 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_222 |\r\n| findbugs | v3.1.0-RC1 |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/25222/testReport/ |\r\n| Max. process+thread count | 413 (vs. ulimit of 5500) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/25222/console |\r\n| Powered by | Apache Yetus 0.8.0   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-11-26T16:29:40.752+0000",
+            "updated": "2019-11-26T16:29:40.752+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16989168",
+            "id": "16989168",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+              "name": "snemeth",
+              "key": "snemeth",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+              },
+              "displayName": "Szilard Nemeth",
+              "active": true,
+              "timeZone": "Europe/Budapest"
+            },
+            "body": "Hi [~adam.antal]!\r\nPatch LGTM, committed to trunk.\r\nThanks [~adam.antal] for this contribution.\r\n\r\nI can see that the target version is 3.2. Do we need a backport patch to branch-3.2, then?\r\n\r\nQuick question: Do you want to file a follow-up jira to fix your raised concern about the hardcoded local file system appendable status (raised in this [comment of yours|https://issues.apache.org/jira/browse/YARN-9607?focusedCommentId=16973161&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-16973161] \r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+              "name": "snemeth",
+              "key": "snemeth",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+              },
+              "displayName": "Szilard Nemeth",
+              "active": true,
+              "timeZone": "Europe/Budapest"
+            },
+            "created": "2019-12-05T20:51:13.654+0000",
+            "updated": "2019-12-05T20:52:12.978+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16989194",
+            "id": "16989194",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "SUCCESS: Integrated in Jenkins build Hadoop-trunk-Commit #17728 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/17728/])\nYARN-9607. Auto-configuring rollover-size of IFile format for (snemeth: rev 4f758dd4c682bacbb110c51a96079a6c5d103c95)\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/java/org/apache/hadoop/yarn/logaggregation/filecontroller/LogAggregationFileController.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/java/org/apache/hadoop/yarn/logaggregation/filecontroller/ifile/LogAggregationIndexedFileController.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/test/java/org/apache/hadoop/yarn/logaggregation/filecontroller/ifile/TestLogAggregationIndexedFileController.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-12-05T21:43:40.742+0000",
+            "updated": "2019-12-05T21:43:40.742+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16989566",
+            "id": "16989566",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+              "name": "adam.antal",
+              "key": "adam.antal",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+              },
+              "displayName": "Adam Antal",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Yeah, I don't know why 3.2 was put to the target versions. Since this patch heavily relies on the HADOOP-15691 feature which only exists in trunk, it can not be backported into 3.2.\r\n\r\nOn a second thought on my previous comment, it seems that RawLocalFileSystem that is set to fs.file.impl by default does support append, though sometimes LocalFileSystem is set to that, which does not.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+              "name": "adam.antal",
+              "key": "adam.antal",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+              },
+              "displayName": "Adam Antal",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-12-06T09:23:48.048+0000",
+            "updated": "2019-12-06T09:23:48.048+0000"
+          }
+        ],
+        "maxResults": 18,
+        "total": 18,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9607/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2019-12-06T09:24:07.442+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 18,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16858066",
+        "id": "16858066",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=wangda",
+          "name": "wangda",
+          "key": "wangda",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=wangda&avatarId=16956",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=wangda&avatarId=16956",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=wangda&avatarId=16956",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=wangda&avatarId=16956"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Thanks [~adam.antal],\r\n\r\nI\u00a0would vote to enforcing the roll size to zero if the scheme is known to be a non-appendable file system. (We may need a list of non-appendable FS to make it to be more comprehensive).\r\n\r\ncc: [~stevel@apache.org]",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=wangda",
+          "name": "wangda",
+          "key": "wangda",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=wangda&avatarId=16956",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=wangda&avatarId=16956",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=wangda&avatarId=16956",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=wangda&avatarId=16956"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-06-06T20:40:48.907+0000",
+        "updated": "2019-06-06T20:40:48.907+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16862164",
+        "id": "16862164",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Hi [~adam.antal]\r\n\r\nCould we add a new config which says \"yarn.logaggregation.non-appendable-fs.enable\" or similar and can be set to TRUE. So for any cloud storages, we can set this and we dnt need to add all filesystems in if conditions. Thoughts ?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2019-06-12T14:29:51.762+0000",
+        "updated": "2019-06-12T14:29:51.762+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16862215",
+        "id": "16862215",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (/) *{color:green}+1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 30s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 17m 33s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 40s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 26s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 42s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 12m 31s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 22s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 42s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 38s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 36s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 36s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 25s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 44s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 13m 51s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 37s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 56s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  4m 16s{color} | {color:green} hadoop-yarn-common in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 28s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 58m  3s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=18.09.5 Server=18.09.5 Image:yetus/hadoop:bdbca0e53b4 |\r\n| JIRA Issue | YARN-9607 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12971592/YARN-9607.001.patch |\r\n| Optional Tests |  dupname  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux c1302a7f274c 4.15.0-48-generic #51-Ubuntu SMP Wed Apr 3 08:28:49 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 3b31694 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_212 |\r\n| findbugs | v3.1.0-RC1 |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/24262/testReport/ |\r\n| Max. process+thread count | 330 (vs. ulimit of 5500) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/24262/console |\r\n| Powered by | Apache Yetus 0.8.0   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-06-12T15:28:57.426+0000",
+        "updated": "2019-06-12T15:28:57.426+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16862984",
+        "id": "16862984",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+          "name": "snemeth",
+          "key": "snemeth",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+          },
+          "displayName": "Szilard Nemeth",
+          "active": true,
+          "timeZone": "Europe/Budapest"
+        },
+        "body": "Hi [~adam.antal]!\r\n2 comments: \r\n\r\n1. In the test code, you are testing IFile format but the error messages are wrong, like: \"TFile controller... \" Those should start with IFile, right?\r\n2. With the code where you are checking for the non-appendable schemes: I would put the non-appendable scheme strings into a Set and simply check if the string is in the set or not, so the if condition could be more straightforward.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+          "name": "snemeth",
+          "key": "snemeth",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+          },
+          "displayName": "Szilard Nemeth",
+          "active": true,
+          "timeZone": "Europe/Budapest"
+        },
+        "created": "2019-06-13T11:39:13.706+0000",
+        "updated": "2019-06-13T11:39:13.706+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16862988",
+        "id": "16862988",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+          "name": "snemeth",
+          "key": "snemeth",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+          },
+          "displayName": "Szilard Nemeth",
+          "active": true,
+          "timeZone": "Europe/Budapest"
+        },
+        "body": "Oh, one more thing: \r\nAs you are overriding the config in LogAggregationIndexedFileController.getRollOverLogMaxSize, at least you need to log a statement that you overridden the value so users wouldn't be confused by any chance why the value ended up to be zero.\r\nDo you agree [~adam.antal]? \r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+          "name": "snemeth",
+          "key": "snemeth",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+          },
+          "displayName": "Szilard Nemeth",
+          "active": true,
+          "timeZone": "Europe/Budapest"
+        },
+        "created": "2019-06-13T11:44:19.965+0000",
+        "updated": "2019-06-13T11:44:19.965+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16867716",
+        "id": "16867716",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+          "name": "adam.antal",
+          "key": "adam.antal",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+          },
+          "displayName": "Adam Antal",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Uploaded patch v2.\r\n\r\nThere has been changed a lot since the last updated, and let me update each and every one of you:\r\n\r\n[~sunilg] I think introducing a global config is not a good idea. The problem is that a global configuration is not depending on the filesystem: we still have to get the information whether the filesystem supports append or not, and it makes no sense to disable that configuration: that would make it broken anyways. The cleanest and easiest solution to collect the schemes that we want to support, and add a contract-based test (look YARN-9525).\r\n\r\n[~wangda]: the config is now enforced.\r\n\r\nI also removed s3n since it's deprecated, and I missed the fact the wasb and adls supports append (according to their filesystem contract xml).\r\n\r\n[~stevel@apache.org], I don't know whether do we have to explicitly define the set of filesystems where append is not supported. I didn't find any elegant way to get this information (whether append is supported) directly from either the FileSystem or its subclass. Any suggestions on that one?\r\n\r\n[~snemeth]: Since the tests got removed, so the first point of yours is no longer valid. The other ones are incorporated in the patch.\r\n\r\nThe tests got removed, since I make a comprehensive filesystem contract based test in YARN-9525 which will also incorporate the checking of rollover size. Jenkins will probably say a -1 on this, but this is a precondition of YARN-9525, so we have to push this in first.\r\n\r\nLet me know if you have any concerns.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+          "name": "adam.antal",
+          "key": "adam.antal",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+          },
+          "displayName": "Adam Antal",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-06-19T14:38:05.479+0000",
+        "updated": "2019-06-19T14:38:05.479+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16867775",
+        "id": "16867775",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (x) *{color:red}-1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue} 25m 48s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:red}-1{color} | {color:red} test4tests {color} | {color:red}  0m  0s{color} | {color:red} The patch doesn't appear to include any new or modified tests. Please justify why no new tests are needed for this patch. Also please list what manual steps were performed to verify this patch. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 21m 53s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 46s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 33s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 52s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 13m 45s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 28s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 48s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 40s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 40s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 40s{color} | {color:green} the patch passed {color} |\r\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 26s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common: The patch generated 1 new + 24 unchanged - 0 fixed = 25 total (was 24) {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 41s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 12m 36s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 28s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 43s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  3m 46s{color} | {color:green} hadoop-yarn-common in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 32s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 87m 18s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=18.09.5 Server=18.09.5 Image:yetus/hadoop:bdbca0e53b4 |\r\n| JIRA Issue | YARN-9607 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12972213/YARN-9607.002.patch |\r\n| Optional Tests |  dupname  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux 4bf29579d092 4.15.0-48-generic #51-Ubuntu SMP Wed Apr 3 08:28:49 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 9d68425 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_212 |\r\n| findbugs | v3.1.0-RC1 |\r\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/24286/artifact/out/diff-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-common.txt |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/24286/testReport/ |\r\n| Max. process+thread count | 307 (vs. ulimit of 5500) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/24286/console |\r\n| Powered by | Apache Yetus 0.8.0   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-06-19T16:08:33.203+0000",
+        "updated": "2019-06-19T16:08:33.203+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16867857",
+        "id": "16867857",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "HADOOP-15691 proposes adding a new method, getPathCapabilities to allow you check exactly that. Sadly, its received approximate 0 reviews, and is only something I'm working on in my spare time.\r\n\r\nI would like to see it in, and given that YARN is shipped in sync with everything else, now is a good time for other people to offer to get in involved in this\r\n\r\nIf I offer to update that patch, who in this JIRA discussion promises to review it with a goal of getting it committed? As once it is in, the check would as simple as \r\n\r\n{code}\r\n if (fs.hasPathCapability(\"fs.feature.append\", path)) {\r\n ...\r\n} else {\r\n //fallback\r\n}\r\n{code}\r\n\r\nthat's it: no need to second guess things downstream, write code which only works on some stores, as determined by trial and error and support calls.\r\n\r\nBut: if nobody puts their hand up to say \"I need this and will help get it in\" -you aren't going to get it",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2019-06-19T17:30:44.327+0000",
+        "updated": "2019-06-19T17:30:44.327+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16868326",
+        "id": "16868326",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+          "name": "adam.antal",
+          "key": "adam.antal",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+          },
+          "displayName": "Adam Antal",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Thanks for the comment [~stevel@apache.org]. \r\n\r\nHADOOP-15691 would be really convenient. I'm on reviewing it. As I can see you were working on lately on the PR, so I take a look at that patch.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+          "name": "adam.antal",
+          "key": "adam.antal",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+          },
+          "displayName": "Adam Antal",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-06-20T08:08:30.312+0000",
+        "updated": "2019-06-20T08:08:30.312+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16915831",
+        "id": "16915831",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+          "name": "tangzhankun",
+          "key": "tangzhankun",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Zhankun Tang",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Bulk update:\u00a0Preparing for 3.1.3 release. moved all 3.1.3 non-blocker issues to 3.1.4, please move back if it is a blocker for you.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+          "name": "tangzhankun",
+          "key": "tangzhankun",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Zhankun Tang",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-08-26T14:23:55.684+0000",
+        "updated": "2019-08-26T14:23:55.684+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16937721",
+        "id": "16937721",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+          "name": "adam.antal",
+          "key": "adam.antal",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+          },
+          "displayName": "Adam Antal",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "HADOOP-15691 got committed, working on this can be continued.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+          "name": "adam.antal",
+          "key": "adam.antal",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+          },
+          "displayName": "Adam Antal",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-09-25T13:16:42.050+0000",
+        "updated": "2019-09-25T13:16:42.050+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16973161",
+        "id": "16973161",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+          "name": "adam.antal",
+          "key": "adam.antal",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+          },
+          "displayName": "Adam Antal",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Uploaded patch using the {{PathCapabilities}} interface committed in HADOOP-15691, also added a test for the {{LogAggregationIndexedFileController#getRollOverLogMaxSize}} method. Please review.\r\n\r\nAlso I had to add an exception [~stevel@apache.org]. If I want to use the {{LocalFileSystem}} for local files which is the default for this log aggregation, it says the it does not support Append. What is the reason behind this? From the code all I can see is that it inherits this from CheckSumFileSystem where Append is not supported, but for local file systems I think this is not the case.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+          "name": "adam.antal",
+          "key": "adam.antal",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+          },
+          "displayName": "Adam Antal",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-11-13T09:20:38.428+0000",
+        "updated": "2019-11-13T09:20:38.428+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16973213",
+        "id": "16973213",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (/) *{color:green}+1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 21s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 17m 40s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 38s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 29s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 43s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 12m 48s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 24s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 46s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 41s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 35s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 35s{color} | {color:green} the patch passed {color} |\r\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 25s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common: The patch generated 3 new + 26 unchanged - 0 fixed = 29 total (was 26) {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 37s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 12m  8s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 26s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 42s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  3m 46s{color} | {color:green} hadoop-yarn-common in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 30s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 55m 49s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=19.03.4 Server=19.03.4 Image:yetus/hadoop:104ccca9169 |\r\n| JIRA Issue | YARN-9607 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12985708/YARN-9607.003.patch |\r\n| Optional Tests |  dupname  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux e514ebd57ae2 4.15.0-58-generic #64-Ubuntu SMP Tue Aug 6 11:12:41 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / df6b316 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_222 |\r\n| findbugs | v3.1.0-RC1 |\r\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/25148/artifact/out/diff-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-common.txt |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/25148/testReport/ |\r\n| Max. process+thread count | 451 (vs. ulimit of 5500) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/25148/console |\r\n| Powered by | Apache Yetus 0.8.0   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-11-13T10:16:28.638+0000",
+        "updated": "2019-11-13T10:16:28.638+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16982596",
+        "id": "16982596",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+          "name": "adam.antal",
+          "key": "adam.antal",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+          },
+          "displayName": "Adam Antal",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Rebased & removed whitespaces.\r\n\r\nAnyone fancy a review please? [~stevel@apache.org], [~sunilg], [~snemeth], [~prabhujoseph]",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+          "name": "adam.antal",
+          "key": "adam.antal",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+          },
+          "displayName": "Adam Antal",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-11-26T15:24:07.580+0000",
+        "updated": "2019-11-26T15:24:07.580+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16982654",
+        "id": "16982654",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (/) *{color:green}+1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 41s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 19m 40s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 41s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 30s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 43s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 13m 15s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 21s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 42s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 38s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 37s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 37s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 25s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 40s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 12m 27s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 29s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 41s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  3m 50s{color} | {color:green} hadoop-yarn-common in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 29s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 58m 59s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=19.03.5 Server=19.03.5 Image:yetus/hadoop:104ccca9169 |\r\n| JIRA Issue | YARN-9607 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12986814/YARN-9607.004.patch |\r\n| Optional Tests |  dupname  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux b5abffd9f0b6 4.15.0-60-generic #67-Ubuntu SMP Thu Aug 22 16:55:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 448ffb1 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_222 |\r\n| findbugs | v3.1.0-RC1 |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/25222/testReport/ |\r\n| Max. process+thread count | 413 (vs. ulimit of 5500) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/25222/console |\r\n| Powered by | Apache Yetus 0.8.0   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-11-26T16:29:40.752+0000",
+        "updated": "2019-11-26T16:29:40.752+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16989168",
+        "id": "16989168",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+          "name": "snemeth",
+          "key": "snemeth",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+          },
+          "displayName": "Szilard Nemeth",
+          "active": true,
+          "timeZone": "Europe/Budapest"
+        },
+        "body": "Hi [~adam.antal]!\r\nPatch LGTM, committed to trunk.\r\nThanks [~adam.antal] for this contribution.\r\n\r\nI can see that the target version is 3.2. Do we need a backport patch to branch-3.2, then?\r\n\r\nQuick question: Do you want to file a follow-up jira to fix your raised concern about the hardcoded local file system appendable status (raised in this [comment of yours|https://issues.apache.org/jira/browse/YARN-9607?focusedCommentId=16973161&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-16973161] \r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=snemeth",
+          "name": "snemeth",
+          "key": "snemeth",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=snemeth&avatarId=33743",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=snemeth&avatarId=33743",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=snemeth&avatarId=33743",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=snemeth&avatarId=33743"
+          },
+          "displayName": "Szilard Nemeth",
+          "active": true,
+          "timeZone": "Europe/Budapest"
+        },
+        "created": "2019-12-05T20:51:13.654+0000",
+        "updated": "2019-12-05T20:52:12.978+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16989194",
+        "id": "16989194",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "SUCCESS: Integrated in Jenkins build Hadoop-trunk-Commit #17728 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/17728/])\nYARN-9607. Auto-configuring rollover-size of IFile format for (snemeth: rev 4f758dd4c682bacbb110c51a96079a6c5d103c95)\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/java/org/apache/hadoop/yarn/logaggregation/filecontroller/LogAggregationFileController.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/java/org/apache/hadoop/yarn/logaggregation/filecontroller/ifile/LogAggregationIndexedFileController.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/test/java/org/apache/hadoop/yarn/logaggregation/filecontroller/ifile/TestLogAggregationIndexedFileController.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-12-05T21:43:40.742+0000",
+        "updated": "2019-12-05T21:43:40.742+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237925/comment/16989566",
+        "id": "16989566",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+          "name": "adam.antal",
+          "key": "adam.antal",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+          },
+          "displayName": "Adam Antal",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Yeah, I don't know why 3.2 was put to the target versions. Since this patch heavily relies on the HADOOP-15691 feature which only exists in trunk, it can not be backported into 3.2.\r\n\r\nOn a second thought on my previous comment, it seems that RawLocalFileSystem that is set to fs.file.impl by default does support append, though sometimes LocalFileSystem is set to that, which does not.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+          "name": "adam.antal",
+          "key": "adam.antal",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+          },
+          "displayName": "Adam Antal",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-12-06T09:23:48.048+0000",
+        "updated": "2019-12-06T09:23:48.048+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9607/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 18,
+        "returned": 18
+      }
+    ]
+  }
+}

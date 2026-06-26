@@ -1,0 +1,438 @@
+{
+  "downloaded_at": "2026-06-25T10:18:42.260908+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-9737",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9737?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13250115",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13250115",
+    "key": "YARN-9737",
+    "fields": {
+      "summary": "Performance degradation, Distributed Opportunistic Scheduling",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+        "id": "1",
+        "description": "A problem which impairs or prevents the functions of the product.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+        "name": "Bug",
+        "subtask": false,
+        "avatarId": 21133
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12330821",
+          "id": "12330821",
+          "name": "distributed-scheduling"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12325004",
+          "id": "12325004",
+          "name": "yarn"
+        }
+      ],
+      "subtasks": [],
+      "created": "2019-08-11T15:52:41.329+0000",
+      "description": "Opportunistic scheduling is supposed to provide lower scheduling time, and thus higher task throughput and lower job completion times for short jobs/tasks.\r\n\r\nThrough my experiments I have found distributed scheduling can degrade performance.\r\n\r\nI ran a gridmix trace of 100 short jobs, each with 50 tasks. Average task run time was 1523ms.\r\n\r\nFindings:\r\n * Job completion time, the time take from submitting a job to job completion, may degrade by over 200%\r\n [^jct_cdf_100j_100t_1500.svg]\r\n [^jct_cdf_100j_50t_1500_with_outliers.svg]\r\n * Job execution time may increase by up to 300%\r\n [^jet_boxplot_j100_50t_1500.svg]\r\n [^jet_boxplot_j100_50t_1500_with_outliers.svg]\r\n * Task throughput decreased by 100%\r\n ^[^task_throughput_boxplot_100j_50t_1500.svg]^",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [
+        "performance",
+        "scheduler",
+        "scheduling"
+      ],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12981579",
+          "id": "12981579",
+          "filename": "jct_100j_30t.png",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=Babbleshack",
+            "name": "Babbleshack",
+            "key": "babbleshack",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Babble Shack",
+            "active": true,
+            "timeZone": "Europe/London"
+          },
+          "created": "2019-09-27T17:51:44.624+0000",
+          "size": 27191,
+          "mimeType": "image/png",
+          "content": "https://issues.apache.org/jira/secure/attachment/12981579/jct_100j_30t.png"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12981584",
+          "id": "12981584",
+          "filename": "jct_100j_30t.svg",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=Babbleshack",
+            "name": "Babbleshack",
+            "key": "babbleshack",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Babble Shack",
+            "active": true,
+            "timeZone": "Europe/London"
+          },
+          "created": "2019-09-27T17:59:20.537+0000",
+          "size": 60629,
+          "mimeType": "image/svg+xml",
+          "content": "https://issues.apache.org/jira/secure/attachment/12981584/jct_100j_30t.svg"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12977262",
+          "id": "12977262",
+          "filename": "jct_cdf_100j_100t_1500.svg",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=Babbleshack",
+            "name": "Babbleshack",
+            "key": "babbleshack",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Babble Shack",
+            "active": true,
+            "timeZone": "Europe/London"
+          },
+          "created": "2019-08-11T15:38:29.697+0000",
+          "size": 38911,
+          "mimeType": "image/svg+xml",
+          "content": "https://issues.apache.org/jira/secure/attachment/12977262/jct_cdf_100j_100t_1500.svg"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12977263",
+          "id": "12977263",
+          "filename": "jct_cdf_100j_50t_1500_with_outliers.svg",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=Babbleshack",
+            "name": "Babbleshack",
+            "key": "babbleshack",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Babble Shack",
+            "active": true,
+            "timeZone": "Europe/London"
+          },
+          "created": "2019-08-11T15:38:29.515+0000",
+          "size": 53109,
+          "mimeType": "image/svg+xml",
+          "content": "https://issues.apache.org/jira/secure/attachment/12977263/jct_cdf_100j_50t_1500_with_outliers.svg"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12977261",
+          "id": "12977261",
+          "filename": "jet_boxplot_j100_50t_1500_with_outliers.svg",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=Babbleshack",
+            "name": "Babbleshack",
+            "key": "babbleshack",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Babble Shack",
+            "active": true,
+            "timeZone": "Europe/London"
+          },
+          "created": "2019-08-11T15:38:29.855+0000",
+          "size": 47669,
+          "mimeType": "image/svg+xml",
+          "content": "https://issues.apache.org/jira/secure/attachment/12977261/jet_boxplot_j100_50t_1500_with_outliers.svg"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12977260",
+          "id": "12977260",
+          "filename": "jet_boxplot_j100_50t_1500.svg",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=Babbleshack",
+            "name": "Babbleshack",
+            "key": "babbleshack",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Babble Shack",
+            "active": true,
+            "timeZone": "Europe/London"
+          },
+          "created": "2019-08-11T15:38:29.775+0000",
+          "size": 44497,
+          "mimeType": "image/svg+xml",
+          "content": "https://issues.apache.org/jira/secure/attachment/12977260/jet_boxplot_j100_50t_1500.svg"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12977259",
+          "id": "12977259",
+          "filename": "task_throughput_boxplot_100j_50t_1500.svg",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=Babbleshack",
+            "name": "Babbleshack",
+            "key": "babbleshack",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Babble Shack",
+            "active": true,
+            "timeZone": "Europe/London"
+          },
+          "created": "2019-08-11T15:38:29.795+0000",
+          "size": 44497,
+          "mimeType": "image/svg+xml",
+          "content": "https://issues.apache.org/jira/secure/attachment/12977259/task_throughput_boxplot_100j_50t_1500.svg"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12981578",
+          "id": "12981578",
+          "filename": "task_throughput_bp_100j_30t.png",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=Babbleshack",
+            "name": "Babbleshack",
+            "key": "babbleshack",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Babble Shack",
+            "active": true,
+            "timeZone": "Europe/London"
+          },
+          "created": "2019-09-27T17:51:44.493+0000",
+          "size": 9010,
+          "mimeType": "image/png",
+          "content": "https://issues.apache.org/jira/secure/attachment/12981578/task_throughput_bp_100j_30t.png"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12981585",
+          "id": "12981585",
+          "filename": "task_throughput_bp_100j_30t.svg",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=Babbleshack",
+            "name": "Babbleshack",
+            "key": "babbleshack",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Babble Shack",
+            "active": true,
+            "timeZone": "Europe/London"
+          },
+          "created": "2019-09-27T18:00:27.970+0000",
+          "size": 43441,
+          "mimeType": "image/svg+xml",
+          "content": "https://issues.apache.org/jira/secure/attachment/12981585/task_throughput_bp_100j_30t.svg"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12977258",
+          "id": "12977258",
+          "filename": "yarn-client.yarn-site.xml",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=Babbleshack",
+            "name": "Babbleshack",
+            "key": "babbleshack",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Babble Shack",
+            "active": true,
+            "timeZone": "Europe/London"
+          },
+          "created": "2019-08-11T15:52:15.419+0000",
+          "size": 4674,
+          "mimeType": "text/xml",
+          "content": "https://issues.apache.org/jira/secure/attachment/12977258/yarn-client.yarn-site.xml"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12977257",
+          "id": "12977257",
+          "filename": "yarn-site.xml",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=Babbleshack",
+            "name": "Babbleshack",
+            "key": "babbleshack",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Babble Shack",
+            "active": true,
+            "timeZone": "Europe/London"
+          },
+          "created": "2019-08-11T15:52:15.499+0000",
+          "size": 3315,
+          "mimeType": "text/xml",
+          "content": "https://issues.apache.org/jira/secure/attachment/12977257/yarn-site.xml"
+        }
+      ],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13250115/comment/16933869",
+            "id": "16933869",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+              "name": "kkaranasos",
+              "key": "kkaranasos",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+              },
+              "displayName": "Konstantinos Karanasos",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Hi [~Babbleshack], just saw this.\r\n\r\nThe performance of opportunistic containers depends on a lot of things -- here are a few to consider:\r\n * Note that distributed scheduling is most probably not what affects you here, but instead the use of opportunistic containers. So, I am pretty sure you would get the same results for centralized scheduling of opportunistic containers.\r\n * Opportunistic containers can be killed by guaranteed containers, therefore execution is much more sensitive as cluster utilization increases. So if your gridmix script ends up leading to high cluster utilization, you might end up getting excessive killing or queuing, hence the slowdown you observe.\r\n * Along the same lines, you might want to decrease the number of concurrent applications, especially if your utilization is high. Opportunistic containers do not count towards actually used resources for that matter, so if you are not careful you will end up launching too many jobs, therefore too many AMs, which use guaranteed containers and will be killing running opportunistic ones.\r\n * The fact that you allow at most two containers per node does not help either (and it is not a very common set-up in practice). It means that when a guaranteed container arrives at that node, at least 50% of the node's opportunistic containers will be killed (just by killing a single container).\r\n * You might also try to see what happens if you decrease the size of your queue to 0 or 1 (you will not avoid killing but you will avoid queuing).\r\n * How are you setting the percentage of opportunistic containers? I guess in the AM? Note that even when you set it to 100%, the AM will still be launched with a guaranteed container.\r\n\r\n\u00a0\r\n\r\nHope this helps. Then there are a lot of other things to tune for the scheduling of opportunistic containers, but I would start from the above list.\r\n\r\ncc: [~abmodi]\u00a0that is currently working on opportunistic containers actively.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+              "name": "kkaranasos",
+              "key": "kkaranasos",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+              },
+              "displayName": "Konstantinos Karanasos",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-09-20T00:03:26.498+0000",
+            "updated": "2019-09-20T00:03:26.498+0000"
+          }
+        ],
+        "maxResults": 1,
+        "total": 1,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9737/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2019-09-27T18:00:28.149+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 1,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13250115/comment/16933869",
+        "id": "16933869",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+          "name": "kkaranasos",
+          "key": "kkaranasos",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+          },
+          "displayName": "Konstantinos Karanasos",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Hi [~Babbleshack], just saw this.\r\n\r\nThe performance of opportunistic containers depends on a lot of things -- here are a few to consider:\r\n * Note that distributed scheduling is most probably not what affects you here, but instead the use of opportunistic containers. So, I am pretty sure you would get the same results for centralized scheduling of opportunistic containers.\r\n * Opportunistic containers can be killed by guaranteed containers, therefore execution is much more sensitive as cluster utilization increases. So if your gridmix script ends up leading to high cluster utilization, you might end up getting excessive killing or queuing, hence the slowdown you observe.\r\n * Along the same lines, you might want to decrease the number of concurrent applications, especially if your utilization is high. Opportunistic containers do not count towards actually used resources for that matter, so if you are not careful you will end up launching too many jobs, therefore too many AMs, which use guaranteed containers and will be killing running opportunistic ones.\r\n * The fact that you allow at most two containers per node does not help either (and it is not a very common set-up in practice). It means that when a guaranteed container arrives at that node, at least 50% of the node's opportunistic containers will be killed (just by killing a single container).\r\n * You might also try to see what happens if you decrease the size of your queue to 0 or 1 (you will not avoid killing but you will avoid queuing).\r\n * How are you setting the percentage of opportunistic containers? I guess in the AM? Note that even when you set it to 100%, the AM will still be launched with a guaranteed container.\r\n\r\n\u00a0\r\n\r\nHope this helps. Then there are a lot of other things to tune for the scheduling of opportunistic containers, but I would start from the above list.\r\n\r\ncc: [~abmodi]\u00a0that is currently working on opportunistic containers actively.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+          "name": "kkaranasos",
+          "key": "kkaranasos",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+          },
+          "displayName": "Konstantinos Karanasos",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-09-20T00:03:26.498+0000",
+        "updated": "2019-09-20T00:03:26.498+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9737/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 1,
+        "returned": 1
+      }
+    ]
+  }
+}

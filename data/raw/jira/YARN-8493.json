@@ -1,0 +1,127 @@
+{
+  "downloaded_at": "2026-06-25T10:19:14.348604+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-8493",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8493?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13169998",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13169998",
+    "key": "YARN-8493",
+    "fields": {
+      "summary": "LogAggregation in NodeManager is put off because great amount of long running app",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+        "id": "1",
+        "description": "A problem which impairs or prevents the functions of the product.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+        "name": "Bug",
+        "subtask": false,
+        "avatarId": 21133
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319323",
+          "id": "12319323",
+          "name": "nodemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2018-07-04T06:16:25.141+0000",
+      "description": "h2. Issue summary\r\n\r\nIn our Yarn cluster, on average, it will take 30 min to show the app log on web after the app is finished. This problem is caused by the limitation of threadPool size in NodeManager.\r\n\r\nIn NodeManager, it will set aside an appLogAggregator to do log Aggregation for each container running on this NodeManager. This appLogAggregator will occupy one thread in the threadPool until it's finished in the whole cluster.\u00a0 NodeManager uses FixedThreadPool (default size is 100) instead of CachedThreadPool which is used in the old version. At peak moment in our production environment, there is more than 350\u00a0AppLogAggregator running or queuing in thread pool and those app queuing will suffer from great log aggregation latency.\r\nh2. Possible Solution\r\n\r\nWe can increase\u00a0yarn.nodemanager.logaggregation.threadpool-size-max to a higher value to solve it. But this problem will happen again if the running app increase and it will create a lot of idle thread waiting for log aggregation.\u00a0\r\n\r\nOur solution is not to put the\u00a0{color:#333333}appLogAggregator {color}into the threadPool until it's finished:\r\n # give an callback to each {color:#333333}appLogAggregator to put itself into the threadPool, it's not called until it's notified{color}\r\n # if\u00a0rollingMonitorInterval is greater than 0, NodeManager will set aside a thread in LogAggregationService to do log Aggregation for all the running app periodically\r\n\r\n\u00a0\r\n\r\n\u00a0",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12930240",
+          "id": "12930240",
+          "filename": "YARN-8493.001.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=jayceAu",
+            "name": "jayceAu",
+            "key": "jayceau",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "JayceAu",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2018-07-04T06:18:43.077+0000",
+          "size": 17519,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12930240/YARN-8493.001.patch"
+        }
+      ],
+      "issuelinks": [],
+      "comment": {
+        "comments": [],
+        "maxResults": 0,
+        "total": 0,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8493/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2018-07-09T04:55:42.714+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/10002",
+        "description": "A patch for this issue has been uploaded to JIRA by a contributor.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/document.png",
+        "name": "Patch Available",
+        "id": "10002",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 0,
+    "comments": [],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8493/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 0,
+        "returned": 0
+      }
+    ]
+  }
+}

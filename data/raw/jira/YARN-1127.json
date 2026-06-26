@@ -1,0 +1,449 @@
+{
+  "downloaded_at": "2026-06-25T10:23:49.047618+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-1127",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1127?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12666371",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12666371",
+    "key": "YARN-1127",
+    "fields": {
+      "summary": "reservation exchange and excess reservation is not working for capacity scheduler",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+        "id": "1",
+        "description": "A problem which impairs or prevents the functions of the product.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+        "name": "Bug",
+        "subtask": false,
+        "avatarId": 21133
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2013-08-30T18:57:35.723+0000",
+      "description": "I have 2 node managers.\n* one with 1024 MB memory.(nm1)\n* second with 2048 MB memory.(nm2)\nI am submitting simple map reduce application with 1 mapper and one reducer with 1024mb each. The steps to reproduce this are\n* stop nm2 with 2048MB memory.( This I am doing to make sure that this node's heartbeat doesn't reach RM first).\n* now submit application. As soon as it receives first node's (nm1) heartbeat it will try to reserve memory for AM-container (2048MB). However it has only 1024MB of memory.\n* now start nm2 with 2048 MB memory.\n\nIt hangs forever... Ideally this has two potential issues.\n\n* Say 2048MB is reserved on nm1 but nm2 comes back with 2048MB available memory. In this case if the original request was made without any locality then scheduler should unreserve memory on nm1 and allocate requested 2048MB container on nm2. \n* We support a notion where if say we have 5 nodes with 4 AM and all node managers have 8GB each and AM 2 GB each. Each AM is requesting 8GB each. Now to avoid deadlock AM will make an extra reservation. By doing this we would never hit the deadlock situation.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/1",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/blocker.svg",
+        "name": "Blocker",
+        "id": "1"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12666371/comment/13755090",
+            "id": "13755090",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Isnt this similar to a jira opened by you already? The issue being that the scheduler puts a reservation on a node whose total capacity is smaller than the reservation resource size. In this case, nm1 has capacity=1024 but the scheduler is putting a reservation of 2048 on it and that can never be satisfied. So it does not make sense to make that reservation at all.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-08-30T20:22:18.260+0000",
+            "updated": "2013-08-30T20:22:18.260+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12666371/comment/13755095",
+            "id": "13755095",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "How is this different from YARN-957",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-08-30T20:25:46.801+0000",
+            "updated": "2013-08-30T20:25:46.801+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12666371/comment/13755103",
+            "id": "13755103",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+              "name": "ojoshi",
+              "key": "ojoshi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+              },
+              "displayName": "Omkar Vinit Joshi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "No as per Arun I am separating out issues which are causing this failure.\n* YARN-957 :- Fix if container is getting reserved on a node manager which exceeds its memory.\n* this jira :- Ideally the switch should have taken place from one to other node manager if another node manager has sufficient memory. However that did not happen. This must have occurred either because excess reservation did not work or reservation exchange did not occur. We need to find the root cause  and fix this.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+              "name": "ojoshi",
+              "key": "ojoshi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+              },
+              "displayName": "Omkar Vinit Joshi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-08-30T20:33:13.966+0000",
+            "updated": "2013-08-30T20:33:13.966+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12666371/comment/13755110",
+            "id": "13755110",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Then please clarify this in the description or comment. Otherwise it looked like an exact duplicate. So the purpose of this jira is to fix the following situation.\n1) NM1 has 2048 capacity in total but only 512 is free. A reservation of 1024 is placed on it\n2) NM2 now reports 1024 free space. At this point, the above reservation should be removed from NM1 and container should be assigned to NM2.\nStep 2 is not happening and this jira intends to fix it.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-08-30T20:37:50.193+0000",
+            "updated": "2013-08-30T20:37:50.193+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12666371/comment/13923897",
+            "id": "13923897",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tgraves",
+              "name": "tgraves",
+              "key": "tgraves",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Thomas Graves",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "The capacity scheduler should have eventually looked at the second node even with the first one being reserved. There is a formula for this where it its bias'd against really large requests.  What was your minimum allocation size and your maximum allocation size?  Can you still reproduce this on 2.3.0 or newer?\n\nAlso note that this should be superceded by https://issues.apache.org/jira/browse/YARN-1769 which makes it so that reservations will continue to look other heartbeating nodes .",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tgraves",
+              "name": "tgraves",
+              "key": "tgraves",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Thomas Graves",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2014-03-07T14:19:10.554+0000",
+            "updated": "2014-03-07T14:19:10.554+0000"
+          }
+        ],
+        "maxResults": 5,
+        "total": 5,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1127/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2014-03-07T14:19:10.554+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 5,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12666371/comment/13755090",
+        "id": "13755090",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Isnt this similar to a jira opened by you already? The issue being that the scheduler puts a reservation on a node whose total capacity is smaller than the reservation resource size. In this case, nm1 has capacity=1024 but the scheduler is putting a reservation of 2048 on it and that can never be satisfied. So it does not make sense to make that reservation at all.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-08-30T20:22:18.260+0000",
+        "updated": "2013-08-30T20:22:18.260+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12666371/comment/13755095",
+        "id": "13755095",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "How is this different from YARN-957",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-08-30T20:25:46.801+0000",
+        "updated": "2013-08-30T20:25:46.801+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12666371/comment/13755103",
+        "id": "13755103",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+          "name": "ojoshi",
+          "key": "ojoshi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+          },
+          "displayName": "Omkar Vinit Joshi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "No as per Arun I am separating out issues which are causing this failure.\n* YARN-957 :- Fix if container is getting reserved on a node manager which exceeds its memory.\n* this jira :- Ideally the switch should have taken place from one to other node manager if another node manager has sufficient memory. However that did not happen. This must have occurred either because excess reservation did not work or reservation exchange did not occur. We need to find the root cause  and fix this.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+          "name": "ojoshi",
+          "key": "ojoshi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+          },
+          "displayName": "Omkar Vinit Joshi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-08-30T20:33:13.966+0000",
+        "updated": "2013-08-30T20:33:13.966+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12666371/comment/13755110",
+        "id": "13755110",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Then please clarify this in the description or comment. Otherwise it looked like an exact duplicate. So the purpose of this jira is to fix the following situation.\n1) NM1 has 2048 capacity in total but only 512 is free. A reservation of 1024 is placed on it\n2) NM2 now reports 1024 free space. At this point, the above reservation should be removed from NM1 and container should be assigned to NM2.\nStep 2 is not happening and this jira intends to fix it.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-08-30T20:37:50.193+0000",
+        "updated": "2013-08-30T20:37:50.193+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12666371/comment/13923897",
+        "id": "13923897",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tgraves",
+          "name": "tgraves",
+          "key": "tgraves",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Thomas Graves",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "The capacity scheduler should have eventually looked at the second node even with the first one being reserved. There is a formula for this where it its bias'd against really large requests.  What was your minimum allocation size and your maximum allocation size?  Can you still reproduce this on 2.3.0 or newer?\n\nAlso note that this should be superceded by https://issues.apache.org/jira/browse/YARN-1769 which makes it so that reservations will continue to look other heartbeating nodes .",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tgraves",
+          "name": "tgraves",
+          "key": "tgraves",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Thomas Graves",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2014-03-07T14:19:10.554+0000",
+        "updated": "2014-03-07T14:19:10.554+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1127/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 5,
+        "returned": 5
+      }
+    ]
+  }
+}

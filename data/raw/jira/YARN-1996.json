@@ -1,0 +1,840 @@
+{
+  "downloaded_at": "2026-06-25T10:23:16.070326+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-1996",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1996?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12711136",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12711136",
+    "key": "YARN-1996",
+    "fields": {
+      "summary": "Provide alternative policies for UNHEALTHY nodes.",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+        "id": "2",
+        "description": "A new feature of the product, which has yet to be developed.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+        "name": "New Feature",
+        "subtask": false,
+        "avatarId": 21141
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319323",
+          "id": "12319323",
+          "name": "nodemanager"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319325",
+          "id": "12319325",
+          "name": "scheduler"
+        }
+      ],
+      "subtasks": [],
+      "created": "2014-04-29T09:44:04.317+0000",
+      "description": "Currently, UNHEALTHY nodes can significantly prolong execution of large expensive jobs as demonstrated by MAPREDUCE-5817, and downgrade the cluster health even further due to [positive feedback|http://en.wikipedia.org/wiki/Positive_feedback]. A container set that might have deemed the node unhealthy in the first place starts spreading across the cluster because the current node is declared unusable and all its containers are killed and rescheduled on different nodes.\n\nTo mitigate this, we experiment with a patch that allows containers already running on a node turning UNHEALTHY to complete (drain) whereas no new container can be assigned to it until it turns healthy again.\n\nThis mechanism can also be used for graceful decommissioning of NM. To this end, we have to write a health script  such that it can deterministically report UNHEALTHY. For example with \n{code}\nif [ -e $1 ] ; then                                                                \n  echo ERROR Node decommmissioning via health script hack                          \nfi \n{code}\n\nIn the current version patch, the behavior is controlled by a boolean property {{yarn.nodemanager.unhealthy.drain.containers}}. More versatile policies are possible in the future work. Currently, the health state of a node is binary determined based on the disk checker and the health script ERROR outputs. However, we can as well interpret health script output similar to java logging levels (one of which is ERROR) such as WARN, FATAL. Each level can then be treated differently. E.g.,\n- FATAL:  unusable like today \n- ERROR: drain\n- WARN: halve the node capacity.\ncomplimented with some equivalence rules such as 3 WARN messages == ERROR,  2*ERROR == FATAL, etc. \n\n\n\n\n\n",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12642433",
+          "id": "12642433",
+          "filename": "YARN-1996.v01.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=jira.shegalov",
+            "name": "jira.shegalov",
+            "key": "jira.shegalov",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Gera Shegalov",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2014-04-29T09:57:46.826+0000",
+          "size": 19555,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12642433/YARN-1996.v01.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12683446",
+          "id": "12683446",
+          "filename": "YARN-1996-2.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=mingma",
+            "name": "mingma",
+            "key": "mingma",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Ming Ma",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2014-11-25T00:00:57.306+0000",
+          "size": 45809,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12683446/YARN-1996-2.patch"
+        }
+      ],
+      "issuelinks": [
+        {
+          "id": "12535667",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12535667",
+          "type": {
+            "id": "12310000",
+            "name": "Duplicate",
+            "inward": "is duplicated by",
+            "outward": "duplicates",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310000"
+          },
+          "inwardIssue": {
+            "id": "13161368",
+            "key": "YARN-8345",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13161368",
+            "fields": {
+              "summary": "NodeHealthCheckerService to differentiate between reason for UnusableNodes for client to act suitably on it",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+                "id": "2",
+                "description": "A new feature of the product, which has yet to be developed.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+                "name": "New Feature",
+                "subtask": false,
+                "avatarId": 21141
+              }
+            }
+          }
+        },
+        {
+          "id": "12387265",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12387265",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "12647134",
+            "key": "YARN-671",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12647134",
+            "fields": {
+              "summary": "Add an interface on the RM to move NMs into a maintenance state",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12387266",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12387266",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "12705754",
+            "key": "MAPREDUCE-5817",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12705754",
+            "fields": {
+              "summary": "Mappers get rescheduled on node transition even after all reducers are completed",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                "name": "Closed",
+                "id": "6",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+                "id": "1",
+                "description": "A problem which impairs or prevents the functions of the product.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+                "name": "Bug",
+                "subtask": false,
+                "avatarId": 21133
+              }
+            }
+          }
+        },
+        {
+          "id": "12387257",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12387257",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "12657172",
+            "key": "YARN-914",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12657172",
+            "fields": {
+              "summary": "(Umbrella) Support graceful decommission of nodemanager",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+                "id": "2",
+                "description": "A new feature of the product, which has yet to be developed.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+                "name": "New Feature",
+                "subtask": false,
+                "avatarId": 21141
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12711136/comment/13984167",
+            "id": "13984167",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "This sounds good -not just as failure handling, but for cluster management\n\nThis may be a duplicate of YARN-914, \"graceful decommission of NM\", and/or YARN-671\n\nFor long-lived services\n# it'd be nice to have a notification from the NM to the AM that it's draining and that they should react : YARN-1394\n# the drain process must have a (configurable?) timeout & then kill all outstanding containers -without adding them as any kind of failure (i.e. container loss event from NM -> AM should indicate this)\n# AM itself needs to receive a \"your own node is being drained\" event and do any best-effort pre-restart operations (e.g. transition to passive), and RM not count AM termination/restart as an AM failure\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2014-04-29T10:07:33.199+0000",
+            "updated": "2014-04-29T10:07:33.199+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12711136/comment/13984432",
+            "id": "13984432",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12642433/YARN-1996.v01.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 2 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/3654//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/3654//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-04-29T16:01:14.174+0000",
+            "updated": "2014-04-29T16:01:14.174+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12711136/comment/13984664",
+            "id": "13984664",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jira.shegalov",
+              "name": "jira.shegalov",
+              "key": "jira.shegalov",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Gera Shegalov",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~stevel@apache.org]  thanks for pointing out the JIRA about decommissioning. I'll link them to this JIRA. The main point of this JIRA is to gracefully deal with the UNHEALTHY state determined by the health script. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jira.shegalov",
+              "name": "jira.shegalov",
+              "key": "jira.shegalov",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Gera Shegalov",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-04-29T19:03:03.356+0000",
+            "updated": "2014-04-29T19:03:03.356+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12711136/comment/14223789",
+            "id": "14223789",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=mingma",
+              "name": "mingma",
+              "key": "mingma",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Ming Ma",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~jira.shegalov], [~maysamyabandeh] and I identified the root cause of https://issues.apache.org/jira/browse/MAPREDUCE-6043 and came up with the updated patch to address that scenario.\n\nMRAppMaster's RMContainerAllocator depends on RM's CompletedContainers messages to make allocation request. In some corner cases when the node becomes unhealthy, CompletedContainers messages might be lost. The new patch makes sure RM will deliver CompletedContainers messages to AM in the following scenarios.\n\n* When NM delivers unhealthy and completed containers notifications in the same heartbeat to RM.\n* NM becomes unhealthy first, then it restarts.\n* NM becomes unhealthy first, then it becomes healthy.\n* NM becomes unhealthy first, then RM asks it to reboot.\n* NM becomes unhealthy first, then it is decommissioned.\n* NM becomes unhealthy first, then RM lost it.\n\nFor work preserving RM restart, an unhealthy NM will first be transitioned to RUNNING state after RM restart, and then to UNHEALTHY state. So if the RM restarts while it is draining unhealthy nodes, it should be able to continue to drain unhealthy nodes after the restart.\n\nAppreciate any input on this.\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=mingma",
+              "name": "mingma",
+              "key": "mingma",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Ming Ma",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-11-25T00:00:57.312+0000",
+            "updated": "2014-11-25T00:00:57.312+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12711136/comment/14223917",
+            "id": "14223917",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12683446/YARN-1996-2.patch\n  against trunk revision 8caf537.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 6 new or modified test files.\n\n      {color:red}-1 javac{color}.  The applied patch generated 1223 javac compiler warnings (more than the trunk's current 1219 warnings).\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:red}-1 core tests{color}.  The patch failed these unit tests in hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager:\n\n                  org.apache.hadoop.yarn.server.resourcemanager.applicationsmanager.TestAMRestart\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/5927//testReport/\nJavac warnings: https://builds.apache.org/job/PreCommit-YARN-Build/5927//artifact/patchprocess/diffJavacWarnings.txt\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/5927//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-11-25T01:43:36.918+0000",
+            "updated": "2014-11-25T01:43:36.918+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12711136/comment/14313379",
+            "id": "14313379",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12683446/YARN-1996-2.patch\n  against trunk revision af08425.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 6 new or modified test files.\n\n      {color:red}-1 javac{color}.  The applied patch generated 1153 javac compiler warnings (more than the trunk's current 1149 warnings).\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:red}-1 core tests{color}.  The patch failed these unit tests in hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager:\n\n                  org.apache.hadoop.yarn.server.resourcemanager.recovery.TestFSRMStateStore\n                  org.apache.hadoop.yarn.server.resourcemanager.applicationsmanager.TestAMRestart\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/6565//testReport/\nJavac warnings: https://builds.apache.org/job/PreCommit-YARN-Build/6565//artifact/patchprocess/diffJavacWarnings.txt\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/6565//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-02-10T02:13:29.724+0000",
+            "updated": "2015-02-10T02:13:29.724+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12711136/comment/14314683",
+            "id": "14314683",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+              "name": "aw",
+              "key": "aw",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+              },
+              "displayName": "Allen Wittenauer",
+              "active": true,
+              "timeZone": "America/Tijuana"
+            },
+            "body": "Cancelling patch as it is not passing patch tests.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+              "name": "aw",
+              "key": "aw",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+              },
+              "displayName": "Allen Wittenauer",
+              "active": true,
+              "timeZone": "America/Tijuana"
+            },
+            "created": "2015-02-10T19:07:21.269+0000",
+            "updated": "2015-02-10T19:07:21.269+0000"
+          }
+        ],
+        "maxResults": 7,
+        "total": 7,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1996/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2018-06-04T13:45:58.635+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 7,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12711136/comment/13984167",
+        "id": "13984167",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "This sounds good -not just as failure handling, but for cluster management\n\nThis may be a duplicate of YARN-914, \"graceful decommission of NM\", and/or YARN-671\n\nFor long-lived services\n# it'd be nice to have a notification from the NM to the AM that it's draining and that they should react : YARN-1394\n# the drain process must have a (configurable?) timeout & then kill all outstanding containers -without adding them as any kind of failure (i.e. container loss event from NM -> AM should indicate this)\n# AM itself needs to receive a \"your own node is being drained\" event and do any best-effort pre-restart operations (e.g. transition to passive), and RM not count AM termination/restart as an AM failure\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2014-04-29T10:07:33.199+0000",
+        "updated": "2014-04-29T10:07:33.199+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12711136/comment/13984432",
+        "id": "13984432",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12642433/YARN-1996.v01.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 2 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/3654//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/3654//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-04-29T16:01:14.174+0000",
+        "updated": "2014-04-29T16:01:14.174+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12711136/comment/13984664",
+        "id": "13984664",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jira.shegalov",
+          "name": "jira.shegalov",
+          "key": "jira.shegalov",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Gera Shegalov",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~stevel@apache.org]  thanks for pointing out the JIRA about decommissioning. I'll link them to this JIRA. The main point of this JIRA is to gracefully deal with the UNHEALTHY state determined by the health script. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jira.shegalov",
+          "name": "jira.shegalov",
+          "key": "jira.shegalov",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Gera Shegalov",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-04-29T19:03:03.356+0000",
+        "updated": "2014-04-29T19:03:03.356+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12711136/comment/14223789",
+        "id": "14223789",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=mingma",
+          "name": "mingma",
+          "key": "mingma",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Ming Ma",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~jira.shegalov], [~maysamyabandeh] and I identified the root cause of https://issues.apache.org/jira/browse/MAPREDUCE-6043 and came up with the updated patch to address that scenario.\n\nMRAppMaster's RMContainerAllocator depends on RM's CompletedContainers messages to make allocation request. In some corner cases when the node becomes unhealthy, CompletedContainers messages might be lost. The new patch makes sure RM will deliver CompletedContainers messages to AM in the following scenarios.\n\n* When NM delivers unhealthy and completed containers notifications in the same heartbeat to RM.\n* NM becomes unhealthy first, then it restarts.\n* NM becomes unhealthy first, then it becomes healthy.\n* NM becomes unhealthy first, then RM asks it to reboot.\n* NM becomes unhealthy first, then it is decommissioned.\n* NM becomes unhealthy first, then RM lost it.\n\nFor work preserving RM restart, an unhealthy NM will first be transitioned to RUNNING state after RM restart, and then to UNHEALTHY state. So if the RM restarts while it is draining unhealthy nodes, it should be able to continue to drain unhealthy nodes after the restart.\n\nAppreciate any input on this.\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=mingma",
+          "name": "mingma",
+          "key": "mingma",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Ming Ma",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-11-25T00:00:57.312+0000",
+        "updated": "2014-11-25T00:00:57.312+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12711136/comment/14223917",
+        "id": "14223917",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12683446/YARN-1996-2.patch\n  against trunk revision 8caf537.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 6 new or modified test files.\n\n      {color:red}-1 javac{color}.  The applied patch generated 1223 javac compiler warnings (more than the trunk's current 1219 warnings).\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:red}-1 core tests{color}.  The patch failed these unit tests in hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager:\n\n                  org.apache.hadoop.yarn.server.resourcemanager.applicationsmanager.TestAMRestart\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/5927//testReport/\nJavac warnings: https://builds.apache.org/job/PreCommit-YARN-Build/5927//artifact/patchprocess/diffJavacWarnings.txt\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/5927//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-11-25T01:43:36.918+0000",
+        "updated": "2014-11-25T01:43:36.918+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12711136/comment/14313379",
+        "id": "14313379",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12683446/YARN-1996-2.patch\n  against trunk revision af08425.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 6 new or modified test files.\n\n      {color:red}-1 javac{color}.  The applied patch generated 1153 javac compiler warnings (more than the trunk's current 1149 warnings).\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:red}-1 core tests{color}.  The patch failed these unit tests in hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager:\n\n                  org.apache.hadoop.yarn.server.resourcemanager.recovery.TestFSRMStateStore\n                  org.apache.hadoop.yarn.server.resourcemanager.applicationsmanager.TestAMRestart\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/6565//testReport/\nJavac warnings: https://builds.apache.org/job/PreCommit-YARN-Build/6565//artifact/patchprocess/diffJavacWarnings.txt\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/6565//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-02-10T02:13:29.724+0000",
+        "updated": "2015-02-10T02:13:29.724+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12711136/comment/14314683",
+        "id": "14314683",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+          "name": "aw",
+          "key": "aw",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+          },
+          "displayName": "Allen Wittenauer",
+          "active": true,
+          "timeZone": "America/Tijuana"
+        },
+        "body": "Cancelling patch as it is not passing patch tests.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+          "name": "aw",
+          "key": "aw",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+          },
+          "displayName": "Allen Wittenauer",
+          "active": true,
+          "timeZone": "America/Tijuana"
+        },
+        "created": "2015-02-10T19:07:21.269+0000",
+        "updated": "2015-02-10T19:07:21.269+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1996/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 7,
+        "returned": 7
+      }
+    ]
+  }
+}

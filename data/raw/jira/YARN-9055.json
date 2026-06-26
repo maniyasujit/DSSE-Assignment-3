@@ -1,0 +1,586 @@
+{
+  "downloaded_at": "2026-06-25T10:18:55.016731+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-9055",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9055?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13200644",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13200644",
+    "key": "YARN-9055",
+    "fields": {
+      "summary": "Capacity Scheduler: allow larger queue level maximum-allocation-mb to override the cluster configuration",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "13204066",
+        "key": "YARN-9115",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13204066",
+        "fields": {
+          "summary": "Capacity Scheduler: larger container configuration improvement on the queue level",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+            "description": "The issue is open and ready for the assignee to start work on it.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+            "name": "Open",
+            "id": "1",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+            "id": "4",
+            "description": "An improvement or enhancement to an existing feature or task.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+            "name": "Improvement",
+            "subtask": false,
+            "avatarId": 21140
+          }
+        }
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319324",
+          "id": "12319324",
+          "name": "capacityscheduler"
+        }
+      ],
+      "subtasks": [],
+      "created": "2018-11-26T18:30:53.355+0000",
+      "description": "YARN-1582 adds the support of maximum-allocation-mb configuration per queue. That feature gives the flexibility to give different memory requirements for different queues. Such patch adds the limitation that the queue level configuration can't exceed the cluster level default configuration, but I feel it may make more sense to remove such limitation to allow any overrides since \r\n# Such configuration is controlled by the admin so it shouldn't get abused; \r\n# It's common that typical queues require standard size containers while some job (queues) have requirements for larger containers. With current limitation, we have to set larger configuration on the cluster setting which will cause resource abuse unless we override them on all the queues.\r\n\r\nWe can remove such limitation in CapacitySchedulerConfiguration.java so the cluster setting provides the default value and queue setting can override it. \r\n\r\n{noformat}\r\n   if (maxAllocationMbPerQueue > clusterMax.getMemorySize()\r\n        || maxAllocationVcoresPerQueue > clusterMax.getVirtualCores()) {\r\n      throw new IllegalArgumentException(\r\n          \"Queue maximum allocation cannot be larger than the cluster setting\"\r\n          + \" for queue \" + queue\r\n          + \" max allocation per queue: \" + result\r\n          + \" cluster setting: \" + clusterMax);\r\n    }\r\n{noformat}\r\n\r\nLet me know if it makes sense.\r\n\r\n\r\n\r\n",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12949554",
+          "id": "12949554",
+          "filename": "YARN-9055.1.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=aihuaxu",
+            "name": "aihuaxu",
+            "key": "aihuaxu",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Aihua Xu",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2018-11-26T21:44:50.734+0000",
+          "size": 3988,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12949554/YARN-9055.1.patch"
+        }
+      ],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13200644/comment/16699460",
+            "id": "16699460",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=aihuaxu",
+              "name": "aihuaxu",
+              "key": "aihuaxu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Aihua Xu",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~jlowe], [~leftnoteasy] and [~tgraves] Can you guys have any opinions on this? ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=aihuaxu",
+              "name": "aihuaxu",
+              "key": "aihuaxu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Aihua Xu",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-11-26T19:17:16.482+0000",
+            "updated": "2018-11-26T19:17:16.482+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13200644/comment/16699757",
+            "id": "16699757",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (x) *{color:red}-1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 14s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 24m 34s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 55s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 47s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  1m  4s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 15m 43s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 35s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 34s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 54s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 48s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 48s{color} | {color:green} the patch passed {color} |\r\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 41s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager: The patch generated 2 new + 271 unchanged - 0 fixed = 273 total (was 271) {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 53s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 14m 17s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 26s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 28s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:red}-1{color} | {color:red} unit {color} | {color:red}104m 32s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 24s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black}169m 17s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Reason || Tests ||\r\n| Failed junit tests | hadoop.yarn.server.resourcemanager.scheduler.capacity.TestQueueManagementDynamicEditPolicy |\r\n|   | hadoop.yarn.server.resourcemanager.scheduler.capacity.TestIncreaseAllocationExpirer |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=17.05.0-ce Server=17.05.0-ce Image:yetus/hadoop:8f97d6f |\r\n| JIRA Issue | YARN-9055 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12949554/YARN-9055.1.patch |\r\n| Optional Tests |  dupname  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux d9d16791c294 3.13.0-143-generic #192-Ubuntu SMP Tue Feb 27 10:45:36 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 0d84061 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_181 |\r\n| findbugs | v3.1.0-RC1 |\r\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/22715/artifact/out/diff-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/22715/artifact/out/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/22715/testReport/ |\r\n| Max. process+thread count | 886 (vs. ulimit of 10000) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/22715/console |\r\n| Powered by | Apache Yetus 0.8.0   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2018-11-27T00:39:44.708+0000",
+            "updated": "2018-11-27T00:39:44.708+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13200644/comment/16700511",
+            "id": "16700511",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tgraves",
+              "name": "tgraves",
+              "key": "tgraves",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Thomas Graves",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "It would definitely be a change in behavior which could surprise people with existing configurations.\u00a0 \u00a0I do think its easier to have this way so you don't have to configure all the queues.\u00a0 I don't remember all the details on why I did it this way, I think it was mostly to not break the existing functionality of the\u00a0cluster level max., \u00a0",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tgraves",
+              "name": "tgraves",
+              "key": "tgraves",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Thomas Graves",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2018-11-27T14:39:12.543+0000",
+            "updated": "2018-11-27T14:39:12.543+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13200644/comment/16701228",
+            "id": "16701228",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=aihuaxu",
+              "name": "aihuaxu",
+              "key": "aihuaxu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Aihua Xu",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks [~tgraves] for the comment. Definitely it will introduce different behaviors. \r\n\r\nIn the jira YARN-1582, we were trying to address the issues that some applications may request larger containers. How will you achieve that with minimal configuration? What I can think of is: you have to increase the cluster configuration and override on the queue level which doesn't require larger containers. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=aihuaxu",
+              "name": "aihuaxu",
+              "key": "aihuaxu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Aihua Xu",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-11-28T00:45:09.135+0000",
+            "updated": "2018-11-28T00:45:09.135+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13200644/comment/16719521",
+            "id": "16719521",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=aihuaxu",
+              "name": "aihuaxu",
+              "key": "aihuaxu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Aihua Xu",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "We have the assumption that queue configuration won't be greater than cluster configuration and some clients are using that to fail earlier by comparing the requested resources against the cluster configuration (e.g. the spark https://github.com/apache/spark/blob/master/resource-managers/yarn/src/main/scala/org/apache/spark/deploy/yarn/Client.scala#L177). \r\n\r\nWe can't simply remove such check.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=aihuaxu",
+              "name": "aihuaxu",
+              "key": "aihuaxu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Aihua Xu",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-12-12T22:35:58.210+0000",
+            "updated": "2018-12-12T22:35:58.210+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13200644/comment/16719658",
+            "id": "16719658",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~aihuaxu],\r\n\r\nI agree with Thomas, this looks like a change of behavior.\r\n{quote}bq.\u00a0What I can think of is: you have to increase the cluster configuration and override on the queue level which doesn't require larger containers.\u00a0\r\n{quote}\r\nThis makes more sense to me.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-12-13T02:04:52.503+0000",
+            "updated": "2018-12-13T02:04:52.503+0000"
+          }
+        ],
+        "maxResults": 6,
+        "total": 6,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9055/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2018-12-13T02:04:52.503+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/10002",
+        "description": "A patch for this issue has been uploaded to JIRA by a contributor.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/document.png",
+        "name": "Patch Available",
+        "id": "10002",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 6,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13200644/comment/16699460",
+        "id": "16699460",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=aihuaxu",
+          "name": "aihuaxu",
+          "key": "aihuaxu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Aihua Xu",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~jlowe], [~leftnoteasy] and [~tgraves] Can you guys have any opinions on this? ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=aihuaxu",
+          "name": "aihuaxu",
+          "key": "aihuaxu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Aihua Xu",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-11-26T19:17:16.482+0000",
+        "updated": "2018-11-26T19:17:16.482+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13200644/comment/16699757",
+        "id": "16699757",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (x) *{color:red}-1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 14s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 24m 34s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 55s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 47s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  1m  4s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 15m 43s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 35s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 34s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 54s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 48s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 48s{color} | {color:green} the patch passed {color} |\r\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 41s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager: The patch generated 2 new + 271 unchanged - 0 fixed = 273 total (was 271) {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 53s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 14m 17s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 26s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 28s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:red}-1{color} | {color:red} unit {color} | {color:red}104m 32s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 24s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black}169m 17s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Reason || Tests ||\r\n| Failed junit tests | hadoop.yarn.server.resourcemanager.scheduler.capacity.TestQueueManagementDynamicEditPolicy |\r\n|   | hadoop.yarn.server.resourcemanager.scheduler.capacity.TestIncreaseAllocationExpirer |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=17.05.0-ce Server=17.05.0-ce Image:yetus/hadoop:8f97d6f |\r\n| JIRA Issue | YARN-9055 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12949554/YARN-9055.1.patch |\r\n| Optional Tests |  dupname  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux d9d16791c294 3.13.0-143-generic #192-Ubuntu SMP Tue Feb 27 10:45:36 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 0d84061 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_181 |\r\n| findbugs | v3.1.0-RC1 |\r\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/22715/artifact/out/diff-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/22715/artifact/out/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/22715/testReport/ |\r\n| Max. process+thread count | 886 (vs. ulimit of 10000) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/22715/console |\r\n| Powered by | Apache Yetus 0.8.0   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2018-11-27T00:39:44.708+0000",
+        "updated": "2018-11-27T00:39:44.708+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13200644/comment/16700511",
+        "id": "16700511",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tgraves",
+          "name": "tgraves",
+          "key": "tgraves",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Thomas Graves",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "It would definitely be a change in behavior which could surprise people with existing configurations.\u00a0 \u00a0I do think its easier to have this way so you don't have to configure all the queues.\u00a0 I don't remember all the details on why I did it this way, I think it was mostly to not break the existing functionality of the\u00a0cluster level max., \u00a0",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tgraves",
+          "name": "tgraves",
+          "key": "tgraves",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Thomas Graves",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2018-11-27T14:39:12.543+0000",
+        "updated": "2018-11-27T14:39:12.543+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13200644/comment/16701228",
+        "id": "16701228",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=aihuaxu",
+          "name": "aihuaxu",
+          "key": "aihuaxu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Aihua Xu",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks [~tgraves] for the comment. Definitely it will introduce different behaviors. \r\n\r\nIn the jira YARN-1582, we were trying to address the issues that some applications may request larger containers. How will you achieve that with minimal configuration? What I can think of is: you have to increase the cluster configuration and override on the queue level which doesn't require larger containers. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=aihuaxu",
+          "name": "aihuaxu",
+          "key": "aihuaxu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Aihua Xu",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-11-28T00:45:09.135+0000",
+        "updated": "2018-11-28T00:45:09.135+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13200644/comment/16719521",
+        "id": "16719521",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=aihuaxu",
+          "name": "aihuaxu",
+          "key": "aihuaxu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Aihua Xu",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "We have the assumption that queue configuration won't be greater than cluster configuration and some clients are using that to fail earlier by comparing the requested resources against the cluster configuration (e.g. the spark https://github.com/apache/spark/blob/master/resource-managers/yarn/src/main/scala/org/apache/spark/deploy/yarn/Client.scala#L177). \r\n\r\nWe can't simply remove such check.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=aihuaxu",
+          "name": "aihuaxu",
+          "key": "aihuaxu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Aihua Xu",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-12-12T22:35:58.210+0000",
+        "updated": "2018-12-12T22:35:58.210+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13200644/comment/16719658",
+        "id": "16719658",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~aihuaxu],\r\n\r\nI agree with Thomas, this looks like a change of behavior.\r\n{quote}bq.\u00a0What I can think of is: you have to increase the cluster configuration and override on the queue level which doesn't require larger containers.\u00a0\r\n{quote}\r\nThis makes more sense to me.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-12-13T02:04:52.503+0000",
+        "updated": "2018-12-13T02:04:52.503+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9055/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 6,
+        "returned": 6
+      }
+    ]
+  }
+}

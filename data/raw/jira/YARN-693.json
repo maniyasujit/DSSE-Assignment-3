@@ -1,0 +1,1481 @@
+{
+  "downloaded_at": "2026-06-25T10:24:09.789117+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-693",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-693?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12648078",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078",
+    "key": "YARN-693",
+    "fields": {
+      "summary": "Sending NMToken to AM on allocate call",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12605130",
+        "key": "YARN-47",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12605130",
+        "fields": {
+          "summary": "[Umbrella] Security issues in YARN",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+            "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+            "name": "Resolved",
+            "id": "5",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "id": "1",
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "name": "Bug",
+            "subtask": false,
+            "avatarId": 21133
+          }
+        }
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2013-05-16T23:18:33.340+0000",
+      "description": "This is part of YARN-613.\nAs per the updated design, AM will receive per NM, NMToken in following scenarios\n* AM is receiving first container on underlying NM.\n* AM is receiving container on underlying NM after either NM or RM rebooted.\n** After RM reboot, as RM doesn't remember (persist) the information about keys issued per AM per NM, it will reissue tokens in case AM gets new container on underlying NM. However on NM side NM will still retain older token until it receives new token to support long running jobs (in work preserving environment).\n** After NM reboot, RM will delete the token information corresponding to that AM for all AMs.\n* AM is receiving container on underlying NM after NMToken master key is rolled over on RM side.\nIn all the cases if AM receives new NMToken then it is suppose to store it for future NM communication until it receives a new one.\n\nAMRMClient should expose these NMToken to client. ",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/1",
+        "id": "1",
+        "description": "A fix for this issue is checked into the tree and tested.",
+        "name": "Fixed"
+      },
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12587547",
+          "id": "12587547",
+          "filename": "YARN-693-20130610.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+            "name": "ojoshi",
+            "key": "ojoshi",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+            },
+            "displayName": "Omkar Vinit Joshi",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2013-06-13T01:59:39.801+0000",
+          "size": 63880,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12587547/YARN-693-20130610.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12587684",
+          "id": "12587684",
+          "filename": "YARN-693-20130613.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+            "name": "ojoshi",
+            "key": "ojoshi",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+            },
+            "displayName": "Omkar Vinit Joshi",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2013-06-13T18:46:53.634+0000",
+          "size": 63897,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12587684/YARN-693-20130613.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12587950",
+          "id": "12587950",
+          "filename": "YARN-693-20130614.1.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+            "name": "ojoshi",
+            "key": "ojoshi",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+            },
+            "displayName": "Omkar Vinit Joshi",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2013-06-15T03:36:38.281+0000",
+          "size": 55542,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12587950/YARN-693-20130614.1.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12588000",
+          "id": "12588000",
+          "filename": "YARN-693-20130615.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+            "name": "ojoshi",
+            "key": "ojoshi",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+            },
+            "displayName": "Omkar Vinit Joshi",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2013-06-16T00:40:15.164+0000",
+          "size": 57868,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12588000/YARN-693-20130615.patch"
+        }
+      ],
+      "issuelinks": [
+        {
+          "id": "12370590",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12370590",
+          "type": {
+            "id": "10032",
+            "name": "Blocker",
+            "inward": "is blocked by",
+            "outward": "blocks",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10032"
+          },
+          "outwardIssue": {
+            "id": "12644641",
+            "key": "YARN-610",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12644641",
+            "fields": {
+              "summary": "ClientToken (ClientToAMToken) should not be set in the environment",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                "name": "Closed",
+                "id": "6",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/1",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/blocker.svg",
+                "name": "Blocker",
+                "id": "1"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12369118",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12369118",
+          "type": {
+            "id": "10032",
+            "name": "Blocker",
+            "inward": "is blocked by",
+            "outward": "blocks",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10032"
+          },
+          "outwardIssue": {
+            "id": "12644654",
+            "key": "YARN-613",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12644654",
+            "fields": {
+              "summary": "Create NM proxy per NM instead of per container",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                "name": "Closed",
+                "id": "6",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12369121",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12369121",
+          "type": {
+            "id": "10032",
+            "name": "Blocker",
+            "inward": "is blocked by",
+            "outward": "blocks",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10032"
+          },
+          "outwardIssue": {
+            "id": "12648081",
+            "key": "YARN-694",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12648081",
+            "fields": {
+              "summary": "Start using NMTokens to authenticate all communication with NM",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                "name": "Closed",
+                "id": "6",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12369703",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12369703",
+          "type": {
+            "id": "10032",
+            "name": "Blocker",
+            "inward": "is blocked by",
+            "outward": "blocks",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10032"
+          },
+          "outwardIssue": {
+            "id": "12650271",
+            "key": "YARN-739",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12650271",
+            "fields": {
+              "summary": "NM startContainer should validate the NodeId",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                "name": "Closed",
+                "id": "6",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12369120",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12369120",
+          "type": {
+            "id": "10032",
+            "name": "Blocker",
+            "inward": "is blocked by",
+            "outward": "blocks",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10032"
+          },
+          "inwardIssue": {
+            "id": "12648067",
+            "key": "YARN-692",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12648067",
+            "fields": {
+              "summary": "Creating NMToken master key on RM and sharing it with NM as a part of RM-NM heartbeat.",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                "name": "Closed",
+                "id": "6",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12369303",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12369303",
+          "type": {
+            "id": "10032",
+            "name": "Blocker",
+            "inward": "is blocked by",
+            "outward": "blocks",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10032"
+          },
+          "inwardIssue": {
+            "id": "12648764",
+            "key": "YARN-714",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12648764",
+            "fields": {
+              "summary": "AMRM protocol changes for sending NMToken list",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                "name": "Closed",
+                "id": "6",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12375185",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12375185",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "12668351",
+            "key": "YARN-1189",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12668351",
+            "fields": {
+              "summary": "NMTokenSecretManagerInNM is not being told when applications have finished ",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                "name": "Closed",
+                "id": "6",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/1",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/blocker.svg",
+                "name": "Blocker",
+                "id": "1"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+                "id": "1",
+                "description": "A problem which impairs or prevents the functions of the product.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+                "name": "Bug",
+                "subtask": false,
+                "avatarId": 21133
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13681844",
+            "id": "13681844",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+              "name": "ojoshi",
+              "key": "ojoshi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+              },
+              "displayName": "Omkar Vinit Joshi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "All the scenarios for issuing NMToken in description are handled and unit test is added TestRM.testNMToken. Also changes are made to AMRMClient to expose  received tokens on allocate call.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+              "name": "ojoshi",
+              "key": "ojoshi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+              },
+              "displayName": "Omkar Vinit Joshi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-06-13T01:58:52.822+0000",
+            "updated": "2013-06-13T01:58:52.822+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13682547",
+            "id": "13682547",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+              "name": "ojoshi",
+              "key": "ojoshi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+              },
+              "displayName": "Omkar Vinit Joshi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "rebasing patch after YARN-117",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+              "name": "ojoshi",
+              "key": "ojoshi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+              },
+              "displayName": "Omkar Vinit Joshi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-06-13T18:46:53.636+0000",
+            "updated": "2013-06-13T18:46:53.636+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13683832",
+            "id": "13683832",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "The MR changes can be moved to YARN-694 or its MR companion.\n\nSome comments on the patch:\n - NMToken should be in org.apache.hadoop.yarn.api.records.\n - Similarly NMTokenPBIMpl in org.apache.hadoop.yarn.api.records.impl.pb.\n - The correct place for calling register and unregister with NMTokenSecretManagerInRM is RMAppAttemptImpl.\n - Static factory for NMToken?\n - And then use the above in NMTokenSecretManagerInRM.\n - AMRMClient signature can just have a ConcurrentMap instead of ConcurrentHashMap.\n - TestAMRMClient: Also validate NMTokens <= nodeCount ?\n\nI suppose that the test to verify that the previously given out tokens before roll-over will work after roll-over is in YARN-694, right?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2013-06-14T21:49:08.265+0000",
+            "updated": "2013-06-14T21:49:08.265+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13684041",
+            "id": "13684041",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+              "name": "ojoshi",
+              "key": "ojoshi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+              },
+              "displayName": "Omkar Vinit Joshi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "bq. NMToken should be in org.apache.hadoop.yarn.api.records.\n\nbq. Similarly NMTokenPBIMpl in org.apache.hadoop.yarn.api.records.impl.pb.\nfixed.\n\n\nbq. AMRMClient signature can just have a ConcurrentMap instead of ConcurrentHashMap.\n\nfixed.\n\nbq. I suppose that the test to verify that the previously given out tokens before roll-over will work after roll-over is in YARN-694, right?\nyes there are more scenarios which will be tested in YARN-694.\n\nbq. TestAMRMClient: Also validate NMTokens <= nodeCount ?\nfixed.\n\nbq. Static factory for NMToken?\nbq. And then use the above in NMTokenSecretManagerInRM.\nfixed. added static method in NMTokenIdentifier.newNMToken.\n\nbq. The MR changes can be moved to YARN-694 or its MR companion.\nI have commented out the code. will uncomment it after YARN-694 :)\n\nbq. The correct place for calling register and unregister with NMTokenSecretManagerInRM is RMAppAttemptImpl.\nI think ApplicationMasterService looks good as it is easier to follow. keeping it in ApplicationMasterService only.\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+              "name": "ojoshi",
+              "key": "ojoshi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+              },
+              "displayName": "Omkar Vinit Joshi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-06-15T02:55:12.458+0000",
+            "updated": "2013-06-15T02:55:12.458+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13684053",
+            "id": "13684053",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12587950/YARN-693-20130614.1.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 4 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:red}-1 findbugs{color}.  The patch appears to introduce 2 new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:red}-1 core tests{color}.  The patch failed these unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager:\n\n                  org.apache.hadoop.yarn.client.TestNMClient\n                  org.apache.hadoop.yarn.client.TestAMRMClient\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/1257//testReport/\nFindbugs warnings: https://builds.apache.org/job/PreCommit-YARN-Build/1257//artifact/trunk/patchprocess/newPatchFindbugsWarningshadoop-yarn-api.html\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/1257//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-06-15T04:04:58.160+0000",
+            "updated": "2013-06-15T04:04:58.160+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13684416",
+            "id": "13684416",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "I meant creating a newInstance method in NMToken.java. Once you do that, NMTokenSecretManagerInRM.getNMTokens can use that API. We shouldn't be directly using {{new NMTokenPBImpl()}}.\n\nAlso, NMTokenIdentifier.newNMToken() is better placed in NMTokenSecretManagerInRM as RM is where NMTokens are created.\n\nAlso please fix the tests and find-bugs warnings.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2013-06-15T20:34:01.099+0000",
+            "updated": "2013-06-15T20:34:01.099+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13684532",
+            "id": "13684532",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+              "name": "ojoshi",
+              "key": "ojoshi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+              },
+              "displayName": "Omkar Vinit Joshi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Fixed TestCases and find bug warnings..\n\nbq. I meant creating a newInstance method in NMToken.java. Once you do that, NMTokenSecretManagerInRM.getNMTokens can use that API. We shouldn't be directly using new NMTokenPBImpl().\n\nFixed it.\n\nbq. Also, NMTokenIdentifier.newNMToken() is better placed in NMTokenSecretManagerInRM as RM is where NMTokens are created.\n\nfixed\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+              "name": "ojoshi",
+              "key": "ojoshi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+              },
+              "displayName": "Omkar Vinit Joshi",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-06-16T00:39:27.599+0000",
+            "updated": "2013-06-16T00:39:27.599+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13684538",
+            "id": "13684538",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12588000/YARN-693-20130615.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 4 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/1263//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/1263//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-06-16T01:05:41.644+0000",
+            "updated": "2013-06-16T01:05:41.644+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13684552",
+            "id": "13684552",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "+1. Checked this in to trunk, branch-2 and branch-2.1. Thanks Omkar!",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2013-06-16T03:13:09.695+0000",
+            "updated": "2013-06-16T03:13:09.695+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13684555",
+            "id": "13684555",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Integrated in Hadoop-trunk-Commit #3935 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/3935/])\n    YARN-693. Modified RM to send NMTokens on allocate call so that AMs can then use them for authentication with NMs. Contributed by Omkar Vinit Joshi. (Revision 1493448)\n\n     Result = SUCCESS\nvinodkv : http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1493448\nFiles : \n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/protocolrecords/AllocateResponse.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/protocolrecords/impl/pb/AllocateResponsePBImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/records/NMToken.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/records/impl/pb/NMTokenPBImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/proto/yarn_service_protos.proto\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClient.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClientAsync.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClientImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/test/java/org/apache/hadoop/yarn/client/TestAMRMClient.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/test/java/org/apache/hadoop/yarn/client/TestAMRMClientAsync.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/java/org/apache/hadoop/yarn/security/NMTokenIdentifier.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-common/src/main/java/org/apache/hadoop/yarn/server/security/BaseContainerTokenSecretManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-common/src/main/java/org/apache/hadoop/yarn/server/security/BaseNMTokenSecretManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/ApplicationMasterService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/ResourceTrackerService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/security/NMTokenSecretManagerInRM.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/MockAM.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/TestRM.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-06-16T03:26:14.855+0000",
+            "updated": "2013-06-16T03:26:14.855+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13684619",
+            "id": "13684619",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Integrated in Hadoop-Yarn-trunk #242 (See [https://builds.apache.org/job/Hadoop-Yarn-trunk/242/])\n    YARN-693. Modified RM to send NMTokens on allocate call so that AMs can then use them for authentication with NMs. Contributed by Omkar Vinit Joshi. (Revision 1493448)\n\n     Result = SUCCESS\nvinodkv : http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1493448\nFiles : \n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/protocolrecords/AllocateResponse.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/protocolrecords/impl/pb/AllocateResponsePBImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/records/NMToken.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/records/impl/pb/NMTokenPBImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/proto/yarn_service_protos.proto\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClient.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClientAsync.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClientImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/test/java/org/apache/hadoop/yarn/client/TestAMRMClient.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/test/java/org/apache/hadoop/yarn/client/TestAMRMClientAsync.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/java/org/apache/hadoop/yarn/security/NMTokenIdentifier.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-common/src/main/java/org/apache/hadoop/yarn/server/security/BaseContainerTokenSecretManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-common/src/main/java/org/apache/hadoop/yarn/server/security/BaseNMTokenSecretManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/ApplicationMasterService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/ResourceTrackerService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/security/NMTokenSecretManagerInRM.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/MockAM.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/TestRM.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-06-16T10:53:23.384+0000",
+            "updated": "2013-06-16T10:53:23.384+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13684648",
+            "id": "13684648",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Integrated in Hadoop-Hdfs-trunk #1432 (See [https://builds.apache.org/job/Hadoop-Hdfs-trunk/1432/])\n    YARN-693. Modified RM to send NMTokens on allocate call so that AMs can then use them for authentication with NMs. Contributed by Omkar Vinit Joshi. (Revision 1493448)\n\n     Result = FAILURE\nvinodkv : http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1493448\nFiles : \n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/protocolrecords/AllocateResponse.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/protocolrecords/impl/pb/AllocateResponsePBImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/records/NMToken.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/records/impl/pb/NMTokenPBImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/proto/yarn_service_protos.proto\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClient.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClientAsync.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClientImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/test/java/org/apache/hadoop/yarn/client/TestAMRMClient.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/test/java/org/apache/hadoop/yarn/client/TestAMRMClientAsync.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/java/org/apache/hadoop/yarn/security/NMTokenIdentifier.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-common/src/main/java/org/apache/hadoop/yarn/server/security/BaseContainerTokenSecretManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-common/src/main/java/org/apache/hadoop/yarn/server/security/BaseNMTokenSecretManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/ApplicationMasterService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/ResourceTrackerService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/security/NMTokenSecretManagerInRM.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/MockAM.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/TestRM.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-06-16T13:05:31.931+0000",
+            "updated": "2013-06-16T13:05:31.931+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13684669",
+            "id": "13684669",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Integrated in Hadoop-Mapreduce-trunk #1459 (See [https://builds.apache.org/job/Hadoop-Mapreduce-trunk/1459/])\n    YARN-693. Modified RM to send NMTokens on allocate call so that AMs can then use them for authentication with NMs. Contributed by Omkar Vinit Joshi. (Revision 1493448)\n\n     Result = FAILURE\nvinodkv : http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1493448\nFiles : \n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/protocolrecords/AllocateResponse.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/protocolrecords/impl/pb/AllocateResponsePBImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/records/NMToken.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/records/impl/pb/NMTokenPBImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/proto/yarn_service_protos.proto\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClient.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClientAsync.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClientImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/test/java/org/apache/hadoop/yarn/client/TestAMRMClient.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/test/java/org/apache/hadoop/yarn/client/TestAMRMClientAsync.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/java/org/apache/hadoop/yarn/security/NMTokenIdentifier.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-common/src/main/java/org/apache/hadoop/yarn/server/security/BaseContainerTokenSecretManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-common/src/main/java/org/apache/hadoop/yarn/server/security/BaseNMTokenSecretManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/ApplicationMasterService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/ResourceTrackerService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/security/NMTokenSecretManagerInRM.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/MockAM.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/TestRM.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-06-16T14:07:42.057+0000",
+            "updated": "2013-06-16T14:07:42.057+0000"
+          }
+        ],
+        "maxResults": 13,
+        "total": 13,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-693/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2013-12-18T05:35:51.195+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+        "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+        "name": "Closed",
+        "id": "6",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 13,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13681844",
+        "id": "13681844",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+          "name": "ojoshi",
+          "key": "ojoshi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+          },
+          "displayName": "Omkar Vinit Joshi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "All the scenarios for issuing NMToken in description are handled and unit test is added TestRM.testNMToken. Also changes are made to AMRMClient to expose  received tokens on allocate call.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+          "name": "ojoshi",
+          "key": "ojoshi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+          },
+          "displayName": "Omkar Vinit Joshi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-06-13T01:58:52.822+0000",
+        "updated": "2013-06-13T01:58:52.822+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13682547",
+        "id": "13682547",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+          "name": "ojoshi",
+          "key": "ojoshi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+          },
+          "displayName": "Omkar Vinit Joshi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "rebasing patch after YARN-117",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+          "name": "ojoshi",
+          "key": "ojoshi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+          },
+          "displayName": "Omkar Vinit Joshi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-06-13T18:46:53.636+0000",
+        "updated": "2013-06-13T18:46:53.636+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13683832",
+        "id": "13683832",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "The MR changes can be moved to YARN-694 or its MR companion.\n\nSome comments on the patch:\n - NMToken should be in org.apache.hadoop.yarn.api.records.\n - Similarly NMTokenPBIMpl in org.apache.hadoop.yarn.api.records.impl.pb.\n - The correct place for calling register and unregister with NMTokenSecretManagerInRM is RMAppAttemptImpl.\n - Static factory for NMToken?\n - And then use the above in NMTokenSecretManagerInRM.\n - AMRMClient signature can just have a ConcurrentMap instead of ConcurrentHashMap.\n - TestAMRMClient: Also validate NMTokens <= nodeCount ?\n\nI suppose that the test to verify that the previously given out tokens before roll-over will work after roll-over is in YARN-694, right?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2013-06-14T21:49:08.265+0000",
+        "updated": "2013-06-14T21:49:08.265+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13684041",
+        "id": "13684041",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+          "name": "ojoshi",
+          "key": "ojoshi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+          },
+          "displayName": "Omkar Vinit Joshi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "bq. NMToken should be in org.apache.hadoop.yarn.api.records.\n\nbq. Similarly NMTokenPBIMpl in org.apache.hadoop.yarn.api.records.impl.pb.\nfixed.\n\n\nbq. AMRMClient signature can just have a ConcurrentMap instead of ConcurrentHashMap.\n\nfixed.\n\nbq. I suppose that the test to verify that the previously given out tokens before roll-over will work after roll-over is in YARN-694, right?\nyes there are more scenarios which will be tested in YARN-694.\n\nbq. TestAMRMClient: Also validate NMTokens <= nodeCount ?\nfixed.\n\nbq. Static factory for NMToken?\nbq. And then use the above in NMTokenSecretManagerInRM.\nfixed. added static method in NMTokenIdentifier.newNMToken.\n\nbq. The MR changes can be moved to YARN-694 or its MR companion.\nI have commented out the code. will uncomment it after YARN-694 :)\n\nbq. The correct place for calling register and unregister with NMTokenSecretManagerInRM is RMAppAttemptImpl.\nI think ApplicationMasterService looks good as it is easier to follow. keeping it in ApplicationMasterService only.\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+          "name": "ojoshi",
+          "key": "ojoshi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+          },
+          "displayName": "Omkar Vinit Joshi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-06-15T02:55:12.458+0000",
+        "updated": "2013-06-15T02:55:12.458+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13684053",
+        "id": "13684053",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12587950/YARN-693-20130614.1.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 4 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:red}-1 findbugs{color}.  The patch appears to introduce 2 new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:red}-1 core tests{color}.  The patch failed these unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager:\n\n                  org.apache.hadoop.yarn.client.TestNMClient\n                  org.apache.hadoop.yarn.client.TestAMRMClient\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/1257//testReport/\nFindbugs warnings: https://builds.apache.org/job/PreCommit-YARN-Build/1257//artifact/trunk/patchprocess/newPatchFindbugsWarningshadoop-yarn-api.html\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/1257//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-06-15T04:04:58.160+0000",
+        "updated": "2013-06-15T04:04:58.160+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13684416",
+        "id": "13684416",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "I meant creating a newInstance method in NMToken.java. Once you do that, NMTokenSecretManagerInRM.getNMTokens can use that API. We shouldn't be directly using {{new NMTokenPBImpl()}}.\n\nAlso, NMTokenIdentifier.newNMToken() is better placed in NMTokenSecretManagerInRM as RM is where NMTokens are created.\n\nAlso please fix the tests and find-bugs warnings.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2013-06-15T20:34:01.099+0000",
+        "updated": "2013-06-15T20:34:01.099+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13684532",
+        "id": "13684532",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+          "name": "ojoshi",
+          "key": "ojoshi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+          },
+          "displayName": "Omkar Vinit Joshi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Fixed TestCases and find bug warnings..\n\nbq. I meant creating a newInstance method in NMToken.java. Once you do that, NMTokenSecretManagerInRM.getNMTokens can use that API. We shouldn't be directly using new NMTokenPBImpl().\n\nFixed it.\n\nbq. Also, NMTokenIdentifier.newNMToken() is better placed in NMTokenSecretManagerInRM as RM is where NMTokens are created.\n\nfixed\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ojoshi",
+          "name": "ojoshi",
+          "key": "ojoshi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ojoshi&avatarId=16634",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ojoshi&avatarId=16634",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ojoshi&avatarId=16634",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ojoshi&avatarId=16634"
+          },
+          "displayName": "Omkar Vinit Joshi",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-06-16T00:39:27.599+0000",
+        "updated": "2013-06-16T00:39:27.599+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13684538",
+        "id": "13684538",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12588000/YARN-693-20130615.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 4 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/1263//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/1263//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-06-16T01:05:41.644+0000",
+        "updated": "2013-06-16T01:05:41.644+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13684552",
+        "id": "13684552",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "+1. Checked this in to trunk, branch-2 and branch-2.1. Thanks Omkar!",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2013-06-16T03:13:09.695+0000",
+        "updated": "2013-06-16T03:13:09.695+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13684555",
+        "id": "13684555",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Integrated in Hadoop-trunk-Commit #3935 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/3935/])\n    YARN-693. Modified RM to send NMTokens on allocate call so that AMs can then use them for authentication with NMs. Contributed by Omkar Vinit Joshi. (Revision 1493448)\n\n     Result = SUCCESS\nvinodkv : http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1493448\nFiles : \n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/protocolrecords/AllocateResponse.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/protocolrecords/impl/pb/AllocateResponsePBImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/records/NMToken.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/records/impl/pb/NMTokenPBImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/proto/yarn_service_protos.proto\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClient.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClientAsync.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClientImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/test/java/org/apache/hadoop/yarn/client/TestAMRMClient.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/test/java/org/apache/hadoop/yarn/client/TestAMRMClientAsync.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/java/org/apache/hadoop/yarn/security/NMTokenIdentifier.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-common/src/main/java/org/apache/hadoop/yarn/server/security/BaseContainerTokenSecretManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-common/src/main/java/org/apache/hadoop/yarn/server/security/BaseNMTokenSecretManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/ApplicationMasterService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/ResourceTrackerService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/security/NMTokenSecretManagerInRM.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/MockAM.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/TestRM.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-06-16T03:26:14.855+0000",
+        "updated": "2013-06-16T03:26:14.855+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13684619",
+        "id": "13684619",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Integrated in Hadoop-Yarn-trunk #242 (See [https://builds.apache.org/job/Hadoop-Yarn-trunk/242/])\n    YARN-693. Modified RM to send NMTokens on allocate call so that AMs can then use them for authentication with NMs. Contributed by Omkar Vinit Joshi. (Revision 1493448)\n\n     Result = SUCCESS\nvinodkv : http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1493448\nFiles : \n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/protocolrecords/AllocateResponse.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/protocolrecords/impl/pb/AllocateResponsePBImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/records/NMToken.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/records/impl/pb/NMTokenPBImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/proto/yarn_service_protos.proto\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClient.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClientAsync.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClientImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/test/java/org/apache/hadoop/yarn/client/TestAMRMClient.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/test/java/org/apache/hadoop/yarn/client/TestAMRMClientAsync.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/java/org/apache/hadoop/yarn/security/NMTokenIdentifier.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-common/src/main/java/org/apache/hadoop/yarn/server/security/BaseContainerTokenSecretManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-common/src/main/java/org/apache/hadoop/yarn/server/security/BaseNMTokenSecretManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/ApplicationMasterService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/ResourceTrackerService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/security/NMTokenSecretManagerInRM.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/MockAM.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/TestRM.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-06-16T10:53:23.384+0000",
+        "updated": "2013-06-16T10:53:23.384+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13684648",
+        "id": "13684648",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Integrated in Hadoop-Hdfs-trunk #1432 (See [https://builds.apache.org/job/Hadoop-Hdfs-trunk/1432/])\n    YARN-693. Modified RM to send NMTokens on allocate call so that AMs can then use them for authentication with NMs. Contributed by Omkar Vinit Joshi. (Revision 1493448)\n\n     Result = FAILURE\nvinodkv : http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1493448\nFiles : \n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/protocolrecords/AllocateResponse.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/protocolrecords/impl/pb/AllocateResponsePBImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/records/NMToken.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/records/impl/pb/NMTokenPBImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/proto/yarn_service_protos.proto\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClient.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClientAsync.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClientImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/test/java/org/apache/hadoop/yarn/client/TestAMRMClient.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/test/java/org/apache/hadoop/yarn/client/TestAMRMClientAsync.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/java/org/apache/hadoop/yarn/security/NMTokenIdentifier.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-common/src/main/java/org/apache/hadoop/yarn/server/security/BaseContainerTokenSecretManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-common/src/main/java/org/apache/hadoop/yarn/server/security/BaseNMTokenSecretManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/ApplicationMasterService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/ResourceTrackerService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/security/NMTokenSecretManagerInRM.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/MockAM.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/TestRM.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-06-16T13:05:31.931+0000",
+        "updated": "2013-06-16T13:05:31.931+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12648078/comment/13684669",
+        "id": "13684669",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Integrated in Hadoop-Mapreduce-trunk #1459 (See [https://builds.apache.org/job/Hadoop-Mapreduce-trunk/1459/])\n    YARN-693. Modified RM to send NMTokens on allocate call so that AMs can then use them for authentication with NMs. Contributed by Omkar Vinit Joshi. (Revision 1493448)\n\n     Result = FAILURE\nvinodkv : http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1493448\nFiles : \n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/protocolrecords/AllocateResponse.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/protocolrecords/impl/pb/AllocateResponsePBImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/records/NMToken.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/api/records/impl/pb/NMTokenPBImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/proto/yarn_service_protos.proto\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClient.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClientAsync.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/AMRMClientImpl.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/test/java/org/apache/hadoop/yarn/client/TestAMRMClient.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/test/java/org/apache/hadoop/yarn/client/TestAMRMClientAsync.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/java/org/apache/hadoop/yarn/security/NMTokenIdentifier.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-common/src/main/java/org/apache/hadoop/yarn/server/security/BaseContainerTokenSecretManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-common/src/main/java/org/apache/hadoop/yarn/server/security/BaseNMTokenSecretManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/ApplicationMasterService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/ResourceTrackerService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/security/NMTokenSecretManagerInRM.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/MockAM.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/TestRM.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-06-16T14:07:42.057+0000",
+        "updated": "2013-06-16T14:07:42.057+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-693/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 13,
+        "returned": 13
+      }
+    ]
+  }
+}

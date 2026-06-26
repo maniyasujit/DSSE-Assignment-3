@@ -1,0 +1,315 @@
+{
+  "downloaded_at": "2026-06-25T10:19:09.781346+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-8639",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8639?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13177930",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13177930",
+    "key": "YARN-8639",
+    "fields": {
+      "summary": "Sort queue and apps in fair schduler using a separate thread",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12325004",
+          "id": "12325004",
+          "name": "yarn"
+        }
+      ],
+      "subtasks": [],
+      "created": "2018-08-09T09:48:51.585+0000",
+      "description": "If fair scheduler have many queue and each queue have many active applications .\r\n\r\nFor each assignContainer function, we need to sort all the queue, and all the applications in each queue. For a large system,this may be cost too much time. So we can sort the queue and applications\u00a0using a separate thread asynchronous.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/4",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/minor.svg",
+        "name": "Minor",
+        "id": "4"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13177930/comment/16575302",
+            "id": "16575302",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=yufeigu",
+              "name": "yufeigu",
+              "key": "yufeigu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34055",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34055",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34055",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34055"
+              },
+              "displayName": "Yufei Gu",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "We need to quantify a little bit before we'd make any non-trivial change. How many sub-queues/applications will be considered as too many, and cause performance issue. The result won't only justify why we need the change but also provide the guideline to tuning the queue settings. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=yufeigu",
+              "name": "yufeigu",
+              "key": "yufeigu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34055",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34055",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34055",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34055"
+              },
+              "displayName": "Yufei Gu",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-08-09T19:39:39.746+0000",
+            "updated": "2018-08-09T19:39:39.746+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13177930/comment/16575646",
+            "id": "16575646",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=wankunde",
+              "name": "wankunde",
+              "key": "wankunde",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "wan kun",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "[~yufeigu] I'm sorry, I find the sort operation costing too much time in my product environment. But our hadoop version is too old. The newly code change to use TreeSet\u00a0 instead of Collections.sort() method,and only deal with the applications which have resource request.\u00a0The sort operation will be more faster. But this is still a possible problem in the future.\r\n\r\nNow I don't know how many applications will be considered as too many .\r\n\r\n\u00a0\r\n\r\nMaybe this issue can be closed.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=wankunde",
+              "name": "wankunde",
+              "key": "wankunde",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "wan kun",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2018-08-10T01:29:56.736+0000",
+            "updated": "2018-08-10T01:29:56.736+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13177930/comment/16575926",
+            "id": "16575926",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=yufeigu",
+              "name": "yufeigu",
+              "key": "yufeigu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34055",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34055",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34055",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34055"
+              },
+              "displayName": "Yufei Gu",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Close it or take this chance to do a little bit test. Either way works for me.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=yufeigu",
+              "name": "yufeigu",
+              "key": "yufeigu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34055",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34055",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34055",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34055"
+              },
+              "displayName": "Yufei Gu",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-08-10T08:15:32.771+0000",
+            "updated": "2018-08-10T08:15:32.771+0000"
+          }
+        ],
+        "maxResults": 3,
+        "total": 3,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8639/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2018-08-10T08:15:32.771+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 3,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13177930/comment/16575302",
+        "id": "16575302",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=yufeigu",
+          "name": "yufeigu",
+          "key": "yufeigu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34055",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34055",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34055",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34055"
+          },
+          "displayName": "Yufei Gu",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "We need to quantify a little bit before we'd make any non-trivial change. How many sub-queues/applications will be considered as too many, and cause performance issue. The result won't only justify why we need the change but also provide the guideline to tuning the queue settings. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=yufeigu",
+          "name": "yufeigu",
+          "key": "yufeigu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34055",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34055",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34055",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34055"
+          },
+          "displayName": "Yufei Gu",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-08-09T19:39:39.746+0000",
+        "updated": "2018-08-09T19:39:39.746+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13177930/comment/16575646",
+        "id": "16575646",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=wankunde",
+          "name": "wankunde",
+          "key": "wankunde",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "wan kun",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "[~yufeigu] I'm sorry, I find the sort operation costing too much time in my product environment. But our hadoop version is too old. The newly code change to use TreeSet\u00a0 instead of Collections.sort() method,and only deal with the applications which have resource request.\u00a0The sort operation will be more faster. But this is still a possible problem in the future.\r\n\r\nNow I don't know how many applications will be considered as too many .\r\n\r\n\u00a0\r\n\r\nMaybe this issue can be closed.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=wankunde",
+          "name": "wankunde",
+          "key": "wankunde",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "wan kun",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2018-08-10T01:29:56.736+0000",
+        "updated": "2018-08-10T01:29:56.736+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13177930/comment/16575926",
+        "id": "16575926",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=yufeigu",
+          "name": "yufeigu",
+          "key": "yufeigu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34055",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34055",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34055",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34055"
+          },
+          "displayName": "Yufei Gu",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Close it or take this chance to do a little bit test. Either way works for me.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=yufeigu",
+          "name": "yufeigu",
+          "key": "yufeigu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34055",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34055",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34055",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34055"
+          },
+          "displayName": "Yufei Gu",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-08-10T08:15:32.771+0000",
+        "updated": "2018-08-10T08:15:32.771+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8639/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 3,
+        "returned": 3
+      }
+    ]
+  }
+}

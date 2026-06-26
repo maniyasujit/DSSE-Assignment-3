@@ -1,0 +1,1425 @@
+{
+  "downloaded_at": "2026-06-25T10:23:03.761871+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-2257",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2257?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12725693",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693",
+    "key": "YARN-2257",
+    "fields": {
+      "summary": "Add user to queue mappings to automatically place users' apps into specific queues",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319325",
+          "id": "12319325",
+          "name": "scheduler"
+        }
+      ],
+      "subtasks": [],
+      "created": "2014-07-07T08:05:25.176+0000",
+      "description": "Currently, the fair-scheduler supports two modes, default queue or individual queue for each user.\nApparently, the default queue is not a good option, because the resources cannot be managed for each user or group.\nHowever, individual queue for each user is not good enough. Especially when connecting yarn with hive. There will be increasing hive users in a corporate environment. If we create a queue for a user, the resource management will be hard to maintain.\n\nI think the problem can be solved like this:\n1. Define user->queue mapping in Fair-Scheduler.xml. Inside each queue, use aclSubmitApps to control user's ability.\n2. Each time a user submit an app to yarn, if the user has mapped to a queue, the app will be scheduled to that queue; otherwise, the app will be submitted to default queue.\n3. If the user cannot pass aclSubmitApps limits, the app will not be accepted.\n\n",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/3",
+        "id": "3",
+        "description": "The problem is a duplicate of an existing issue.",
+        "name": "Duplicate"
+      },
+      "labels": [
+        "features"
+      ],
+      "attachment": [],
+      "issuelinks": [
+        {
+          "id": "12557548",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12557548",
+          "type": {
+            "id": "12310060",
+            "name": "Container",
+            "inward": "Is contained by",
+            "outward": "contains",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310060"
+          },
+          "inwardIssue": {
+            "id": "13195881",
+            "key": "YARN-8967",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13195881",
+            "fields": {
+              "summary": "Change FairScheduler to use PlacementRule interface",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+                "id": "4",
+                "description": "An improvement or enhancement to an existing feature or task.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+                "name": "Improvement",
+                "subtask": false,
+                "avatarId": 21140
+              }
+            }
+          }
+        },
+        {
+          "id": "12423367",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12423367",
+          "type": {
+            "id": "12310010",
+            "name": "Incorporates",
+            "inward": "is part of",
+            "outward": "incorporates",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310010"
+          },
+          "outwardIssue": {
+            "id": "12733543",
+            "key": "YARN-2411",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12733543",
+            "fields": {
+              "summary": "[Capacity Scheduler] support simple user and group mappings to queues",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                "name": "Closed",
+                "id": "6",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+                "id": "4",
+                "description": "An improvement or enhancement to an existing feature or task.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+                "name": "Improvement",
+                "subtask": false,
+                "avatarId": 21140
+              }
+            }
+          }
+        },
+        {
+          "id": "12543462",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12543462",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "inwardIssue": {
+            "id": "13185954",
+            "key": "YARN-8792",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13185954",
+            "fields": {
+              "summary": "Revisit FairScheduler QueuePlacementPolicy ",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+                "id": "4",
+                "description": "An improvement or enhancement to an existing feature or task.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+                "name": "Improvement",
+                "subtask": false,
+                "avatarId": 21140
+              }
+            }
+          }
+        },
+        {
+          "id": "12544249",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12544249",
+          "type": {
+            "id": "12310051",
+            "name": "Supercedes",
+            "inward": "is superceded by",
+            "outward": "supercedes",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310051"
+          },
+          "inwardIssue": {
+            "id": "13185956",
+            "key": "YARN-8794",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13185956",
+            "fields": {
+              "summary": "QueuePlacementPolicy add more rules",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/10002",
+                "description": "A patch for this issue has been uploaded to JIRA by a contributor.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/document.png",
+                "name": "Patch Available",
+                "id": "10002",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+                  "id": 4,
+                  "key": "indeterminate",
+                  "colorName": "yellow",
+                  "name": "In Progress"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14053846",
+            "id": "14053846",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Definitely needed.  This should be implemented as a QueuePlacementRule.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-07-07T16:51:33.544+0000",
+            "updated": "2014-07-07T16:51:33.544+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14054117",
+            "id": "14054117",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Some part of this is a core YARN feature and shouldn't be built for each scheduler - the part about maintaining a user-queue mappings and then accepting submissions from users automatically to those queues. The configuration can be per scheduler.\n\nI propose we fix it in general. Will edit the subject if there is no disagreement.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2014-07-07T19:54:56.414+0000",
+            "updated": "2014-07-07T19:54:56.414+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14054157",
+            "id": "14054157",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+              "name": "kkambatl",
+              "key": "kkambatl",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": false,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Agree with both Sandy and Vinod. It looks like there is merit to making the QueuePlacementRule general to support all schedulers? ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+              "name": "kkambatl",
+              "key": "kkambatl",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": false,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-07-07T20:18:00.815+0000",
+            "updated": "2014-07-07T20:18:00.815+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14054595",
+            "id": "14054595",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Thanks, I just edited the title. We may need sub-tasks later for scheduler specific stuff, but the core infra first!\n\nOne more thing I'd like to add: In the list of queues against a given user, we should have a concept of a user-specific default. And by extension, the ability to let users change their own defaults.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2014-07-08T07:11:19.690+0000",
+            "updated": "2014-07-08T07:11:19.690+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14054596",
+            "id": "14054596",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Assigning this to myself. Will post the first patch set. [~Patrick Liu], let me know if you yourself wanted to work on it.. Tx..",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2014-07-08T07:16:28.572+0000",
+            "updated": "2014-07-08T07:16:28.572+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14054617",
+            "id": "14054617",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "To add some background: since MR1, the Fair Scheduler has been able to place apps into queues named with the username or group of the submitter.  Last year, YARN-1392 extended this to accept more general policies  - essentially any function of (submitter's username, submitter's groups, requested queue), with a structure that allows phrasing the policy in terms of simple rules and fallbacks.\n\nThis generality is useful because different organizations have a variety of ways they organize their users on their Hadoop clusters.  Some administrators want to be able to decide which queue a user's job goes into by placing them into a unix group, while others want a queue for every user, with the option for certain users to intentionally submit their jobs to certain queues.  The Fair Scheduler also in particular has need for some added complexity here, because it models users within a queue with their own queues, unlike the Capacity Scheduler, which has a construct for this.\n\nWe chose to put these queue placement policies in the Fair Scheduler because other schedulers didn't have a precedent for placing apps in queues other than the one requested, but my opinion is that these they could be a useful feature for YARN.  If not, we should at least add user->queue mappings in a way that's compatible with more general mappings.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-07-08T07:47:34.847+0000",
+            "updated": "2014-07-08T07:47:34.847+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14054683",
+            "id": "14054683",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Patrick+Liu",
+              "name": "Patrick Liu",
+              "key": "patrick liu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Patrick Liu",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Thanks for all of your consideration, cause this is my first report.\n \nAgree with both Sandy and Vinod, it is better to add QueuePlacementRule to general framework rather than specific scheduler.\nBesides, I think the user-specific default is a good suggestion. \nCurrently, I use an alias like this  \"alias hive='hive -hiveconf mapreduce.job.queuename=queue_abc\" to start hive.\nWith user-specific default queue, this effort can be saved. And it makes configurations more maintainable.\n\nIt's difficult for me to make the patch since I just started reading hadoop code. [~vinodkv] please do it. Many thanks.\n\n ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Patrick+Liu",
+              "name": "Patrick Liu",
+              "key": "patrick liu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Patrick Liu",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2014-07-08T09:15:28.137+0000",
+            "updated": "2014-07-08T09:15:28.137+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14054818",
+            "id": "14054818",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Patrick+Liu",
+              "name": "Patrick Liu",
+              "key": "patrick liu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Patrick Liu",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Hi, [~vinodkv].\nAlthough I am new, I want challenges. And I will follow this thread. If I am capable of handling it, I will try.\nI am using hadoop2.0.0-cdh4.6.0. If I want to fix this issue, which version should I download and try fix?\n\nIf we want to add the user->queue mapping ability in fair-scheduler, I think we should enhance the QueueManagerInfo, and add a map containing user->queue mapping in QueueManager.\nThe mapping will only affect the process when a new application submitted, so the 'handle' method in FairScheduler will be modified.\nWe can add a new method when 'APP_ADDED' occurred, and dispatch the app to the given queue defined in user->queue map.\n\nHowever as [~kkambatl] suggested, we should transfer QueuePlacementRule feature to yarn. \nIf so, how many existing features will be affected?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Patrick+Liu",
+              "name": "Patrick Liu",
+              "key": "patrick liu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Patrick Liu",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2014-07-08T10:49:53.770+0000",
+            "updated": "2014-07-08T10:49:53.770+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14057339",
+            "id": "14057339",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Patrick+Liu",
+              "name": "Patrick Liu",
+              "key": "patrick liu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Patrick Liu",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Hi, Vinod,\nI think we could inject the user->queue mapping judgement in 'RMAppManager's method 'protected synchronized void submitApplication':\n      // Sanity checks\n      if (submissionContext.getQueue() == null) {\n        submissionContext.setQueue(YarnConfiguration.DEFAULT_QUEUE_NAME);\n      }\n      if (submissionContext.getApplicationName() == null) {\n        submissionContext.setApplicationName(\n            YarnConfiguration.DEFAULT_APPLICATION_NAME);\n      }\nAll applications submitted to yarn will be launched by 'RMAppManager'.\n'RMAppManager' will do sanity check, create a 'RMAppImpl' instance, and finally send the 'new RMAppEvent(applicationId, RMAppEventType.START)' event.\nWhen 'RMAppImpl' received the Event, it will change the state machine and do the transition. The transition will launch the 'RMAppAttemptImpl', and start the 'RMAppAttemptImpl'.\nThen the app will be scheduled by the specific scheduler. \nThe only thing we need to injuect is the QUEUE in the submissionContext.\nLike this:\n// Precondition: set \"user-as-default-queue\" to false in yarn-site.xml\nif(QueuePlacementRule.hasMappingForUser(user)) {\n    submissionContext.setQueue(QueuePlacementRule.getQueue(user));\n} else {\n    submissionContext.setQueue(Default);\n}",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Patrick+Liu",
+              "name": "Patrick Liu",
+              "key": "patrick liu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Patrick Liu",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2014-07-10T10:17:23.156+0000",
+            "updated": "2014-07-10T10:17:23.156+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14058612",
+            "id": "14058612",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Hi [~Patrick Liu],\nThanks for creating this JIRA, I think it's a very useful feature and should be considered to release soon.\n\nTo [~sandyr], I think it's better to make it as a basic module of YARN, other scheduler can all benefit from it. W can simply implement a module can read from configuration, which will return queue of following sequence:\n- If queue defined in ApplicationSubmissionContext, use it,\n- If userA->queueB defined, use queueB\n- If groupA (userA belongs groupA)->queueB defined, use queueB\n- use default queue otherwise.\n\nWe may need consider to create a separated service to load updated user->queue mapping periodical as well. \nAny thoughts?\n\nThanks,\nWangda",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-07-11T10:17:01.162+0000",
+            "updated": "2014-07-11T10:17:01.162+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14060982",
+            "id": "14060982",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Wangda,\n\nThat policy would work well for a some situations, but I don't think it covers many reasonable scenarios.  For example, we might want to ignore the queue that the user defines entirely.  Or admins might want to be able to just send apps to queues named with the user's group, instead of specifying the mapping for every group. Or a subdivision in an organization might want to make placements based on group, while a different subdivision using the same cluster might want to make placements based on user.\n\nWould you mind taking a look at the \"Automatically placing applications in queues\" section and corresponding configuration example in\nhttp://hadoop.apache.org/docs/r2.3.0/hadoop-yarn/hadoop-yarn-site/FairScheduler.html\nMy opinion is that this is a good fit for YARN in general.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-07-14T18:24:36.550+0000",
+            "updated": "2014-07-14T18:24:36.550+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14063721",
+            "id": "14063721",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Hi [~sandyr],\nThanks for pointing me this,\nI have a question here, what's the expected behavior when an admin what's to add a new QueuePlacementRule? I guess a new class need to be added to Hadoop project, and need rebuild Hadoop, right?\nI think it's a little over-kill here, user may want convenient instead of flexibility. If you think the rules I mentioned is not flexible enough, maybe we can extend it to rules with pattern, like %user->root.users.%user which means putting application from %user to root.users.%user. Which maybe easier for admin to add new QueuePlacementRule.\nI agree it's a good fit for YARN in general, but we should make it easier to use. \n\nPlease feel free to let me know you comments, thanks.\nWangda",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-07-16T17:00:25.963+0000",
+            "updated": "2014-07-16T17:00:25.963+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14063749",
+            "id": "14063749",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~wangda] I agree with you that expecting admins to recompile Hadoop is unreasonable.  I don't think we would expect admins to add rules.  The idea is more to have a small library of rules we provide that fit into a common configuration framework.\n\nIf we were to add QueuePlacementRule that accepts a list of user->queue, and wanted to express \"accept the user's queue if they specify it in ApplicationSubmissionContext, otherwise look for a user->queue mapping, if none is found, use the default queue\", configuring it according to the current Fair Scheduler format would look something like this:\n{code}\n<queuePlacementPolicy>\n  <rule name=\"specified\" />\n  <rule name=\"userToQueue\">\n    <mapping name=\"sally\" queue=\"queue1\">\n    <mapping name=\"emilio\" queue=\"queue2>\n  </rule>\n  <rule name=\"default\"/>\n</queuePlacementPolicy>\n{code}",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-07-16T17:21:41.589+0000",
+            "updated": "2014-07-16T17:21:41.589+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14064512",
+            "id": "14064512",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Hi [~sandyr],\nI agree we should have an existing library for queue rules. But I feel like we'd better add simple pattern match mechanism like \"%user->root.users.%user\" I mentioned before. Which will take reasonable effort but can cover more cases, do you agree with that?\n\nThanks,",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-07-17T02:45:12.505+0000",
+            "updated": "2014-07-17T02:45:12.505+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14524022",
+            "id": "14524022",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "In YARN-2411, we have implemented the mapping for CS, which is a sub problem of this jira. Let's incorporate that approach, and work out a common and uniformed solution for bot schedulers. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-01T21:41:01.594+0000",
+            "updated": "2015-05-01T21:41:01.594+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/16802705",
+            "id": "16802705",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=wilfreds",
+              "name": "wilfreds",
+              "key": "wifreds",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=wifreds&avatarId=42439",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=wifreds&avatarId=42439",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=wifreds&avatarId=42439",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=wifreds&avatarId=42439"
+              },
+              "displayName": "Wilfred Spiegelenburg",
+              "active": true,
+              "timeZone": "Australia/Melbourne"
+            },
+            "body": "This has been fixed as part of YARN-8948, YARN-9298 and finally integrated in YARN-8967. Both schedulers use the same placement manager and placement rule code. The rules are different for both schedulers as the FS uses a slightly different setup with rule chaining and creation of queues that do not exist.\r\n\r\nThe fix is in 3.3 and later: marking this as a duplicate of YARN-8967",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=johna",
+              "name": "johna",
+              "key": "banjo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=banjo&avatarId=38464",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=banjo&avatarId=38464",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=banjo&avatarId=38464",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=banjo&avatarId=38464"
+              },
+              "displayName": "John Andrunas",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-03-27T12:06:42.925+0000",
+            "updated": "2020-02-26T05:29:19.334+0000"
+          }
+        ],
+        "maxResults": 16,
+        "total": 16,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2257/votes",
+        "votes": 2,
+        "hasVoted": false
+      },
+      "updated": "2020-02-26T05:29:19.358+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 16,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14053846",
+        "id": "14053846",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Definitely needed.  This should be implemented as a QueuePlacementRule.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-07-07T16:51:33.544+0000",
+        "updated": "2014-07-07T16:51:33.544+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14054117",
+        "id": "14054117",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Some part of this is a core YARN feature and shouldn't be built for each scheduler - the part about maintaining a user-queue mappings and then accepting submissions from users automatically to those queues. The configuration can be per scheduler.\n\nI propose we fix it in general. Will edit the subject if there is no disagreement.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2014-07-07T19:54:56.414+0000",
+        "updated": "2014-07-07T19:54:56.414+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14054157",
+        "id": "14054157",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+          "name": "kkambatl",
+          "key": "kkambatl",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": false,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Agree with both Sandy and Vinod. It looks like there is merit to making the QueuePlacementRule general to support all schedulers? ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+          "name": "kkambatl",
+          "key": "kkambatl",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": false,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-07-07T20:18:00.815+0000",
+        "updated": "2014-07-07T20:18:00.815+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14054595",
+        "id": "14054595",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Thanks, I just edited the title. We may need sub-tasks later for scheduler specific stuff, but the core infra first!\n\nOne more thing I'd like to add: In the list of queues against a given user, we should have a concept of a user-specific default. And by extension, the ability to let users change their own defaults.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2014-07-08T07:11:19.690+0000",
+        "updated": "2014-07-08T07:11:19.690+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14054596",
+        "id": "14054596",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Assigning this to myself. Will post the first patch set. [~Patrick Liu], let me know if you yourself wanted to work on it.. Tx..",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2014-07-08T07:16:28.572+0000",
+        "updated": "2014-07-08T07:16:28.572+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14054617",
+        "id": "14054617",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "To add some background: since MR1, the Fair Scheduler has been able to place apps into queues named with the username or group of the submitter.  Last year, YARN-1392 extended this to accept more general policies  - essentially any function of (submitter's username, submitter's groups, requested queue), with a structure that allows phrasing the policy in terms of simple rules and fallbacks.\n\nThis generality is useful because different organizations have a variety of ways they organize their users on their Hadoop clusters.  Some administrators want to be able to decide which queue a user's job goes into by placing them into a unix group, while others want a queue for every user, with the option for certain users to intentionally submit their jobs to certain queues.  The Fair Scheduler also in particular has need for some added complexity here, because it models users within a queue with their own queues, unlike the Capacity Scheduler, which has a construct for this.\n\nWe chose to put these queue placement policies in the Fair Scheduler because other schedulers didn't have a precedent for placing apps in queues other than the one requested, but my opinion is that these they could be a useful feature for YARN.  If not, we should at least add user->queue mappings in a way that's compatible with more general mappings.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-07-08T07:47:34.847+0000",
+        "updated": "2014-07-08T07:47:34.847+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14054683",
+        "id": "14054683",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Patrick+Liu",
+          "name": "Patrick Liu",
+          "key": "patrick liu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Patrick Liu",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Thanks for all of your consideration, cause this is my first report.\n \nAgree with both Sandy and Vinod, it is better to add QueuePlacementRule to general framework rather than specific scheduler.\nBesides, I think the user-specific default is a good suggestion. \nCurrently, I use an alias like this  \"alias hive='hive -hiveconf mapreduce.job.queuename=queue_abc\" to start hive.\nWith user-specific default queue, this effort can be saved. And it makes configurations more maintainable.\n\nIt's difficult for me to make the patch since I just started reading hadoop code. [~vinodkv] please do it. Many thanks.\n\n ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Patrick+Liu",
+          "name": "Patrick Liu",
+          "key": "patrick liu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Patrick Liu",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2014-07-08T09:15:28.137+0000",
+        "updated": "2014-07-08T09:15:28.137+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14054818",
+        "id": "14054818",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Patrick+Liu",
+          "name": "Patrick Liu",
+          "key": "patrick liu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Patrick Liu",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Hi, [~vinodkv].\nAlthough I am new, I want challenges. And I will follow this thread. If I am capable of handling it, I will try.\nI am using hadoop2.0.0-cdh4.6.0. If I want to fix this issue, which version should I download and try fix?\n\nIf we want to add the user->queue mapping ability in fair-scheduler, I think we should enhance the QueueManagerInfo, and add a map containing user->queue mapping in QueueManager.\nThe mapping will only affect the process when a new application submitted, so the 'handle' method in FairScheduler will be modified.\nWe can add a new method when 'APP_ADDED' occurred, and dispatch the app to the given queue defined in user->queue map.\n\nHowever as [~kkambatl] suggested, we should transfer QueuePlacementRule feature to yarn. \nIf so, how many existing features will be affected?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Patrick+Liu",
+          "name": "Patrick Liu",
+          "key": "patrick liu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Patrick Liu",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2014-07-08T10:49:53.770+0000",
+        "updated": "2014-07-08T10:49:53.770+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14057339",
+        "id": "14057339",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Patrick+Liu",
+          "name": "Patrick Liu",
+          "key": "patrick liu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Patrick Liu",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Hi, Vinod,\nI think we could inject the user->queue mapping judgement in 'RMAppManager's method 'protected synchronized void submitApplication':\n      // Sanity checks\n      if (submissionContext.getQueue() == null) {\n        submissionContext.setQueue(YarnConfiguration.DEFAULT_QUEUE_NAME);\n      }\n      if (submissionContext.getApplicationName() == null) {\n        submissionContext.setApplicationName(\n            YarnConfiguration.DEFAULT_APPLICATION_NAME);\n      }\nAll applications submitted to yarn will be launched by 'RMAppManager'.\n'RMAppManager' will do sanity check, create a 'RMAppImpl' instance, and finally send the 'new RMAppEvent(applicationId, RMAppEventType.START)' event.\nWhen 'RMAppImpl' received the Event, it will change the state machine and do the transition. The transition will launch the 'RMAppAttemptImpl', and start the 'RMAppAttemptImpl'.\nThen the app will be scheduled by the specific scheduler. \nThe only thing we need to injuect is the QUEUE in the submissionContext.\nLike this:\n// Precondition: set \"user-as-default-queue\" to false in yarn-site.xml\nif(QueuePlacementRule.hasMappingForUser(user)) {\n    submissionContext.setQueue(QueuePlacementRule.getQueue(user));\n} else {\n    submissionContext.setQueue(Default);\n}",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Patrick+Liu",
+          "name": "Patrick Liu",
+          "key": "patrick liu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Patrick Liu",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2014-07-10T10:17:23.156+0000",
+        "updated": "2014-07-10T10:17:23.156+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14058612",
+        "id": "14058612",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Hi [~Patrick Liu],\nThanks for creating this JIRA, I think it's a very useful feature and should be considered to release soon.\n\nTo [~sandyr], I think it's better to make it as a basic module of YARN, other scheduler can all benefit from it. W can simply implement a module can read from configuration, which will return queue of following sequence:\n- If queue defined in ApplicationSubmissionContext, use it,\n- If userA->queueB defined, use queueB\n- If groupA (userA belongs groupA)->queueB defined, use queueB\n- use default queue otherwise.\n\nWe may need consider to create a separated service to load updated user->queue mapping periodical as well. \nAny thoughts?\n\nThanks,\nWangda",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-07-11T10:17:01.162+0000",
+        "updated": "2014-07-11T10:17:01.162+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14060982",
+        "id": "14060982",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Wangda,\n\nThat policy would work well for a some situations, but I don't think it covers many reasonable scenarios.  For example, we might want to ignore the queue that the user defines entirely.  Or admins might want to be able to just send apps to queues named with the user's group, instead of specifying the mapping for every group. Or a subdivision in an organization might want to make placements based on group, while a different subdivision using the same cluster might want to make placements based on user.\n\nWould you mind taking a look at the \"Automatically placing applications in queues\" section and corresponding configuration example in\nhttp://hadoop.apache.org/docs/r2.3.0/hadoop-yarn/hadoop-yarn-site/FairScheduler.html\nMy opinion is that this is a good fit for YARN in general.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-07-14T18:24:36.550+0000",
+        "updated": "2014-07-14T18:24:36.550+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14063721",
+        "id": "14063721",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Hi [~sandyr],\nThanks for pointing me this,\nI have a question here, what's the expected behavior when an admin what's to add a new QueuePlacementRule? I guess a new class need to be added to Hadoop project, and need rebuild Hadoop, right?\nI think it's a little over-kill here, user may want convenient instead of flexibility. If you think the rules I mentioned is not flexible enough, maybe we can extend it to rules with pattern, like %user->root.users.%user which means putting application from %user to root.users.%user. Which maybe easier for admin to add new QueuePlacementRule.\nI agree it's a good fit for YARN in general, but we should make it easier to use. \n\nPlease feel free to let me know you comments, thanks.\nWangda",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-07-16T17:00:25.963+0000",
+        "updated": "2014-07-16T17:00:25.963+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14063749",
+        "id": "14063749",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~wangda] I agree with you that expecting admins to recompile Hadoop is unreasonable.  I don't think we would expect admins to add rules.  The idea is more to have a small library of rules we provide that fit into a common configuration framework.\n\nIf we were to add QueuePlacementRule that accepts a list of user->queue, and wanted to express \"accept the user's queue if they specify it in ApplicationSubmissionContext, otherwise look for a user->queue mapping, if none is found, use the default queue\", configuring it according to the current Fair Scheduler format would look something like this:\n{code}\n<queuePlacementPolicy>\n  <rule name=\"specified\" />\n  <rule name=\"userToQueue\">\n    <mapping name=\"sally\" queue=\"queue1\">\n    <mapping name=\"emilio\" queue=\"queue2>\n  </rule>\n  <rule name=\"default\"/>\n</queuePlacementPolicy>\n{code}",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-07-16T17:21:41.589+0000",
+        "updated": "2014-07-16T17:21:41.589+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14064512",
+        "id": "14064512",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Hi [~sandyr],\nI agree we should have an existing library for queue rules. But I feel like we'd better add simple pattern match mechanism like \"%user->root.users.%user\" I mentioned before. Which will take reasonable effort but can cover more cases, do you agree with that?\n\nThanks,",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-07-17T02:45:12.505+0000",
+        "updated": "2014-07-17T02:45:12.505+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/14524022",
+        "id": "14524022",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "In YARN-2411, we have implemented the mapping for CS, which is a sub problem of this jira. Let's incorporate that approach, and work out a common and uniformed solution for bot schedulers. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-01T21:41:01.594+0000",
+        "updated": "2015-05-01T21:41:01.594+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12725693/comment/16802705",
+        "id": "16802705",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=wilfreds",
+          "name": "wilfreds",
+          "key": "wifreds",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=wifreds&avatarId=42439",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=wifreds&avatarId=42439",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=wifreds&avatarId=42439",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=wifreds&avatarId=42439"
+          },
+          "displayName": "Wilfred Spiegelenburg",
+          "active": true,
+          "timeZone": "Australia/Melbourne"
+        },
+        "body": "This has been fixed as part of YARN-8948, YARN-9298 and finally integrated in YARN-8967. Both schedulers use the same placement manager and placement rule code. The rules are different for both schedulers as the FS uses a slightly different setup with rule chaining and creation of queues that do not exist.\r\n\r\nThe fix is in 3.3 and later: marking this as a duplicate of YARN-8967",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=johna",
+          "name": "johna",
+          "key": "banjo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=banjo&avatarId=38464",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=banjo&avatarId=38464",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=banjo&avatarId=38464",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=banjo&avatarId=38464"
+          },
+          "displayName": "John Andrunas",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-03-27T12:06:42.925+0000",
+        "updated": "2020-02-26T05:29:19.334+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2257/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 16,
+        "returned": 16
+      }
+    ]
+  }
+}

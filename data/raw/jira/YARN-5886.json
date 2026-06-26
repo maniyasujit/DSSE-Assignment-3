@@ -1,0 +1,416 @@
+{
+  "downloaded_at": "2026-06-25T10:20:34.188963+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-5886",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5886?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13020882",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13020882",
+    "key": "YARN-5886",
+    "fields": {
+      "summary": "Dynamically prioritize execution of opportunistic containers (NM queue reordering)",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12998596",
+        "key": "YARN-5541",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12998596",
+        "fields": {
+          "summary": "Handling of opportunistic containers in the NM",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+            "description": "The issue is open and ready for the assignee to start work on it.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+            "name": "Open",
+            "id": "1",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+            "id": "2",
+            "description": "A new feature of the product, which has yet to be developed.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+            "name": "New Feature",
+            "subtask": false,
+            "avatarId": 21141
+          }
+        }
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2016-11-15T18:44:30.249+0000",
+      "description": "Currently the {{ContainerScheduler}} in the NM picks the next queued opportunistic container to be executed in a FIFO manner. That is, we first execute containers that arrived first at the NM.\n\nThis JIRA proposes to add pluggable queue reordering strategies at the NM that will dynamically determine which opportunistic container will be executed next.\nFor example, we can choose to prioritize containers that belong to jobs which are closer to completion, or containers that are short-running (if such information is available).",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13020882/comment/15677774",
+            "id": "15677774",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cxcw",
+              "name": "cxcw",
+              "key": "cxcw",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Wei Chen",
+              "active": true,
+              "timeZone": "America/Denver"
+            },
+            "body": "hi, \nThis feature is very interesting. And also Microsoft also published a paper in ATC to talk about this feature. Here is some of my concerns.\n\n1. How the local NM CotnaienrScheduler coordinate with global scheduler. since global scheduler will try to keep fair and grarantee share across the applications(queue).\n\n2. Nodemanger may not know(or estimate) the runtime for queued container. Falsely estimation(mistake a long-running as a short-running) may cause serious results.(inverse priority?)",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cxcw",
+              "name": "cxcw",
+              "key": "cxcw",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Wei Chen",
+              "active": true,
+              "timeZone": "America/Denver"
+            },
+            "created": "2016-11-18T21:17:46.171+0000",
+            "updated": "2016-11-18T21:17:46.171+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13020882/comment/15706181",
+            "id": "15706181",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+              "name": "kkaranasos",
+              "key": "kkaranasos",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+              },
+              "displayName": "Konstantinos Karanasos",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thank you for the feedback, [~cxcw].\n\nbq. And also Microsoft also published a paper in ATC to talk about this feature. Here is some of my concerns.\nWhich paper are you referring too? We had a paper in EuroSys 2016 (\"Efficient Queue Management for Cluster Scheduling\"), in which we are investigating different queue reordering strategies, along with other techniques for efficient queue management (queue sizing, placement, etc.). We called the system Yaq (we had both a centralized and a distributed scheduling version). Is that the paper you meant?\nMany of the techniques we are planning to add here will originate from Yaq.\n\nbq. 1. How the local NM CotnaienrScheduler coordinate with global scheduler. since global scheduler will try to keep fair and grarantee share across the applications(queue).\nSo the way we are planning to do this is by letting the global scheduler send the tasks to the nodes. Then the reordering happens only locally at each node (only for the tasks that are queued at the moment). Note that reordering is done only for opportunistic containers (guaranteed are not allowed to be queued). This way we are not affecting the fairness guarantees of guaranteed containers.\nIf we want to do fairness across opportunistic containers, we will need some additional techniques (we did this through a timeout in the EuroSys paper).\nDoes this make sense or you had something else in mind?\n\nbq. 2. Nodemanger may not know(or estimate) the runtime for queued container. Falsely estimation(mistake a long-running as a short-running) may cause serious results.(inverse priority?)\nThat is a good point. In the initial strategies, we are planning to not take into account the task duration (because it might not always be available or might be imprecise like you say). One way is to take into account the progress of the job, in terms of tasks completed. Later, if we introduce task durations, we can have even better strategies. But we will have to make sure we are robust in case of mis-estimations.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+              "name": "kkaranasos",
+              "key": "kkaranasos",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+              },
+              "displayName": "Konstantinos Karanasos",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-11-29T18:53:11.909+0000",
+            "updated": "2016-11-29T18:53:11.909+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13020882/comment/16728286",
+            "id": "16728286",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+              "name": "abmodi",
+              "key": "abmodi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+              },
+              "displayName": "Abhishek Modi",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "[~kkaranasos] if you are not actively working on this, can I take this up.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+              "name": "abmodi",
+              "key": "abmodi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+              },
+              "displayName": "Abhishek Modi",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2018-12-24T09:17:50.327+0000",
+            "updated": "2018-12-24T09:17:50.327+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13020882/comment/16729564",
+            "id": "16729564",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+              "name": "kkaranasos",
+              "key": "kkaranasos",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+              },
+              "displayName": "Konstantinos Karanasos",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Hi [~abmodi], I am not currently working on this\u00a0\u2013 feel free to take over.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+              "name": "kkaranasos",
+              "key": "kkaranasos",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+              },
+              "displayName": "Konstantinos Karanasos",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-12-27T12:10:41.569+0000",
+            "updated": "2018-12-27T12:10:41.569+0000"
+          }
+        ],
+        "maxResults": 4,
+        "total": 4,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5886/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2018-12-27T15:31:17.853+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 4,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13020882/comment/15677774",
+        "id": "15677774",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cxcw",
+          "name": "cxcw",
+          "key": "cxcw",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Wei Chen",
+          "active": true,
+          "timeZone": "America/Denver"
+        },
+        "body": "hi, \nThis feature is very interesting. And also Microsoft also published a paper in ATC to talk about this feature. Here is some of my concerns.\n\n1. How the local NM CotnaienrScheduler coordinate with global scheduler. since global scheduler will try to keep fair and grarantee share across the applications(queue).\n\n2. Nodemanger may not know(or estimate) the runtime for queued container. Falsely estimation(mistake a long-running as a short-running) may cause serious results.(inverse priority?)",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cxcw",
+          "name": "cxcw",
+          "key": "cxcw",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Wei Chen",
+          "active": true,
+          "timeZone": "America/Denver"
+        },
+        "created": "2016-11-18T21:17:46.171+0000",
+        "updated": "2016-11-18T21:17:46.171+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13020882/comment/15706181",
+        "id": "15706181",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+          "name": "kkaranasos",
+          "key": "kkaranasos",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+          },
+          "displayName": "Konstantinos Karanasos",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thank you for the feedback, [~cxcw].\n\nbq. And also Microsoft also published a paper in ATC to talk about this feature. Here is some of my concerns.\nWhich paper are you referring too? We had a paper in EuroSys 2016 (\"Efficient Queue Management for Cluster Scheduling\"), in which we are investigating different queue reordering strategies, along with other techniques for efficient queue management (queue sizing, placement, etc.). We called the system Yaq (we had both a centralized and a distributed scheduling version). Is that the paper you meant?\nMany of the techniques we are planning to add here will originate from Yaq.\n\nbq. 1. How the local NM CotnaienrScheduler coordinate with global scheduler. since global scheduler will try to keep fair and grarantee share across the applications(queue).\nSo the way we are planning to do this is by letting the global scheduler send the tasks to the nodes. Then the reordering happens only locally at each node (only for the tasks that are queued at the moment). Note that reordering is done only for opportunistic containers (guaranteed are not allowed to be queued). This way we are not affecting the fairness guarantees of guaranteed containers.\nIf we want to do fairness across opportunistic containers, we will need some additional techniques (we did this through a timeout in the EuroSys paper).\nDoes this make sense or you had something else in mind?\n\nbq. 2. Nodemanger may not know(or estimate) the runtime for queued container. Falsely estimation(mistake a long-running as a short-running) may cause serious results.(inverse priority?)\nThat is a good point. In the initial strategies, we are planning to not take into account the task duration (because it might not always be available or might be imprecise like you say). One way is to take into account the progress of the job, in terms of tasks completed. Later, if we introduce task durations, we can have even better strategies. But we will have to make sure we are robust in case of mis-estimations.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+          "name": "kkaranasos",
+          "key": "kkaranasos",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+          },
+          "displayName": "Konstantinos Karanasos",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-11-29T18:53:11.909+0000",
+        "updated": "2016-11-29T18:53:11.909+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13020882/comment/16728286",
+        "id": "16728286",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+          "name": "abmodi",
+          "key": "abmodi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+          },
+          "displayName": "Abhishek Modi",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "[~kkaranasos] if you are not actively working on this, can I take this up.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+          "name": "abmodi",
+          "key": "abmodi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+          },
+          "displayName": "Abhishek Modi",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2018-12-24T09:17:50.327+0000",
+        "updated": "2018-12-24T09:17:50.327+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13020882/comment/16729564",
+        "id": "16729564",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+          "name": "kkaranasos",
+          "key": "kkaranasos",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+          },
+          "displayName": "Konstantinos Karanasos",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Hi [~abmodi], I am not currently working on this\u00a0\u2013 feel free to take over.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+          "name": "kkaranasos",
+          "key": "kkaranasos",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+          },
+          "displayName": "Konstantinos Karanasos",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-12-27T12:10:41.569+0000",
+        "updated": "2018-12-27T12:10:41.569+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5886/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 4,
+        "returned": 4
+      }
+    ]
+  }
+}
