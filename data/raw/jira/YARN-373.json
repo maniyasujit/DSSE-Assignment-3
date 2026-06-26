@@ -1,0 +1,320 @@
+{
+  "downloaded_at": "2026-06-25T10:24:26.055694+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-373",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-373?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12630487",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12630487",
+    "key": "YARN-373",
+    "fields": {
+      "summary": "Allow an AM to reuse the resources allocated to container for a new container",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319322",
+          "id": "12319322",
+          "name": "resourcemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2013-02-02T01:10:03.756+0000",
+      "description": "When a container completes, instead the corresponding resources being freed up, it should be possible for the AM to reuse the assigned resources for a new container.\n\nAs part of the reallocation, the AM would notify the RM about partial resources being freed up and the RM would make the necessary corrections in the corresponding node.\n\nWith this functionality, an AM can ensure it gets a container in the same node where previous containers run.\n\nThis will allow getting rid of the ShuffleHandler as a service in the NMs and run it as regular container task of the corresponding AM. In this case, the reallocation would reduce the CPU/MEM obtained for the original container to the what is needed for serving the shuffle. Note that in this example the MR AM would only do this reallocation for one of the many tasks that may have run in a particular node (as a single shuffle task could serve all the map outputs from all map tasks run in that node). \n",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/2",
+        "id": "2",
+        "description": "The problem described is an issue which will never be fixed.",
+        "name": "Won't Fix"
+      },
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630487/comment/13569659",
+            "id": "13569659",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hitesh",
+              "name": "hitesh",
+              "key": "hitesh",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hitesh Shah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "@Alejandro, had a few questions regarding the jira description:\n  \n  - is this only for re-sizing an existing allocated container in terms of the cpu/memory resources allocated to it? i.e either increase or decrease the size of the container ( reduce memory as you mentioned for shuffle or increase it for allocating a reduce task on it for example ) ? \n  - the container today exits as soon as the process completes as part of the container. Is the proposal also to change the MR tasks today to convert and launch a shuffle handler within the same process space after the map task completes? Or change the current notion of what constitutes completion of a container? \n  - would the new 'task' running on the container need to run with the same existing set of localized resources or would there be new localization needed?\n\n\n\n ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hitesh",
+              "name": "hitesh",
+              "key": "hitesh",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hitesh Shah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-02-02T22:49:22.893+0000",
+            "updated": "2013-02-02T22:49:22.893+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630487/comment/13570782",
+            "id": "13570782",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "body": "Hitesh,\n\nDidn't dive into the whole approach yet, first wanted to 'socialize' the idea. Now let me answer with my current thoughts.\n\nFor this use case I was not thinking about resizing 'inflight' containers, while we could resize easily on CPU, for memory would be quite difficult. \n\nThe use case is about shortcutting getting resources for a container by reusing the same (or less) resources being freed up by a terminating container in the same node. By doing this you don't have to go to all the way to the scheduler and compete/wait for those resources to become avail. In short, recycling resources the AM already got.\n\nThe terminating container would still exit, not changing the notion of completion of a container. The container using the recycled resources would be a fresh new container process. (Otherwise we could not shrink in memory).\n\nRegarding localized resources, a new resource localization would be done.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "created": "2013-02-05T00:12:58.477+0000",
+            "updated": "2013-02-05T00:12:58.477+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630487/comment/13998030",
+            "id": "13998030",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "body": "[doing self-clean up of JIRAs]",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "created": "2014-05-14T21:18:16.948+0000",
+            "updated": "2014-05-14T21:18:16.948+0000"
+          }
+        ],
+        "maxResults": 3,
+        "total": 3,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-373/votes",
+        "votes": 1,
+        "hasVoted": false
+      },
+      "updated": "2014-05-14T21:18:16.958+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 3,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630487/comment/13569659",
+        "id": "13569659",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hitesh",
+          "name": "hitesh",
+          "key": "hitesh",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hitesh Shah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "@Alejandro, had a few questions regarding the jira description:\n  \n  - is this only for re-sizing an existing allocated container in terms of the cpu/memory resources allocated to it? i.e either increase or decrease the size of the container ( reduce memory as you mentioned for shuffle or increase it for allocating a reduce task on it for example ) ? \n  - the container today exits as soon as the process completes as part of the container. Is the proposal also to change the MR tasks today to convert and launch a shuffle handler within the same process space after the map task completes? Or change the current notion of what constitutes completion of a container? \n  - would the new 'task' running on the container need to run with the same existing set of localized resources or would there be new localization needed?\n\n\n\n ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hitesh",
+          "name": "hitesh",
+          "key": "hitesh",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hitesh Shah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-02-02T22:49:22.893+0000",
+        "updated": "2013-02-02T22:49:22.893+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630487/comment/13570782",
+        "id": "13570782",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "body": "Hitesh,\n\nDidn't dive into the whole approach yet, first wanted to 'socialize' the idea. Now let me answer with my current thoughts.\n\nFor this use case I was not thinking about resizing 'inflight' containers, while we could resize easily on CPU, for memory would be quite difficult. \n\nThe use case is about shortcutting getting resources for a container by reusing the same (or less) resources being freed up by a terminating container in the same node. By doing this you don't have to go to all the way to the scheduler and compete/wait for those resources to become avail. In short, recycling resources the AM already got.\n\nThe terminating container would still exit, not changing the notion of completion of a container. The container using the recycled resources would be a fresh new container process. (Otherwise we could not shrink in memory).\n\nRegarding localized resources, a new resource localization would be done.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "created": "2013-02-05T00:12:58.477+0000",
+        "updated": "2013-02-05T00:12:58.477+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630487/comment/13998030",
+        "id": "13998030",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "body": "[doing self-clean up of JIRAs]",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "created": "2014-05-14T21:18:16.948+0000",
+        "updated": "2014-05-14T21:18:16.948+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-373/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 3,
+        "returned": 3
+      }
+    ]
+  }
+}

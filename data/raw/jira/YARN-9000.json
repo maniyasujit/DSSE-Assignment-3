@@ -1,0 +1,97 @@
+{
+  "downloaded_at": "2026-06-25T10:18:57.802014+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-9000",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9000?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13197364",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13197364",
+    "key": "YARN-9000",
+    "fields": {
+      "summary": "Add missing data access methods to webapp entities classes",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2018-11-09T09:41:33.646+0000",
+      "description": "From Hadoop side, we have entity classes which represent the data which can be accessed via REST. All these classes are placed in .../webapp/dao packages (for example org.apache.hadoop.yarn.server.resourcemanager.webapp.dao.NodeInfo).\r\nTypically these classes are created via constructors (some classes have setters) in controllers and then is marshaled to XML/JSON format for data transfer. Therefore, these classes are used more like as DTO.\r\n\r\nWe want to write some UI tests to verify the both YARN Web UIs (current ui and ui2). We need to get some information from REST and compare with information which displayed on UI.\r\nThe problem is we can't use for it the same entities from Hadoop. Because we can't create these entities and set needed data from UI since many getters and setters are missed. So, we will forced to write some layer which represents the same data and exactly copies webapp/dao classes but includes needed getters and setters.\r\nAccess methods are not unified. Some classes have only getters, some have several setters, some have all the necessary getters and setters. In all classes, we have a different set of methods, this is not controlled, new methods are added as necessary. We open a lot of tickets for adding a particular method to a particular class, this lead to some overhead.\r\n\r\nIn this ticket, I propose to unify access to the data and add all getters and setters for all YARN webapp/dao classes (I will create a separated ticket for MapReduce project if the idea will be approved and I will start working on this issue).\r\n\r\nThanks a lot for any comments and attention to this problem!",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/4",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/minor.svg",
+        "name": "Minor",
+        "id": "4"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [],
+        "maxResults": 0,
+        "total": 0,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9000/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2018-11-14T11:31:34.030+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 0,
+    "comments": [],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9000/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 0,
+        "returned": 0
+      }
+    ]
+  }
+}

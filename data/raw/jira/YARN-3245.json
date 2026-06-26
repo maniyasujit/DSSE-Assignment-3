@@ -1,0 +1,212 @@
+{
+  "downloaded_at": "2026-06-25T10:22:19.595265+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-3245",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3245?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12777055",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12777055",
+    "key": "YARN-3245",
+    "fields": {
+      "summary": "Find a way to reserve AMContainer resource to launch clean-up container in CapacityScheduler",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12725948",
+        "key": "YARN-2261",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12725948",
+        "fields": {
+          "summary": "YARN should have a way to run post-application cleanup",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+            "description": "The issue is open and ready for the assignee to start work on it.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+            "name": "Open",
+            "id": "1",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+            "id": "2",
+            "description": "A new feature of the product, which has yet to be developed.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+            "name": "New Feature",
+            "subtask": false,
+            "avatarId": 21141
+          }
+        }
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319322",
+          "id": "12319322",
+          "name": "resourcemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2015-02-24T05:30:44.171+0000",
+      "description": "The clean-up container will be launched after the application is finished/killed/failed. Cleanup container may not get resources if we negotiate the resource for it separately because cluster may have gotten busy after the final AM exit. The propose is to reserve AMContainer resource, and use it to launch clean-up container. In that case, we do not need to re-negotiate the resource, and clean-up container can be launch in the same NM as AM.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12777055/comment/14334446",
+            "id": "14334446",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+              "name": "xgong",
+              "key": "xgong",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Xuan Gong",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "More details here:\nCurrently, we have two directions:\n* NM->RM : When the AM is successfully finished/failed, the NM will inform the RM through the regular heartbeat, then RM will change the related RMContainer/RMAppAttempt/RMApp status.\n* RM->NM: When user kills the app/pre-emption, the RM will change the status first, then inform the NM through the NM heartbeat. NM will kill the AMContainer.\n\nNo matter in which direction, they will use the common function CapacityScheduler#completeContainer. In this function, based on whether the container is AM and clean-up container is enabled, we could reserve the resource by just trigger the containerFinishedEven to inform the RMContainer/RMAppAttempt/RMApp to change their status, but do not inform the queue to release the resource.\n\nIf this attempt is not the last attempt, we will release the container resource. If it is, we will use the resource to launch the clean-up container.\n\nBased the different direction either NM->RM and RM->NM, we need to make sure the AMContainer really exists. The only way to make sure it is through the NodeStatusUpdate. If we could get the AMContainer from NodeStatusUpdate#completeContainerList, it means the AMContainer exists. Here, we could add a flag/trigger to indicate that right now it is the good time to launch the clean-up container.\n\nSo, in this ticket, we expect to fix: reserve the AMContainer resource, and release the resource afterwards.\nHow/When to launch the clean-up container will be fixed separately.\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+              "name": "xgong",
+              "key": "xgong",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Xuan Gong",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-02-24T05:49:43.911+0000",
+            "updated": "2015-02-24T05:49:43.911+0000"
+          }
+        ],
+        "maxResults": 1,
+        "total": 1,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3245/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2015-02-24T05:49:43.911+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 1,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12777055/comment/14334446",
+        "id": "14334446",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+          "name": "xgong",
+          "key": "xgong",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Xuan Gong",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "More details here:\nCurrently, we have two directions:\n* NM->RM : When the AM is successfully finished/failed, the NM will inform the RM through the regular heartbeat, then RM will change the related RMContainer/RMAppAttempt/RMApp status.\n* RM->NM: When user kills the app/pre-emption, the RM will change the status first, then inform the NM through the NM heartbeat. NM will kill the AMContainer.\n\nNo matter in which direction, they will use the common function CapacityScheduler#completeContainer. In this function, based on whether the container is AM and clean-up container is enabled, we could reserve the resource by just trigger the containerFinishedEven to inform the RMContainer/RMAppAttempt/RMApp to change their status, but do not inform the queue to release the resource.\n\nIf this attempt is not the last attempt, we will release the container resource. If it is, we will use the resource to launch the clean-up container.\n\nBased the different direction either NM->RM and RM->NM, we need to make sure the AMContainer really exists. The only way to make sure it is through the NodeStatusUpdate. If we could get the AMContainer from NodeStatusUpdate#completeContainerList, it means the AMContainer exists. Here, we could add a flag/trigger to indicate that right now it is the good time to launch the clean-up container.\n\nSo, in this ticket, we expect to fix: reserve the AMContainer resource, and release the resource afterwards.\nHow/When to launch the clean-up container will be fixed separately.\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+          "name": "xgong",
+          "key": "xgong",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Xuan Gong",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-02-24T05:49:43.911+0000",
+        "updated": "2015-02-24T05:49:43.911+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3245/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 1,
+        "returned": 1
+      }
+    ]
+  }
+}

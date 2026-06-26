@@ -1,0 +1,250 @@
+{
+  "downloaded_at": "2026-06-25T10:22:26.461561+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-3068",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3068?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12768059",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12768059",
+    "key": "YARN-3068",
+    "fields": {
+      "summary": "Support secure HTTP communications between RM proxy and AM web endpoint",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+        "id": "1",
+        "description": "A problem which impairs or prevents the functions of the product.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+        "name": "Bug",
+        "subtask": false,
+        "avatarId": 21133
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319414",
+          "id": "12319414",
+          "name": "applications"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319322",
+          "id": "12319322",
+          "name": "resourcemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2015-01-16T16:42:55.106+0000",
+      "description": "When exposing a web endpoint for UI and REST, an AM is dependent on the RM as a proxy for incoming interactions.  The RM web proxy supports security features such as SSL and SPNEGO.  However, those security mechanisms are not supported by the AM, and supporting them directly at the AM would require some complex implementation details and configuration (not to mention that given the proxying relationship they may be considered somewhat redundant).\n\nIn order to ensure that there is a measure of security (trust) between the RM web proxy and the AM, the following mechanism is suggested:\n\n- The RM will create a shared secret and propagate it to the AM during AM launch (e.g. it could be part of the existing credentials).\n- The web proxy will leverage the shared secret to encrypt an agreed upon text (e.g. the container ID) and an associated expiry time (to mitigate potential request spoofing).\n- The AM will decrypt the text leveraging the shared secret and, if successful and the expiry time has not been reached, proceed with the request processing (probably appropriate to perform these checks in the existing AmIpFilter or a specific trust filter).\n\nNote that this feature is key to supporting interactions between Knox and AM REST resources, since those interactions depend on trusted proxy support the RM can provide (via its current SPNEGO and \"doAs\" support), allowing AM's to focus on performing their processing based on the established doAs identity (established at the RM and related to the AM via a trusted path).",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12768059/comment/14281320",
+            "id": "14281320",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "Jon, I think you meant to say \"the RM will create a shared secret\"\n\nNote that this feature will also catch the dev-time situation where, if your test code is running on the same host as the RM, you can talk direct to the AM without being 302'd to the proxy. That is, it enforces the same HTTP proxy chain in standalone & minicluster as in production",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2015-01-17T12:13:40.657+0000",
+            "updated": "2015-01-17T12:13:40.657+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12768059/comment/14282862",
+            "id": "14282862",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jmaron",
+              "name": "jmaron",
+              "key": "jmaron",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jonathan Maron",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "body": "Correct - should be RM.  Edited and fixed.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jmaron",
+              "name": "jmaron",
+              "key": "jmaron",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jonathan Maron",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "created": "2015-01-19T18:57:40.474+0000",
+            "updated": "2015-01-19T18:57:40.474+0000"
+          }
+        ],
+        "maxResults": 2,
+        "total": 2,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3068/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2015-01-19T18:57:40.474+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 2,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12768059/comment/14281320",
+        "id": "14281320",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "Jon, I think you meant to say \"the RM will create a shared secret\"\n\nNote that this feature will also catch the dev-time situation where, if your test code is running on the same host as the RM, you can talk direct to the AM without being 302'd to the proxy. That is, it enforces the same HTTP proxy chain in standalone & minicluster as in production",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2015-01-17T12:13:40.657+0000",
+        "updated": "2015-01-17T12:13:40.657+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12768059/comment/14282862",
+        "id": "14282862",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jmaron",
+          "name": "jmaron",
+          "key": "jmaron",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jonathan Maron",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "body": "Correct - should be RM.  Edited and fixed.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jmaron",
+          "name": "jmaron",
+          "key": "jmaron",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jonathan Maron",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "created": "2015-01-19T18:57:40.474+0000",
+        "updated": "2015-01-19T18:57:40.474+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3068/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 2,
+        "returned": 2
+      }
+    ]
+  }
+}

@@ -1,0 +1,2179 @@
+{
+  "downloaded_at": "2026-06-25T10:23:00.944792+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-2331",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2331?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12728868",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868",
+    "key": "YARN-2331",
+    "fields": {
+      "summary": "Distinguish shutdown during supervision vs. shutdown for rolling upgrade",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12675101",
+        "key": "YARN-1336",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12675101",
+        "fields": {
+          "summary": "[Umbrella] Work-preserving nodemanager restart",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+            "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+            "name": "Resolved",
+            "id": "5",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+            "id": "2",
+            "description": "A new feature of the product, which has yet to be developed.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+            "name": "New Feature",
+            "subtask": false,
+            "avatarId": 21141
+          }
+        }
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319323",
+          "id": "12319323",
+          "name": "nodemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2014-07-22T14:32:40.804+0000",
+      "description": "When the NM is shutting down with restart support enabled there are scenarios we'd like to distinguish and behave accordingly:\n\n# The NM is running under supervision.  In that case containers should be preserved so the automatic restart can recover them.\n# The NM is not running under supervision and a rolling upgrade is not being performed.  In that case the shutdown should kill all containers since it is unlikely the NM will be restarted in a timely manner to recover them.\n# The NM is not running under supervision and a rolling upgrade is being performed.  In that case the shutdown should not kill all containers since a restart is imminent due to the rolling upgrade and the containers will be recovered.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/1",
+        "id": "1",
+        "description": "A fix for this issue is checked into the tree and tested.",
+        "name": "Fixed"
+      },
+      "labels": [
+        "BB2015-05-RFC"
+      ],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12673377",
+          "id": "12673377",
+          "filename": "YARN-2331.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+            "name": "jlowe",
+            "key": "jlowe",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Jason Darrell Lowe",
+            "active": true,
+            "timeZone": "America/Chicago"
+          },
+          "created": "2014-10-07T16:13:20.338+0000",
+          "size": 12043,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12673377/YARN-2331.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12673407",
+          "id": "12673407",
+          "filename": "YARN-2331v2.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+            "name": "jlowe",
+            "key": "jlowe",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Jason Darrell Lowe",
+            "active": true,
+            "timeZone": "America/Chicago"
+          },
+          "created": "2014-10-07T19:02:04.261+0000",
+          "size": 13835,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12673407/YARN-2331v2.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12731536",
+          "id": "12731536",
+          "filename": "YARN-2331v3.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+            "name": "jlowe",
+            "key": "jlowe",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Jason Darrell Lowe",
+            "active": true,
+            "timeZone": "America/Chicago"
+          },
+          "created": "2015-05-08T18:11:03.286+0000",
+          "size": 13791,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12731536/YARN-2331v3.patch"
+        }
+      ],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14070372",
+            "id": "14070372",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "We can distinguish between supervised/unsupervised via a config.  Determining whether an unsupervised shutdown is due to a rolling upgrade is a bit trickier.  Some of the options there include:\n\n- Add an admin port to NMs and a corresponding CLI command to send commands to the port.  There's a lot of boilerplate that goes along with this, but it is the most flexible option if we ever want to add other admin commands to an NM.\n- Add a REST API to do this (with appropriate authentication to make sure not just anyone can cause an NM shutdown)\n- Use another signal handler to indicate the shutdown just like the SIGTERM handler today for a normal shutdown but for another signal like SIGINT.   The shell scripts could have a new command that would perform the rolling upgrade shutdown with the new signal rather than SIGTERM.  This would be relatively simple to implement on POSIX platforms like Linux but has portability ramifications for non-POSIX platforms like Windows.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2014-07-22T15:14:53.619+0000",
+            "updated": "2014-07-22T15:14:53.619+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14070925",
+            "id": "14070925",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "Another possible approach is to have the NM always try to cleanup containers on a shutdown when it is unsupervised.  If a rolling upgrade needs to be performed and thus containers need to be preserved, the NM would be killed without the chance to cleanup (e.g.: kill -9 to deliver a SIGKILL).  Upon restart the NM would recover the state from the state store and reacquire the containers.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2014-07-22T21:23:28.904+0000",
+            "updated": "2014-07-22T21:23:28.904+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14093655",
+            "id": "14093655",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "[~jlowe], for rollup when NM is not supervised, I think another way is to add a command line in RM Admin to bring down specific NM without killing containers (by notifying RMNode and heartbeat back) given no admin port to NM so far. The NM services shutdown (no matter decommission or failed occasionally) without supervised won't trigger this CLI so won't preserve running containers. Thoughts?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2014-08-12T02:22:28.979+0000",
+            "updated": "2014-08-12T02:22:28.979+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14096176",
+            "id": "14096176",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "Ideally the process is self-contained on the NM node so once it has shutdown without killing containers it can be immediately restarted on the new release to minimize the period where the NM is not responding.  I suppose we could have the the shutdown/upgrade script on the NM issue the rmadmin command then wait for the NM to receive the RM command and exit.\n\nI think it would be cleaner if we didn't have to involve the RM.  However I don't feel so strongly that I'd object if we can't find a nice way to do this with just the NM node.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2014-08-13T21:48:20.295+0000",
+            "updated": "2014-08-13T21:48:20.295+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14162042",
+            "id": "14162042",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "In the interest of getting something done for this in time for 2.6, here's a patch that adds a conf to tell the NM whether or not it's supervised.  If supervised then it is expected to be quickly restarted on shutdown and will not kill containers.  If unsupervised then it will kill containers on shutdown since it does not expect to be restarted in a timely manner.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2014-10-07T16:13:20.361+0000",
+            "updated": "2014-10-07T16:13:20.361+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14162117",
+            "id": "14162117",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12673377/YARN-2331.patch\n  against trunk revision 2e789eb.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 2 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:red}-1 core tests{color}.  The patch failed these unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager:\n\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.TestContainerManagerRecovery\n                  org.apache.hadoop.yarn.server.nodemanager.TestContainerManagerWithLCE\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/5308//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/5308//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-10-07T16:59:08.456+0000",
+            "updated": "2014-10-07T16:59:08.456+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14162317",
+            "id": "14162317",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "Updated patch to fix the unit tests.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2014-10-07T19:02:04.277+0000",
+            "updated": "2014-10-07T19:02:04.277+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14162414",
+            "id": "14162414",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12673407/YARN-2331v2.patch\n  against trunk revision 9196db9.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 1 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/5312//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/5312//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-10-07T19:49:08.903+0000",
+            "updated": "2014-10-07T19:49:08.903+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14162917",
+            "id": "14162917",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Thanks [~jlowe] for the patch. One thing I want to confirm here is: after this patch, if we setting \"yarn.nodemanager.recovery.enabled\" to true but setting \"yarn.nodemanager.recovery.supervised\" to false, we can still keep container running if we kill NM daemon by \"kill -9\" but go through \"yarn-daemon.sh stop nodemanager\" will kill running containers. Isn't it?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2014-10-08T01:39:04.953+0000",
+            "updated": "2014-10-08T01:39:04.953+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14163633",
+            "id": "14163633",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "Yes, the patch implements the [\"Another possible approach\" comment|https://issues.apache.org/jira/browse/YARN-2331?focusedCommentId=14070925&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-14070925].  This is how we're currently managing NM restarts, as we don't run our NMs under supervision.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2014-10-08T15:42:00.652+0000",
+            "updated": "2014-10-08T15:42:00.652+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14525627",
+            "id": "14525627",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "\\\\\n\\\\\n| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | pre-patch |  14m 39s | Pre-patch trunk compilation is healthy. |\n| {color:green}+1{color} | @author |   0m  0s | The patch does not contain any @author tags. |\n| {color:green}+1{color} | tests included |   0m  0s | The patch appears to include 1 new or modified test files. |\n| {color:red}-1{color} | javac |   2m 58s | The patch appears to cause the build to fail. |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Patch URL | http://issues.apache.org/jira/secure/attachment/12673407/YARN-2331v2.patch |\n| Optional Tests | javadoc javac unit findbugs checkstyle |\n| git revision | trunk / e8d0ee5 |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/7666/console |\n\n\nThis message was automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-05-03T03:44:12.721+0000",
+            "updated": "2015-05-03T03:44:12.721+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14533345",
+            "id": "14533345",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+              "name": "xgong",
+              "key": "xgong",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Xuan Gong",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Cancel the patch since it does not apply anymore",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+              "name": "xgong",
+              "key": "xgong",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Xuan Gong",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-07T20:41:34.797+0000",
+            "updated": "2015-05-07T20:41:34.797+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14533359",
+            "id": "14533359",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+              "name": "xgong",
+              "key": "xgong",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Xuan Gong",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~jlowe] Could you rebase the patch, please ?\n\nProbably, we could set the default value for yarn.nodemanager.recovery.supervised as true. Normally, when people add a node as NM, they expect to use this node for a long time. So, restart is expected ?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+              "name": "xgong",
+              "key": "xgong",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Xuan Gong",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-07T20:51:03.117+0000",
+            "updated": "2015-05-07T20:51:03.117+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14535137",
+            "id": "14535137",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "Updated patch to trunk.\n\nbq. Probably, we could set the default value for yarn.nodemanager.recovery.supervised as true. Normally, when people add a node as NM, they expect to use this node for a long time. So, restart is expected ?\n\nThe problem is if the NM is not being supervised then when it goes down there isn't going to be a timely restart.  That will leave containers unmanaged on the node (e.g.: can't be killed by YARN since NM is down).  The user may eventually get around to restarting the NM, but if that takes hours or days that doesn't help so much.\n\nBefore NM restart, the NM would try to kill all active containers on shutdown to prevent this.  With restart this is undesireable _unless_ the NM is going down and isn't going to be started in a timely manner (i.e.: this isn't a upgrade or NM isn't being supervised).",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2015-05-08T18:11:03.307+0000",
+            "updated": "2015-05-08T18:11:03.307+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14535257",
+            "id": "14535257",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+              "name": "xgong",
+              "key": "xgong",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Xuan Gong",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks for explanation. [~jlowe] That makes sense to me.\nThe patch LGTM.  Kick the jenkins",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+              "name": "xgong",
+              "key": "xgong",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Xuan Gong",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-08T18:54:06.232+0000",
+            "updated": "2015-05-08T18:54:06.232+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14535681",
+            "id": "14535681",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "\\\\\n\\\\\n| (/) *{color:green}+1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | pre-patch |  14m 39s | Pre-patch trunk compilation is healthy. |\n| {color:green}+1{color} | @author |   0m  0s | The patch does not contain any @author tags. |\n| {color:green}+1{color} | tests included |   0m  0s | The patch appears to include 1 new or modified test files. |\n| {color:green}+1{color} | javac |   7m 33s | There were no new javac warning messages. |\n| {color:green}+1{color} | javadoc |   9m 39s | There were no new javadoc warning messages. |\n| {color:green}+1{color} | release audit |   0m 22s | The applied patch does not increase the total number of release audit warnings. |\n| {color:green}+1{color} | checkstyle |   2m 19s | There were no new checkstyle issues. |\n| {color:green}+1{color} | whitespace |   0m  1s | The patch has no lines that end in whitespace. |\n| {color:green}+1{color} | install |   1m 38s | mvn install still works. |\n| {color:green}+1{color} | eclipse:eclipse |   0m 34s | The patch built with eclipse:eclipse. |\n| {color:green}+1{color} | findbugs |   3m 46s | The patch does not introduce any new Findbugs (version 2.0.3) warnings. |\n| {color:green}+1{color} | yarn tests |   0m 23s | Tests passed in hadoop-yarn-api. |\n| {color:green}+1{color} | yarn tests |   1m 57s | Tests passed in hadoop-yarn-common. |\n| {color:green}+1{color} | yarn tests |   6m  0s | Tests passed in hadoop-yarn-server-nodemanager. |\n| | |  48m 55s | |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Patch URL | http://issues.apache.org/jira/secure/attachment/12731536/YARN-2331v3.patch |\n| Optional Tests | javadoc javac unit findbugs checkstyle |\n| git revision | trunk / f523e96 |\n| hadoop-yarn-api test log | https://builds.apache.org/job/PreCommit-YARN-Build/7824/artifact/patchprocess/testrun_hadoop-yarn-api.txt |\n| hadoop-yarn-common test log | https://builds.apache.org/job/PreCommit-YARN-Build/7824/artifact/patchprocess/testrun_hadoop-yarn-common.txt |\n| hadoop-yarn-server-nodemanager test log | https://builds.apache.org/job/PreCommit-YARN-Build/7824/artifact/patchprocess/testrun_hadoop-yarn-server-nodemanager.txt |\n| Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/7824/testReport/ |\n| Java | 1.7.0_55 |\n| uname | Linux asf905.gq1.ygridcore.net 3.13.0-36-lowlatency #63-Ubuntu SMP PREEMPT Wed Sep 3 21:56:12 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/7824/console |\n\n\nThis message was automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-05-08T22:05:05.159+0000",
+            "updated": "2015-05-08T22:05:05.159+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14535683",
+            "id": "14535683",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+              "name": "xgong",
+              "key": "xgong",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Xuan Gong",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "+1. Will commit",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+              "name": "xgong",
+              "key": "xgong",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Xuan Gong",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-08T22:05:51.637+0000",
+            "updated": "2015-05-08T22:05:51.637+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14535702",
+            "id": "14535702",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+              "name": "xgong",
+              "key": "xgong",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Xuan Gong",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Committed into trunk/branch-2. Thanks, Jason!",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+              "name": "xgong",
+              "key": "xgong",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Xuan Gong",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-08T22:12:33.572+0000",
+            "updated": "2015-05-08T22:12:33.572+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14535734",
+            "id": "14535734",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "FAILURE: Integrated in Hadoop-trunk-Commit #7779 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/7779/])\nYARN-2331. Distinguish shutdown during supervision vs. shutdown for (xgong: rev 088156de43abb07bec590a3fcd1a5af2feb02cd2)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/TestContainerManagerRecovery.java\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/ContainerManagerImpl.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/logaggregation/LogAggregationService.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-05-08T22:23:13.559+0000",
+            "updated": "2015-05-08T22:23:13.559+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14536382",
+            "id": "14536382",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "SUCCESS: Integrated in Hadoop-Yarn-trunk-Java8 #191 (See [https://builds.apache.org/job/Hadoop-Yarn-trunk-Java8/191/])\nYARN-2331. Distinguish shutdown during supervision vs. shutdown for (xgong: rev 088156de43abb07bec590a3fcd1a5af2feb02cd2)\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/TestContainerManagerRecovery.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/ContainerManagerImpl.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/logaggregation/LogAggregationService.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-05-09T11:57:19.841+0000",
+            "updated": "2015-05-09T11:57:19.841+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14536431",
+            "id": "14536431",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "SUCCESS: Integrated in Hadoop-Yarn-trunk #922 (See [https://builds.apache.org/job/Hadoop-Yarn-trunk/922/])\nYARN-2331. Distinguish shutdown during supervision vs. shutdown for (xgong: rev 088156de43abb07bec590a3fcd1a5af2feb02cd2)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/TestContainerManagerRecovery.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/ContainerManagerImpl.java\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/logaggregation/LogAggregationService.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-05-09T12:01:35.484+0000",
+            "updated": "2015-05-09T12:01:35.484+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14536526",
+            "id": "14536526",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "FAILURE: Integrated in Hadoop-Hdfs-trunk #2120 (See [https://builds.apache.org/job/Hadoop-Hdfs-trunk/2120/])\nYARN-2331. Distinguish shutdown during supervision vs. shutdown for (xgong: rev 088156de43abb07bec590a3fcd1a5af2feb02cd2)\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/logaggregation/LogAggregationService.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/ContainerManagerImpl.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/TestContainerManagerRecovery.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-05-09T14:21:31.548+0000",
+            "updated": "2015-05-09T14:21:31.548+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14536577",
+            "id": "14536577",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "FAILURE: Integrated in Hadoop-Hdfs-trunk-Java8 #180 (See [https://builds.apache.org/job/Hadoop-Hdfs-trunk-Java8/180/])\nYARN-2331. Distinguish shutdown during supervision vs. shutdown for (xgong: rev 088156de43abb07bec590a3fcd1a5af2feb02cd2)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/logaggregation/LogAggregationService.java\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/TestContainerManagerRecovery.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/ContainerManagerImpl.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-05-09T14:27:26.312+0000",
+            "updated": "2015-05-09T14:27:26.312+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14536639",
+            "id": "14536639",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "SUCCESS: Integrated in Hadoop-Mapreduce-trunk-Java8 #190 (See [https://builds.apache.org/job/Hadoop-Mapreduce-trunk-Java8/190/])\nYARN-2331. Distinguish shutdown during supervision vs. shutdown for (xgong: rev 088156de43abb07bec590a3fcd1a5af2feb02cd2)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/ContainerManagerImpl.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/TestContainerManagerRecovery.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/logaggregation/LogAggregationService.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* hadoop-yarn-project/CHANGES.txt\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-05-09T15:15:59.217+0000",
+            "updated": "2015-05-09T15:15:59.217+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14536686",
+            "id": "14536686",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "SUCCESS: Integrated in Hadoop-Mapreduce-trunk #2138 (See [https://builds.apache.org/job/Hadoop-Mapreduce-trunk/2138/])\nYARN-2331. Distinguish shutdown during supervision vs. shutdown for (xgong: rev 088156de43abb07bec590a3fcd1a5af2feb02cd2)\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/logaggregation/LogAggregationService.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/TestContainerManagerRecovery.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/ContainerManagerImpl.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-05-09T15:30:30.625+0000",
+            "updated": "2015-05-09T15:30:30.625+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/16252784",
+            "id": "16252784",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Karthik+Palaniappan",
+              "name": "Karthik Palaniappan",
+              "key": "karthik palaniappan",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Palaniappan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Toggling this new configuration property (yarn.nodemanager.recovery.supervised) isn't very different than just toggling the property that enables recovery (yarn.nodemanager.recovery.enabled). It's surprising that you now need to flip two properties to get NM work preservation to work.\r\n\r\nIs there a reason that you need to distinguish between a supervised NM shutdown and a rolling upgrade related shutdown?\r\n\r\nI'm complaining because the instructions in the 2.7 line are incorrect in 2.8: https://hadoop.apache.org/docs/r2.7.4/hadoop-yarn/hadoop-yarn-site/NodeManagerRestart.html. Equivalent docs don't exist in the 2.8 line (i.e. if you change the url to be r2.8.2), so I couldn't find any documentation of this new property.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Karthik+Palaniappan",
+              "name": "Karthik Palaniappan",
+              "key": "karthik palaniappan",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Palaniappan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-11-15T01:10:32.859+0000",
+            "updated": "2017-11-15T01:10:32.859+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/16253956",
+            "id": "16253956",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "There is documentation of the property at https://hadoop.apache.org/docs/r2.8.2/hadoop-yarn/hadoop-yarn-common/yarn-default.xml, but I agree it could be better.\r\n\r\nbq. Is there a reason that you need to distinguish between a supervised NM shutdown and a rolling upgrade related shutdown?\r\n\r\nYes, in the sense that the two shutdowns may be different depending upon how the rolling upgrade shutdown was performed.  For example, in our clusters we do not have direct supervision on the nodemanagers and instead have another tool that periodically comes along and services nodes that have fallen out of the cluster.  That means the nodemanager will not necessarily be restarted in a timely manner if it crashes.  In that case we want the nodemanager to shutdown cleanly during the crash, killing all running containers since otherwise they will be unsupervised and the RM will believe the containers are dead due to lack of NM heartbeats from this node.  If the NM were under direct supervision then it will be restarted quickly after it crashes.  In that scenario we would _not_ want it to kill the containers and instead let the NM recover the containers upon restart.\r\n\r\nFor rolling upgrades we kill the nodemanager with SIGKILL, preventing it from doing any cleanup processing.  Then we restart the nodemanagers on the new software, and the nodemanager recovers the containers on startup.  In our clusters the work preserving and supervised properties are set differently so the NM knows to support recovery yet still kill containers on shutdown.  Before this change the NM would always kill containers on a shutdown, so it would be impossible to preserve work in the case where the NM threw an exception and performed an orderly shutdown yet the NM was under supervision.\r\n\r\nIn 2.8 and later the nodemanager restart documentation moved to a unified nodemanager page, e.g.: https://hadoop.apache.org/docs/r2.8.2/hadoop-yarn/hadoop-yarn-site/NodeManager.html, but it still doesn't describe this property.  I filed YARN-7502 to update the nodemanager restart docs to cover this property and when it would be useful.\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2017-11-15T19:01:29.710+0000",
+            "updated": "2017-11-15T19:01:29.710+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/16253971",
+            "id": "16253971",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Karthik+Palaniappan",
+              "name": "Karthik Palaniappan",
+              "key": "karthik palaniappan",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Palaniappan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Ah, thanks for the quick response.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Karthik+Palaniappan",
+              "name": "Karthik Palaniappan",
+              "key": "karthik palaniappan",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Palaniappan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-11-15T19:12:29.634+0000",
+            "updated": "2017-11-15T19:12:29.634+0000"
+          }
+        ],
+        "maxResults": 28,
+        "total": 28,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2331/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2017-11-15T19:12:29.634+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 28,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14070372",
+        "id": "14070372",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "We can distinguish between supervised/unsupervised via a config.  Determining whether an unsupervised shutdown is due to a rolling upgrade is a bit trickier.  Some of the options there include:\n\n- Add an admin port to NMs and a corresponding CLI command to send commands to the port.  There's a lot of boilerplate that goes along with this, but it is the most flexible option if we ever want to add other admin commands to an NM.\n- Add a REST API to do this (with appropriate authentication to make sure not just anyone can cause an NM shutdown)\n- Use another signal handler to indicate the shutdown just like the SIGTERM handler today for a normal shutdown but for another signal like SIGINT.   The shell scripts could have a new command that would perform the rolling upgrade shutdown with the new signal rather than SIGTERM.  This would be relatively simple to implement on POSIX platforms like Linux but has portability ramifications for non-POSIX platforms like Windows.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2014-07-22T15:14:53.619+0000",
+        "updated": "2014-07-22T15:14:53.619+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14070925",
+        "id": "14070925",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "Another possible approach is to have the NM always try to cleanup containers on a shutdown when it is unsupervised.  If a rolling upgrade needs to be performed and thus containers need to be preserved, the NM would be killed without the chance to cleanup (e.g.: kill -9 to deliver a SIGKILL).  Upon restart the NM would recover the state from the state store and reacquire the containers.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2014-07-22T21:23:28.904+0000",
+        "updated": "2014-07-22T21:23:28.904+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14093655",
+        "id": "14093655",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "[~jlowe], for rollup when NM is not supervised, I think another way is to add a command line in RM Admin to bring down specific NM without killing containers (by notifying RMNode and heartbeat back) given no admin port to NM so far. The NM services shutdown (no matter decommission or failed occasionally) without supervised won't trigger this CLI so won't preserve running containers. Thoughts?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2014-08-12T02:22:28.979+0000",
+        "updated": "2014-08-12T02:22:28.979+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14096176",
+        "id": "14096176",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "Ideally the process is self-contained on the NM node so once it has shutdown without killing containers it can be immediately restarted on the new release to minimize the period where the NM is not responding.  I suppose we could have the the shutdown/upgrade script on the NM issue the rmadmin command then wait for the NM to receive the RM command and exit.\n\nI think it would be cleaner if we didn't have to involve the RM.  However I don't feel so strongly that I'd object if we can't find a nice way to do this with just the NM node.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2014-08-13T21:48:20.295+0000",
+        "updated": "2014-08-13T21:48:20.295+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14162042",
+        "id": "14162042",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "In the interest of getting something done for this in time for 2.6, here's a patch that adds a conf to tell the NM whether or not it's supervised.  If supervised then it is expected to be quickly restarted on shutdown and will not kill containers.  If unsupervised then it will kill containers on shutdown since it does not expect to be restarted in a timely manner.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2014-10-07T16:13:20.361+0000",
+        "updated": "2014-10-07T16:13:20.361+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14162117",
+        "id": "14162117",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12673377/YARN-2331.patch\n  against trunk revision 2e789eb.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 2 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:red}-1 core tests{color}.  The patch failed these unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager:\n\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.TestContainerManagerRecovery\n                  org.apache.hadoop.yarn.server.nodemanager.TestContainerManagerWithLCE\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/5308//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/5308//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-10-07T16:59:08.456+0000",
+        "updated": "2014-10-07T16:59:08.456+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14162317",
+        "id": "14162317",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "Updated patch to fix the unit tests.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2014-10-07T19:02:04.277+0000",
+        "updated": "2014-10-07T19:02:04.277+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14162414",
+        "id": "14162414",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12673407/YARN-2331v2.patch\n  against trunk revision 9196db9.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 1 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/5312//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/5312//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-10-07T19:49:08.903+0000",
+        "updated": "2014-10-07T19:49:08.903+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14162917",
+        "id": "14162917",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Thanks [~jlowe] for the patch. One thing I want to confirm here is: after this patch, if we setting \"yarn.nodemanager.recovery.enabled\" to true but setting \"yarn.nodemanager.recovery.supervised\" to false, we can still keep container running if we kill NM daemon by \"kill -9\" but go through \"yarn-daemon.sh stop nodemanager\" will kill running containers. Isn't it?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2014-10-08T01:39:04.953+0000",
+        "updated": "2014-10-08T01:39:04.953+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14163633",
+        "id": "14163633",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "Yes, the patch implements the [\"Another possible approach\" comment|https://issues.apache.org/jira/browse/YARN-2331?focusedCommentId=14070925&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-14070925].  This is how we're currently managing NM restarts, as we don't run our NMs under supervision.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2014-10-08T15:42:00.652+0000",
+        "updated": "2014-10-08T15:42:00.652+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14525627",
+        "id": "14525627",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "\\\\\n\\\\\n| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | pre-patch |  14m 39s | Pre-patch trunk compilation is healthy. |\n| {color:green}+1{color} | @author |   0m  0s | The patch does not contain any @author tags. |\n| {color:green}+1{color} | tests included |   0m  0s | The patch appears to include 1 new or modified test files. |\n| {color:red}-1{color} | javac |   2m 58s | The patch appears to cause the build to fail. |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Patch URL | http://issues.apache.org/jira/secure/attachment/12673407/YARN-2331v2.patch |\n| Optional Tests | javadoc javac unit findbugs checkstyle |\n| git revision | trunk / e8d0ee5 |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/7666/console |\n\n\nThis message was automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-05-03T03:44:12.721+0000",
+        "updated": "2015-05-03T03:44:12.721+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14533345",
+        "id": "14533345",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+          "name": "xgong",
+          "key": "xgong",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Xuan Gong",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Cancel the patch since it does not apply anymore",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+          "name": "xgong",
+          "key": "xgong",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Xuan Gong",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-07T20:41:34.797+0000",
+        "updated": "2015-05-07T20:41:34.797+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14533359",
+        "id": "14533359",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+          "name": "xgong",
+          "key": "xgong",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Xuan Gong",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~jlowe] Could you rebase the patch, please ?\n\nProbably, we could set the default value for yarn.nodemanager.recovery.supervised as true. Normally, when people add a node as NM, they expect to use this node for a long time. So, restart is expected ?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+          "name": "xgong",
+          "key": "xgong",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Xuan Gong",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-07T20:51:03.117+0000",
+        "updated": "2015-05-07T20:51:03.117+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14535137",
+        "id": "14535137",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "Updated patch to trunk.\n\nbq. Probably, we could set the default value for yarn.nodemanager.recovery.supervised as true. Normally, when people add a node as NM, they expect to use this node for a long time. So, restart is expected ?\n\nThe problem is if the NM is not being supervised then when it goes down there isn't going to be a timely restart.  That will leave containers unmanaged on the node (e.g.: can't be killed by YARN since NM is down).  The user may eventually get around to restarting the NM, but if that takes hours or days that doesn't help so much.\n\nBefore NM restart, the NM would try to kill all active containers on shutdown to prevent this.  With restart this is undesireable _unless_ the NM is going down and isn't going to be started in a timely manner (i.e.: this isn't a upgrade or NM isn't being supervised).",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2015-05-08T18:11:03.307+0000",
+        "updated": "2015-05-08T18:11:03.307+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14535257",
+        "id": "14535257",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+          "name": "xgong",
+          "key": "xgong",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Xuan Gong",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks for explanation. [~jlowe] That makes sense to me.\nThe patch LGTM.  Kick the jenkins",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+          "name": "xgong",
+          "key": "xgong",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Xuan Gong",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-08T18:54:06.232+0000",
+        "updated": "2015-05-08T18:54:06.232+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14535681",
+        "id": "14535681",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "\\\\\n\\\\\n| (/) *{color:green}+1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | pre-patch |  14m 39s | Pre-patch trunk compilation is healthy. |\n| {color:green}+1{color} | @author |   0m  0s | The patch does not contain any @author tags. |\n| {color:green}+1{color} | tests included |   0m  0s | The patch appears to include 1 new or modified test files. |\n| {color:green}+1{color} | javac |   7m 33s | There were no new javac warning messages. |\n| {color:green}+1{color} | javadoc |   9m 39s | There were no new javadoc warning messages. |\n| {color:green}+1{color} | release audit |   0m 22s | The applied patch does not increase the total number of release audit warnings. |\n| {color:green}+1{color} | checkstyle |   2m 19s | There were no new checkstyle issues. |\n| {color:green}+1{color} | whitespace |   0m  1s | The patch has no lines that end in whitespace. |\n| {color:green}+1{color} | install |   1m 38s | mvn install still works. |\n| {color:green}+1{color} | eclipse:eclipse |   0m 34s | The patch built with eclipse:eclipse. |\n| {color:green}+1{color} | findbugs |   3m 46s | The patch does not introduce any new Findbugs (version 2.0.3) warnings. |\n| {color:green}+1{color} | yarn tests |   0m 23s | Tests passed in hadoop-yarn-api. |\n| {color:green}+1{color} | yarn tests |   1m 57s | Tests passed in hadoop-yarn-common. |\n| {color:green}+1{color} | yarn tests |   6m  0s | Tests passed in hadoop-yarn-server-nodemanager. |\n| | |  48m 55s | |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Patch URL | http://issues.apache.org/jira/secure/attachment/12731536/YARN-2331v3.patch |\n| Optional Tests | javadoc javac unit findbugs checkstyle |\n| git revision | trunk / f523e96 |\n| hadoop-yarn-api test log | https://builds.apache.org/job/PreCommit-YARN-Build/7824/artifact/patchprocess/testrun_hadoop-yarn-api.txt |\n| hadoop-yarn-common test log | https://builds.apache.org/job/PreCommit-YARN-Build/7824/artifact/patchprocess/testrun_hadoop-yarn-common.txt |\n| hadoop-yarn-server-nodemanager test log | https://builds.apache.org/job/PreCommit-YARN-Build/7824/artifact/patchprocess/testrun_hadoop-yarn-server-nodemanager.txt |\n| Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/7824/testReport/ |\n| Java | 1.7.0_55 |\n| uname | Linux asf905.gq1.ygridcore.net 3.13.0-36-lowlatency #63-Ubuntu SMP PREEMPT Wed Sep 3 21:56:12 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/7824/console |\n\n\nThis message was automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-05-08T22:05:05.159+0000",
+        "updated": "2015-05-08T22:05:05.159+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14535683",
+        "id": "14535683",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+          "name": "xgong",
+          "key": "xgong",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Xuan Gong",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "+1. Will commit",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+          "name": "xgong",
+          "key": "xgong",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Xuan Gong",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-08T22:05:51.637+0000",
+        "updated": "2015-05-08T22:05:51.637+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14535702",
+        "id": "14535702",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+          "name": "xgong",
+          "key": "xgong",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Xuan Gong",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Committed into trunk/branch-2. Thanks, Jason!",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+          "name": "xgong",
+          "key": "xgong",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Xuan Gong",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-08T22:12:33.572+0000",
+        "updated": "2015-05-08T22:12:33.572+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14535734",
+        "id": "14535734",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "FAILURE: Integrated in Hadoop-trunk-Commit #7779 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/7779/])\nYARN-2331. Distinguish shutdown during supervision vs. shutdown for (xgong: rev 088156de43abb07bec590a3fcd1a5af2feb02cd2)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/TestContainerManagerRecovery.java\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/ContainerManagerImpl.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/logaggregation/LogAggregationService.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-05-08T22:23:13.559+0000",
+        "updated": "2015-05-08T22:23:13.559+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14536382",
+        "id": "14536382",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "SUCCESS: Integrated in Hadoop-Yarn-trunk-Java8 #191 (See [https://builds.apache.org/job/Hadoop-Yarn-trunk-Java8/191/])\nYARN-2331. Distinguish shutdown during supervision vs. shutdown for (xgong: rev 088156de43abb07bec590a3fcd1a5af2feb02cd2)\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/TestContainerManagerRecovery.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/ContainerManagerImpl.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/logaggregation/LogAggregationService.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-05-09T11:57:19.841+0000",
+        "updated": "2015-05-09T11:57:19.841+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14536431",
+        "id": "14536431",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "SUCCESS: Integrated in Hadoop-Yarn-trunk #922 (See [https://builds.apache.org/job/Hadoop-Yarn-trunk/922/])\nYARN-2331. Distinguish shutdown during supervision vs. shutdown for (xgong: rev 088156de43abb07bec590a3fcd1a5af2feb02cd2)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/TestContainerManagerRecovery.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/ContainerManagerImpl.java\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/logaggregation/LogAggregationService.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-05-09T12:01:35.484+0000",
+        "updated": "2015-05-09T12:01:35.484+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14536526",
+        "id": "14536526",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "FAILURE: Integrated in Hadoop-Hdfs-trunk #2120 (See [https://builds.apache.org/job/Hadoop-Hdfs-trunk/2120/])\nYARN-2331. Distinguish shutdown during supervision vs. shutdown for (xgong: rev 088156de43abb07bec590a3fcd1a5af2feb02cd2)\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/logaggregation/LogAggregationService.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/ContainerManagerImpl.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/TestContainerManagerRecovery.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-05-09T14:21:31.548+0000",
+        "updated": "2015-05-09T14:21:31.548+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14536577",
+        "id": "14536577",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "FAILURE: Integrated in Hadoop-Hdfs-trunk-Java8 #180 (See [https://builds.apache.org/job/Hadoop-Hdfs-trunk-Java8/180/])\nYARN-2331. Distinguish shutdown during supervision vs. shutdown for (xgong: rev 088156de43abb07bec590a3fcd1a5af2feb02cd2)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/logaggregation/LogAggregationService.java\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/TestContainerManagerRecovery.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/ContainerManagerImpl.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-05-09T14:27:26.312+0000",
+        "updated": "2015-05-09T14:27:26.312+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14536639",
+        "id": "14536639",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "SUCCESS: Integrated in Hadoop-Mapreduce-trunk-Java8 #190 (See [https://builds.apache.org/job/Hadoop-Mapreduce-trunk-Java8/190/])\nYARN-2331. Distinguish shutdown during supervision vs. shutdown for (xgong: rev 088156de43abb07bec590a3fcd1a5af2feb02cd2)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/ContainerManagerImpl.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/TestContainerManagerRecovery.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/logaggregation/LogAggregationService.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* hadoop-yarn-project/CHANGES.txt\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-05-09T15:15:59.217+0000",
+        "updated": "2015-05-09T15:15:59.217+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/14536686",
+        "id": "14536686",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "SUCCESS: Integrated in Hadoop-Mapreduce-trunk #2138 (See [https://builds.apache.org/job/Hadoop-Mapreduce-trunk/2138/])\nYARN-2331. Distinguish shutdown during supervision vs. shutdown for (xgong: rev 088156de43abb07bec590a3fcd1a5af2feb02cd2)\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/logaggregation/LogAggregationService.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/test/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/TestContainerManagerRecovery.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/ContainerManagerImpl.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-05-09T15:30:30.625+0000",
+        "updated": "2015-05-09T15:30:30.625+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/16252784",
+        "id": "16252784",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Karthik+Palaniappan",
+          "name": "Karthik Palaniappan",
+          "key": "karthik palaniappan",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Palaniappan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Toggling this new configuration property (yarn.nodemanager.recovery.supervised) isn't very different than just toggling the property that enables recovery (yarn.nodemanager.recovery.enabled). It's surprising that you now need to flip two properties to get NM work preservation to work.\r\n\r\nIs there a reason that you need to distinguish between a supervised NM shutdown and a rolling upgrade related shutdown?\r\n\r\nI'm complaining because the instructions in the 2.7 line are incorrect in 2.8: https://hadoop.apache.org/docs/r2.7.4/hadoop-yarn/hadoop-yarn-site/NodeManagerRestart.html. Equivalent docs don't exist in the 2.8 line (i.e. if you change the url to be r2.8.2), so I couldn't find any documentation of this new property.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Karthik+Palaniappan",
+          "name": "Karthik Palaniappan",
+          "key": "karthik palaniappan",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Palaniappan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-11-15T01:10:32.859+0000",
+        "updated": "2017-11-15T01:10:32.859+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/16253956",
+        "id": "16253956",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "There is documentation of the property at https://hadoop.apache.org/docs/r2.8.2/hadoop-yarn/hadoop-yarn-common/yarn-default.xml, but I agree it could be better.\r\n\r\nbq. Is there a reason that you need to distinguish between a supervised NM shutdown and a rolling upgrade related shutdown?\r\n\r\nYes, in the sense that the two shutdowns may be different depending upon how the rolling upgrade shutdown was performed.  For example, in our clusters we do not have direct supervision on the nodemanagers and instead have another tool that periodically comes along and services nodes that have fallen out of the cluster.  That means the nodemanager will not necessarily be restarted in a timely manner if it crashes.  In that case we want the nodemanager to shutdown cleanly during the crash, killing all running containers since otherwise they will be unsupervised and the RM will believe the containers are dead due to lack of NM heartbeats from this node.  If the NM were under direct supervision then it will be restarted quickly after it crashes.  In that scenario we would _not_ want it to kill the containers and instead let the NM recover the containers upon restart.\r\n\r\nFor rolling upgrades we kill the nodemanager with SIGKILL, preventing it from doing any cleanup processing.  Then we restart the nodemanagers on the new software, and the nodemanager recovers the containers on startup.  In our clusters the work preserving and supervised properties are set differently so the NM knows to support recovery yet still kill containers on shutdown.  Before this change the NM would always kill containers on a shutdown, so it would be impossible to preserve work in the case where the NM threw an exception and performed an orderly shutdown yet the NM was under supervision.\r\n\r\nIn 2.8 and later the nodemanager restart documentation moved to a unified nodemanager page, e.g.: https://hadoop.apache.org/docs/r2.8.2/hadoop-yarn/hadoop-yarn-site/NodeManager.html, but it still doesn't describe this property.  I filed YARN-7502 to update the nodemanager restart docs to cover this property and when it would be useful.\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2017-11-15T19:01:29.710+0000",
+        "updated": "2017-11-15T19:01:29.710+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12728868/comment/16253971",
+        "id": "16253971",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Karthik+Palaniappan",
+          "name": "Karthik Palaniappan",
+          "key": "karthik palaniappan",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Palaniappan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Ah, thanks for the quick response.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Karthik+Palaniappan",
+          "name": "Karthik Palaniappan",
+          "key": "karthik palaniappan",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Palaniappan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-11-15T19:12:29.634+0000",
+        "updated": "2017-11-15T19:12:29.634+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2331/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 28,
+        "returned": 28
+      }
+    ]
+  }
+}

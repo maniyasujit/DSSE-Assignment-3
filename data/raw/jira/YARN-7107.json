@@ -1,0 +1,1105 @@
+{
+  "downloaded_at": "2026-06-25T10:19:55.930095+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-7107",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-7107?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13097836",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836",
+    "key": "YARN-7107",
+    "fields": {
+      "summary": "add ability in Fair Scheduler to configure whether disable a queue",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2017-08-27T15:28:15.847+0000",
+      "description": "In a production environment, emergency situations (such as the need to calculate the important reports) as soon as possible we need to disable all other queues, only allows the *RM* 's resources assigned to emergency queue and other queue only at the end of the urgent tasks before allowing them to be scheduled properly.\nAt present, our approach is to write a script, in the case of an emergency manual changes all other queues' *minResources *and *maxResources * to *0mb, 0vcores* and then rebase it.This is very troublesome and easy to make mistakes.\n\nSo we need to add a configuration in the *FairScheduler* configuration to indicate whether the queue is disabled, and if it is disabled, then *RM *will not allocate resources to the queue.\n* The child queue will integrate this property of the parent queue.\n* If the child queue is configured with this property, the value of the child queue configuration overrides the attributes of the parent queue.\n* The default value of the root queue is *enabled*.\n\nThis will satisfy our needs, and I think other users will encounter such a scenario.I think this is very applicable to everyone.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [
+        "fairscheduler"
+      ],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12886020",
+          "id": "12886020",
+          "filename": "YARN-7107.001.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+            "name": "daemon",
+            "key": "daemon",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "YunFan Zhou",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2017-09-08T08:44:16.184+0000",
+          "size": 26606,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12886020/YARN-7107.001.patch"
+        }
+      ],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16144085",
+            "id": "16144085",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+              "name": "templedf",
+              "key": "templedf",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+              },
+              "displayName": "Daniel Templeton",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "+1 on the need to disable queues.  I was just saying last week that we need the feature.  It sounds to me, though, that what you're trying to do is implement an override queue, which is something we could support more explicitly.  We could add a special \"override\" queue weight that makes all other queues effectively have 0 weight if the override queue is active.  Just a thought.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+              "name": "templedf",
+              "key": "templedf",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+              },
+              "displayName": "Daniel Templeton",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-08-28T17:22:29.543+0000",
+            "updated": "2017-08-28T17:22:29.543+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16146890",
+            "id": "16146890",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+              "name": "daemon",
+              "key": "daemon",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "YunFan Zhou",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Thank [~templedf], Here are some attributes I think the \"override\" queue needs to have:\n* All queues default are inactive queues unless they become active.\n* The inactive queue is exactly the same as the way we now use the queue.\n* If the queue becomes active, it will convert the *minResources* to \"*0mb, 0vcores*\" and *weight* to 0 of all non-ancestor queues. The reason why I also set *minResource* to 0 because the *weight* of the queue only works when the queue *minResource* is satisfied. But what we expect is that after the queue becomes active, the queue gets as many resources as possible. After the resources for the queue are completely satisfied, then consider assigning resources to non-active queues.\n\nPlease give me some more suggestion, thank you.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+              "name": "daemon",
+              "key": "daemon",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "YunFan Zhou",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-08-30T08:33:20.352+0000",
+            "updated": "2017-08-30T08:33:44.497+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16147551",
+            "id": "16147551",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+              "name": "templedf",
+              "key": "templedf",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+              },
+              "displayName": "Daniel Templeton",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Good point on min resources.  Sounds like a reasonable approach.  The trick is how to zero out non-sibling queue without making a mess.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+              "name": "templedf",
+              "key": "templedf",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+              },
+              "displayName": "Daniel Templeton",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-08-30T16:30:47.966+0000",
+            "updated": "2017-08-30T16:30:47.966+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16148376",
+            "id": "16148376",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+              "name": "daemon",
+              "key": "daemon",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "YunFan Zhou",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{noformat}\nThe trick is how to zero out non-sibling queue without making a mess\n{noformat}\nThank [~templedf]. There is no better way to do this for the implementation does make the code look messy. So, we just have to *zero sibling queue* which I think it's good enough to make our semantics and behavior more clear.\n\nI think we've basically figured out what we want to achieve, and if there's no problem, I can start doing it this weekend.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+              "name": "daemon",
+              "key": "daemon",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "YunFan Zhou",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-08-31T02:57:07.806+0000",
+            "updated": "2017-08-31T03:01:00.878+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16149258",
+            "id": "16149258",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+              "name": "templedf",
+              "key": "templedf",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+              },
+              "displayName": "Daniel Templeton",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Go for it.  I'm happy to review when you've got a patch.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+              "name": "templedf",
+              "key": "templedf",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+              },
+              "displayName": "Daniel Templeton",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-08-31T16:59:32.403+0000",
+            "updated": "2017-08-31T16:59:32.403+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16151518",
+            "id": "16151518",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 20s{color} | {color:blue} Docker mode activated. {color} |\n|| || || || {color:brown} Prechecks {color} ||\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\n|| || || || {color:brown} trunk Compile Tests {color} ||\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 13m 50s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 34s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 27s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 35s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m  1s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 21s{color} | {color:green} trunk passed {color} |\n|| || || || {color:brown} Patch Compile Tests {color} ||\n| {color:red}-1{color} | {color:red} mvninstall {color} | {color:red}  0m 31s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:red}-1{color} | {color:red} compile {color} | {color:red}  0m 31s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:red}-1{color} | {color:red} javac {color} | {color:red}  0m 31s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 24s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager: The patch generated 6 new + 68 unchanged - 0 fixed = 74 total (was 68) {color} |\n| {color:red}-1{color} | {color:red} mvnsite {color} | {color:red}  0m 31s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  1s{color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  0m 18s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 18s{color} | {color:green} the patch passed {color} |\n|| || || || {color:brown} Other Tests {color} ||\n| {color:red}-1{color} | {color:red} unit {color} | {color:red}  0m 31s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 14s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 21m 43s{color} | {color:black} {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:71bbb86 |\n| JIRA Issue | YARN-7107 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12885081/YARN-7107.001.preview.patch |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux a3b535c594ab 3.13.0-119-generic #166-Ubuntu SMP Wed May 3 12:18:55 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / 275980b |\n| Default Java | 1.8.0_144 |\n| findbugs | v3.1.0-RC1 |\n| mvninstall | https://builds.apache.org/job/PreCommit-YARN-Build/17270/artifact/patchprocess/patch-mvninstall-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| compile | https://builds.apache.org/job/PreCommit-YARN-Build/17270/artifact/patchprocess/patch-compile-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| javac | https://builds.apache.org/job/PreCommit-YARN-Build/17270/artifact/patchprocess/patch-compile-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/17270/artifact/patchprocess/diff-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| mvnsite | https://builds.apache.org/job/PreCommit-YARN-Build/17270/artifact/patchprocess/patch-mvnsite-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/17270/artifact/patchprocess/patch-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/17270/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/17270/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/17270/console |\n| Powered by | Apache Yetus 0.6.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-09-02T14:52:36.928+0000",
+            "updated": "2017-09-02T14:52:36.928+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16151823",
+            "id": "16151823",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m  0s{color} | {color:blue} Docker mode activated. {color} |\n| {color:red}-1{color} | {color:red} patch {color} | {color:red}  0m  5s{color} | {color:red} YARN-7107 does not apply to trunk. Rebase required? Wrong Branch? See https://wiki.apache.org/hadoop/HowToContribute for help. {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| JIRA Issue | YARN-7107 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12885138/YARN-7107.001.preview.patch |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/17271/console |\n| Powered by | Apache Yetus 0.6.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-09-03T14:21:25.764+0000",
+            "updated": "2017-09-03T14:21:25.764+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16151827",
+            "id": "16151827",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+              "name": "daemon",
+              "key": "daemon",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "YunFan Zhou",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "[~templedf] Please help me review my code, thank you.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+              "name": "daemon",
+              "key": "daemon",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "YunFan Zhou",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-09-03T14:36:44.449+0000",
+            "updated": "2017-09-03T14:36:44.449+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16151830",
+            "id": "16151830",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m  0s{color} | {color:blue} Docker mode activated. {color} |\n| {color:red}-1{color} | {color:red} patch {color} | {color:red}  0m  5s{color} | {color:red} YARN-7107 does not apply to trunk. Rebase required? Wrong Branch? See https://wiki.apache.org/hadoop/HowToContribute for help. {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| JIRA Issue | YARN-7107 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12885140/YARN-7107.001.preview.patch |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/17272/console |\n| Powered by | Apache Yetus 0.6.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-09-03T14:40:55.816+0000",
+            "updated": "2017-09-03T14:40:55.816+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16151833",
+            "id": "16151833",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+              "name": "templedf",
+              "key": "templedf",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+              },
+              "displayName": "Daniel Templeton",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks for the patch.  I love that you started with unit tests.  We got off on a tangent about override queues (my fault) and never got around to discussing how to implement disabling a queue.  To my understanding, disabling a queue should still allow applications to be submitted to the queue, but it should prevent them from running, even if the cluster is otherwise idle.\n\nThe patch you've posted almost does that, except that the jobs in disabled queues will run if there's nothing else in the cluster that wants resources.  Instead of  turning down the min share and weight (which will also cause reporting to look odd), I'd add a new property to {{FSQueue}} called {{disabled}}.  In {{FSQueue.assignContainerPreCheck()}}, I'd immediately return false is {{disabled}} is {{true}}.  In {{FSQueue.getQueueInfo()}}, I'd also add {{disabled}} to the reported state.  As a performance optimization, I'd also modify {{FSParentQueue}} to keep a disabled queues in a list separate from {{childQueues}}, and then in {{FSParentQueue.getQueueInfo()}}, I'd iterate through both {{childQueues}} and the list of disabled queues.  I think that's all that would be needed in order to completely shutdown execution from the disabled queues.  (Actually, the {{disabled}} is probably overkill, but it's nice to have it for reporting.)\n\nWhat do you think?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+              "name": "templedf",
+              "key": "templedf",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+              },
+              "displayName": "Daniel Templeton",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-09-03T14:47:02.079+0000",
+            "updated": "2017-09-03T14:47:02.079+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16151841",
+            "id": "16151841",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+              "name": "daemon",
+              "key": "daemon",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "YunFan Zhou",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Thank [~templedf] for your review, I benefited a lot from your advice.\n\nYour solution is  so perfect for:\n* Do not allocate resources to disabled queue.\n* The disabled status of the queue can be viewed with the CLI way.\nBasically, can meet our requirements.\n\nBut the current solution is more difficult to solve the problem we face in our production environment. Because in our production, we have hundreds of queue, but in the emergency case, we only want to make sure a few queues (because of this few queues be used to produce important reports) can be normally assigned resources. \nIf we use the way you suggest, we have to set the remaining hundreds of queues to be disabled. \nThis makes the operation very cumbersome.\n\nWe need a better way to solve this problem\uff0c what do you think?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+              "name": "daemon",
+              "key": "daemon",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "YunFan Zhou",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-09-03T15:29:36.963+0000",
+            "updated": "2017-09-03T15:29:36.963+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16151842",
+            "id": "16151842",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+              "name": "daemon",
+              "key": "daemon",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "YunFan Zhou",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Hi, [~templedf]\nI think we can split the queue into three types:\n1. Normal queue(The queue we currently use).\n2. Disabled queue(The attributes are exactly the same as you think).\n3. Exclusive queue(Make all sibling queues disabled).\n\nI think this can perfectly meet my requirements, What do you think?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+              "name": "daemon",
+              "key": "daemon",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "YunFan Zhou",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-09-03T15:44:50.026+0000",
+            "updated": "2017-09-03T15:44:50.026+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16158318",
+            "id": "16158318",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+              "name": "daemon",
+              "key": "daemon",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "YunFan Zhou",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Hi, [~templedf]. I have uploaded my v1 patch. Please help me review the patch. Thank you.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+              "name": "daemon",
+              "key": "daemon",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "YunFan Zhou",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-09-08T08:46:23.049+0000",
+            "updated": "2017-09-08T08:46:23.049+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16158395",
+            "id": "16158395",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 22s{color} | {color:blue} Docker mode activated. {color} |\n|| || || || {color:brown} Prechecks {color} ||\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 3 new or modified test files. {color} |\n|| || || || {color:brown} trunk Compile Tests {color} ||\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  0m 54s{color} | {color:blue} Maven dependency ordering for branch {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 15m  5s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 10m 16s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  1m  5s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  2m  1s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  3m 21s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  1m 19s{color} | {color:green} trunk passed {color} |\n|| || || || {color:brown} Patch Compile Tests {color} ||\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  0m 10s{color} | {color:blue} Maven dependency ordering for patch {color} |\n| {color:red}-1{color} | {color:red} mvninstall {color} | {color:red}  0m 37s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:red}-1{color} | {color:red} mvninstall {color} | {color:red}  0m 22s{color} | {color:red} hadoop-yarn-client in the patch failed. {color} |\n| {color:red}-1{color} | {color:red} compile {color} | {color:red}  0m 42s{color} | {color:red} hadoop-yarn in the patch failed. {color} |\n| {color:red}-1{color} | {color:red} javac {color} | {color:red}  0m 42s{color} | {color:red} hadoop-yarn in the patch failed. {color} |\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 59s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn: The patch generated 1 new + 434 unchanged - 0 fixed = 435 total (was 434) {color} |\n| {color:red}-1{color} | {color:red} mvnsite {color} | {color:red}  0m 39s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:red}-1{color} | {color:red} mvnsite {color} | {color:red}  0m 22s{color} | {color:red} hadoop-yarn-client in the patch failed. {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  0m 22s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  0m 17s{color} | {color:red} hadoop-yarn-client in the patch failed. {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 58s{color} | {color:green} the patch passed {color} |\n|| || || || {color:brown} Other Tests {color} ||\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 30s{color} | {color:green} hadoop-yarn-api in the patch passed. {color} |\n| {color:red}-1{color} | {color:red} unit {color} | {color:red}  0m 36s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:red}-1{color} | {color:red} unit {color} | {color:red}  0m 21s{color} | {color:red} hadoop-yarn-client in the patch failed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 19s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 51m 50s{color} | {color:black} {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:71bbb86 |\n| JIRA Issue | YARN-7107 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12886020/YARN-7107.001.patch |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 3ed3e37259d9 3.13.0-123-generic #172-Ubuntu SMP Mon Jun 26 18:04:35 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / b3a4d7d |\n| Default Java | 1.8.0_144 |\n| findbugs | v3.1.0-RC1 |\n| mvninstall | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/patch-mvninstall-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| mvninstall | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/patch-mvninstall-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-client.txt |\n| compile | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/patch-compile-hadoop-yarn-project_hadoop-yarn.txt |\n| javac | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/patch-compile-hadoop-yarn-project_hadoop-yarn.txt |\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/diff-checkstyle-hadoop-yarn-project_hadoop-yarn.txt |\n| mvnsite | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/patch-mvnsite-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| mvnsite | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/patch-mvnsite-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-client.txt |\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/patch-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/patch-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-client.txt |\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-client.txt |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/17356/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client U: hadoop-yarn-project/hadoop-yarn |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/17356/console |\n| Powered by | Apache Yetus 0.6.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-09-08T09:43:41.466+0000",
+            "updated": "2017-09-08T09:43:41.466+0000"
+          }
+        ],
+        "maxResults": 14,
+        "total": 14,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-7107/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2017-09-08T09:43:41.466+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/10002",
+        "description": "A patch for this issue has been uploaded to JIRA by a contributor.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/document.png",
+        "name": "Patch Available",
+        "id": "10002",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 14,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16144085",
+        "id": "16144085",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+          "name": "templedf",
+          "key": "templedf",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+          },
+          "displayName": "Daniel Templeton",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "+1 on the need to disable queues.  I was just saying last week that we need the feature.  It sounds to me, though, that what you're trying to do is implement an override queue, which is something we could support more explicitly.  We could add a special \"override\" queue weight that makes all other queues effectively have 0 weight if the override queue is active.  Just a thought.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+          "name": "templedf",
+          "key": "templedf",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+          },
+          "displayName": "Daniel Templeton",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-08-28T17:22:29.543+0000",
+        "updated": "2017-08-28T17:22:29.543+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16146890",
+        "id": "16146890",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+          "name": "daemon",
+          "key": "daemon",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "YunFan Zhou",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Thank [~templedf], Here are some attributes I think the \"override\" queue needs to have:\n* All queues default are inactive queues unless they become active.\n* The inactive queue is exactly the same as the way we now use the queue.\n* If the queue becomes active, it will convert the *minResources* to \"*0mb, 0vcores*\" and *weight* to 0 of all non-ancestor queues. The reason why I also set *minResource* to 0 because the *weight* of the queue only works when the queue *minResource* is satisfied. But what we expect is that after the queue becomes active, the queue gets as many resources as possible. After the resources for the queue are completely satisfied, then consider assigning resources to non-active queues.\n\nPlease give me some more suggestion, thank you.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+          "name": "daemon",
+          "key": "daemon",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "YunFan Zhou",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-08-30T08:33:20.352+0000",
+        "updated": "2017-08-30T08:33:44.497+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16147551",
+        "id": "16147551",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+          "name": "templedf",
+          "key": "templedf",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+          },
+          "displayName": "Daniel Templeton",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Good point on min resources.  Sounds like a reasonable approach.  The trick is how to zero out non-sibling queue without making a mess.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+          "name": "templedf",
+          "key": "templedf",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+          },
+          "displayName": "Daniel Templeton",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-08-30T16:30:47.966+0000",
+        "updated": "2017-08-30T16:30:47.966+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16148376",
+        "id": "16148376",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+          "name": "daemon",
+          "key": "daemon",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "YunFan Zhou",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{noformat}\nThe trick is how to zero out non-sibling queue without making a mess\n{noformat}\nThank [~templedf]. There is no better way to do this for the implementation does make the code look messy. So, we just have to *zero sibling queue* which I think it's good enough to make our semantics and behavior more clear.\n\nI think we've basically figured out what we want to achieve, and if there's no problem, I can start doing it this weekend.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+          "name": "daemon",
+          "key": "daemon",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "YunFan Zhou",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-08-31T02:57:07.806+0000",
+        "updated": "2017-08-31T03:01:00.878+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16149258",
+        "id": "16149258",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+          "name": "templedf",
+          "key": "templedf",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+          },
+          "displayName": "Daniel Templeton",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Go for it.  I'm happy to review when you've got a patch.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+          "name": "templedf",
+          "key": "templedf",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+          },
+          "displayName": "Daniel Templeton",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-08-31T16:59:32.403+0000",
+        "updated": "2017-08-31T16:59:32.403+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16151518",
+        "id": "16151518",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 20s{color} | {color:blue} Docker mode activated. {color} |\n|| || || || {color:brown} Prechecks {color} ||\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\n|| || || || {color:brown} trunk Compile Tests {color} ||\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 13m 50s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 34s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 27s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 35s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m  1s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 21s{color} | {color:green} trunk passed {color} |\n|| || || || {color:brown} Patch Compile Tests {color} ||\n| {color:red}-1{color} | {color:red} mvninstall {color} | {color:red}  0m 31s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:red}-1{color} | {color:red} compile {color} | {color:red}  0m 31s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:red}-1{color} | {color:red} javac {color} | {color:red}  0m 31s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 24s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager: The patch generated 6 new + 68 unchanged - 0 fixed = 74 total (was 68) {color} |\n| {color:red}-1{color} | {color:red} mvnsite {color} | {color:red}  0m 31s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  1s{color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  0m 18s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 18s{color} | {color:green} the patch passed {color} |\n|| || || || {color:brown} Other Tests {color} ||\n| {color:red}-1{color} | {color:red} unit {color} | {color:red}  0m 31s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 14s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 21m 43s{color} | {color:black} {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:71bbb86 |\n| JIRA Issue | YARN-7107 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12885081/YARN-7107.001.preview.patch |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux a3b535c594ab 3.13.0-119-generic #166-Ubuntu SMP Wed May 3 12:18:55 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / 275980b |\n| Default Java | 1.8.0_144 |\n| findbugs | v3.1.0-RC1 |\n| mvninstall | https://builds.apache.org/job/PreCommit-YARN-Build/17270/artifact/patchprocess/patch-mvninstall-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| compile | https://builds.apache.org/job/PreCommit-YARN-Build/17270/artifact/patchprocess/patch-compile-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| javac | https://builds.apache.org/job/PreCommit-YARN-Build/17270/artifact/patchprocess/patch-compile-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/17270/artifact/patchprocess/diff-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| mvnsite | https://builds.apache.org/job/PreCommit-YARN-Build/17270/artifact/patchprocess/patch-mvnsite-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/17270/artifact/patchprocess/patch-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/17270/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/17270/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/17270/console |\n| Powered by | Apache Yetus 0.6.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-09-02T14:52:36.928+0000",
+        "updated": "2017-09-02T14:52:36.928+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16151823",
+        "id": "16151823",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m  0s{color} | {color:blue} Docker mode activated. {color} |\n| {color:red}-1{color} | {color:red} patch {color} | {color:red}  0m  5s{color} | {color:red} YARN-7107 does not apply to trunk. Rebase required? Wrong Branch? See https://wiki.apache.org/hadoop/HowToContribute for help. {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| JIRA Issue | YARN-7107 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12885138/YARN-7107.001.preview.patch |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/17271/console |\n| Powered by | Apache Yetus 0.6.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-09-03T14:21:25.764+0000",
+        "updated": "2017-09-03T14:21:25.764+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16151827",
+        "id": "16151827",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+          "name": "daemon",
+          "key": "daemon",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "YunFan Zhou",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "[~templedf] Please help me review my code, thank you.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+          "name": "daemon",
+          "key": "daemon",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "YunFan Zhou",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-09-03T14:36:44.449+0000",
+        "updated": "2017-09-03T14:36:44.449+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16151830",
+        "id": "16151830",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m  0s{color} | {color:blue} Docker mode activated. {color} |\n| {color:red}-1{color} | {color:red} patch {color} | {color:red}  0m  5s{color} | {color:red} YARN-7107 does not apply to trunk. Rebase required? Wrong Branch? See https://wiki.apache.org/hadoop/HowToContribute for help. {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| JIRA Issue | YARN-7107 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12885140/YARN-7107.001.preview.patch |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/17272/console |\n| Powered by | Apache Yetus 0.6.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-09-03T14:40:55.816+0000",
+        "updated": "2017-09-03T14:40:55.816+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16151833",
+        "id": "16151833",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+          "name": "templedf",
+          "key": "templedf",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+          },
+          "displayName": "Daniel Templeton",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks for the patch.  I love that you started with unit tests.  We got off on a tangent about override queues (my fault) and never got around to discussing how to implement disabling a queue.  To my understanding, disabling a queue should still allow applications to be submitted to the queue, but it should prevent them from running, even if the cluster is otherwise idle.\n\nThe patch you've posted almost does that, except that the jobs in disabled queues will run if there's nothing else in the cluster that wants resources.  Instead of  turning down the min share and weight (which will also cause reporting to look odd), I'd add a new property to {{FSQueue}} called {{disabled}}.  In {{FSQueue.assignContainerPreCheck()}}, I'd immediately return false is {{disabled}} is {{true}}.  In {{FSQueue.getQueueInfo()}}, I'd also add {{disabled}} to the reported state.  As a performance optimization, I'd also modify {{FSParentQueue}} to keep a disabled queues in a list separate from {{childQueues}}, and then in {{FSParentQueue.getQueueInfo()}}, I'd iterate through both {{childQueues}} and the list of disabled queues.  I think that's all that would be needed in order to completely shutdown execution from the disabled queues.  (Actually, the {{disabled}} is probably overkill, but it's nice to have it for reporting.)\n\nWhat do you think?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+          "name": "templedf",
+          "key": "templedf",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+          },
+          "displayName": "Daniel Templeton",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-09-03T14:47:02.079+0000",
+        "updated": "2017-09-03T14:47:02.079+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16151841",
+        "id": "16151841",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+          "name": "daemon",
+          "key": "daemon",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "YunFan Zhou",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Thank [~templedf] for your review, I benefited a lot from your advice.\n\nYour solution is  so perfect for:\n* Do not allocate resources to disabled queue.\n* The disabled status of the queue can be viewed with the CLI way.\nBasically, can meet our requirements.\n\nBut the current solution is more difficult to solve the problem we face in our production environment. Because in our production, we have hundreds of queue, but in the emergency case, we only want to make sure a few queues (because of this few queues be used to produce important reports) can be normally assigned resources. \nIf we use the way you suggest, we have to set the remaining hundreds of queues to be disabled. \nThis makes the operation very cumbersome.\n\nWe need a better way to solve this problem\uff0c what do you think?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+          "name": "daemon",
+          "key": "daemon",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "YunFan Zhou",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-09-03T15:29:36.963+0000",
+        "updated": "2017-09-03T15:29:36.963+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16151842",
+        "id": "16151842",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+          "name": "daemon",
+          "key": "daemon",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "YunFan Zhou",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Hi, [~templedf]\nI think we can split the queue into three types:\n1. Normal queue(The queue we currently use).\n2. Disabled queue(The attributes are exactly the same as you think).\n3. Exclusive queue(Make all sibling queues disabled).\n\nI think this can perfectly meet my requirements, What do you think?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+          "name": "daemon",
+          "key": "daemon",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "YunFan Zhou",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-09-03T15:44:50.026+0000",
+        "updated": "2017-09-03T15:44:50.026+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16158318",
+        "id": "16158318",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+          "name": "daemon",
+          "key": "daemon",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "YunFan Zhou",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Hi, [~templedf]. I have uploaded my v1 patch. Please help me review the patch. Thank you.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+          "name": "daemon",
+          "key": "daemon",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "YunFan Zhou",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-09-08T08:46:23.049+0000",
+        "updated": "2017-09-08T08:46:23.049+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13097836/comment/16158395",
+        "id": "16158395",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 22s{color} | {color:blue} Docker mode activated. {color} |\n|| || || || {color:brown} Prechecks {color} ||\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 3 new or modified test files. {color} |\n|| || || || {color:brown} trunk Compile Tests {color} ||\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  0m 54s{color} | {color:blue} Maven dependency ordering for branch {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 15m  5s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 10m 16s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  1m  5s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  2m  1s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  3m 21s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  1m 19s{color} | {color:green} trunk passed {color} |\n|| || || || {color:brown} Patch Compile Tests {color} ||\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  0m 10s{color} | {color:blue} Maven dependency ordering for patch {color} |\n| {color:red}-1{color} | {color:red} mvninstall {color} | {color:red}  0m 37s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:red}-1{color} | {color:red} mvninstall {color} | {color:red}  0m 22s{color} | {color:red} hadoop-yarn-client in the patch failed. {color} |\n| {color:red}-1{color} | {color:red} compile {color} | {color:red}  0m 42s{color} | {color:red} hadoop-yarn in the patch failed. {color} |\n| {color:red}-1{color} | {color:red} javac {color} | {color:red}  0m 42s{color} | {color:red} hadoop-yarn in the patch failed. {color} |\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 59s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn: The patch generated 1 new + 434 unchanged - 0 fixed = 435 total (was 434) {color} |\n| {color:red}-1{color} | {color:red} mvnsite {color} | {color:red}  0m 39s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:red}-1{color} | {color:red} mvnsite {color} | {color:red}  0m 22s{color} | {color:red} hadoop-yarn-client in the patch failed. {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  0m 22s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:red}-1{color} | {color:red} findbugs {color} | {color:red}  0m 17s{color} | {color:red} hadoop-yarn-client in the patch failed. {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 58s{color} | {color:green} the patch passed {color} |\n|| || || || {color:brown} Other Tests {color} ||\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 30s{color} | {color:green} hadoop-yarn-api in the patch passed. {color} |\n| {color:red}-1{color} | {color:red} unit {color} | {color:red}  0m 36s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:red}-1{color} | {color:red} unit {color} | {color:red}  0m 21s{color} | {color:red} hadoop-yarn-client in the patch failed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 19s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 51m 50s{color} | {color:black} {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:71bbb86 |\n| JIRA Issue | YARN-7107 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12886020/YARN-7107.001.patch |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 3ed3e37259d9 3.13.0-123-generic #172-Ubuntu SMP Mon Jun 26 18:04:35 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / b3a4d7d |\n| Default Java | 1.8.0_144 |\n| findbugs | v3.1.0-RC1 |\n| mvninstall | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/patch-mvninstall-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| mvninstall | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/patch-mvninstall-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-client.txt |\n| compile | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/patch-compile-hadoop-yarn-project_hadoop-yarn.txt |\n| javac | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/patch-compile-hadoop-yarn-project_hadoop-yarn.txt |\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/diff-checkstyle-hadoop-yarn-project_hadoop-yarn.txt |\n| mvnsite | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/patch-mvnsite-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| mvnsite | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/patch-mvnsite-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-client.txt |\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/patch-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| findbugs | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/patch-findbugs-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-client.txt |\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/17356/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-client.txt |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/17356/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client U: hadoop-yarn-project/hadoop-yarn |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/17356/console |\n| Powered by | Apache Yetus 0.6.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-09-08T09:43:41.466+0000",
+        "updated": "2017-09-08T09:43:41.466+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-7107/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 14,
+        "returned": 14
+      }
+    ]
+  }
+}

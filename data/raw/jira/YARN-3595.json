@@ -1,0 +1,477 @@
+{
+  "downloaded_at": "2026-06-25T10:22:08.013640+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-3595",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3595?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12828132",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12828132",
+    "key": "YARN-3595",
+    "fields": {
+      "summary": "Performance optimization using connection cache of Phoenix timeline writer",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12759910",
+        "key": "YARN-2928",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12759910",
+        "fields": {
+          "summary": "YARN Timeline Service v.2: alpha 1",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+            "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+            "name": "Resolved",
+            "id": "5",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/2",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/critical.svg",
+            "name": "Critical",
+            "id": "2"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+            "id": "2",
+            "description": "A new feature of the product, which has yet to be developed.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+            "name": "New Feature",
+            "subtask": false,
+            "avatarId": 21141
+          }
+        }
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12322904",
+          "id": "12322904",
+          "name": "timelineserver",
+          "description": "YARN Timeline Server"
+        }
+      ],
+      "subtasks": [],
+      "created": "2015-05-07T21:14:05.592+0000",
+      "description": "The story about the connection cache in Phoenix timeline storage is a little bit long. In YARN-3033 we planned to have shared writer layer for all collectors in the same collector manager. In this way we can better reuse the same heavy-weight storage layer connection, therefore it's more friendly to conventional storage layer connections which are typically heavy-weight. \n\nPhoenix, on the other hand, implements its own connection interface layer to be light-weight, thread-unsafe. To make these connections work with our \"multiple collector, single writer\" model, we're adding a thread indexed connection cache. However, many performance critical factors are yet to be tested. \n\nIn this JIRA we're tracing performance optimization efforts using this connection cache. Previously we had a draft, but there was one implementation challenge on cache evictions: There may be races between Guava cache's removal listener calls (which close the connection) and normal references to the connection. We need to carefully define the way they synchronize. \n\nPerformance-wise, at the very beginning stage we may need to understand:\n\n# If the current, thread-based indexing is an appropriate approach, or we can use some better ways to index the connections. \n# the best size of the cache, presumably as the proposed default value of a configuration. \n# how long we need to preserve a connection in the cache. \n\nPlease feel free to add this list. ",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/7",
+        "id": "7",
+        "description": "Later",
+        "name": "Later"
+      },
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [
+        {
+          "id": "12423966",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12423966",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "12772276",
+            "key": "YARN-3134",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12772276",
+            "fields": {
+              "summary": "[Storage implementation] Exploiting the option of using Phoenix to access HBase backend",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12828132/comment/14535945",
+            "id": "14535945",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=gtcarrera9",
+              "name": "gtcarrera9",
+              "key": "gtcarrera9",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Li Lu",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "I put some thoughts on this. The problem of simply letting the write process and the removal listener calls to synchronize with each other is on the visibility of the connection object. Before we get the connection from the cache it's not possible for us to synchronize on it. However, after we get the connection from the cache and right before we start the synchronized block, the connection may have already been evicted from the cache and got closed. To address this problem, we need to do speculative read on these connections, and \"rollback\" if we notice we had a stale connection from the cache. \n\nI think we can have a thin layer of \"connection wrapper\" for each connection. The wrapper stores a flag to indicate if the connection inside it is still valid. \n\nOn a speculative get call (from our write(TimelineEntity) method), we keep trying:\n# get a connection wrapper\n# synchronize on the wrapper\n# if the wrapper is invalid, try next round. \n# do normal write operations with the connection inside the wrapper\n\nOn a removal call, we do the following:\n# synchronize on the wrapper\n# mark the wrapper as invalid\n# close the connection\n\nWe can think about the case when a removal call's synchronization block serialized just before a write's. In this case, even if the write call got a stale connection wrapper that contains a connection to be closed, it will notice the flag and attempt to obtain a newer connection. Concurrent modifications to the same connection are of course not possible between write calls and removal calls, as they work on the same lock. \n\nGiven the fine-grained synchronization pattern (only synchronizing between one writer thread and one Guava cache's clean up thread), contention should not be a big problem. Overhead for acquiring the lock for the synchronization statement for each writer is also acceptable I assume. The only problem may be, since we're performing JDBC operations inside a synchronized statement, we may block the cache removal process for a long time. Ideally we may make this algorithm obstruction-free, but maybe we can firstly understand how severe the problem is before we make more complex algorithm changes. Also, it appears to be possible to make the removal methods asynchronous. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=gtcarrera9",
+              "name": "gtcarrera9",
+              "key": "gtcarrera9",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Li Lu",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-08T23:56:01.150+0000",
+            "updated": "2015-05-08T23:56:01.150+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12828132/comment/14536187",
+            "id": "14536187",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sjlee0",
+              "name": "sjlee0",
+              "key": "sjlee0",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=sjlee0&avatarId=16831",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=sjlee0&avatarId=16831",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=sjlee0&avatarId=16831",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=sjlee0&avatarId=16831"
+              },
+              "displayName": "Sangjin Lee",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "The guava loading cache in YARN-3134 doesn't really work here because the cache semantics is different than the pooling semantics. The only thing you can do with a cache is \"get\", but the cache has no way of knowing the connection is checked out and in active use. So either the size or the \"idleness\" from the cache point of view can always kick and cause havoc.\n\nI believe what we need is basically connection pooling. JDBC itself has the connection pooling API (ConnectionPoolDataSource), for which pooling implementations can plug into (e.g. Apache DBCP). It sounds to me a most natural way of doing this.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sjlee0",
+              "name": "sjlee0",
+              "key": "sjlee0",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=sjlee0&avatarId=16831",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=sjlee0&avatarId=16831",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=sjlee0&avatarId=16831",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=sjlee0&avatarId=16831"
+              },
+              "displayName": "Sangjin Lee",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-09T04:09:24.461+0000",
+            "updated": "2015-05-09T04:09:24.461+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12828132/comment/14538341",
+            "id": "14538341",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=gtcarrera9",
+              "name": "gtcarrera9",
+              "key": "gtcarrera9",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Li Lu",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Hi [~sjlee0], thanks for the suggestions. I think you're right that most complexities come from having a cache rather than a pool for those connections. I'll look into alternative solutions. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=gtcarrera9",
+              "name": "gtcarrera9",
+              "key": "gtcarrera9",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Li Lu",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-11T18:17:19.755+0000",
+            "updated": "2015-05-11T18:17:19.755+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12828132/comment/14637285",
+            "id": "14637285",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=gtcarrera9",
+              "name": "gtcarrera9",
+              "key": "gtcarrera9",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Li Lu",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Since we're moving phoenix storage to aggregation side, we need to fix this after we have a full story of the offline (time-based) aggregation. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=gtcarrera9",
+              "name": "gtcarrera9",
+              "key": "gtcarrera9",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Li Lu",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-07-22T17:49:46.731+0000",
+            "updated": "2015-07-22T17:49:46.731+0000"
+          }
+        ],
+        "maxResults": 4,
+        "total": 4,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3595/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2017-10-21T06:05:25.531+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 4,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12828132/comment/14535945",
+        "id": "14535945",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=gtcarrera9",
+          "name": "gtcarrera9",
+          "key": "gtcarrera9",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Li Lu",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "I put some thoughts on this. The problem of simply letting the write process and the removal listener calls to synchronize with each other is on the visibility of the connection object. Before we get the connection from the cache it's not possible for us to synchronize on it. However, after we get the connection from the cache and right before we start the synchronized block, the connection may have already been evicted from the cache and got closed. To address this problem, we need to do speculative read on these connections, and \"rollback\" if we notice we had a stale connection from the cache. \n\nI think we can have a thin layer of \"connection wrapper\" for each connection. The wrapper stores a flag to indicate if the connection inside it is still valid. \n\nOn a speculative get call (from our write(TimelineEntity) method), we keep trying:\n# get a connection wrapper\n# synchronize on the wrapper\n# if the wrapper is invalid, try next round. \n# do normal write operations with the connection inside the wrapper\n\nOn a removal call, we do the following:\n# synchronize on the wrapper\n# mark the wrapper as invalid\n# close the connection\n\nWe can think about the case when a removal call's synchronization block serialized just before a write's. In this case, even if the write call got a stale connection wrapper that contains a connection to be closed, it will notice the flag and attempt to obtain a newer connection. Concurrent modifications to the same connection are of course not possible between write calls and removal calls, as they work on the same lock. \n\nGiven the fine-grained synchronization pattern (only synchronizing between one writer thread and one Guava cache's clean up thread), contention should not be a big problem. Overhead for acquiring the lock for the synchronization statement for each writer is also acceptable I assume. The only problem may be, since we're performing JDBC operations inside a synchronized statement, we may block the cache removal process for a long time. Ideally we may make this algorithm obstruction-free, but maybe we can firstly understand how severe the problem is before we make more complex algorithm changes. Also, it appears to be possible to make the removal methods asynchronous. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=gtcarrera9",
+          "name": "gtcarrera9",
+          "key": "gtcarrera9",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Li Lu",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-08T23:56:01.150+0000",
+        "updated": "2015-05-08T23:56:01.150+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12828132/comment/14536187",
+        "id": "14536187",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sjlee0",
+          "name": "sjlee0",
+          "key": "sjlee0",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=sjlee0&avatarId=16831",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=sjlee0&avatarId=16831",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=sjlee0&avatarId=16831",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=sjlee0&avatarId=16831"
+          },
+          "displayName": "Sangjin Lee",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "The guava loading cache in YARN-3134 doesn't really work here because the cache semantics is different than the pooling semantics. The only thing you can do with a cache is \"get\", but the cache has no way of knowing the connection is checked out and in active use. So either the size or the \"idleness\" from the cache point of view can always kick and cause havoc.\n\nI believe what we need is basically connection pooling. JDBC itself has the connection pooling API (ConnectionPoolDataSource), for which pooling implementations can plug into (e.g. Apache DBCP). It sounds to me a most natural way of doing this.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sjlee0",
+          "name": "sjlee0",
+          "key": "sjlee0",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=sjlee0&avatarId=16831",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=sjlee0&avatarId=16831",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=sjlee0&avatarId=16831",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=sjlee0&avatarId=16831"
+          },
+          "displayName": "Sangjin Lee",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-09T04:09:24.461+0000",
+        "updated": "2015-05-09T04:09:24.461+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12828132/comment/14538341",
+        "id": "14538341",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=gtcarrera9",
+          "name": "gtcarrera9",
+          "key": "gtcarrera9",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Li Lu",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Hi [~sjlee0], thanks for the suggestions. I think you're right that most complexities come from having a cache rather than a pool for those connections. I'll look into alternative solutions. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=gtcarrera9",
+          "name": "gtcarrera9",
+          "key": "gtcarrera9",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Li Lu",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-11T18:17:19.755+0000",
+        "updated": "2015-05-11T18:17:19.755+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12828132/comment/14637285",
+        "id": "14637285",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=gtcarrera9",
+          "name": "gtcarrera9",
+          "key": "gtcarrera9",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Li Lu",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Since we're moving phoenix storage to aggregation side, we need to fix this after we have a full story of the offline (time-based) aggregation. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=gtcarrera9",
+          "name": "gtcarrera9",
+          "key": "gtcarrera9",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Li Lu",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-07-22T17:49:46.731+0000",
+        "updated": "2015-07-22T17:49:46.731+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3595/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 4,
+        "returned": 4
+      }
+    ]
+  }
+}

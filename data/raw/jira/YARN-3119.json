@@ -1,0 +1,899 @@
+{
+  "downloaded_at": "2026-06-25T10:22:24.004775+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-3119",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3119?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12771245",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245",
+    "key": "YARN-3119",
+    "fields": {
+      "summary": "Memory limit check need not be enforced unless aggregate usage of all containers is near limit",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319323",
+          "id": "12319323",
+          "name": "nodemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2015-01-30T08:09:16.685+0000",
+      "description": "Today we kill any container preemptively even if the total usage of containers for that is well within the limit for YARN. Instead if we enforce memory limit only if the total limit of all containers is close to some configurable ratio of overall memory assigned to containers, we can allow for flexibility in container memory usage without adverse effects. This is similar in principle to how cgroups uses soft_limit_in_bytes.\n",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12695480",
+          "id": "12695480",
+          "filename": "YARN-3119.prelim.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=adhoot",
+            "name": "adhoot",
+            "key": "adhoot",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Anubhav Dhoot",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2015-01-30T08:11:56.622+0000",
+          "size": 5623,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12695480/YARN-3119.prelim.patch"
+        }
+      ],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14298350",
+            "id": "14298350",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adhoot",
+              "name": "adhoot",
+              "key": "adhoot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Anubhav Dhoot",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Attaching patch that illustrates the idea.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adhoot",
+              "name": "adhoot",
+              "key": "adhoot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Anubhav Dhoot",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-01-30T08:11:56.635+0000",
+            "updated": "2015-01-30T08:11:56.635+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14298876",
+            "id": "14298876",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+              "name": "aw",
+              "key": "aw",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+              },
+              "displayName": "Allen Wittenauer",
+              "active": true,
+              "timeZone": "America/Tijuana"
+            },
+            "body": "How should scheduling behave in this scenario?  What happens if multiple containers are over their limit and/or what order are containers killed?  ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+              "name": "aw",
+              "key": "aw",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+              },
+              "displayName": "Allen Wittenauer",
+              "active": true,
+              "timeZone": "America/Tijuana"
+            },
+            "created": "2015-01-30T17:03:46.052+0000",
+            "updated": "2015-01-30T17:03:46.052+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14299304",
+            "id": "14299304",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adhoot",
+              "name": "adhoot",
+              "key": "adhoot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Anubhav Dhoot",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "The scheduling should continue like before where we schedule containers. If the new container causes the ratio to be exceeded we would kill the offending containers. In case we dont exceed the limit, the offending containers could be given a chance to succeed which can improve throughput of jobs that have skews like this.\nIf multiple containers are over limit they are all deleted for now. In future we can be more sophisticated that we kill containers in reverse order of the amount they exceed by or some other criteria, until we go back below the ratio. That would be a good second improvement over this. \nIn general this jira attempts to make memory a little more of a flexible resource.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adhoot",
+              "name": "adhoot",
+              "key": "adhoot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Anubhav Dhoot",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-01-30T22:35:41.699+0000",
+            "updated": "2015-01-30T22:35:41.699+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14299326",
+            "id": "14299326",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "IMHO, this could be problematic if a under-usage container (c1) wants to get more resource, but the resource is over-used by another container (c2). It is possible c1 tries to allocate but failed since memory is exhausted since NM needs some time to get resource back (kill c2).",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-01-30T22:54:59.673+0000",
+            "updated": "2015-01-30T22:54:59.673+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14299333",
+            "id": "14299333",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+              "name": "aw",
+              "key": "aw",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+              },
+              "displayName": "Allen Wittenauer",
+              "active": true,
+              "timeZone": "America/Tijuana"
+            },
+            "body": "It's also worth acknowledging that we already have problems with things like Tez that can and do grow memory usage so fast that it blows the kernel up before YARN can kill it. I'd rather tighten the restrictions using cgroups than loosen them.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+              "name": "aw",
+              "key": "aw",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+              },
+              "displayName": "Allen Wittenauer",
+              "active": true,
+              "timeZone": "America/Tijuana"
+            },
+            "created": "2015-01-30T23:00:11.957+0000",
+            "updated": "2015-01-30T23:00:11.957+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14301698",
+            "id": "14301698",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adhoot",
+              "name": "adhoot",
+              "key": "adhoot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Anubhav Dhoot",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks [~leftnoteasy], [~aw] for your comments. All of the problems listed are already possible with the current memory management model which uses monitoring and not cgroups.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adhoot",
+              "name": "adhoot",
+              "key": "adhoot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Anubhav Dhoot",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-02-02T19:06:48.343+0000",
+            "updated": "2015-02-02T19:06:48.343+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14303956",
+            "id": "14303956",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+              "name": "aw",
+              "key": "aw",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+              },
+              "displayName": "Allen Wittenauer",
+              "active": true,
+              "timeZone": "America/Tijuana"
+            },
+            "body": "\"Snow leopards already have poachers so it's ok if I kill this one.\"\n\nI think the only way this would be acceptable is if two things happen:\n\na) It is configurable to turn this functionality off.\nb) The setting in the yarn-default.xml file came with a big warning saying that it may lead to system instability and/or unpredictability.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+              "name": "aw",
+              "key": "aw",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+              },
+              "displayName": "Allen Wittenauer",
+              "active": true,
+              "timeZone": "America/Tijuana"
+            },
+            "created": "2015-02-03T20:49:54.693+0000",
+            "updated": "2015-02-03T20:49:54.693+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14304157",
+            "id": "14304157",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "bq. IMHO, this could be problematic if a under-usage container (c1) wants to get more resource, but the resource is over-used by another container (c2). It is possible c1 tries to allocate but failed since memory is exhausted since NM needs some time to get resource back (kill c2).\nThis is the counter use-case that kills the feature. Leads to some pretty bad experience for apps for no fault of theirs.\n\nThough I do remember this being proposed back at Yahoo! by [~rajesh.balamohan] few years ago - this helps improve throughput albeit with a loss of predictability.\n\nLet's have a flag to turn this off by default. When it is on, we can do better:\n - kill the over-limit container if it exceeds scheduler.maximum-allocation-mb of the cluster.\n - let a container grow beyond its reservation if and only if there is unreserved capacity on the node. This way, we only let's containers grow when there is capacity that is not allocated for any containers. The limiting constraint is the following: {code}Sum of excess capacity used by all containers beyond their individual limits <= Unreserved capacity on the node.{code}\n - when aggregate usage crosses the threshold, only kill enough containers as is necessary instead of everything.\n\nAnything more that can help? [~rajesh.balamohan]/[~leftnoteasy]?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2015-02-03T22:33:32.286+0000",
+            "updated": "2015-02-03T22:33:32.286+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14304170",
+            "id": "14304170",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adhoot",
+              "name": "adhoot",
+              "key": "adhoot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Anubhav Dhoot",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks for the comments.\nJust wanted to give a quick response on the configurability. In my prelim patch I did add the option to turn it off by default though i could use a better name (DEFAULT_TOTAL_MEM_USAGE_CHECK_ENABLED is set to false). I also added a configurable threshold that lets you control how much of the overall YARN container memory is allowed to be exceeded before we trigger the enforcement. (Setting it to 0 would be another way to revert back to old behavior)",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adhoot",
+              "name": "adhoot",
+              "key": "adhoot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Anubhav Dhoot",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-02-03T22:39:55.488+0000",
+            "updated": "2015-02-03T22:39:55.488+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14304225",
+            "id": "14304225",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~vinodkv],\nThat makes sense to me,\nWe can even relax restriction (or make it configurable) of {{kill the over-limit container if it exceeds scheduler.maximum-allocation-mb of the cluster.}} if we enforce {{we only let's containers grow when there is capacity that is not allocated for any containers}}. \n\nMaybe we need introduce a \"resource tracker\" in NM to track used resource / allocated resource.\n\n[~adhoot], I think what [~vinodkv] suggested is not make total_mem_usage_check configurable, because it potentially makes container much more easily get OOM exception when its usage under its allocated resource, that is a bad behavior.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-02-03T22:52:13.091+0000",
+            "updated": "2015-02-03T22:52:13.091+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14588429",
+            "id": "14588429",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cdouglas",
+              "name": "cdouglas",
+              "key": "chris.douglas",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Christopher Douglas",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Systems that embrace more forgiving resource enforcement are difficult to tune, particularly if those jobs run in multiple environments with different constraints (as is common when moving from research/test to production). If jobs silently and implicitly use more resources than requested, then users only learn that their container is under-provisioned when the cluster workload shifts, and their pipelines start to fail.\n\nI agree with [~aw]'s [feedback|https://issues.apache.org/jira/browse/YARN-3119?focusedCommentId=14303956&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-14303956]. If this workaround is committed, this should be disabled by default and strongly discouraged.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cdouglas",
+              "name": "cdouglas",
+              "key": "chris.douglas",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Christopher Douglas",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-06-16T17:35:41.248+0000",
+            "updated": "2015-06-16T17:35:41.248+0000"
+          }
+        ],
+        "maxResults": 11,
+        "total": 11,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3119/votes",
+        "votes": 2,
+        "hasVoted": false
+      },
+      "updated": "2018-09-20T18:12:01.319+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 11,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14298350",
+        "id": "14298350",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adhoot",
+          "name": "adhoot",
+          "key": "adhoot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Anubhav Dhoot",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Attaching patch that illustrates the idea.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adhoot",
+          "name": "adhoot",
+          "key": "adhoot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Anubhav Dhoot",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-01-30T08:11:56.635+0000",
+        "updated": "2015-01-30T08:11:56.635+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14298876",
+        "id": "14298876",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+          "name": "aw",
+          "key": "aw",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+          },
+          "displayName": "Allen Wittenauer",
+          "active": true,
+          "timeZone": "America/Tijuana"
+        },
+        "body": "How should scheduling behave in this scenario?  What happens if multiple containers are over their limit and/or what order are containers killed?  ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+          "name": "aw",
+          "key": "aw",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+          },
+          "displayName": "Allen Wittenauer",
+          "active": true,
+          "timeZone": "America/Tijuana"
+        },
+        "created": "2015-01-30T17:03:46.052+0000",
+        "updated": "2015-01-30T17:03:46.052+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14299304",
+        "id": "14299304",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adhoot",
+          "name": "adhoot",
+          "key": "adhoot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Anubhav Dhoot",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "The scheduling should continue like before where we schedule containers. If the new container causes the ratio to be exceeded we would kill the offending containers. In case we dont exceed the limit, the offending containers could be given a chance to succeed which can improve throughput of jobs that have skews like this.\nIf multiple containers are over limit they are all deleted for now. In future we can be more sophisticated that we kill containers in reverse order of the amount they exceed by or some other criteria, until we go back below the ratio. That would be a good second improvement over this. \nIn general this jira attempts to make memory a little more of a flexible resource.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adhoot",
+          "name": "adhoot",
+          "key": "adhoot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Anubhav Dhoot",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-01-30T22:35:41.699+0000",
+        "updated": "2015-01-30T22:35:41.699+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14299326",
+        "id": "14299326",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "IMHO, this could be problematic if a under-usage container (c1) wants to get more resource, but the resource is over-used by another container (c2). It is possible c1 tries to allocate but failed since memory is exhausted since NM needs some time to get resource back (kill c2).",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-01-30T22:54:59.673+0000",
+        "updated": "2015-01-30T22:54:59.673+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14299333",
+        "id": "14299333",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+          "name": "aw",
+          "key": "aw",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+          },
+          "displayName": "Allen Wittenauer",
+          "active": true,
+          "timeZone": "America/Tijuana"
+        },
+        "body": "It's also worth acknowledging that we already have problems with things like Tez that can and do grow memory usage so fast that it blows the kernel up before YARN can kill it. I'd rather tighten the restrictions using cgroups than loosen them.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+          "name": "aw",
+          "key": "aw",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+          },
+          "displayName": "Allen Wittenauer",
+          "active": true,
+          "timeZone": "America/Tijuana"
+        },
+        "created": "2015-01-30T23:00:11.957+0000",
+        "updated": "2015-01-30T23:00:11.957+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14301698",
+        "id": "14301698",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adhoot",
+          "name": "adhoot",
+          "key": "adhoot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Anubhav Dhoot",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks [~leftnoteasy], [~aw] for your comments. All of the problems listed are already possible with the current memory management model which uses monitoring and not cgroups.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adhoot",
+          "name": "adhoot",
+          "key": "adhoot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Anubhav Dhoot",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-02-02T19:06:48.343+0000",
+        "updated": "2015-02-02T19:06:48.343+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14303956",
+        "id": "14303956",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+          "name": "aw",
+          "key": "aw",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+          },
+          "displayName": "Allen Wittenauer",
+          "active": true,
+          "timeZone": "America/Tijuana"
+        },
+        "body": "\"Snow leopards already have poachers so it's ok if I kill this one.\"\n\nI think the only way this would be acceptable is if two things happen:\n\na) It is configurable to turn this functionality off.\nb) The setting in the yarn-default.xml file came with a big warning saying that it may lead to system instability and/or unpredictability.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+          "name": "aw",
+          "key": "aw",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+          },
+          "displayName": "Allen Wittenauer",
+          "active": true,
+          "timeZone": "America/Tijuana"
+        },
+        "created": "2015-02-03T20:49:54.693+0000",
+        "updated": "2015-02-03T20:49:54.693+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14304157",
+        "id": "14304157",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "bq. IMHO, this could be problematic if a under-usage container (c1) wants to get more resource, but the resource is over-used by another container (c2). It is possible c1 tries to allocate but failed since memory is exhausted since NM needs some time to get resource back (kill c2).\nThis is the counter use-case that kills the feature. Leads to some pretty bad experience for apps for no fault of theirs.\n\nThough I do remember this being proposed back at Yahoo! by [~rajesh.balamohan] few years ago - this helps improve throughput albeit with a loss of predictability.\n\nLet's have a flag to turn this off by default. When it is on, we can do better:\n - kill the over-limit container if it exceeds scheduler.maximum-allocation-mb of the cluster.\n - let a container grow beyond its reservation if and only if there is unreserved capacity on the node. This way, we only let's containers grow when there is capacity that is not allocated for any containers. The limiting constraint is the following: {code}Sum of excess capacity used by all containers beyond their individual limits <= Unreserved capacity on the node.{code}\n - when aggregate usage crosses the threshold, only kill enough containers as is necessary instead of everything.\n\nAnything more that can help? [~rajesh.balamohan]/[~leftnoteasy]?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2015-02-03T22:33:32.286+0000",
+        "updated": "2015-02-03T22:33:32.286+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14304170",
+        "id": "14304170",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adhoot",
+          "name": "adhoot",
+          "key": "adhoot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Anubhav Dhoot",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks for the comments.\nJust wanted to give a quick response on the configurability. In my prelim patch I did add the option to turn it off by default though i could use a better name (DEFAULT_TOTAL_MEM_USAGE_CHECK_ENABLED is set to false). I also added a configurable threshold that lets you control how much of the overall YARN container memory is allowed to be exceeded before we trigger the enforcement. (Setting it to 0 would be another way to revert back to old behavior)",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adhoot",
+          "name": "adhoot",
+          "key": "adhoot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Anubhav Dhoot",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-02-03T22:39:55.488+0000",
+        "updated": "2015-02-03T22:39:55.488+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14304225",
+        "id": "14304225",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~vinodkv],\nThat makes sense to me,\nWe can even relax restriction (or make it configurable) of {{kill the over-limit container if it exceeds scheduler.maximum-allocation-mb of the cluster.}} if we enforce {{we only let's containers grow when there is capacity that is not allocated for any containers}}. \n\nMaybe we need introduce a \"resource tracker\" in NM to track used resource / allocated resource.\n\n[~adhoot], I think what [~vinodkv] suggested is not make total_mem_usage_check configurable, because it potentially makes container much more easily get OOM exception when its usage under its allocated resource, that is a bad behavior.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-02-03T22:52:13.091+0000",
+        "updated": "2015-02-03T22:52:13.091+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12771245/comment/14588429",
+        "id": "14588429",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cdouglas",
+          "name": "cdouglas",
+          "key": "chris.douglas",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Christopher Douglas",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Systems that embrace more forgiving resource enforcement are difficult to tune, particularly if those jobs run in multiple environments with different constraints (as is common when moving from research/test to production). If jobs silently and implicitly use more resources than requested, then users only learn that their container is under-provisioned when the cluster workload shifts, and their pipelines start to fail.\n\nI agree with [~aw]'s [feedback|https://issues.apache.org/jira/browse/YARN-3119?focusedCommentId=14303956&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-14303956]. If this workaround is committed, this should be disabled by default and strongly discouraged.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cdouglas",
+          "name": "cdouglas",
+          "key": "chris.douglas",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Christopher Douglas",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-06-16T17:35:41.248+0000",
+        "updated": "2015-06-16T17:35:41.248+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3119/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 11,
+        "returned": 11
+      }
+    ]
+  }
+}

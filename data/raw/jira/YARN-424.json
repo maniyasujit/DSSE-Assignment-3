@@ -1,0 +1,470 @@
+{
+  "downloaded_at": "2026-06-25T10:24:22.395026+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-424",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-424?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12633865",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12633865",
+    "key": "YARN-424",
+    "fields": {
+      "summary": "Allow resource requests to provide hints to the scheduler ",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319416",
+          "id": "12319416",
+          "name": "api"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319414",
+          "id": "12319414",
+          "name": "applications"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319325",
+          "id": "12319325",
+          "name": "scheduler"
+        }
+      ],
+      "subtasks": [],
+      "created": "2013-02-25T09:17:02.298+0000",
+      "description": "As initially discussed on YARN-392, it would be helpful for the allocate protocol to be able to include hints to the scheduler.  Examples hints could include deadlines (containers needed by a certain time) or gangs (resources that should be scheduled at the same time or not at all).\n\nTo avoid placing complex scheduling expectations on the RM, the restrictions on hints would be:\n* Any scheduler may ignore any subset of hints. That is, applications must be written to handle resource requests as if their hints don't exist.\n* Must be bounded in length - perhaps no larger than 16 bytes or 100 characters.\n",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/6",
+        "id": "6",
+        "description": "The problem isn't valid and it can't be fixed.",
+        "name": "Invalid"
+      },
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12633865/comment/13585965",
+            "id": "13585965",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "body": "Regarding the format/type for hints, while using 16 bytes would do, I'd prefer to use something that does not require having to deal with byte masking. While chatting about this, Bikas suggested a byte[], that woud be certainly much better. Still, I think having a capped String (50 or 100 chars) would something much easier to deal with the plus that printing a hint in the logs would be straight forward. \n\nMy take is that hints should be a comma separated list of key/values or values\n\n* HINTS -> \u00f8 | HINT | HINTS,HINT\n* HINT -> VALUE | KEY=VALUE\n* KEY -> word\n* VALUE -> word\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "created": "2013-02-25T16:10:09.619+0000",
+            "updated": "2013-02-25T16:10:09.619+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12633865/comment/13586526",
+            "id": "13586526",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+              "name": "acmurthy",
+              "key": "acmurthy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Murthy",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "I'm not a fan of stringly-typed 'features' in the Scheduler.\n\nWe should focus on actual use-cases and come up with well thought out solutions to those - MapReduce configuration is a very good example of how using key/value pairs leads us down to crazy nooks and corners.\n\nGang-scheduling, deadline-scheduling etc. are core-features in the scheduler, and should be treated as such i.e. we should explicitly support them in the protocol - not as string hints.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+              "name": "acmurthy",
+              "key": "acmurthy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Murthy",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-02-26T00:38:09.658+0000",
+            "updated": "2013-02-26T00:38:09.658+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12633865/comment/13586535",
+            "id": "13586535",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+              "name": "acmurthy",
+              "key": "acmurthy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Murthy",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Also, the reason we have invested in using protobufs (or any sane serialization system) is that we can *add* features to the Scheduler protocol in a compatible manner when we need to - key/value pairs are evil, and completely unnecessary.\n\nI've had enough with key/value pairs, and then attendant demands to maintain compatibility for those key/value pairs forever.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+              "name": "acmurthy",
+              "key": "acmurthy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Murthy",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-02-26T00:47:25.083+0000",
+            "updated": "2013-02-26T00:47:25.083+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12633865/comment/13586560",
+            "id": "13586560",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "I agree that being able to extend the API without breaking back-compat is important. I am +1 for Arun's argument about protobuf's being the right approach to that. There is no need to add a string or any other hint. Simple add an optional member to the AllocateRequest which the new scheduler will understand. Other schedulers simply dont know about the new field.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-02-26T01:03:51.820+0000",
+            "updated": "2013-02-26T01:03:51.820+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12633865/comment/13587156",
+            "id": "13587156",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+              "name": "acmurthy",
+              "key": "acmurthy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Murthy",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Looks like we agree Bikas. I'm going to resolve this as won't fix.\n\nPlease open specific jiras for specific features in the scheduler.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+              "name": "acmurthy",
+              "key": "acmurthy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Murthy",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-02-26T14:17:44.820+0000",
+            "updated": "2013-02-26T14:17:44.820+0000"
+          }
+        ],
+        "maxResults": 5,
+        "total": 5,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-424/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2013-02-26T14:17:44.826+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 5,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12633865/comment/13585965",
+        "id": "13585965",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "body": "Regarding the format/type for hints, while using 16 bytes would do, I'd prefer to use something that does not require having to deal with byte masking. While chatting about this, Bikas suggested a byte[], that woud be certainly much better. Still, I think having a capped String (50 or 100 chars) would something much easier to deal with the plus that printing a hint in the logs would be straight forward. \n\nMy take is that hints should be a comma separated list of key/values or values\n\n* HINTS -> \u00f8 | HINT | HINTS,HINT\n* HINT -> VALUE | KEY=VALUE\n* KEY -> word\n* VALUE -> word\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "created": "2013-02-25T16:10:09.619+0000",
+        "updated": "2013-02-25T16:10:09.619+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12633865/comment/13586526",
+        "id": "13586526",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+          "name": "acmurthy",
+          "key": "acmurthy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Murthy",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "I'm not a fan of stringly-typed 'features' in the Scheduler.\n\nWe should focus on actual use-cases and come up with well thought out solutions to those - MapReduce configuration is a very good example of how using key/value pairs leads us down to crazy nooks and corners.\n\nGang-scheduling, deadline-scheduling etc. are core-features in the scheduler, and should be treated as such i.e. we should explicitly support them in the protocol - not as string hints.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+          "name": "acmurthy",
+          "key": "acmurthy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Murthy",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-02-26T00:38:09.658+0000",
+        "updated": "2013-02-26T00:38:09.658+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12633865/comment/13586535",
+        "id": "13586535",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+          "name": "acmurthy",
+          "key": "acmurthy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Murthy",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Also, the reason we have invested in using protobufs (or any sane serialization system) is that we can *add* features to the Scheduler protocol in a compatible manner when we need to - key/value pairs are evil, and completely unnecessary.\n\nI've had enough with key/value pairs, and then attendant demands to maintain compatibility for those key/value pairs forever.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+          "name": "acmurthy",
+          "key": "acmurthy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Murthy",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-02-26T00:47:25.083+0000",
+        "updated": "2013-02-26T00:47:25.083+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12633865/comment/13586560",
+        "id": "13586560",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "I agree that being able to extend the API without breaking back-compat is important. I am +1 for Arun's argument about protobuf's being the right approach to that. There is no need to add a string or any other hint. Simple add an optional member to the AllocateRequest which the new scheduler will understand. Other schedulers simply dont know about the new field.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-02-26T01:03:51.820+0000",
+        "updated": "2013-02-26T01:03:51.820+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12633865/comment/13587156",
+        "id": "13587156",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+          "name": "acmurthy",
+          "key": "acmurthy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Murthy",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Looks like we agree Bikas. I'm going to resolve this as won't fix.\n\nPlease open specific jiras for specific features in the scheduler.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+          "name": "acmurthy",
+          "key": "acmurthy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Murthy",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-02-26T14:17:44.820+0000",
+        "updated": "2013-02-26T14:17:44.820+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-424/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 5,
+        "returned": 5
+      }
+    ]
+  }
+}

@@ -1,0 +1,247 @@
+{
+  "downloaded_at": "2026-06-25T10:24:17.147901+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-558",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-558?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12641672",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12641672",
+    "key": "YARN-558",
+    "fields": {
+      "summary": "Add ability to completely remove nodemanager from resourcemanager.",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319322",
+          "id": "12319322",
+          "name": "resourcemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2013-04-09T17:45:40.294+0000",
+      "description": "I would like to add the ability to completely remove a nodemanager from the resourcemanager's state.\n\nI run a cloud service where I want to dynamically bring up nodes to act as nodemanagers and then bring them down again when not needed.  These nodes have dynamically assigned IPs, thus the alternative of decommissioning them via an excludes file leads to a large (unbounded) list of decommissioned nodes that may never be commissioned again. I would like the ability to move a node from a decommissioned state to completely removing it from the resource manager.\n\nI have thought of two ways of implementing this.\n\n1) Add an optional timeout between the decommission state -> being removed from the nodemanager.\n\n2) Add an explicit RPC to remove a node that is decommissioned.\n\nAny additional thoughts/discussion are welcome.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/4",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/minor.svg",
+        "name": "Minor",
+        "id": "4"
+      },
+      "resolution": null,
+      "labels": [
+        "feature"
+      ],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12641672/comment/13820113",
+            "id": "13820113",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "+1 on use case in cloud services. I think one feasible way to achieve this (although not convenient) now is:\n- first, decommission nodes by putting them on decommission list and call refreshNodes().\n- then, wait at least one heartbeat() of each nodes to make sure decommissioned nodes are clear\n- at last, remove nodes from decommission list and refreshNodes() again.\nWe do need something simpler.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2013-11-12T14:04:12.798+0000",
+            "updated": "2013-11-12T14:04:12.798+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12641672/comment/13968800",
+            "id": "13968800",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=smith_christian",
+              "name": "smith_christian",
+              "key": "smith_christian",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=smith_christian&avatarId=19513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=smith_christian&avatarId=19513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=smith_christian&avatarId=19513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=smith_christian&avatarId=19513"
+              },
+              "displayName": "Christian Smith",
+              "active": true,
+              "timeZone": "Pacific/Auckland"
+            },
+            "body": "+1 For this as well.  \n\nThis is essential for any public (or private) cloud scenario where one wants elastic clusters.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=smith_christian",
+              "name": "smith_christian",
+              "key": "smith_christian",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=smith_christian&avatarId=19513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=smith_christian&avatarId=19513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=smith_christian&avatarId=19513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=smith_christian&avatarId=19513"
+              },
+              "displayName": "Christian Smith",
+              "active": true,
+              "timeZone": "Pacific/Auckland"
+            },
+            "created": "2014-04-14T20:28:42.043+0000",
+            "updated": "2014-04-14T20:28:42.043+0000"
+          }
+        ],
+        "maxResults": 2,
+        "total": 2,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-558/votes",
+        "votes": 1,
+        "hasVoted": false
+      },
+      "updated": "2016-12-07T02:48:47.578+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 2,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12641672/comment/13820113",
+        "id": "13820113",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "+1 on use case in cloud services. I think one feasible way to achieve this (although not convenient) now is:\n- first, decommission nodes by putting them on decommission list and call refreshNodes().\n- then, wait at least one heartbeat() of each nodes to make sure decommissioned nodes are clear\n- at last, remove nodes from decommission list and refreshNodes() again.\nWe do need something simpler.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2013-11-12T14:04:12.798+0000",
+        "updated": "2013-11-12T14:04:12.798+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12641672/comment/13968800",
+        "id": "13968800",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=smith_christian",
+          "name": "smith_christian",
+          "key": "smith_christian",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=smith_christian&avatarId=19513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=smith_christian&avatarId=19513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=smith_christian&avatarId=19513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=smith_christian&avatarId=19513"
+          },
+          "displayName": "Christian Smith",
+          "active": true,
+          "timeZone": "Pacific/Auckland"
+        },
+        "body": "+1 For this as well.  \n\nThis is essential for any public (or private) cloud scenario where one wants elastic clusters.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=smith_christian",
+          "name": "smith_christian",
+          "key": "smith_christian",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=smith_christian&avatarId=19513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=smith_christian&avatarId=19513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=smith_christian&avatarId=19513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=smith_christian&avatarId=19513"
+          },
+          "displayName": "Christian Smith",
+          "active": true,
+          "timeZone": "Pacific/Auckland"
+        },
+        "created": "2014-04-14T20:28:42.043+0000",
+        "updated": "2014-04-14T20:28:42.043+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-558/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 2,
+        "returned": 2
+      }
+    ]
+  }
+}

@@ -1,0 +1,2278 @@
+{
+  "downloaded_at": "2026-06-25T10:24:12.183410+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-624",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-624?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12645301",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301",
+    "key": "YARN-624",
+    "fields": {
+      "summary": "Support gang scheduling in the AM RM protocol",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12631889",
+        "key": "YARN-397",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12631889",
+        "fields": {
+          "summary": "RM Scheduler api enhancements",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+            "description": "The issue is open and ready for the assignee to start work on it.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+            "name": "Open",
+            "id": "1",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+            "id": "4",
+            "description": "An improvement or enhancement to an existing feature or task.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+            "name": "Improvement",
+            "subtask": false,
+            "avatarId": 21140
+          }
+        }
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319416",
+          "id": "12319416",
+          "name": "api"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319325",
+          "id": "12319325",
+          "name": "scheduler"
+        }
+      ],
+      "subtasks": [],
+      "created": "2013-04-29T20:27:52.830+0000",
+      "description": "Per discussion on YARN-392 and elsewhere, gang scheduling, in which a scheduler runs a set of tasks when they can all be run at the same time, would be a useful feature for YARN schedulers to support.\n\nCurrently, AMs can approximate this by holding on to containers until they get all the ones they need.  However, this lends itself to deadlocks when different AMs are waiting on the same containers.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [
+        {
+          "id": "12434093",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12434093",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "12853758",
+            "key": "YARN-4039",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12853758",
+            "fields": {
+              "summary": "New AM instances waste resource by waiting only for resource availability when all available resources are already used",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+                "id": "4",
+                "description": "An improvement or enhancement to an existing feature or task.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+                "name": "Improvement",
+                "subtask": false,
+                "avatarId": 21140
+              }
+            }
+          }
+        },
+        {
+          "id": "12395678",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12395678",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "12738336",
+            "key": "YARN-2487",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12738336",
+            "fields": {
+              "summary": "Need to support timeout of AM When no containers are assigned to it for a defined period",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+                "id": "4",
+                "description": "An improvement or enhancement to an existing feature or task.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+                "name": "Improvement",
+                "subtask": false,
+                "avatarId": 21140
+              }
+            }
+          }
+        },
+        {
+          "id": "12376417",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12376417",
+          "type": {
+            "id": "10001",
+            "name": "dependent",
+            "inward": "is depended upon by",
+            "outward": "depends upon",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10001"
+          },
+          "inwardIssue": {
+            "id": "12662451",
+            "key": "YARN-1042",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12662451",
+            "fields": {
+              "summary": "add ability to specify affinity/anti-affinity in container requests",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12372365",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12372365",
+          "type": {
+            "id": "10001",
+            "name": "dependent",
+            "inward": "is depended upon by",
+            "outward": "depends upon",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10001"
+          },
+          "inwardIssue": {
+            "id": "12655952",
+            "key": "YARN-896",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12655952",
+            "fields": {
+              "summary": "Roll up for long-lived services in YARN",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+                "id": "2",
+                "description": "A new feature of the product, which has yet to be developed.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+                "name": "New Feature",
+                "subtask": false,
+                "avatarId": 21141
+              }
+            }
+          }
+        },
+        {
+          "id": "12486853",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12486853",
+          "type": {
+            "id": "10001",
+            "name": "dependent",
+            "inward": "is depended upon by",
+            "outward": "depends upon",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10001"
+          },
+          "inwardIssue": {
+            "id": "13021599",
+            "key": "YARN-5907",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13021599",
+            "fields": {
+              "summary": "[Umbrella] [YARN-1042] add ability to specify affinity/anti-affinity in container requests",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+                "id": "2",
+                "description": "A new feature of the product, which has yet to be developed.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+                "name": "New Feature",
+                "subtask": false,
+                "avatarId": 21141
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13658637",
+            "id": "13658637",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "body": "As pointed out, supporting gang at RM/scheduler level will allow detection/avoidance of deadlocks. This would not be trivial (nor efficient) to do if gang is done at AM level.\n\nExamples of gang request capabilities could be:\n\n* express a set of containers in any nodes. I.e.: 10 containers in any node of the cluster.\n* express a set of containers in a specified set of nodes. I.e.: 10 containers in rack1. 10 containers one in each of n1...n10\n* express different sets of possible gangs that would satisfy the request: I.e.: 10 containers in rack1 or in rack2. 10 containers in n1...n10 or in n11..n20.\n* indicate a timeout/fallback-to-normal of gang requests.\n\nWe should decide on what gang capabilities we want/need to address in the short term.\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "created": "2013-05-15T18:30:43.395+0000",
+            "updated": "2013-05-15T18:30:43.395+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13659091",
+            "id": "13659091",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Alejandro, I completely agree gang scheduling is an important and missing use case.  As I told you in person, I spoke with various machine-learning guys and they are very interested in gang scheduling (they are working on their own AM for ML computations). From the conversation I am convinced their asks represent a rather common requirement for much of ML-type applications. In particular, they were interested in the \"or\" use-case you mentioned. \n\nSpecifically they want to be able to express this:\n1) 1 container with 128GB of RAM and 16cores OR\n2) 10 containers with 16GB of RAM and 2 cores OR \n3) 100 containers with 2GB of RAM and 1 core\n\nIn term of locality I can see three main scenarios:\n1) absolute locality, i.e., I need a gang of N containers on this rack, or on these set of nodes, \n2) relative locality, i.e., I need a gang of N containers \"close to each other\" (this really captures more of a network property than anything else)\n3) (no locality), i.e., I need a gang of N containers anywhere in the cluster\n  ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-05-16T00:50:53.974+0000",
+            "updated": "2013-05-16T00:50:53.974+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13661750",
+            "id": "13661750",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "While I see a general use for this and also that having this will be 'exciting', I'd suggest that we first figure out real use cases. Like an application that already needs this. We need to have some ML-type applications that Carlo mentoined on board before we attempt this. Otherwise, we'll just be implementing random features out of priority that no one needs. We could implement tons of scheduling features, lets prioritize and implement in that order.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2013-05-20T03:31:27.719+0000",
+            "updated": "2013-05-20T03:31:27.719+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13662081",
+            "id": "13662081",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "body": "[~vinodkv], my immediate use case for this is an AM that requires a complete set (gang) of containers before being able to accomplish their work in an efficient way. To achieve the desired locality of the allocations, my use case will use YARN-392. From my side, for now, I can drop off OR-gangs request. Also, having a fallback-to-normal would help the AM to do plan B with a partial gang.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "created": "2013-05-20T15:28:09.375+0000",
+            "updated": "2013-05-20T15:28:09.375+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13662101",
+            "id": "13662101",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=revans2",
+              "name": "revans2",
+              "key": "revans2",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Robert Joseph Evans",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "I would love to have it right now for storm too. If you want me to sign up as a use case I am happy to. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=revans2",
+              "name": "revans2",
+              "key": "revans2",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Robert Joseph Evans",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2013-05-20T16:07:52.794+0000",
+            "updated": "2013-05-20T16:07:52.794+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13662139",
+            "id": "13662139",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "body": "[~revans2], mind describing storm requirements? Also, what is the min required functionality that will make a diff for storm.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "created": "2013-05-20T16:51:21.325+0000",
+            "updated": "2013-05-20T16:51:21.325+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13662173",
+            "id": "13662173",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "bq. I would love to have it right now for storm too. If you want me to sign up as a use case I am happy to.\nThis is exactly the kind of concrete use-case I was asking for, not some made up use-case which *may* make sense. Yes please, it will be great if you sign up and lay down important things that you need.\n\nLike I said, I am not against adding this, we need to make sure we are addressing the right requirements. Otherwise, we'll get lost in the myriad scheduler features that we *can* implement, but of little use.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2013-05-20T17:27:40.226+0000",
+            "updated": "2013-05-20T17:27:40.226+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13662352",
+            "id": "13662352",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=revans2",
+              "name": "revans2",
+              "key": "revans2",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Robert Joseph Evans",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "Storm is a real-time stream processing system.  We are working on porting this to run on YARN.  Storm will process one or more streams of data using a logical DAG of processing nodes called a topology.  This topology runs in spawned processes. If there are not enough processes to run a topology there is no point in launching any of the processes.  Hence the need for gang scheduling.\n\nIt is a very simple gang scheduling use case currently.  When a new topology is submitted we want to request enough resources to to run that topology.  If a node goes down, we are going to request enough resources to replace it, so we can get up and running again ASAP.  When a topology is killed we want to release those resources.\n\nLong term we would like to make sure that the different containers are close to each other from a network topology perspective. We don't care which node or rack the containers are on, but we do care that they are all on the same node/rack as the other containers.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=revans2",
+              "name": "revans2",
+              "key": "revans2",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Robert Joseph Evans",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2013-05-20T20:57:06.134+0000",
+            "updated": "2013-05-20T20:57:06.134+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13663125",
+            "id": "13663125",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "I have two level of comments, the first is to clarify the intent of my earlier messages, and the second one to match robert description of a use case for ML frameworks.\n\nIntent:\n[~vinodkv], I completely agree with you that we should be very deliberate in choosing what use cases to support and make sure we only add features that target concrete and I would argue imminent use cases. \nReflecting on a conversation I had with Alejandro, I was trying to help this conversation to take this form:\n1) push for a broad discussion of what are the use cases for gang-scheduling we know of, so that we understand the entire complexity of the problem (hence the comments around more advanced feature such as OR of gangs)\n2) let a set of core features emerge from the most concrete short-term needs we have (the storm example is a good example of where to start for this)\n3) try to devise a protocol that supports the core features well, but that is amenable to future expansions (inasmuch as we can guess our future needs based on 1)\nSo in term of concrete actions I am totally aligned with your request for \"groundedness\", but I think it would really benefit us to spell out also some of the future requirements \nso that we have a chance to designed for extensibility (similarly to what you guys pushed for in YARN-45, which I thought was really a good call).\n\nML Use Cases:\nI asked Markus Weimer (ML/Systems guy in our group) to summarize why he sees gang scheduling to be key for ML frameworks (which I think are going to flock into yarn in the coming months/years). \n\nHere his response:\n\"In many iterative algorithms, it is imperative to load all the data into the main memory to minimize execution time. This is true for systems like Giraph, Mahout and many others that will over time be on YARN. In order to satisfy their memory requirement, they will block holding on to idle slots until YARN has delivered all the resources needed. Exposing that pattern via gang scheduling seems beneficial.\nFurthermore, these systems are often communications intensive. Hence, they\u2019d benefit from a gang of containers that are collocated on the network. This is a gang-wide property of the resource ask that cannot be captured easily without gang scheduling. The alternatives (e.g. getting a container on each rack, then expand from there to see which rack \u201cwins\u201d) are quite wasteful in comparison.\nLastly, scheduling with alternatives at the gang level would be helpful. If e.g. the training data for a machine learning algorithm needs 128GB of RAM, any combination of containers with that amount of RAM would satisfy the need. However, preference is given to fewer machines as that reduces the communication overhead.\"\n\nWhile I appreciate the level of urgency for what Markus describe and for Storm is not comparable, I see ML as an important future use case for YARN. And gang-scheduling seems one of those features that will determine whether people build on Yarn or on something like Mesos.\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-05-21T17:00:16.040+0000",
+            "updated": "2013-05-21T17:00:16.040+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13732188",
+            "id": "13732188",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "[~bikassaha] has pointed out that gang scheduling can be implemented in an AM today: it can just hang on to assigned nodes until a minimum has been allocated, at which point it can bring up its service.\n\nThis would move all scheduling decisions into the AM, which is free to implement it own policy.\n\nIf we start this way, then once a few apps have done this we can look at commonality and decide what features -if any- need to go into YARN.\n\nThe most likely - again, credit to Bikas - is for YARN to recognise that an AM has been given some containers but not, after a time period, deployed anything to them. YARN could then cancel the lease unless the AM specifically indicates it wants to retain it.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2013-08-07T17:28:26.769+0000",
+            "updated": "2013-08-07T17:28:26.769+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13733177",
+            "id": "13733177",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "RM currently expects something to start in a container within a timeout after allocation. Either that needs to change or that will set a maximum timeout for which the AM can hold onto containers while waiting for a gang of them to be allocated. The NM could provide an API to launch but not start a process. So all resource copying etc could be completed and the process may be launched in a suspended state, ready to go. This may help in telling the RM that the container actually is being used. Then NM could then un-suspend and start the process after being told by the AM to do so.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-08-08T05:55:12.830+0000",
+            "updated": "2013-08-08T05:55:12.830+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13735965",
+            "id": "13735965",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "I now think we can't just offload off this to the AM, because that can lead to a dining philosopher's class deadlock.\n\nexample, 4 containers for service code, two AMs wanting 3 containers each, each with two allocated and waiting for the third...\n\nGang scheduling in the RM would let it satisfy the constraints for one of the services (& choose based on queues).\n\nOtherwise: need a finite configurable limit on how long an AM can lease a container that isn't running code. That would make sense anyway if we allow a container to outlive a single program. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2013-08-10T16:36:37.567+0000",
+            "updated": "2013-08-10T16:36:37.567+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13735967",
+            "id": "13735967",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Related to this is work we just proposed in YARN-1051. We manage dynamically negotiated reservation of capacity at admission control. The idea is that if I want gang-scheduling I can declare this at submission time and the system accept me only if it can \"fit\" me. At that level we do constraints checking / knapsack (e.g., that we never promise more gang-style reservations than we can fit). \n\nThis means that at run-time AM-hoarding is ok because we guarantee it to fit. \nI am aware of at least 2 limitations of this approach w.r.t. the dynamic version you were discussing:\n* doesn't work if the application doesn't know about its needs until the AM has started \n* we lose large chunks of the cluster (and our previously checked constraints don't hold)\n\nNeither seems a great concern, and the second one can be handle with re-planning in the admission-control (which we don't have yet, but its in our agenda).\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-08-10T16:54:18.407+0000",
+            "updated": "2013-08-10T16:54:18.407+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13736015",
+            "id": "13736015",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "body": "carlo, i think what you are referring is starting an app when you can guarantee its planned capacity. imo, gang scheduling is a bit different beast.   ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "created": "2013-08-10T19:52:38.866+0000",
+            "updated": "2013-08-10T19:52:38.866+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13736067",
+            "id": "13736067",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "I do refer to that. The argument is that provided the planned capacity is tightly guaranteed to be available, AM-side hoarding of container is sufficient to achieve gang scheduling. \nAgain bar a few limitations that I mentioned (and maybe others I missed) this will get us close to get at least basic deadlock-free, gang-scheduling semantics (as we discussed in person with no real promises on location). ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-08-10T22:04:45.177+0000",
+            "updated": "2013-08-10T22:04:45.177+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13736894",
+            "id": "13736894",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=revans2",
+              "name": "revans2",
+              "key": "revans2",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Robert Joseph Evans",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "From my perspective it does not really solve the problem for me.  It comes close but is not perfect.  I am interested in gang scheduling to support [storm on yarn|https://github.com/yahoo/storm-yarn/]\n\nThe biggest issue I have with this design is knowing the size before the application is launched.  The ultimate goal with storm is to have a system where multiple separate, but related, storm topologies are processing data using the same application.  We would configure the queues so that if storm sees a spike in demand it can steal containers from batch processing to grow a topology and when the spike goes away it would release those containers back.  If the number of containers changes dynamically, by both submitting new topologies and growing/shrinking existing ones it is impossible to tell YARN what I need at the beginning.\n\nGang scheduling is interesting for me because there is a specific number of containers that each topology is configured to need when that topology is launched.  Without all of those containers there is no reason to launch a single part of the topology. I can see this happening with a modification to your approach where the all or nothing happens when the AM submits a request, and not when the AM is submitted.\n\nI also have a hard time seeing how this would work well with other advanced features like preemption.  For preemption to work well with gang scheduling it needs to take into account that if it shoots a container in a gang of containers it is likely going to get back a lot more resources then just one container.  If it is aware of this then it can still shoot the container, but avoid shooting other containers needlessly because it knows what it is going to get back.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=revans2",
+              "name": "revans2",
+              "key": "revans2",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Robert Joseph Evans",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2013-08-12T14:22:07.543+0000",
+            "updated": "2013-08-12T14:22:07.543+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13736970",
+            "id": "13736970",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Robert, you are right, and provide a compelling example of an application that has dynamic needs for resources. \n\nThere are ways around this, where you dynamically negotiate an increase/decrease of dedicated resources, and keep \nthe AM as it is. Philosophically this keeps all interaction AM-RM as best-effort partial-ok, while is the client-RM \nprotocol that talks about binding negotiation for resources. This would work and match well the current preemption \nmechanics, but I am not sure it is the best design (I haven't thought hard about it yet).\n\nIf we go with the design where the AM makes gang-like requests, we should make the preemption policy aware of\nthis, and act accordingly. In a sense, this boils down to a \"granularity\" problem, not too different from the current\nsize of containers to preempt vs needed capacity. But it stretches the precision issue by potentially a huge factor, making \nthe tradeoff between under and over preempting a more subtle line to walk. \n\nTwo ways around this:\n* we might want introduce non-strictly FIFO preemptions in a queue, i.e., skip a large gang and preempt containers from the \nnext app if the gang is way bigger than my preemption needs. This risks to break reservations, and has possibly funny and \ngameable semantics. Also it seems hard to gain experience on how to parametrize such heuristics.\n\n* an alternative workaround is to ensure that no gang requests are satisfied with over-capacity containers, this keeps the\ngangs out of the preemption radar. A simple way to enforce this is to set max-capacity the same as guaranteed capacity for \nthe queues that will serve gang requests. (This might combine nicely with the dynamic negotiation business as well).\n\nAnother sub-problem of gang-scheduling is to track which containers belong to which gang (and/or which requests they serve). \nThis also requires the AM to be consistent in how it uses containers it receives and possibly a more explicit protocol to \nsay \"this container I am giving you is part of that gang request\", otherwise a single preemption might break multiple topologies. \nIn general this containers-to-requests tracking seems a bit too opaque at the moment (I have heard independent complaints from \nApplicationMaster developers on this before).",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-08-12T15:50:39.994+0000",
+            "updated": "2013-08-12T15:50:39.994+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13737246",
+            "id": "13737246",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=revans2",
+              "name": "revans2",
+              "key": "revans2",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Robert Joseph Evans",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "Carlo,\n\nI do have to be total honest here too.  Gang scheduling is an interesting feature, but it is not the highest on my priority list.  In the short to medium term I am fine with launching containers and letting them wait until there are enough to run the entire topology.  I am also fine if I have to configure my queues appropriately to avoid deadlock/preemption in the short to medium term. If it is too difficult to have preemption be gang aware we can skip it, and ask users to configure the queue appropriately. I just want to be sure that whatever route we start down does not lock us into a model that will prevent me from getting to my end goal. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=revans2",
+              "name": "revans2",
+              "key": "revans2",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Robert Joseph Evans",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2013-08-12T19:05:38.402+0000",
+            "updated": "2013-08-12T19:05:38.402+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13737631",
+            "id": "13737631",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Robert,\n\nThat makes sense. I think we should have some guidelines for people on what to do while we work out the details of how to get gang-scheduling right. \nAs I was mentioning few posts above, I also heard requests from people doing machine learning of rather exotic versions of gang-scheduling. \n\nWe can definitely make preemption gang-aware, but it is not trivial to get the semantics and corner-cases right, in a sense what we are\nreally in the game of discussing is a conversion rate between capacity/fairness and cluster efficiency, e.g., is it worth to discard the\nprogress made by 200 containers for 20min to give this another application all its rightful capacity right away? Hard question.\n\nPart of a longer term research I am involved in is to quantify this trade offs more clearly by projecting both in an economical value space. \nBut this is not going to be ready for a long while.\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-08-13T00:38:40.275+0000",
+            "updated": "2013-08-13T00:38:40.275+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13776847",
+            "id": "13776847",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Hi Guys,\n\nI would like to quantify what is the typical waste of resources while \"hoarding\" containers towards a gang for Gyraph or Storm. \nAnyone have an intuition/measure of the typical time-delay and container slot-time wasted while hoarding containers, before the \nuseful part of the computation starts?  Thanks.. \n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-09-24T22:28:42.396+0000",
+            "updated": "2013-09-24T22:28:42.396+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13785556",
+            "id": "13785556",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=revans2",
+              "name": "revans2",
+              "key": "revans2",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Robert Joseph Evans",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "[~curino] Sorry about the late reply.  I have not really tested this much with storm on YARN.  Most of our experiments it is negligible the amount of time it takes to get nodes.  But we have not really done anything serious with it, and adding new nodes right now is a manual operation.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=revans2",
+              "name": "revans2",
+              "key": "revans2",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Robert Joseph Evans",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2013-10-03T21:25:15.172+0000",
+            "updated": "2013-10-03T21:25:15.172+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13785570",
+            "id": "13785570",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Got it.. thanks anyway, please keep us posted if you get with Storm or Giraph to get some concrete numbers... ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-10-03T21:46:41.971+0000",
+            "updated": "2013-10-03T21:46:41.971+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/14379352",
+            "id": "14379352",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Anubhav+Srivastav",
+              "name": "Anubhav Srivastav",
+              "key": "anubhav srivastav",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Anubhav Srivastav",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Is there any progress on implementing this feature?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Anubhav+Srivastav",
+              "name": "Anubhav Srivastav",
+              "key": "anubhav srivastav",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Anubhav Srivastav",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-03-25T06:04:40.807+0000",
+            "updated": "2015-03-25T06:04:40.807+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/14545486",
+            "id": "14545486",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=john.lilley%40redpoint.net",
+              "name": "john.lilley@redpoint.net",
+              "key": "john.lilley@redpoint.net",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "john lilley",
+              "active": true,
+              "timeZone": "America/Denver"
+            },
+            "body": "I would like to +1 this feature, and illustrate our use cases.  Currently there are two:\n-- Finding strongly-connected subgraphs.  This is a central step in data-quality/matching applications, because after record-matching is performed in a distributed fashion, the match pairs (edges) must be turned into match groups (subgraphs).  It is very inefficient to process this using a traditional independent-task YARN model.\n-- Machine-learning model training.  There are many models that lend themselves to distributed processing, and even those that don't can benefit from parallel genetic algorithm that competes multiple models and topologies in parallel.\n\nIn both these cases we are considering a custom AM that runs like:\n-- Asks for M containers\n-- Accepts as few as N containers, but only after not getting M for some period of time (heuristics TBD).\n-- Possibly, after getting non-zero but < N containers for some time, release them all, sleep a while, and try again (deadlock avoidance).\n\nThis algorithm would be much better run by the RM, because it can:\n-- Immediately fail the AM if N containers are impossible.\n-- Avoid idle incomplete sets of containers while waiting for a sufficient gang.\n-- Avoid deadlock.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=john.lilley%40redpoint.net",
+              "name": "john.lilley@redpoint.net",
+              "key": "john.lilley@redpoint.net",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "john lilley",
+              "active": true,
+              "timeZone": "America/Denver"
+            },
+            "created": "2015-05-15T13:32:27.254+0000",
+            "updated": "2015-05-15T13:32:27.254+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/14608386",
+            "id": "14608386",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=grey",
+              "name": "grey",
+              "key": "grey",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "George Reyes",
+              "active": true,
+              "timeZone": "America/Toronto"
+            },
+            "body": "[~john.lilley@redpoint.net], with your use case, do you also have data locality preference? If yes, whether each container may have separate data locality preference?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=grey",
+              "name": "grey",
+              "key": "grey",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "George Reyes",
+              "active": true,
+              "timeZone": "America/Toronto"
+            },
+            "created": "2015-06-30T14:34:08.856+0000",
+            "updated": "2015-06-30T14:34:08.856+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/14608653",
+            "id": "14608653",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=john.lilley%40redpoint.net",
+              "name": "john.lilley@redpoint.net",
+              "key": "john.lilley@redpoint.net",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "john lilley",
+              "active": true,
+              "timeZone": "America/Denver"
+            },
+            "body": "We don't have any data locality needs for these use cases.  Especially the machine-learning case, it will be CPU bound.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=john.lilley%40redpoint.net",
+              "name": "john.lilley@redpoint.net",
+              "key": "john.lilley@redpoint.net",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "john lilley",
+              "active": true,
+              "timeZone": "America/Denver"
+            },
+            "created": "2015-06-30T16:58:16.828+0000",
+            "updated": "2015-06-30T16:58:16.828+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/16891568",
+            "id": "16891568",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=klaus1982",
+              "name": "klaus1982",
+              "key": "klaus1982",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=klaus1982&avatarId=24432",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=klaus1982&avatarId=24432",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=klaus1982&avatarId=24432",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=klaus1982&avatarId=24432"
+              },
+              "displayName": "Klaus Ma",
+              "active": true,
+              "timeZone": "Asia/Harbin"
+            },
+            "body": "do we support Gang-scheduling right now?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=klaus1982",
+              "name": "klaus1982",
+              "key": "klaus1982",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=klaus1982&avatarId=24432",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=klaus1982&avatarId=24432",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=klaus1982&avatarId=24432",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=klaus1982&avatarId=24432"
+              },
+              "displayName": "Klaus Ma",
+              "active": true,
+              "timeZone": "Asia/Harbin"
+            },
+            "created": "2019-07-24T03:27:54.139+0000",
+            "updated": "2019-07-24T03:27:54.139+0000"
+          }
+        ],
+        "maxResults": 27,
+        "total": 27,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-624/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2019-07-24T03:27:54.139+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 27,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13658637",
+        "id": "13658637",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "body": "As pointed out, supporting gang at RM/scheduler level will allow detection/avoidance of deadlocks. This would not be trivial (nor efficient) to do if gang is done at AM level.\n\nExamples of gang request capabilities could be:\n\n* express a set of containers in any nodes. I.e.: 10 containers in any node of the cluster.\n* express a set of containers in a specified set of nodes. I.e.: 10 containers in rack1. 10 containers one in each of n1...n10\n* express different sets of possible gangs that would satisfy the request: I.e.: 10 containers in rack1 or in rack2. 10 containers in n1...n10 or in n11..n20.\n* indicate a timeout/fallback-to-normal of gang requests.\n\nWe should decide on what gang capabilities we want/need to address in the short term.\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "created": "2013-05-15T18:30:43.395+0000",
+        "updated": "2013-05-15T18:30:43.395+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13659091",
+        "id": "13659091",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Alejandro, I completely agree gang scheduling is an important and missing use case.  As I told you in person, I spoke with various machine-learning guys and they are very interested in gang scheduling (they are working on their own AM for ML computations). From the conversation I am convinced their asks represent a rather common requirement for much of ML-type applications. In particular, they were interested in the \"or\" use-case you mentioned. \n\nSpecifically they want to be able to express this:\n1) 1 container with 128GB of RAM and 16cores OR\n2) 10 containers with 16GB of RAM and 2 cores OR \n3) 100 containers with 2GB of RAM and 1 core\n\nIn term of locality I can see three main scenarios:\n1) absolute locality, i.e., I need a gang of N containers on this rack, or on these set of nodes, \n2) relative locality, i.e., I need a gang of N containers \"close to each other\" (this really captures more of a network property than anything else)\n3) (no locality), i.e., I need a gang of N containers anywhere in the cluster\n  ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-05-16T00:50:53.974+0000",
+        "updated": "2013-05-16T00:50:53.974+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13661750",
+        "id": "13661750",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "While I see a general use for this and also that having this will be 'exciting', I'd suggest that we first figure out real use cases. Like an application that already needs this. We need to have some ML-type applications that Carlo mentoined on board before we attempt this. Otherwise, we'll just be implementing random features out of priority that no one needs. We could implement tons of scheduling features, lets prioritize and implement in that order.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2013-05-20T03:31:27.719+0000",
+        "updated": "2013-05-20T03:31:27.719+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13662081",
+        "id": "13662081",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "body": "[~vinodkv], my immediate use case for this is an AM that requires a complete set (gang) of containers before being able to accomplish their work in an efficient way. To achieve the desired locality of the allocations, my use case will use YARN-392. From my side, for now, I can drop off OR-gangs request. Also, having a fallback-to-normal would help the AM to do plan B with a partial gang.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "created": "2013-05-20T15:28:09.375+0000",
+        "updated": "2013-05-20T15:28:09.375+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13662101",
+        "id": "13662101",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=revans2",
+          "name": "revans2",
+          "key": "revans2",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Robert Joseph Evans",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "I would love to have it right now for storm too. If you want me to sign up as a use case I am happy to. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=revans2",
+          "name": "revans2",
+          "key": "revans2",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Robert Joseph Evans",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2013-05-20T16:07:52.794+0000",
+        "updated": "2013-05-20T16:07:52.794+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13662139",
+        "id": "13662139",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "body": "[~revans2], mind describing storm requirements? Also, what is the min required functionality that will make a diff for storm.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "created": "2013-05-20T16:51:21.325+0000",
+        "updated": "2013-05-20T16:51:21.325+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13662173",
+        "id": "13662173",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "bq. I would love to have it right now for storm too. If you want me to sign up as a use case I am happy to.\nThis is exactly the kind of concrete use-case I was asking for, not some made up use-case which *may* make sense. Yes please, it will be great if you sign up and lay down important things that you need.\n\nLike I said, I am not against adding this, we need to make sure we are addressing the right requirements. Otherwise, we'll get lost in the myriad scheduler features that we *can* implement, but of little use.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2013-05-20T17:27:40.226+0000",
+        "updated": "2013-05-20T17:27:40.226+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13662352",
+        "id": "13662352",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=revans2",
+          "name": "revans2",
+          "key": "revans2",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Robert Joseph Evans",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "Storm is a real-time stream processing system.  We are working on porting this to run on YARN.  Storm will process one or more streams of data using a logical DAG of processing nodes called a topology.  This topology runs in spawned processes. If there are not enough processes to run a topology there is no point in launching any of the processes.  Hence the need for gang scheduling.\n\nIt is a very simple gang scheduling use case currently.  When a new topology is submitted we want to request enough resources to to run that topology.  If a node goes down, we are going to request enough resources to replace it, so we can get up and running again ASAP.  When a topology is killed we want to release those resources.\n\nLong term we would like to make sure that the different containers are close to each other from a network topology perspective. We don't care which node or rack the containers are on, but we do care that they are all on the same node/rack as the other containers.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=revans2",
+          "name": "revans2",
+          "key": "revans2",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Robert Joseph Evans",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2013-05-20T20:57:06.134+0000",
+        "updated": "2013-05-20T20:57:06.134+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13663125",
+        "id": "13663125",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "I have two level of comments, the first is to clarify the intent of my earlier messages, and the second one to match robert description of a use case for ML frameworks.\n\nIntent:\n[~vinodkv], I completely agree with you that we should be very deliberate in choosing what use cases to support and make sure we only add features that target concrete and I would argue imminent use cases. \nReflecting on a conversation I had with Alejandro, I was trying to help this conversation to take this form:\n1) push for a broad discussion of what are the use cases for gang-scheduling we know of, so that we understand the entire complexity of the problem (hence the comments around more advanced feature such as OR of gangs)\n2) let a set of core features emerge from the most concrete short-term needs we have (the storm example is a good example of where to start for this)\n3) try to devise a protocol that supports the core features well, but that is amenable to future expansions (inasmuch as we can guess our future needs based on 1)\nSo in term of concrete actions I am totally aligned with your request for \"groundedness\", but I think it would really benefit us to spell out also some of the future requirements \nso that we have a chance to designed for extensibility (similarly to what you guys pushed for in YARN-45, which I thought was really a good call).\n\nML Use Cases:\nI asked Markus Weimer (ML/Systems guy in our group) to summarize why he sees gang scheduling to be key for ML frameworks (which I think are going to flock into yarn in the coming months/years). \n\nHere his response:\n\"In many iterative algorithms, it is imperative to load all the data into the main memory to minimize execution time. This is true for systems like Giraph, Mahout and many others that will over time be on YARN. In order to satisfy their memory requirement, they will block holding on to idle slots until YARN has delivered all the resources needed. Exposing that pattern via gang scheduling seems beneficial.\nFurthermore, these systems are often communications intensive. Hence, they\u2019d benefit from a gang of containers that are collocated on the network. This is a gang-wide property of the resource ask that cannot be captured easily without gang scheduling. The alternatives (e.g. getting a container on each rack, then expand from there to see which rack \u201cwins\u201d) are quite wasteful in comparison.\nLastly, scheduling with alternatives at the gang level would be helpful. If e.g. the training data for a machine learning algorithm needs 128GB of RAM, any combination of containers with that amount of RAM would satisfy the need. However, preference is given to fewer machines as that reduces the communication overhead.\"\n\nWhile I appreciate the level of urgency for what Markus describe and for Storm is not comparable, I see ML as an important future use case for YARN. And gang-scheduling seems one of those features that will determine whether people build on Yarn or on something like Mesos.\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-05-21T17:00:16.040+0000",
+        "updated": "2013-05-21T17:00:16.040+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13732188",
+        "id": "13732188",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "[~bikassaha] has pointed out that gang scheduling can be implemented in an AM today: it can just hang on to assigned nodes until a minimum has been allocated, at which point it can bring up its service.\n\nThis would move all scheduling decisions into the AM, which is free to implement it own policy.\n\nIf we start this way, then once a few apps have done this we can look at commonality and decide what features -if any- need to go into YARN.\n\nThe most likely - again, credit to Bikas - is for YARN to recognise that an AM has been given some containers but not, after a time period, deployed anything to them. YARN could then cancel the lease unless the AM specifically indicates it wants to retain it.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2013-08-07T17:28:26.769+0000",
+        "updated": "2013-08-07T17:28:26.769+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13733177",
+        "id": "13733177",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "RM currently expects something to start in a container within a timeout after allocation. Either that needs to change or that will set a maximum timeout for which the AM can hold onto containers while waiting for a gang of them to be allocated. The NM could provide an API to launch but not start a process. So all resource copying etc could be completed and the process may be launched in a suspended state, ready to go. This may help in telling the RM that the container actually is being used. Then NM could then un-suspend and start the process after being told by the AM to do so.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-08-08T05:55:12.830+0000",
+        "updated": "2013-08-08T05:55:12.830+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13735965",
+        "id": "13735965",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "I now think we can't just offload off this to the AM, because that can lead to a dining philosopher's class deadlock.\n\nexample, 4 containers for service code, two AMs wanting 3 containers each, each with two allocated and waiting for the third...\n\nGang scheduling in the RM would let it satisfy the constraints for one of the services (& choose based on queues).\n\nOtherwise: need a finite configurable limit on how long an AM can lease a container that isn't running code. That would make sense anyway if we allow a container to outlive a single program. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2013-08-10T16:36:37.567+0000",
+        "updated": "2013-08-10T16:36:37.567+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13735967",
+        "id": "13735967",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Related to this is work we just proposed in YARN-1051. We manage dynamically negotiated reservation of capacity at admission control. The idea is that if I want gang-scheduling I can declare this at submission time and the system accept me only if it can \"fit\" me. At that level we do constraints checking / knapsack (e.g., that we never promise more gang-style reservations than we can fit). \n\nThis means that at run-time AM-hoarding is ok because we guarantee it to fit. \nI am aware of at least 2 limitations of this approach w.r.t. the dynamic version you were discussing:\n* doesn't work if the application doesn't know about its needs until the AM has started \n* we lose large chunks of the cluster (and our previously checked constraints don't hold)\n\nNeither seems a great concern, and the second one can be handle with re-planning in the admission-control (which we don't have yet, but its in our agenda).\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-08-10T16:54:18.407+0000",
+        "updated": "2013-08-10T16:54:18.407+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13736015",
+        "id": "13736015",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "body": "carlo, i think what you are referring is starting an app when you can guarantee its planned capacity. imo, gang scheduling is a bit different beast.   ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "created": "2013-08-10T19:52:38.866+0000",
+        "updated": "2013-08-10T19:52:38.866+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13736067",
+        "id": "13736067",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "I do refer to that. The argument is that provided the planned capacity is tightly guaranteed to be available, AM-side hoarding of container is sufficient to achieve gang scheduling. \nAgain bar a few limitations that I mentioned (and maybe others I missed) this will get us close to get at least basic deadlock-free, gang-scheduling semantics (as we discussed in person with no real promises on location). ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-08-10T22:04:45.177+0000",
+        "updated": "2013-08-10T22:04:45.177+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13736894",
+        "id": "13736894",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=revans2",
+          "name": "revans2",
+          "key": "revans2",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Robert Joseph Evans",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "From my perspective it does not really solve the problem for me.  It comes close but is not perfect.  I am interested in gang scheduling to support [storm on yarn|https://github.com/yahoo/storm-yarn/]\n\nThe biggest issue I have with this design is knowing the size before the application is launched.  The ultimate goal with storm is to have a system where multiple separate, but related, storm topologies are processing data using the same application.  We would configure the queues so that if storm sees a spike in demand it can steal containers from batch processing to grow a topology and when the spike goes away it would release those containers back.  If the number of containers changes dynamically, by both submitting new topologies and growing/shrinking existing ones it is impossible to tell YARN what I need at the beginning.\n\nGang scheduling is interesting for me because there is a specific number of containers that each topology is configured to need when that topology is launched.  Without all of those containers there is no reason to launch a single part of the topology. I can see this happening with a modification to your approach where the all or nothing happens when the AM submits a request, and not when the AM is submitted.\n\nI also have a hard time seeing how this would work well with other advanced features like preemption.  For preemption to work well with gang scheduling it needs to take into account that if it shoots a container in a gang of containers it is likely going to get back a lot more resources then just one container.  If it is aware of this then it can still shoot the container, but avoid shooting other containers needlessly because it knows what it is going to get back.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=revans2",
+          "name": "revans2",
+          "key": "revans2",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Robert Joseph Evans",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2013-08-12T14:22:07.543+0000",
+        "updated": "2013-08-12T14:22:07.543+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13736970",
+        "id": "13736970",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Robert, you are right, and provide a compelling example of an application that has dynamic needs for resources. \n\nThere are ways around this, where you dynamically negotiate an increase/decrease of dedicated resources, and keep \nthe AM as it is. Philosophically this keeps all interaction AM-RM as best-effort partial-ok, while is the client-RM \nprotocol that talks about binding negotiation for resources. This would work and match well the current preemption \nmechanics, but I am not sure it is the best design (I haven't thought hard about it yet).\n\nIf we go with the design where the AM makes gang-like requests, we should make the preemption policy aware of\nthis, and act accordingly. In a sense, this boils down to a \"granularity\" problem, not too different from the current\nsize of containers to preempt vs needed capacity. But it stretches the precision issue by potentially a huge factor, making \nthe tradeoff between under and over preempting a more subtle line to walk. \n\nTwo ways around this:\n* we might want introduce non-strictly FIFO preemptions in a queue, i.e., skip a large gang and preempt containers from the \nnext app if the gang is way bigger than my preemption needs. This risks to break reservations, and has possibly funny and \ngameable semantics. Also it seems hard to gain experience on how to parametrize such heuristics.\n\n* an alternative workaround is to ensure that no gang requests are satisfied with over-capacity containers, this keeps the\ngangs out of the preemption radar. A simple way to enforce this is to set max-capacity the same as guaranteed capacity for \nthe queues that will serve gang requests. (This might combine nicely with the dynamic negotiation business as well).\n\nAnother sub-problem of gang-scheduling is to track which containers belong to which gang (and/or which requests they serve). \nThis also requires the AM to be consistent in how it uses containers it receives and possibly a more explicit protocol to \nsay \"this container I am giving you is part of that gang request\", otherwise a single preemption might break multiple topologies. \nIn general this containers-to-requests tracking seems a bit too opaque at the moment (I have heard independent complaints from \nApplicationMaster developers on this before).",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-08-12T15:50:39.994+0000",
+        "updated": "2013-08-12T15:50:39.994+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13737246",
+        "id": "13737246",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=revans2",
+          "name": "revans2",
+          "key": "revans2",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Robert Joseph Evans",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "Carlo,\n\nI do have to be total honest here too.  Gang scheduling is an interesting feature, but it is not the highest on my priority list.  In the short to medium term I am fine with launching containers and letting them wait until there are enough to run the entire topology.  I am also fine if I have to configure my queues appropriately to avoid deadlock/preemption in the short to medium term. If it is too difficult to have preemption be gang aware we can skip it, and ask users to configure the queue appropriately. I just want to be sure that whatever route we start down does not lock us into a model that will prevent me from getting to my end goal. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=revans2",
+          "name": "revans2",
+          "key": "revans2",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Robert Joseph Evans",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2013-08-12T19:05:38.402+0000",
+        "updated": "2013-08-12T19:05:38.402+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13737631",
+        "id": "13737631",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Robert,\n\nThat makes sense. I think we should have some guidelines for people on what to do while we work out the details of how to get gang-scheduling right. \nAs I was mentioning few posts above, I also heard requests from people doing machine learning of rather exotic versions of gang-scheduling. \n\nWe can definitely make preemption gang-aware, but it is not trivial to get the semantics and corner-cases right, in a sense what we are\nreally in the game of discussing is a conversion rate between capacity/fairness and cluster efficiency, e.g., is it worth to discard the\nprogress made by 200 containers for 20min to give this another application all its rightful capacity right away? Hard question.\n\nPart of a longer term research I am involved in is to quantify this trade offs more clearly by projecting both in an economical value space. \nBut this is not going to be ready for a long while.\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-08-13T00:38:40.275+0000",
+        "updated": "2013-08-13T00:38:40.275+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13776847",
+        "id": "13776847",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Hi Guys,\n\nI would like to quantify what is the typical waste of resources while \"hoarding\" containers towards a gang for Gyraph or Storm. \nAnyone have an intuition/measure of the typical time-delay and container slot-time wasted while hoarding containers, before the \nuseful part of the computation starts?  Thanks.. \n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-09-24T22:28:42.396+0000",
+        "updated": "2013-09-24T22:28:42.396+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13785556",
+        "id": "13785556",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=revans2",
+          "name": "revans2",
+          "key": "revans2",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Robert Joseph Evans",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "[~curino] Sorry about the late reply.  I have not really tested this much with storm on YARN.  Most of our experiments it is negligible the amount of time it takes to get nodes.  But we have not really done anything serious with it, and adding new nodes right now is a manual operation.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=revans2",
+          "name": "revans2",
+          "key": "revans2",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Robert Joseph Evans",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2013-10-03T21:25:15.172+0000",
+        "updated": "2013-10-03T21:25:15.172+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/13785570",
+        "id": "13785570",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Got it.. thanks anyway, please keep us posted if you get with Storm or Giraph to get some concrete numbers... ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-10-03T21:46:41.971+0000",
+        "updated": "2013-10-03T21:46:41.971+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/14379352",
+        "id": "14379352",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Anubhav+Srivastav",
+          "name": "Anubhav Srivastav",
+          "key": "anubhav srivastav",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Anubhav Srivastav",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Is there any progress on implementing this feature?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Anubhav+Srivastav",
+          "name": "Anubhav Srivastav",
+          "key": "anubhav srivastav",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Anubhav Srivastav",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-03-25T06:04:40.807+0000",
+        "updated": "2015-03-25T06:04:40.807+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/14545486",
+        "id": "14545486",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=john.lilley%40redpoint.net",
+          "name": "john.lilley@redpoint.net",
+          "key": "john.lilley@redpoint.net",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "john lilley",
+          "active": true,
+          "timeZone": "America/Denver"
+        },
+        "body": "I would like to +1 this feature, and illustrate our use cases.  Currently there are two:\n-- Finding strongly-connected subgraphs.  This is a central step in data-quality/matching applications, because after record-matching is performed in a distributed fashion, the match pairs (edges) must be turned into match groups (subgraphs).  It is very inefficient to process this using a traditional independent-task YARN model.\n-- Machine-learning model training.  There are many models that lend themselves to distributed processing, and even those that don't can benefit from parallel genetic algorithm that competes multiple models and topologies in parallel.\n\nIn both these cases we are considering a custom AM that runs like:\n-- Asks for M containers\n-- Accepts as few as N containers, but only after not getting M for some period of time (heuristics TBD).\n-- Possibly, after getting non-zero but < N containers for some time, release them all, sleep a while, and try again (deadlock avoidance).\n\nThis algorithm would be much better run by the RM, because it can:\n-- Immediately fail the AM if N containers are impossible.\n-- Avoid idle incomplete sets of containers while waiting for a sufficient gang.\n-- Avoid deadlock.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=john.lilley%40redpoint.net",
+          "name": "john.lilley@redpoint.net",
+          "key": "john.lilley@redpoint.net",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "john lilley",
+          "active": true,
+          "timeZone": "America/Denver"
+        },
+        "created": "2015-05-15T13:32:27.254+0000",
+        "updated": "2015-05-15T13:32:27.254+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/14608386",
+        "id": "14608386",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=grey",
+          "name": "grey",
+          "key": "grey",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "George Reyes",
+          "active": true,
+          "timeZone": "America/Toronto"
+        },
+        "body": "[~john.lilley@redpoint.net], with your use case, do you also have data locality preference? If yes, whether each container may have separate data locality preference?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=grey",
+          "name": "grey",
+          "key": "grey",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "George Reyes",
+          "active": true,
+          "timeZone": "America/Toronto"
+        },
+        "created": "2015-06-30T14:34:08.856+0000",
+        "updated": "2015-06-30T14:34:08.856+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/14608653",
+        "id": "14608653",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=john.lilley%40redpoint.net",
+          "name": "john.lilley@redpoint.net",
+          "key": "john.lilley@redpoint.net",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "john lilley",
+          "active": true,
+          "timeZone": "America/Denver"
+        },
+        "body": "We don't have any data locality needs for these use cases.  Especially the machine-learning case, it will be CPU bound.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=john.lilley%40redpoint.net",
+          "name": "john.lilley@redpoint.net",
+          "key": "john.lilley@redpoint.net",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "john lilley",
+          "active": true,
+          "timeZone": "America/Denver"
+        },
+        "created": "2015-06-30T16:58:16.828+0000",
+        "updated": "2015-06-30T16:58:16.828+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301/comment/16891568",
+        "id": "16891568",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=klaus1982",
+          "name": "klaus1982",
+          "key": "klaus1982",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=klaus1982&avatarId=24432",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=klaus1982&avatarId=24432",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=klaus1982&avatarId=24432",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=klaus1982&avatarId=24432"
+          },
+          "displayName": "Klaus Ma",
+          "active": true,
+          "timeZone": "Asia/Harbin"
+        },
+        "body": "do we support Gang-scheduling right now?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=klaus1982",
+          "name": "klaus1982",
+          "key": "klaus1982",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=klaus1982&avatarId=24432",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=klaus1982&avatarId=24432",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=klaus1982&avatarId=24432",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=klaus1982&avatarId=24432"
+          },
+          "displayName": "Klaus Ma",
+          "active": true,
+          "timeZone": "Asia/Harbin"
+        },
+        "created": "2019-07-24T03:27:54.139+0000",
+        "updated": "2019-07-24T03:27:54.139+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-624/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 27,
+        "returned": 27
+      }
+    ]
+  }
+}

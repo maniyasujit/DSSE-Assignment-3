@@ -1,0 +1,1690 @@
+{
+  "downloaded_at": "2026-06-25T10:23:02.174892+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-2302",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2302?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12727830",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830",
+    "key": "YARN-2302",
+    "fields": {
+      "summary": "Refactor TimelineWebServices",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12686232",
+        "key": "YARN-1530",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12686232",
+        "fields": {
+          "summary": "[Umbrella] Store, manage and serve per-framework application-timeline data",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+            "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+            "name": "Resolved",
+            "id": "5",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+            "id": "1",
+            "description": "A problem which impairs or prevents the functions of the product.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+            "name": "Bug",
+            "subtask": false,
+            "avatarId": 21133
+          }
+        }
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12322904",
+          "id": "12322904",
+          "name": "timelineserver",
+          "description": "YARN Timeline Server"
+        }
+      ],
+      "subtasks": [],
+      "created": "2014-07-17T02:43:42.439+0000",
+      "description": "Now TimelineWebServices contains non-trivial logic to process the HTTP requests, manipulate the data, check the access, and interact with the timeline store.\n\nI propose the move the data-oriented logic to a middle layer (so called TimelineDataManager), and TimelineWebServices only processes the requests, and call TimelineDataManager to complete the remaining tasks.\n\nBy doing this, we make the generic history module reuse TimelineDataManager internally (YARN-2033), invoking the putting/getting methods directly. Otherwise, we have to send the HTTP requests to TimelineWebServices to query the generic history data, which is not an efficient way.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/1",
+        "id": "1",
+        "description": "A fix for this issue is checked into the tree and tested.",
+        "name": "Fixed"
+      },
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12656216",
+          "id": "12656216",
+          "filename": "YARN-2302.1.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+            "name": "zjshen",
+            "key": "zjshen",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+            },
+            "displayName": "Zhijie Shen",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2014-07-17T04:07:05.766+0000",
+          "size": 36167,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12656216/YARN-2302.1.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12660727",
+          "id": "12660727",
+          "filename": "YARN-2302.2.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+            "name": "zjshen",
+            "key": "zjshen",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+            },
+            "displayName": "Zhijie Shen",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2014-08-08T22:09:26.682+0000",
+          "size": 40468,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12660727/YARN-2302.2.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12660815",
+          "id": "12660815",
+          "filename": "YARN-2302.3.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+            "name": "zjshen",
+            "key": "zjshen",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+            },
+            "displayName": "Zhijie Shen",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2014-08-09T18:26:16.105+0000",
+          "size": 41305,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12660815/YARN-2302.3.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12660836",
+          "id": "12660836",
+          "filename": "YARN-2302.4.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+            "name": "zjshen",
+            "key": "zjshen",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+            },
+            "displayName": "Zhijie Shen",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2014-08-10T04:27:46.958+0000",
+          "size": 41281,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12660836/YARN-2302.4.patch"
+        }
+      ],
+      "issuelinks": [
+        {
+          "id": "12391639",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12391639",
+          "type": {
+            "id": "10032",
+            "name": "Blocker",
+            "inward": "is blocked by",
+            "outward": "blocks",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10032"
+          },
+          "outwardIssue": {
+            "id": "12713149",
+            "key": "YARN-2033",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12713149",
+            "fields": {
+              "summary": "Merging generic-history into the Timeline Store",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                "name": "Closed",
+                "id": "6",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14064523",
+            "id": "14064523",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Upload the patch of the code refactoring. The logic for the web services is kept same. I passed the timeline service test cases locally, and verified the timeline server with a single node cluster, where it worked fine.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-07-17T03:08:05.646+0000",
+            "updated": "2014-07-17T03:08:05.646+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14064528",
+            "id": "14064528",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12656211/YARN-2302.1.patch\n  against trunk revision .\n\n    {color:red}-1 patch{color}.  Trunk compilation may be broken.\n\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/4336//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-07-17T03:14:48.673+0000",
+            "updated": "2014-07-17T03:14:48.673+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14064533",
+            "id": "14064533",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Compilation failure is caused by YARN-2219. Will re-kick jenkins once that problem is fixed.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-07-17T03:24:35.629+0000",
+            "updated": "2014-07-17T03:24:35.629+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14064555",
+            "id": "14064555",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Kick the jenkins again",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-07-17T04:07:05.779+0000",
+            "updated": "2014-07-17T04:07:05.779+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14064565",
+            "id": "14064565",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12656216/YARN-2302.1.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 1 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/4338//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/4338//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-07-17T04:38:15.329+0000",
+            "updated": "2014-07-17T04:38:15.329+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14090707",
+            "id": "14090707",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Thanks for the patch, [~zjshen]! A couple of comments so far:\n\nIn ApplicationHistoryServer.java,\n\n{code}\n+  protected TimelineDataManager timelineDataManager;\n{code}\nBetter to be private, as it only get consumed within ApplicationHistoryServer.\n\n{code}\n    timelineACLsManager = createTimelineACLsManager(conf);\n{code}\nLooks like we don\u2019t need timelineACLsManager anymore except initiating TimeLineDataManager. We can completely remove it (method and variable) after merge below\n{code}\n  protected TimelineACLsManager createTimelineACLsManager(Configuration conf) {\n    return new TimelineACLsManager(conf);\n  }\n\n  protected TimelineDataManager createTimelineDataManager(Configuration conf) {\n    return new TimelineDataManager(timelineStore, timelineACLsManager);\n  }\n{code}\n\nto:\n\n{code}\n  private TimelineDataManager createTimelineDataManager(Configuration conf) {\n    return new TimelineDataManager(timelineStore, new TimelineACLsManager(conf));\n  }\n{code}\nThe visibility of method should be private, as it is not get assumed outside of class. There are also some similar unnecessary protected methods around in this class, see if you want to do update here also or we can do it separately later.\n\nIn TimelineDataManager.java,\n{code}\n+      try {\n+        if (existingEntity == null) {\n+          injectOwnerInfo(entity, callerUGI.getShortUserName());\n+        }\n+      } catch (YarnException e) {\n+        // Skip the entity which messes up the primary filter and record the\n+        // error\n+        LOG.warn(\"Skip the timeline entity: \" + entityID + \", because \"\n+            + e.getMessage());\n{code}\nThis exception sounds more serious than just a warn, so Log.error here may make more sense?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2014-08-08T12:31:35.225+0000",
+            "updated": "2014-08-08T12:31:35.225+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14091364",
+            "id": "14091364",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~junping_du], thanks for your review. The general response to your comments on ApplicationHistoryServer is that protected vars/methods are the legacy things. Anyway before it grows worse, I did some more refactoring for this class in the new patch. In addition, I address the Log level issue in the new patch as well.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=johna",
+              "name": "johna",
+              "key": "banjo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=banjo&avatarId=38464",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=banjo&avatarId=38464",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=banjo&avatarId=38464",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=banjo&avatarId=38464"
+              },
+              "displayName": "John Andrunas",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-08-08T22:09:26.691+0000",
+            "updated": "2019-10-25T20:24:47.343+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14091522",
+            "id": "14091522",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Thanks for updating the patch, [~zjshen]! The patch looks good now in overall. Some minor comments:\n{code}\n+  public TimelinePutResponse postEntities(\n+      TimelineEntities entities,\n+      UserGroupInformation callerUGI) throws YarnException, IOException {\n+    if (entities == null) {\n{code}\nShall we rename this method to putEntities? There is slightly different between put and post operation (in REST prospective) while post is \"create\" (first time) but put is an \"update\". The internal behavior of the method is like \"update\" and call put operation actually, so \"put\" could be more properly.\nIn addition, I think we should have javadoc for public methods in TimelineDataManager.java. \nOther looks fine.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2014-08-09T00:54:37.302+0000",
+            "updated": "2014-08-09T00:54:37.302+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14091539",
+            "id": "14091539",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12660727/YARN-2302.2.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 2 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/4566//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/4566//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-08-09T01:21:29.951+0000",
+            "updated": "2014-08-09T01:21:29.951+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14091845",
+            "id": "14091845",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks for the input, Junping! Patch updated again.\n\nbq. Shall we rename this method to putEntities?\n\nThis is a good question. AFAIK, PUT is used to update the entire resource and supposed to be idempotent. Therefore, I'm not sure it's an idea to change the method to PUT because once the entity is created, the following updates are actually appending more data to the existing one. The best fit should be PATCH, however, it requires the additional implementation at the web services side. Hence, somebody online suggested using POST for partial non-idempotent update as well. Anyway, i think it's not a simple code refactoring, I'll file another ticket to track the investigation of proper HTTP method for postEntities.\n\nbq. In addition, I think we should have javadoc for public methods in TimelineDataManager.java. \n\nAs TimelineDataManager is not the user-oriented interface, I added some simple javadoc for the public methods, and link them to TimelineStoreReader for argument details.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-08-09T18:26:07.161+0000",
+            "updated": "2014-08-09T18:26:07.161+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14091856",
+            "id": "14091856",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12660815/YARN-2302.3.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 2 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:red}-1 javadoc{color}.  The javadoc tool appears to have generated 3 warning messages.\n        See https://builds.apache.org/job/PreCommit-YARN-Build/4572//artifact/trunk/patchprocess/diffJavadocWarnings.txt for details.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/4572//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/4572//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-08-09T18:58:04.097+0000",
+            "updated": "2014-08-09T18:58:04.097+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14091958",
+            "id": "14091958",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Sounds good. I don't have additional comments except fixing the javadoc warning.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2014-08-10T01:04:01.650+0000",
+            "updated": "2014-08-10T01:04:01.650+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14092001",
+            "id": "14092001",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Fix the javadoc warnings",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-08-10T04:27:46.968+0000",
+            "updated": "2014-08-10T04:27:46.968+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14092008",
+            "id": "14092008",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Latest patch LGTM. +1 pending on Jenkins.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2014-08-10T04:38:48.501+0000",
+            "updated": "2014-08-10T04:38:48.501+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14092010",
+            "id": "14092010",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12660836/YARN-2302.4.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 2 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/4576//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/4576//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-08-10T04:58:03.021+0000",
+            "updated": "2014-08-10T04:58:03.021+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14092043",
+            "id": "14092043",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "I have commit this to trunk and branch-2. Thanks [~zjshen] for the contribution!",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2014-08-10T07:27:17.926+0000",
+            "updated": "2014-08-10T07:27:17.926+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14092047",
+            "id": "14092047",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "FAILURE: Integrated in Hadoop-trunk-Commit #6044 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/6044/])\nYARN-2302. Refactor TimelineWebServices. (Contributed by Zhijie Shen) (junping_du: http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1617055)\n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/applicationhistoryservice/ApplicationHistoryServer.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/applicationhistoryservice/webapp/AHSWebApp.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/timeline/TimelineDataManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/timeline/webapp/TimelineWebServices.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/test/java/org/apache/hadoop/yarn/server/applicationhistoryservice/TestApplicationHistoryClientService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/test/java/org/apache/hadoop/yarn/server/timeline/webapp/TestTimelineWebServices.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-08-10T07:33:22.548+0000",
+            "updated": "2014-08-10T07:33:22.548+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14092068",
+            "id": "14092068",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "FAILURE: Integrated in Hadoop-Yarn-trunk #640 (See [https://builds.apache.org/job/Hadoop-Yarn-trunk/640/])\nYARN-2302. Refactor TimelineWebServices. (Contributed by Zhijie Shen) (junping_du: http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1617055)\n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/applicationhistoryservice/ApplicationHistoryServer.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/applicationhistoryservice/webapp/AHSWebApp.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/timeline/TimelineDataManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/timeline/webapp/TimelineWebServices.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/test/java/org/apache/hadoop/yarn/server/applicationhistoryservice/TestApplicationHistoryClientService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/test/java/org/apache/hadoop/yarn/server/timeline/webapp/TestTimelineWebServices.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-08-10T10:45:14.213+0000",
+            "updated": "2014-08-10T10:45:14.213+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14092089",
+            "id": "14092089",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "SUCCESS: Integrated in Hadoop-Hdfs-trunk #1833 (See [https://builds.apache.org/job/Hadoop-Hdfs-trunk/1833/])\nYARN-2302. Refactor TimelineWebServices. (Contributed by Zhijie Shen) (junping_du: http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1617055)\n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/applicationhistoryservice/ApplicationHistoryServer.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/applicationhistoryservice/webapp/AHSWebApp.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/timeline/TimelineDataManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/timeline/webapp/TimelineWebServices.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/test/java/org/apache/hadoop/yarn/server/applicationhistoryservice/TestApplicationHistoryClientService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/test/java/org/apache/hadoop/yarn/server/timeline/webapp/TestTimelineWebServices.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-08-10T14:06:14.255+0000",
+            "updated": "2014-08-10T14:06:14.255+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14092098",
+            "id": "14092098",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "SUCCESS: Integrated in Hadoop-Mapreduce-trunk #1859 (See [https://builds.apache.org/job/Hadoop-Mapreduce-trunk/1859/])\nYARN-2302. Refactor TimelineWebServices. (Contributed by Zhijie Shen) (junping_du: http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1617055)\n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/applicationhistoryservice/ApplicationHistoryServer.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/applicationhistoryservice/webapp/AHSWebApp.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/timeline/TimelineDataManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/timeline/webapp/TimelineWebServices.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/test/java/org/apache/hadoop/yarn/server/applicationhistoryservice/TestApplicationHistoryClientService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/test/java/org/apache/hadoop/yarn/server/timeline/webapp/TestTimelineWebServices.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-08-10T14:59:28.967+0000",
+            "updated": "2014-08-10T14:59:28.967+0000"
+          }
+        ],
+        "maxResults": 20,
+        "total": 20,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2302/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2019-10-25T20:24:47.369+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+        "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+        "name": "Closed",
+        "id": "6",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 20,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14064523",
+        "id": "14064523",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Upload the patch of the code refactoring. The logic for the web services is kept same. I passed the timeline service test cases locally, and verified the timeline server with a single node cluster, where it worked fine.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-07-17T03:08:05.646+0000",
+        "updated": "2014-07-17T03:08:05.646+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14064528",
+        "id": "14064528",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12656211/YARN-2302.1.patch\n  against trunk revision .\n\n    {color:red}-1 patch{color}.  Trunk compilation may be broken.\n\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/4336//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-07-17T03:14:48.673+0000",
+        "updated": "2014-07-17T03:14:48.673+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14064533",
+        "id": "14064533",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Compilation failure is caused by YARN-2219. Will re-kick jenkins once that problem is fixed.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-07-17T03:24:35.629+0000",
+        "updated": "2014-07-17T03:24:35.629+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14064555",
+        "id": "14064555",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Kick the jenkins again",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-07-17T04:07:05.779+0000",
+        "updated": "2014-07-17T04:07:05.779+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14064565",
+        "id": "14064565",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12656216/YARN-2302.1.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 1 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/4338//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/4338//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-07-17T04:38:15.329+0000",
+        "updated": "2014-07-17T04:38:15.329+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14090707",
+        "id": "14090707",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Thanks for the patch, [~zjshen]! A couple of comments so far:\n\nIn ApplicationHistoryServer.java,\n\n{code}\n+  protected TimelineDataManager timelineDataManager;\n{code}\nBetter to be private, as it only get consumed within ApplicationHistoryServer.\n\n{code}\n    timelineACLsManager = createTimelineACLsManager(conf);\n{code}\nLooks like we don\u2019t need timelineACLsManager anymore except initiating TimeLineDataManager. We can completely remove it (method and variable) after merge below\n{code}\n  protected TimelineACLsManager createTimelineACLsManager(Configuration conf) {\n    return new TimelineACLsManager(conf);\n  }\n\n  protected TimelineDataManager createTimelineDataManager(Configuration conf) {\n    return new TimelineDataManager(timelineStore, timelineACLsManager);\n  }\n{code}\n\nto:\n\n{code}\n  private TimelineDataManager createTimelineDataManager(Configuration conf) {\n    return new TimelineDataManager(timelineStore, new TimelineACLsManager(conf));\n  }\n{code}\nThe visibility of method should be private, as it is not get assumed outside of class. There are also some similar unnecessary protected methods around in this class, see if you want to do update here also or we can do it separately later.\n\nIn TimelineDataManager.java,\n{code}\n+      try {\n+        if (existingEntity == null) {\n+          injectOwnerInfo(entity, callerUGI.getShortUserName());\n+        }\n+      } catch (YarnException e) {\n+        // Skip the entity which messes up the primary filter and record the\n+        // error\n+        LOG.warn(\"Skip the timeline entity: \" + entityID + \", because \"\n+            + e.getMessage());\n{code}\nThis exception sounds more serious than just a warn, so Log.error here may make more sense?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2014-08-08T12:31:35.225+0000",
+        "updated": "2014-08-08T12:31:35.225+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14091364",
+        "id": "14091364",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~junping_du], thanks for your review. The general response to your comments on ApplicationHistoryServer is that protected vars/methods are the legacy things. Anyway before it grows worse, I did some more refactoring for this class in the new patch. In addition, I address the Log level issue in the new patch as well.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=johna",
+          "name": "johna",
+          "key": "banjo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=banjo&avatarId=38464",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=banjo&avatarId=38464",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=banjo&avatarId=38464",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=banjo&avatarId=38464"
+          },
+          "displayName": "John Andrunas",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-08-08T22:09:26.691+0000",
+        "updated": "2019-10-25T20:24:47.343+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14091522",
+        "id": "14091522",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Thanks for updating the patch, [~zjshen]! The patch looks good now in overall. Some minor comments:\n{code}\n+  public TimelinePutResponse postEntities(\n+      TimelineEntities entities,\n+      UserGroupInformation callerUGI) throws YarnException, IOException {\n+    if (entities == null) {\n{code}\nShall we rename this method to putEntities? There is slightly different between put and post operation (in REST prospective) while post is \"create\" (first time) but put is an \"update\". The internal behavior of the method is like \"update\" and call put operation actually, so \"put\" could be more properly.\nIn addition, I think we should have javadoc for public methods in TimelineDataManager.java. \nOther looks fine.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2014-08-09T00:54:37.302+0000",
+        "updated": "2014-08-09T00:54:37.302+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14091539",
+        "id": "14091539",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12660727/YARN-2302.2.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 2 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/4566//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/4566//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-08-09T01:21:29.951+0000",
+        "updated": "2014-08-09T01:21:29.951+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14091845",
+        "id": "14091845",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks for the input, Junping! Patch updated again.\n\nbq. Shall we rename this method to putEntities?\n\nThis is a good question. AFAIK, PUT is used to update the entire resource and supposed to be idempotent. Therefore, I'm not sure it's an idea to change the method to PUT because once the entity is created, the following updates are actually appending more data to the existing one. The best fit should be PATCH, however, it requires the additional implementation at the web services side. Hence, somebody online suggested using POST for partial non-idempotent update as well. Anyway, i think it's not a simple code refactoring, I'll file another ticket to track the investigation of proper HTTP method for postEntities.\n\nbq. In addition, I think we should have javadoc for public methods in TimelineDataManager.java. \n\nAs TimelineDataManager is not the user-oriented interface, I added some simple javadoc for the public methods, and link them to TimelineStoreReader for argument details.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-08-09T18:26:07.161+0000",
+        "updated": "2014-08-09T18:26:07.161+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14091856",
+        "id": "14091856",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12660815/YARN-2302.3.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 2 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:red}-1 javadoc{color}.  The javadoc tool appears to have generated 3 warning messages.\n        See https://builds.apache.org/job/PreCommit-YARN-Build/4572//artifact/trunk/patchprocess/diffJavadocWarnings.txt for details.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/4572//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/4572//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-08-09T18:58:04.097+0000",
+        "updated": "2014-08-09T18:58:04.097+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14091958",
+        "id": "14091958",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Sounds good. I don't have additional comments except fixing the javadoc warning.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2014-08-10T01:04:01.650+0000",
+        "updated": "2014-08-10T01:04:01.650+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14092001",
+        "id": "14092001",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Fix the javadoc warnings",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-08-10T04:27:46.968+0000",
+        "updated": "2014-08-10T04:27:46.968+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14092008",
+        "id": "14092008",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Latest patch LGTM. +1 pending on Jenkins.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2014-08-10T04:38:48.501+0000",
+        "updated": "2014-08-10T04:38:48.501+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14092010",
+        "id": "14092010",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12660836/YARN-2302.4.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 2 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/4576//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/4576//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-08-10T04:58:03.021+0000",
+        "updated": "2014-08-10T04:58:03.021+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14092043",
+        "id": "14092043",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "I have commit this to trunk and branch-2. Thanks [~zjshen] for the contribution!",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2014-08-10T07:27:17.926+0000",
+        "updated": "2014-08-10T07:27:17.926+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14092047",
+        "id": "14092047",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "FAILURE: Integrated in Hadoop-trunk-Commit #6044 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/6044/])\nYARN-2302. Refactor TimelineWebServices. (Contributed by Zhijie Shen) (junping_du: http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1617055)\n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/applicationhistoryservice/ApplicationHistoryServer.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/applicationhistoryservice/webapp/AHSWebApp.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/timeline/TimelineDataManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/timeline/webapp/TimelineWebServices.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/test/java/org/apache/hadoop/yarn/server/applicationhistoryservice/TestApplicationHistoryClientService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/test/java/org/apache/hadoop/yarn/server/timeline/webapp/TestTimelineWebServices.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-08-10T07:33:22.548+0000",
+        "updated": "2014-08-10T07:33:22.548+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14092068",
+        "id": "14092068",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "FAILURE: Integrated in Hadoop-Yarn-trunk #640 (See [https://builds.apache.org/job/Hadoop-Yarn-trunk/640/])\nYARN-2302. Refactor TimelineWebServices. (Contributed by Zhijie Shen) (junping_du: http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1617055)\n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/applicationhistoryservice/ApplicationHistoryServer.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/applicationhistoryservice/webapp/AHSWebApp.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/timeline/TimelineDataManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/timeline/webapp/TimelineWebServices.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/test/java/org/apache/hadoop/yarn/server/applicationhistoryservice/TestApplicationHistoryClientService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/test/java/org/apache/hadoop/yarn/server/timeline/webapp/TestTimelineWebServices.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-08-10T10:45:14.213+0000",
+        "updated": "2014-08-10T10:45:14.213+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14092089",
+        "id": "14092089",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "SUCCESS: Integrated in Hadoop-Hdfs-trunk #1833 (See [https://builds.apache.org/job/Hadoop-Hdfs-trunk/1833/])\nYARN-2302. Refactor TimelineWebServices. (Contributed by Zhijie Shen) (junping_du: http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1617055)\n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/applicationhistoryservice/ApplicationHistoryServer.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/applicationhistoryservice/webapp/AHSWebApp.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/timeline/TimelineDataManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/timeline/webapp/TimelineWebServices.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/test/java/org/apache/hadoop/yarn/server/applicationhistoryservice/TestApplicationHistoryClientService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/test/java/org/apache/hadoop/yarn/server/timeline/webapp/TestTimelineWebServices.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-08-10T14:06:14.255+0000",
+        "updated": "2014-08-10T14:06:14.255+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12727830/comment/14092098",
+        "id": "14092098",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "SUCCESS: Integrated in Hadoop-Mapreduce-trunk #1859 (See [https://builds.apache.org/job/Hadoop-Mapreduce-trunk/1859/])\nYARN-2302. Refactor TimelineWebServices. (Contributed by Zhijie Shen) (junping_du: http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN&view=rev&rev=1617055)\n* /hadoop/common/trunk/hadoop-yarn-project/CHANGES.txt\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/applicationhistoryservice/ApplicationHistoryServer.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/applicationhistoryservice/webapp/AHSWebApp.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/timeline/TimelineDataManager.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/main/java/org/apache/hadoop/yarn/server/timeline/webapp/TimelineWebServices.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/test/java/org/apache/hadoop/yarn/server/applicationhistoryservice/TestApplicationHistoryClientService.java\n* /hadoop/common/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-applicationhistoryservice/src/test/java/org/apache/hadoop/yarn/server/timeline/webapp/TestTimelineWebServices.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-08-10T14:59:28.967+0000",
+        "updated": "2014-08-10T14:59:28.967+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2302/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 20,
+        "returned": 20
+      }
+    ]
+  }
+}

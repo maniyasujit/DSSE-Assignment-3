@@ -1,0 +1,795 @@
+{
+  "downloaded_at": "2026-06-25T10:19:51.254098+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-7250",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-7250?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13104865",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13104865",
+    "key": "YARN-7250",
+    "fields": {
+      "summary": "Update Shared cache client api to use URLs",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12652263",
+        "key": "YARN-1492",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12652263",
+        "fields": {
+          "summary": "truly shared cache for jars (jobjar/libjar)",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+            "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+            "name": "Resolved",
+            "id": "5",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+            "id": "2",
+            "description": "A new feature of the product, which has yet to be developed.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+            "name": "New Feature",
+            "subtask": false,
+            "avatarId": 21141
+          }
+        }
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2017-09-25T18:42:40.755+0000",
+      "description": "We should make the SharedCacheClient use api more consistent with other YARN api methods. We can do this by doing two things:\n# Update the SharedCacheClient#use api so that it returns a URL instead of a Path. Currently yarn developers have to convert the path to a URL when creating a LocalResources. It would be much smoother if they could just use a URL passed to them by the shared cache client.\n# Remove the portion of the client that deals with fragments as this is not consistent with the rest of YARN. This functionality is bleeding in from the MapReduce layer, which uses fragments to keep track of destination file names. YARN's api does not use fragments. Instead  the ContainerLaunchContext expects a Map<String, LocalResource> localResources, where the strings are the destination file names. We should let the YARN application handle destination file names however it wants instead of pushing this into the shared cache api. Additionally, fragments are a clunky way to handle this.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/4",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/minor.svg",
+        "name": "Minor",
+        "id": "4"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/1",
+        "id": "1",
+        "description": "A fix for this issue is checked into the tree and tested.",
+        "name": "Fixed"
+      },
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12888926",
+          "id": "12888926",
+          "filename": "YARN-7250-trunk-001.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+            "name": "ctrezzo",
+            "key": "ctrezzo",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Chris Trezzo",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2017-09-25T18:49:23.720+0000",
+          "size": 9443,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12888926/YARN-7250-trunk-001.patch"
+        }
+      ],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13104865/comment/16179544",
+            "id": "16179544",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+              "name": "ctrezzo",
+              "key": "ctrezzo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chris Trezzo",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Attached v1 patch.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+              "name": "ctrezzo",
+              "key": "ctrezzo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chris Trezzo",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-09-25T18:49:29.806+0000",
+            "updated": "2017-09-25T18:49:29.806+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13104865/comment/16179656",
+            "id": "16179656",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 26s{color} | {color:blue} Docker mode activated. {color} |\n|| || || || {color:brown} Prechecks {color} ||\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\n|| || || || {color:brown} trunk Compile Tests {color} ||\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 14m 25s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 24s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 15s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 26s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 32s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 16s{color} | {color:green} trunk passed {color} |\n|| || || || {color:brown} Patch Compile Tests {color} ||\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 26s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 24s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 24s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 12s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 22s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 36s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 12s{color} | {color:green} the patch passed {color} |\n|| || || || {color:brown} Other Tests {color} ||\n| {color:red}-1{color} | {color:red} unit {color} | {color:red} 31m 20s{color} | {color:red} hadoop-yarn-client in the patch failed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 16s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 51m 57s{color} | {color:black} {color} |\n\\\\\n\\\\\n|| Reason || Tests ||\n| Failed junit tests | hadoop.yarn.client.api.impl.TestNMClient |\n| Timed out junit tests | org.apache.hadoop.yarn.client.api.impl.TestAMRMClient |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:71bbb86 |\n| JIRA Issue | YARN-7250 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12888926/YARN-7250-trunk-001.patch |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 0fb59ac33e3c 3.13.0-123-generic #172-Ubuntu SMP Mon Jun 26 18:04:35 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / e928ee5 |\n| Default Java | 1.8.0_144 |\n| findbugs | v3.1.0-RC1 |\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/17625/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-client.txt |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/17625/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/17625/console |\n| Powered by | Apache Yetus 0.6.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-09-25T19:45:37.278+0000",
+            "updated": "2017-09-25T19:45:37.278+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13104865/comment/16179819",
+            "id": "16179819",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+              "name": "ctrezzo",
+              "key": "ctrezzo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chris Trezzo",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "The TestNMClient failure is happening on trunk as well, and is unrelated to this patch. The same goes for the TestAMRMClient timeout.\n\nThe patch should be good to go. The patch is technically an incompatible change, but this api is marked unstable and this feature is still in an alpha state, so there should be no issue. My intention is to, pending review, check this into trunk, branch-3.0 and branch-2.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+              "name": "ctrezzo",
+              "key": "ctrezzo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chris Trezzo",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-09-25T21:25:28.968+0000",
+            "updated": "2017-09-25T21:25:28.968+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13104865/comment/16183443",
+            "id": "16183443",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+              "name": "ctrezzo",
+              "key": "ctrezzo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chris Trezzo",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Also to clarify, this is a client side only change. The protobuf/rpc between the client and the SCM is staying the same.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+              "name": "ctrezzo",
+              "key": "ctrezzo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chris Trezzo",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-09-27T23:36:13.778+0000",
+            "updated": "2017-09-27T23:36:13.778+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13104865/comment/16183461",
+            "id": "16183461",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "+1 \nPatch LGTM with the following understanding:\n\n- The interface itself is marked Unstable so it should be okay to change it.\n- Any documentation updates to be handled in YARN-2960\n- Purely a client side change, the protobuf for the rpc isn't changing\n- For MapReduce to use this, work is in progress at MAPREDUCE-5951",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-09-27T23:43:39.026+0000",
+            "updated": "2017-09-27T23:44:00.942+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13104865/comment/16183463",
+            "id": "16183463",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+              "name": "ctrezzo",
+              "key": "ctrezzo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chris Trezzo",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thank you [~vrushalic] for the review! I will wait until tomorrow to commit, just in case there are any other comments. Otherwise, I plan to commit to trunk, branch-3.0 and branch-2.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+              "name": "ctrezzo",
+              "key": "ctrezzo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chris Trezzo",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-09-27T23:45:50.869+0000",
+            "updated": "2017-09-27T23:45:50.869+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13104865/comment/16185031",
+            "id": "16185031",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+              "name": "ctrezzo",
+              "key": "ctrezzo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chris Trezzo",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Committed to trunk, branch-3.0, and branch-2.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+              "name": "ctrezzo",
+              "key": "ctrezzo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chris Trezzo",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-09-28T22:39:38.721+0000",
+            "updated": "2017-09-28T22:39:38.721+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13104865/comment/16185066",
+            "id": "16185066",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "SUCCESS: Integrated in Jenkins build Hadoop-trunk-Commit #12993 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/12993/])\nYARN-7250. Update Shared cache client api to use URLs. (ctrezzo: rev c114da5e64d14b1d9e614081c4171ea0391cb1aa)\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/api/SharedCacheClient.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/api/impl/SharedCacheClientImpl.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/test/java/org/apache/hadoop/yarn/client/api/impl/TestSharedCacheClientImpl.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-09-28T22:57:42.288+0000",
+            "updated": "2017-09-28T22:57:42.288+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13104865/comment/16451040",
+            "id": "16451040",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "SUCCESS: Integrated in Jenkins build Hadoop-trunk-Commit #14057 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/14057/])\nYARN-7250. Update Shared cache client api to use URLs. (xyao: rev 5f494fc3d9ecbedc8999aded3acb4b9aebc9c61c)\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/test/java/org/apache/hadoop/yarn/client/api/impl/TestSharedCacheClientImpl.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/api/impl/SharedCacheClientImpl.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/api/SharedCacheClient.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2018-04-24T20:56:47.710+0000",
+            "updated": "2018-04-24T20:56:47.710+0000"
+          }
+        ],
+        "maxResults": 9,
+        "total": 9,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-7250/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2018-04-24T20:56:47.710+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 9,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13104865/comment/16179544",
+        "id": "16179544",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+          "name": "ctrezzo",
+          "key": "ctrezzo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chris Trezzo",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Attached v1 patch.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+          "name": "ctrezzo",
+          "key": "ctrezzo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chris Trezzo",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-09-25T18:49:29.806+0000",
+        "updated": "2017-09-25T18:49:29.806+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13104865/comment/16179656",
+        "id": "16179656",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 26s{color} | {color:blue} Docker mode activated. {color} |\n|| || || || {color:brown} Prechecks {color} ||\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\n|| || || || {color:brown} trunk Compile Tests {color} ||\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 14m 25s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 24s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 15s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 26s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 32s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 16s{color} | {color:green} trunk passed {color} |\n|| || || || {color:brown} Patch Compile Tests {color} ||\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 26s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 24s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 24s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 12s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 22s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 36s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 12s{color} | {color:green} the patch passed {color} |\n|| || || || {color:brown} Other Tests {color} ||\n| {color:red}-1{color} | {color:red} unit {color} | {color:red} 31m 20s{color} | {color:red} hadoop-yarn-client in the patch failed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 16s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 51m 57s{color} | {color:black} {color} |\n\\\\\n\\\\\n|| Reason || Tests ||\n| Failed junit tests | hadoop.yarn.client.api.impl.TestNMClient |\n| Timed out junit tests | org.apache.hadoop.yarn.client.api.impl.TestAMRMClient |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:71bbb86 |\n| JIRA Issue | YARN-7250 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12888926/YARN-7250-trunk-001.patch |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 0fb59ac33e3c 3.13.0-123-generic #172-Ubuntu SMP Mon Jun 26 18:04:35 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / e928ee5 |\n| Default Java | 1.8.0_144 |\n| findbugs | v3.1.0-RC1 |\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/17625/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-client.txt |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/17625/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/17625/console |\n| Powered by | Apache Yetus 0.6.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-09-25T19:45:37.278+0000",
+        "updated": "2017-09-25T19:45:37.278+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13104865/comment/16179819",
+        "id": "16179819",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+          "name": "ctrezzo",
+          "key": "ctrezzo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chris Trezzo",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "The TestNMClient failure is happening on trunk as well, and is unrelated to this patch. The same goes for the TestAMRMClient timeout.\n\nThe patch should be good to go. The patch is technically an incompatible change, but this api is marked unstable and this feature is still in an alpha state, so there should be no issue. My intention is to, pending review, check this into trunk, branch-3.0 and branch-2.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+          "name": "ctrezzo",
+          "key": "ctrezzo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chris Trezzo",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-09-25T21:25:28.968+0000",
+        "updated": "2017-09-25T21:25:28.968+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13104865/comment/16183443",
+        "id": "16183443",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+          "name": "ctrezzo",
+          "key": "ctrezzo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chris Trezzo",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Also to clarify, this is a client side only change. The protobuf/rpc between the client and the SCM is staying the same.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+          "name": "ctrezzo",
+          "key": "ctrezzo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chris Trezzo",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-09-27T23:36:13.778+0000",
+        "updated": "2017-09-27T23:36:13.778+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13104865/comment/16183461",
+        "id": "16183461",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "+1 \nPatch LGTM with the following understanding:\n\n- The interface itself is marked Unstable so it should be okay to change it.\n- Any documentation updates to be handled in YARN-2960\n- Purely a client side change, the protobuf for the rpc isn't changing\n- For MapReduce to use this, work is in progress at MAPREDUCE-5951",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-09-27T23:43:39.026+0000",
+        "updated": "2017-09-27T23:44:00.942+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13104865/comment/16183463",
+        "id": "16183463",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+          "name": "ctrezzo",
+          "key": "ctrezzo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chris Trezzo",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thank you [~vrushalic] for the review! I will wait until tomorrow to commit, just in case there are any other comments. Otherwise, I plan to commit to trunk, branch-3.0 and branch-2.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+          "name": "ctrezzo",
+          "key": "ctrezzo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chris Trezzo",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-09-27T23:45:50.869+0000",
+        "updated": "2017-09-27T23:45:50.869+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13104865/comment/16185031",
+        "id": "16185031",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+          "name": "ctrezzo",
+          "key": "ctrezzo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chris Trezzo",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Committed to trunk, branch-3.0, and branch-2.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ctrezzo",
+          "name": "ctrezzo",
+          "key": "ctrezzo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chris Trezzo",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-09-28T22:39:38.721+0000",
+        "updated": "2017-09-28T22:39:38.721+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13104865/comment/16185066",
+        "id": "16185066",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "SUCCESS: Integrated in Jenkins build Hadoop-trunk-Commit #12993 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/12993/])\nYARN-7250. Update Shared cache client api to use URLs. (ctrezzo: rev c114da5e64d14b1d9e614081c4171ea0391cb1aa)\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/api/SharedCacheClient.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/api/impl/SharedCacheClientImpl.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/test/java/org/apache/hadoop/yarn/client/api/impl/TestSharedCacheClientImpl.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-09-28T22:57:42.288+0000",
+        "updated": "2017-09-28T22:57:42.288+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13104865/comment/16451040",
+        "id": "16451040",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "SUCCESS: Integrated in Jenkins build Hadoop-trunk-Commit #14057 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/14057/])\nYARN-7250. Update Shared cache client api to use URLs. (xyao: rev 5f494fc3d9ecbedc8999aded3acb4b9aebc9c61c)\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/test/java/org/apache/hadoop/yarn/client/api/impl/TestSharedCacheClientImpl.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/api/impl/SharedCacheClientImpl.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-client/src/main/java/org/apache/hadoop/yarn/client/api/SharedCacheClient.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2018-04-24T20:56:47.710+0000",
+        "updated": "2018-04-24T20:56:47.710+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-7250/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 9,
+        "returned": 9
+      }
+    ]
+  }
+}

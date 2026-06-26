@@ -1,0 +1,305 @@
+{
+  "downloaded_at": "2026-06-25T10:21:38.871633+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-4199",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-4199?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12895329",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12895329",
+    "key": "YARN-4199",
+    "fields": {
+      "summary": "Minimize lock time in LeveldbTimelineStore.discardOldEntities",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12322904",
+          "id": "12322904",
+          "name": "timelineserver",
+          "description": "YARN Timeline Server"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12325004",
+          "id": "12325004",
+          "name": "yarn"
+        }
+      ],
+      "subtasks": [],
+      "created": "2015-09-22T04:30:14.348+0000",
+      "description": "In current implementation, LeveldbTimelineStore.discardOldEntities holds a writeLock on deleteLock, which will block other put operation, which eventually block the execution of YARN jobs(e.g. TEZ). When there is lots of history jobs in timelinestore, the block time will be very long. In our observation, it block all the TEZ jobs for several hours or longer. \n\nThe possible solutions are:\n- Optimize leveldb configuration,  so a full scan won't take long time.\n- Take a snapshot of leveldb, and scan the snapshot, so we only need to hold lock while getSnapshot. One question is that whether snapshot will take long time or not, cause I have no experience with leveldb.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/3",
+        "id": "3",
+        "description": "The problem is a duplicate of an existing issue.",
+        "name": "Duplicate"
+      },
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [
+        {
+          "id": "12442887",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12442887",
+          "type": {
+            "id": "12310000",
+            "name": "Duplicate",
+            "inward": "is duplicated by",
+            "outward": "duplicates",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310000"
+          },
+          "outwardIssue": {
+            "id": "12788133",
+            "key": "YARN-3448",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12788133",
+            "fields": {
+              "summary": "Add Rolling Time To Lives Level DB Plugin Capabilities",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12895329/comment/14902757",
+            "id": "14902757",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "Have you looked at the rolling leveldb implementation from YARN-3448? One of its design goals was to solve this same problem.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2015-09-22T14:56:14.698+0000",
+            "updated": "2015-09-22T14:56:14.698+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12895329/comment/14903729",
+            "id": "14903729",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=guoshiwei",
+              "name": "guoshiwei",
+              "key": "guoshiwei",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Shiwei Guo",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Sorry, I havn't noticed [YARN-3448|https://issues.apache.org/jira/browse/YARN-3448] before. I think [YARN-3448|https://issues.apache.org/jira/browse/YARN-3448] solved the problem in a better way. So I marked this issue as a duplicate to [YARN-3448|https://issues.apache.org/jira/browse/YARN-3448]. \n\nThanks for your remind.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=guoshiwei",
+              "name": "guoshiwei",
+              "key": "guoshiwei",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Shiwei Guo",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2015-09-23T00:47:45.506+0000",
+            "updated": "2015-09-23T00:47:45.506+0000"
+          }
+        ],
+        "maxResults": 2,
+        "total": 2,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-4199/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2015-09-23T00:47:45.506+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 2,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12895329/comment/14902757",
+        "id": "14902757",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "Have you looked at the rolling leveldb implementation from YARN-3448? One of its design goals was to solve this same problem.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2015-09-22T14:56:14.698+0000",
+        "updated": "2015-09-22T14:56:14.698+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12895329/comment/14903729",
+        "id": "14903729",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=guoshiwei",
+          "name": "guoshiwei",
+          "key": "guoshiwei",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Shiwei Guo",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Sorry, I havn't noticed [YARN-3448|https://issues.apache.org/jira/browse/YARN-3448] before. I think [YARN-3448|https://issues.apache.org/jira/browse/YARN-3448] solved the problem in a better way. So I marked this issue as a duplicate to [YARN-3448|https://issues.apache.org/jira/browse/YARN-3448]. \n\nThanks for your remind.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=guoshiwei",
+          "name": "guoshiwei",
+          "key": "guoshiwei",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Shiwei Guo",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2015-09-23T00:47:45.506+0000",
+        "updated": "2015-09-23T00:47:45.506+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-4199/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 2,
+        "returned": 2
+      }
+    ]
+  }
+}

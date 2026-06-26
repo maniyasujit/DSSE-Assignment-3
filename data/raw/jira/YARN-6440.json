@@ -1,0 +1,425 @@
+{
+  "downloaded_at": "2026-06-25T10:20:17.691694+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-6440",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-6440?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13061557",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13061557",
+    "key": "YARN-6440",
+    "fields": {
+      "summary": "re-visit handling QUEUE-STOP process",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "13011787",
+        "key": "YARN-5724",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13011787",
+        "fields": {
+          "summary": "[Umbrella] Better Queue Management in YARN",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+            "description": "The issue is open and ready for the assignee to start work on it.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+            "name": "Open",
+            "id": "1",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/3",
+            "id": "3",
+            "description": "A task that needs to be done.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21148&avatarType=issuetype",
+            "name": "Task",
+            "subtask": false,
+            "avatarId": 21148
+          }
+        }
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12327621",
+          "id": "12327621",
+          "name": "capacity scheduler"
+        }
+      ],
+      "subtasks": [],
+      "created": "2017-04-04T22:35:54.812+0000",
+      "description": "Currently, when we stop the parent queue, we would do the following:\n1) check the number of active applications. If there is no active application, we would mark the queue state as STOPPED. Otherwise, we mark the queue state as DRAIN, and wait for all the active applications finish.\n2) Do the same step for all its children.\n\nSo, in current process, we always change the state for parent queue first which will not work in some scenarios, such as the reservation system. In the reservation system, the plan queue will not have any active applications immediately at the beginning. So, when we stop the queue, it would change the queue state into STOPPED immediately which could cause problem.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12861972",
+          "id": "12861972",
+          "filename": "YARN-6440.1.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+            "name": "xgong",
+            "key": "xgong",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+            },
+            "displayName": "Xuan Gong",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2017-04-04T22:53:42.306+0000",
+          "size": 5852,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12861972/YARN-6440.1.patch"
+        }
+      ],
+      "issuelinks": [
+        {
+          "id": "12499884",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12499884",
+          "type": {
+            "id": "10001",
+            "name": "dependent",
+            "inward": "is depended upon by",
+            "outward": "depends upon",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10001"
+          },
+          "inwardIssue": {
+            "id": "13061213",
+            "key": "YARN-6431",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13061213",
+            "fields": {
+              "summary": "make DELETE/STOP/CONVERT queues work in reservation system",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13061557/comment/15956008",
+            "id": "15956008",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+              "name": "xgong",
+              "key": "xgong",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Xuan Gong",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "To fix the issue, we need to change the process a little bit:\n1) alway change the queue state to DRAIN for the parent queue.\n2) for the leaf queue, check the number of active applications. If the number is 0, we would move to STOPPED state and inform its parent.\n3) The parent queue got the update state from its children, it will move to STOPPED state if all its children are in STOPPED state.\n\nNote: we will not handle plan queue here. The fix for the plan queue would be in : https://issues.apache.org/jira/browse/YARN-6431\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+              "name": "xgong",
+              "key": "xgong",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Xuan Gong",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-04-04T22:53:12.144+0000",
+            "updated": "2017-04-04T22:53:12.144+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13061557/comment/15956010",
+            "id": "15956010",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+              "name": "xgong",
+              "key": "xgong",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Xuan Gong",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "No new test cases included and make sure we could pass all previous test cases",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+              "name": "xgong",
+              "key": "xgong",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Xuan Gong",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-04-04T22:54:24.900+0000",
+            "updated": "2017-04-04T22:54:24.900+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13061557/comment/15956104",
+            "id": "15956104",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 27s{color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:red}-1{color} | {color:red} test4tests {color} | {color:red}  0m  0s{color} | {color:red} The patch doesn't appear to include any new or modified tests. Please justify why no new tests are needed for this patch. Also please list what manual steps were performed to verify this patch. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 15m  8s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 32s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 27s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 35s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m 15s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m  0s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 22s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 31s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 30s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 30s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 24s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 32s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m 12s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 15s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 19s{color} | {color:green} the patch passed {color} |\n| {color:red}-1{color} | {color:red} unit {color} | {color:red} 44m 30s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 21s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 68m 45s{color} | {color:black} {color} |\n\\\\\n\\\\\n|| Reason || Tests ||\n| Failed junit tests | hadoop.yarn.server.resourcemanager.TestRMRestart |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:a9ad5d6 |\n| JIRA Issue | YARN-6440 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12861972/YARN-6440.1.patch |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 52d5a673c2d8 3.13.0-108-generic #155-Ubuntu SMP Wed Jan 11 16:58:52 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / 3fdae0a |\n| Default Java | 1.8.0_121 |\n| findbugs | v3.0.0 |\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/15516/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/15516/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/15516/console |\n| Powered by | Apache Yetus 0.5.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-04-05T00:19:38.814+0000",
+            "updated": "2017-04-05T00:19:38.814+0000"
+          }
+        ],
+        "maxResults": 3,
+        "total": 3,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-6440/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2017-04-05T00:19:38.814+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/10002",
+        "description": "A patch for this issue has been uploaded to JIRA by a contributor.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/document.png",
+        "name": "Patch Available",
+        "id": "10002",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 3,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13061557/comment/15956008",
+        "id": "15956008",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+          "name": "xgong",
+          "key": "xgong",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Xuan Gong",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "To fix the issue, we need to change the process a little bit:\n1) alway change the queue state to DRAIN for the parent queue.\n2) for the leaf queue, check the number of active applications. If the number is 0, we would move to STOPPED state and inform its parent.\n3) The parent queue got the update state from its children, it will move to STOPPED state if all its children are in STOPPED state.\n\nNote: we will not handle plan queue here. The fix for the plan queue would be in : https://issues.apache.org/jira/browse/YARN-6431\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+          "name": "xgong",
+          "key": "xgong",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Xuan Gong",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-04-04T22:53:12.144+0000",
+        "updated": "2017-04-04T22:53:12.144+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13061557/comment/15956010",
+        "id": "15956010",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+          "name": "xgong",
+          "key": "xgong",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Xuan Gong",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "No new test cases included and make sure we could pass all previous test cases",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xgong",
+          "name": "xgong",
+          "key": "xgong",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Xuan Gong",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-04-04T22:54:24.900+0000",
+        "updated": "2017-04-04T22:54:24.900+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13061557/comment/15956104",
+        "id": "15956104",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 27s{color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:red}-1{color} | {color:red} test4tests {color} | {color:red}  0m  0s{color} | {color:red} The patch doesn't appear to include any new or modified tests. Please justify why no new tests are needed for this patch. Also please list what manual steps were performed to verify this patch. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 15m  8s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 32s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 27s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 35s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m 15s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m  0s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 22s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 31s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 30s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 30s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 24s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 32s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m 12s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 15s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 19s{color} | {color:green} the patch passed {color} |\n| {color:red}-1{color} | {color:red} unit {color} | {color:red} 44m 30s{color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 21s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 68m 45s{color} | {color:black} {color} |\n\\\\\n\\\\\n|| Reason || Tests ||\n| Failed junit tests | hadoop.yarn.server.resourcemanager.TestRMRestart |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:a9ad5d6 |\n| JIRA Issue | YARN-6440 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12861972/YARN-6440.1.patch |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 52d5a673c2d8 3.13.0-108-generic #155-Ubuntu SMP Wed Jan 11 16:58:52 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / 3fdae0a |\n| Default Java | 1.8.0_121 |\n| findbugs | v3.0.0 |\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/15516/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/15516/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/15516/console |\n| Powered by | Apache Yetus 0.5.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-04-05T00:19:38.814+0000",
+        "updated": "2017-04-05T00:19:38.814+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-6440/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 3,
+        "returned": 3
+      }
+    ]
+  }
+}

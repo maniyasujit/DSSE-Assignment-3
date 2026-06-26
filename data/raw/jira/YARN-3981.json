@@ -1,0 +1,939 @@
+{
+  "downloaded_at": "2026-06-25T10:21:50.005910+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-3981",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3981?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12849365",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365",
+    "key": "YARN-3981",
+    "fields": {
+      "summary": "offline collector: support timeline clients not associated with an application",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "13253762",
+        "key": "YARN-9802",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13253762",
+        "fields": {
+          "summary": "YARN Timeline Service v2 (post GA features)",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+            "description": "The issue is open and ready for the assignee to start work on it.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+            "name": "Open",
+            "id": "1",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+            "id": "2",
+            "description": "A new feature of the product, which has yet to be developed.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+            "name": "New Feature",
+            "subtask": false,
+            "avatarId": 21141
+          }
+        }
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12322904",
+          "id": "12322904",
+          "name": "timelineserver",
+          "description": "YARN Timeline Server"
+        }
+      ],
+      "subtasks": [],
+      "created": "2015-07-27T16:32:52.994+0000",
+      "description": "In the current v.2 design, all timeline writes must belong in a flow/application context (cluster + user + flow + flow run + application).\n\nBut there are use cases that require writing data outside the context of an application. One such example is a higher level client (e.g. tez client or hive/oozie/cascading client) writing flow-level data that spans multiple applications. We need to find a way to support them.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [
+        "YARN-5355"
+      ],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12867372",
+          "id": "12867372",
+          "filename": "YARN-3981- offline-collector-draft.pdf",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+            "name": "rohithsharma",
+            "key": "rohithsharma",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Rohith Sharma K S",
+            "active": true,
+            "timeZone": "America/New_York"
+          },
+          "created": "2017-05-10T15:34:21.102+0000",
+          "size": 91807,
+          "mimeType": "application/pdf",
+          "content": "https://issues.apache.org/jira/secure/attachment/12867372/YARN-3981-+offline-collector-draft.pdf"
+        }
+      ],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/14643006",
+            "id": "14643006",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sjlee0",
+              "name": "sjlee0",
+              "key": "sjlee0",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=sjlee0&avatarId=16831",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=sjlee0&avatarId=16831",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=sjlee0&avatarId=16831",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=sjlee0&avatarId=16831"
+              },
+              "displayName": "Sangjin Lee",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Some of us had an offline discussion on this. There are some major challenges in supporting this in the v.2 design. First, obviously they may lack an application-specific context as they can span multiple YARN apps. Second, even if we solved the problem of the context, these clients are likely off-cluster, and they need a way to write to the cluster. Ideas such as a separate dedicated timeline writer just for these have been discussed, but their scalability is problematic at best.\n\n One idea that was suggested involves creating a specialized YARN application that can act as a proxy for these off-cluster clients. For example, suppose you started a tez client that can start multiple YARN apps. It can also start a special dedicated \"(flow-level) timeline client\". This client would launch a special YARN app under the covers whose app master and its associated timeline writer can serve as the proxy for timeline data the client may write. When this special timeline client shuts down, it would tear down the associated YARN app also.\n\nIf we go this route, we would write the YARN app itself so that the app master listens on requests coming from the client and proxies it to the timeline writer. We would also write the timeline client piece so that it manages the YARN app as well as sending the write requests to the app master.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sjlee0",
+              "name": "sjlee0",
+              "key": "sjlee0",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=sjlee0&avatarId=16831",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=sjlee0&avatarId=16831",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=sjlee0&avatarId=16831",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=sjlee0&avatarId=16831"
+              },
+              "displayName": "Sangjin Lee",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-07-27T16:46:45.960+0000",
+            "updated": "2015-07-27T16:46:45.960+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/14643056",
+            "id": "14643056",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks for filing the jira. I'm going to pick this up.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-07-27T17:14:41.881+0000",
+            "updated": "2015-07-27T17:14:41.881+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/15436385",
+            "id": "15436385",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+              "name": "rohithsharma",
+              "key": "rohithsharma",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Rohith Sharma K S",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "body": "Assigned to myself, hope no one is working on this as of now.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+              "name": "rohithsharma",
+              "key": "rohithsharma",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Rohith Sharma K S",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "created": "2016-08-25T07:04:10.964+0000",
+            "updated": "2016-08-25T07:04:10.964+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/15448925",
+            "id": "15448925",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+              "name": "rohithsharma",
+              "key": "rohithsharma",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Rohith Sharma K S",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "body": "Hi [~sjlee0], thanks for the summary of the discussion.\n\nbq. This client would launch a special YARN app under the covers whose app master and its associated timeline writer can serve as the proxy for timeline data the client may write. When this special timeline client shuts down, it would tear down the associated YARN app also.\nI assume launching a special is just same as normal-app where in YARN frameworks take care of writing all the corresponding data to ATS2. Are you referring special app as Uber job? Even uber job, for each application there will be corresponding another job in the list. This doubles the storage are also. \n\nOne another approach is\nAs part of NM daemon, start new service same as TimeLineWriterWebService. Idea is NM reports all these collector address to RM.   Introduce new API in clientRMservice to get collector address. Address is given by RM in random(This can be decided later). This address is used by timeline client. TimeLineClient  exposes new constructor with an flowName. So system properties can be written at flow level.\nThese special entities are stored in separate table i.e with key *clusterid!flowName!entityType!entityId*. \n\nI would appreciate if folks give their suggestions/comments on the new approach.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+              "name": "rohithsharma",
+              "key": "rohithsharma",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Rohith Sharma K S",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "created": "2016-08-30T12:51:29.189+0000",
+            "updated": "2016-08-30T12:51:29.189+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/15449912",
+            "id": "15449912",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=gtcarrera9",
+              "name": "gtcarrera9",
+              "key": "gtcarrera9",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Li Lu",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks [~rohithsharma]! \n\nbq. As part of NM daemon, start new service same as TimeLineWriterWebService. Idea is NM reports all these collector address to RM. Introduce new API in clientRMservice to get collector address. Address is given by RM in random(This can be decided later). This address is used by timeline client. TimeLineClient exposes new constructor with an flowName. So system properties can be written at flow level.\nActually this looks a little bit similar to the current collector discovery mechanism, where the NM reports app level collector information to RM, and RM distributes such information to all containers. \n\nThe difference is we need to explicitly decide where and when to launch the collectors. The RM can decide where to launch collectors, but as of now, all collectors are associated with some concrete application's life-cycles (launched as aux-services). We can launch collectors as separate process for this use case? \n\nOne concern is this will increase the load on the RM again. Not sure if this will be a problem on busy clusters with a lot of client connections. However, this is definitely better than launching a central server daemon to handle all client requests (which falls back to old ATS v1 architecture). \n\nFor storing those entities posted from clients, can we put them in the entity table, but just leave some unknown fields empty? Will that be a concern for the storage API's semantics? ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=gtcarrera9",
+              "name": "gtcarrera9",
+              "key": "gtcarrera9",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Li Lu",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-08-30T19:28:47.909+0000",
+            "updated": "2016-08-30T19:28:47.909+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/15451391",
+            "id": "15451391",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+              "name": "rohithsharma",
+              "key": "rohithsharma",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Rohith Sharma K S",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "body": "bq. We can launch collectors as separate process for this use case?\nThere are 2 ways. Firstly run as default service in NM? Pros is RM can make use of underlaying NM-RM communication protocol. RM need to just track of collector address. Secondly run as separate process? Pro's is is that admin can decide off-client-writer-cluster. Con's is RM need to track this daemon separately at high level\n\nbq. For storing those entities posted from clients, can we put them in the entity table, but just leave some unknown fields empty? Will that be a concern for the storage API's semantics?\nYes, it is concern for storage API's semantics. Current schema structure for entity table is *userName!clusterId!flowName!flowRunId!AppId!entityType!entityId*. So, key would become *userName!clusterId!flowName!null!null!entityType!entityId* which I am not sure doe HBase support this as a key for read/write.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+              "name": "rohithsharma",
+              "key": "rohithsharma",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Rohith Sharma K S",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "created": "2016-08-31T07:00:58.261+0000",
+            "updated": "2016-08-31T07:00:58.261+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/15524485",
+            "id": "15524485",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=gtcarrera9",
+              "name": "gtcarrera9",
+              "key": "gtcarrera9",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Li Lu",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Continuing this thread. We may want to limit the active connections to the HBase backend, thus having collectors for clients on each node manager may be a little bit too aggressive. For normal use cases, a small subset of NMs running collectors would be enough? \n\nAnother issue is that the RM also needs to discover available client collectors in the system. It can then dispatch those collectors to clients. The collector service discovery code for now couples app level collectors with their application id. We need to expand them to a more general collector_id, collector_data mapping to support collectors for clients. I'm opening a new JIRA to trace this. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=gtcarrera9",
+              "name": "gtcarrera9",
+              "key": "gtcarrera9",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Li Lu",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-09-26T23:22:00.152+0000",
+            "updated": "2016-09-26T23:22:00.152+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/15533782",
+            "id": "15533782",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "\nCan you give an example of what information is to be written at the flow level? Is it at the flow level or at flow run level? Put another way, is this information going to be stored each time say a hive script is run or is it to be written just the very first time it is ever run? The attributes of a flow run like start time or end time are determined by the coprocessor automatically so those need not be written specially.\n\nIf we need to write information that belongs to a particular flow run but not tied to a specific application with it, we should write this to the \"flow run\" table, not the \"entity table\". \n\nImplementation detail note: the coprocessor is setup for this flow run table, so a little more attention needed here to ensure we set/do not the right cell tags. \n\nIn order to determine where to have writer processes running and how many and how often, how to discover those etc, I think it will be helpful to know what kind of information is to be written. \n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2016-09-29T19:20:53.788+0000",
+            "updated": "2016-09-29T19:20:53.788+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/16004866",
+            "id": "16004866",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+              "name": "rohithsharma",
+              "key": "rohithsharma",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Rohith Sharma K S",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "body": "Updated draft of design doc. Please feel free to post your comments.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+              "name": "rohithsharma",
+              "key": "rohithsharma",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Rohith Sharma K S",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "created": "2017-05-10T15:34:21.118+0000",
+            "updated": "2017-05-10T15:34:21.118+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/16005775",
+            "id": "16005775",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Thanks for the design draft Rohith. I think I have some preliminary questions, more like discussion. \n\n- Do I understand it correctly that flow collectors will run on each node that runs an NM in the cluster? \n- How much traffic do we think might come in? Would it be similar to app table writes? If not, is there a possibility we can run this on head node of the cluster like where RM or NNs run? Not on the same node as RM but a node similar to RM, so that it's \"outside\" the cluster. We have fairly big sized clusters and having each node run a collector may not be optimal. \n- aggregation is not relevant I think for a flow collector. Or do we want to support it? If not, we don't need to mention it under challenges, it is a non issue.\n- We surely want to think about optimizing connections to hbase\n\nPerhaps I will have more as I think over this further. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-05-11T01:40:37.479+0000",
+            "updated": "2017-05-11T01:40:37.479+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/16006278",
+            "id": "16006278",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+              "name": "rohithsharma",
+              "key": "rohithsharma",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Rohith Sharma K S",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "body": "Thanks [~vrushalic] for skimming through doc. \n\nbq. Do I understand it correctly that flow collectors will run on each node that runs an NM in the cluster?\nNo. Plan in to start one flow collector service that start only one container only. One flow collector service serve for all offline timeline clients. \nHowever, number of flow collectors are admin configurable. So, there can be N collector service. Our TimelineClient will be able to discover all N collector service and make use of only one at a time. \n\nbq. How much traffic do we think might come in? Would it be similar to app table writes? If not, is there a possibility we can run this on head node of the cluster like where RM or NNs run? Not on the same node as RM but a node similar to RM, so that it's \"outside\" the cluster. We have fairly big sized clusters and having each node run a collector may not be optimal.\nAs of today, traffic is very less compared to app collectors. Let say, when ever a HIVE executes a query, this query details are published to atsv2. But we can not take a call on traffic which is not guessable. \n\nbq. aggregation is not relevant I think for a flow collector. Or do we want to support it? If not, we don't need to mention it under challenges, it is a non issue.\nYep, aggregation is not relevant. I will update doc. Btw, is it possible to support aggregation at flow-run level? ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+              "name": "rohithsharma",
+              "key": "rohithsharma",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Rohith Sharma K S",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "created": "2017-05-11T11:44:38.418+0000",
+            "updated": "2017-05-11T11:44:38.418+0000"
+          }
+        ],
+        "maxResults": 11,
+        "total": 11,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3981/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2019-08-30T06:39:20.202+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 11,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/14643006",
+        "id": "14643006",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sjlee0",
+          "name": "sjlee0",
+          "key": "sjlee0",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=sjlee0&avatarId=16831",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=sjlee0&avatarId=16831",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=sjlee0&avatarId=16831",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=sjlee0&avatarId=16831"
+          },
+          "displayName": "Sangjin Lee",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Some of us had an offline discussion on this. There are some major challenges in supporting this in the v.2 design. First, obviously they may lack an application-specific context as they can span multiple YARN apps. Second, even if we solved the problem of the context, these clients are likely off-cluster, and they need a way to write to the cluster. Ideas such as a separate dedicated timeline writer just for these have been discussed, but their scalability is problematic at best.\n\n One idea that was suggested involves creating a specialized YARN application that can act as a proxy for these off-cluster clients. For example, suppose you started a tez client that can start multiple YARN apps. It can also start a special dedicated \"(flow-level) timeline client\". This client would launch a special YARN app under the covers whose app master and its associated timeline writer can serve as the proxy for timeline data the client may write. When this special timeline client shuts down, it would tear down the associated YARN app also.\n\nIf we go this route, we would write the YARN app itself so that the app master listens on requests coming from the client and proxies it to the timeline writer. We would also write the timeline client piece so that it manages the YARN app as well as sending the write requests to the app master.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sjlee0",
+          "name": "sjlee0",
+          "key": "sjlee0",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=sjlee0&avatarId=16831",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=sjlee0&avatarId=16831",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=sjlee0&avatarId=16831",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=sjlee0&avatarId=16831"
+          },
+          "displayName": "Sangjin Lee",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-07-27T16:46:45.960+0000",
+        "updated": "2015-07-27T16:46:45.960+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/14643056",
+        "id": "14643056",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks for filing the jira. I'm going to pick this up.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-07-27T17:14:41.881+0000",
+        "updated": "2015-07-27T17:14:41.881+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/15436385",
+        "id": "15436385",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+          "name": "rohithsharma",
+          "key": "rohithsharma",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Rohith Sharma K S",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "body": "Assigned to myself, hope no one is working on this as of now.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+          "name": "rohithsharma",
+          "key": "rohithsharma",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Rohith Sharma K S",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "created": "2016-08-25T07:04:10.964+0000",
+        "updated": "2016-08-25T07:04:10.964+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/15448925",
+        "id": "15448925",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+          "name": "rohithsharma",
+          "key": "rohithsharma",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Rohith Sharma K S",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "body": "Hi [~sjlee0], thanks for the summary of the discussion.\n\nbq. This client would launch a special YARN app under the covers whose app master and its associated timeline writer can serve as the proxy for timeline data the client may write. When this special timeline client shuts down, it would tear down the associated YARN app also.\nI assume launching a special is just same as normal-app where in YARN frameworks take care of writing all the corresponding data to ATS2. Are you referring special app as Uber job? Even uber job, for each application there will be corresponding another job in the list. This doubles the storage are also. \n\nOne another approach is\nAs part of NM daemon, start new service same as TimeLineWriterWebService. Idea is NM reports all these collector address to RM.   Introduce new API in clientRMservice to get collector address. Address is given by RM in random(This can be decided later). This address is used by timeline client. TimeLineClient  exposes new constructor with an flowName. So system properties can be written at flow level.\nThese special entities are stored in separate table i.e with key *clusterid!flowName!entityType!entityId*. \n\nI would appreciate if folks give their suggestions/comments on the new approach.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+          "name": "rohithsharma",
+          "key": "rohithsharma",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Rohith Sharma K S",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "created": "2016-08-30T12:51:29.189+0000",
+        "updated": "2016-08-30T12:51:29.189+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/15449912",
+        "id": "15449912",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=gtcarrera9",
+          "name": "gtcarrera9",
+          "key": "gtcarrera9",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Li Lu",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks [~rohithsharma]! \n\nbq. As part of NM daemon, start new service same as TimeLineWriterWebService. Idea is NM reports all these collector address to RM. Introduce new API in clientRMservice to get collector address. Address is given by RM in random(This can be decided later). This address is used by timeline client. TimeLineClient exposes new constructor with an flowName. So system properties can be written at flow level.\nActually this looks a little bit similar to the current collector discovery mechanism, where the NM reports app level collector information to RM, and RM distributes such information to all containers. \n\nThe difference is we need to explicitly decide where and when to launch the collectors. The RM can decide where to launch collectors, but as of now, all collectors are associated with some concrete application's life-cycles (launched as aux-services). We can launch collectors as separate process for this use case? \n\nOne concern is this will increase the load on the RM again. Not sure if this will be a problem on busy clusters with a lot of client connections. However, this is definitely better than launching a central server daemon to handle all client requests (which falls back to old ATS v1 architecture). \n\nFor storing those entities posted from clients, can we put them in the entity table, but just leave some unknown fields empty? Will that be a concern for the storage API's semantics? ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=gtcarrera9",
+          "name": "gtcarrera9",
+          "key": "gtcarrera9",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Li Lu",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-08-30T19:28:47.909+0000",
+        "updated": "2016-08-30T19:28:47.909+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/15451391",
+        "id": "15451391",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+          "name": "rohithsharma",
+          "key": "rohithsharma",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Rohith Sharma K S",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "body": "bq. We can launch collectors as separate process for this use case?\nThere are 2 ways. Firstly run as default service in NM? Pros is RM can make use of underlaying NM-RM communication protocol. RM need to just track of collector address. Secondly run as separate process? Pro's is is that admin can decide off-client-writer-cluster. Con's is RM need to track this daemon separately at high level\n\nbq. For storing those entities posted from clients, can we put them in the entity table, but just leave some unknown fields empty? Will that be a concern for the storage API's semantics?\nYes, it is concern for storage API's semantics. Current schema structure for entity table is *userName!clusterId!flowName!flowRunId!AppId!entityType!entityId*. So, key would become *userName!clusterId!flowName!null!null!entityType!entityId* which I am not sure doe HBase support this as a key for read/write.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+          "name": "rohithsharma",
+          "key": "rohithsharma",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Rohith Sharma K S",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "created": "2016-08-31T07:00:58.261+0000",
+        "updated": "2016-08-31T07:00:58.261+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/15524485",
+        "id": "15524485",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=gtcarrera9",
+          "name": "gtcarrera9",
+          "key": "gtcarrera9",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Li Lu",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Continuing this thread. We may want to limit the active connections to the HBase backend, thus having collectors for clients on each node manager may be a little bit too aggressive. For normal use cases, a small subset of NMs running collectors would be enough? \n\nAnother issue is that the RM also needs to discover available client collectors in the system. It can then dispatch those collectors to clients. The collector service discovery code for now couples app level collectors with their application id. We need to expand them to a more general collector_id, collector_data mapping to support collectors for clients. I'm opening a new JIRA to trace this. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=gtcarrera9",
+          "name": "gtcarrera9",
+          "key": "gtcarrera9",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Li Lu",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-09-26T23:22:00.152+0000",
+        "updated": "2016-09-26T23:22:00.152+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/15533782",
+        "id": "15533782",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "\nCan you give an example of what information is to be written at the flow level? Is it at the flow level or at flow run level? Put another way, is this information going to be stored each time say a hive script is run or is it to be written just the very first time it is ever run? The attributes of a flow run like start time or end time are determined by the coprocessor automatically so those need not be written specially.\n\nIf we need to write information that belongs to a particular flow run but not tied to a specific application with it, we should write this to the \"flow run\" table, not the \"entity table\". \n\nImplementation detail note: the coprocessor is setup for this flow run table, so a little more attention needed here to ensure we set/do not the right cell tags. \n\nIn order to determine where to have writer processes running and how many and how often, how to discover those etc, I think it will be helpful to know what kind of information is to be written. \n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2016-09-29T19:20:53.788+0000",
+        "updated": "2016-09-29T19:20:53.788+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/16004866",
+        "id": "16004866",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+          "name": "rohithsharma",
+          "key": "rohithsharma",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Rohith Sharma K S",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "body": "Updated draft of design doc. Please feel free to post your comments.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+          "name": "rohithsharma",
+          "key": "rohithsharma",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Rohith Sharma K S",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "created": "2017-05-10T15:34:21.118+0000",
+        "updated": "2017-05-10T15:34:21.118+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/16005775",
+        "id": "16005775",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Thanks for the design draft Rohith. I think I have some preliminary questions, more like discussion. \n\n- Do I understand it correctly that flow collectors will run on each node that runs an NM in the cluster? \n- How much traffic do we think might come in? Would it be similar to app table writes? If not, is there a possibility we can run this on head node of the cluster like where RM or NNs run? Not on the same node as RM but a node similar to RM, so that it's \"outside\" the cluster. We have fairly big sized clusters and having each node run a collector may not be optimal. \n- aggregation is not relevant I think for a flow collector. Or do we want to support it? If not, we don't need to mention it under challenges, it is a non issue.\n- We surely want to think about optimizing connections to hbase\n\nPerhaps I will have more as I think over this further. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-05-11T01:40:37.479+0000",
+        "updated": "2017-05-11T01:40:37.479+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12849365/comment/16006278",
+        "id": "16006278",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+          "name": "rohithsharma",
+          "key": "rohithsharma",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Rohith Sharma K S",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "body": "Thanks [~vrushalic] for skimming through doc. \n\nbq. Do I understand it correctly that flow collectors will run on each node that runs an NM in the cluster?\nNo. Plan in to start one flow collector service that start only one container only. One flow collector service serve for all offline timeline clients. \nHowever, number of flow collectors are admin configurable. So, there can be N collector service. Our TimelineClient will be able to discover all N collector service and make use of only one at a time. \n\nbq. How much traffic do we think might come in? Would it be similar to app table writes? If not, is there a possibility we can run this on head node of the cluster like where RM or NNs run? Not on the same node as RM but a node similar to RM, so that it's \"outside\" the cluster. We have fairly big sized clusters and having each node run a collector may not be optimal.\nAs of today, traffic is very less compared to app collectors. Let say, when ever a HIVE executes a query, this query details are published to atsv2. But we can not take a call on traffic which is not guessable. \n\nbq. aggregation is not relevant I think for a flow collector. Or do we want to support it? If not, we don't need to mention it under challenges, it is a non issue.\nYep, aggregation is not relevant. I will update doc. Btw, is it possible to support aggregation at flow-run level? ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+          "name": "rohithsharma",
+          "key": "rohithsharma",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Rohith Sharma K S",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "created": "2017-05-11T11:44:38.418+0000",
+        "updated": "2017-05-11T11:44:38.418+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3981/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 11,
+        "returned": 11
+      }
+    ]
+  }
+}

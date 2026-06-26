@@ -1,0 +1,2406 @@
+{
+  "downloaded_at": "2026-06-25T10:20:58.921321+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-5342",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5342?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12987938",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938",
+    "key": "YARN-5342",
+    "fields": {
+      "summary": "Improve non-exclusive node partition resource allocation in Capacity Scheduler",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12738742",
+        "key": "YARN-2492",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12738742",
+        "fields": {
+          "summary": "(Clone of YARN-796) Allow for (admin) labels on nodes and resource-requests ",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+            "description": "The issue is open and ready for the assignee to start work on it.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+            "name": "Open",
+            "id": "1",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/3",
+            "id": "3",
+            "description": "A task that needs to be done.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21148&avatarType=issuetype",
+            "name": "Task",
+            "subtask": false,
+            "avatarId": 21148
+          }
+        }
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2016-07-08T21:33:35.704+0000",
+      "description": "In the previous implementation, one non-exclusive container allocation is possible when the missed-opportunity >= #cluster-nodes. And missed-opportunity will be reset when container allocated to any node.\n\nThis will slow down the frequency of container allocation on non-exclusive node partition: *When a non-exclusive partition=x has idle resource, we can only allocate one container for this app in every X=nodemanagers.heartbeat-interval secs for the whole cluster.*\n\nIn this JIRA, I propose a fix to reset missed-opporunity only if we have >0 pending resource for the non-exclusive partition OR we get allocation from the default partition.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/1",
+        "id": "1",
+        "description": "A fix for this issue is checked into the tree and tested.",
+        "name": "Fixed"
+      },
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12816921",
+          "id": "12816921",
+          "filename": "YARN-5342.1.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+            "name": "leftnoteasy",
+            "key": "leftnoteasy",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+            },
+            "displayName": "Wangda Tan",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2016-07-08T21:34:31.289+0000",
+          "size": 8515,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12816921/YARN-5342.1.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12818534",
+          "id": "12818534",
+          "filename": "YARN-5342.2.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+            "name": "sunilg",
+            "key": "sunilg",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Sunil G",
+            "active": true,
+            "timeZone": "Asia/Kolkata"
+          },
+          "created": "2016-07-18T12:02:07.915+0000",
+          "size": 9586,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12818534/YARN-5342.2.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12819583",
+          "id": "12819583",
+          "filename": "YARN-5342.3.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+            "name": "sunilg",
+            "key": "sunilg",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Sunil G",
+            "active": true,
+            "timeZone": "Asia/Kolkata"
+          },
+          "created": "2016-07-22T10:19:17.339+0000",
+          "size": 7105,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12819583/YARN-5342.3.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12819674",
+          "id": "12819674",
+          "filename": "YARN-5342.4.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+            "name": "sunilg",
+            "key": "sunilg",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Sunil G",
+            "active": true,
+            "timeZone": "Asia/Kolkata"
+          },
+          "created": "2016-07-22T17:16:28.661+0000",
+          "size": 6737,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12819674/YARN-5342.4.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12820439",
+          "id": "12820439",
+          "filename": "YARN-5342-branch-2.8.001.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+            "name": "sunilg",
+            "key": "sunilg",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Sunil G",
+            "active": true,
+            "timeZone": "Asia/Kolkata"
+          },
+          "created": "2016-07-27T12:54:42.462+0000",
+          "size": 7032,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12820439/YARN-5342-branch-2.8.001.patch"
+        }
+      ],
+      "issuelinks": [
+        {
+          "id": "12558399",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12558399",
+          "type": {
+            "id": "12310560",
+            "name": "Problem/Incident",
+            "inward": "is caused by",
+            "outward": "causes",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310560"
+          },
+          "outwardIssue": {
+            "id": "13226415",
+            "key": "YARN-9449",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13226415",
+            "fields": {
+              "summary": "Non-exclusive labels can create reservation loop on cluster without unlabeled node",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+                "id": "1",
+                "description": "A problem which impairs or prevents the functions of the product.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+                "name": "Bug",
+                "subtask": false,
+                "avatarId": 21133
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15368527",
+            "id": "15368527",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Attached ver.1 patch for review\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-07-08T21:34:31.309+0000",
+            "updated": "2016-07-08T21:34:31.309+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15368702",
+            "id": "15368702",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue} 0m 20s {color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green} 0m 0s {color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green} 0m 0s {color} | {color:green} The patch appears to include 2 new or modified test files. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 6m 55s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 31s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green} 0m 22s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green} 0m 36s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green} 0m 14s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green} 0m 57s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 20s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 0m 29s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 29s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green} 0m 29s {color} | {color:green} the patch passed {color} |\n| {color:red}-1{color} | {color:red} checkstyle {color} | {color:red} 0m 19s {color} | {color:red} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager: The patch generated 2 new + 143 unchanged - 1 fixed = 145 total (was 144) {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green} 0m 32s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green} 0m 11s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green} 0m 0s {color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green} 1m 6s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 17s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} unit {color} | {color:green} 31m 52s {color} | {color:green} hadoop-yarn-server-resourcemanager in the patch passed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green} 0m 15s {color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 46m 23s {color} | {color:black} {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:9560f25 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12816921/YARN-5342.1.patch |\n| JIRA Issue | YARN-5342 |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 428cc5925319 3.13.0-36-lowlatency #63-Ubuntu SMP PREEMPT Wed Sep 3 21:56:12 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / 932aed6 |\n| Default Java | 1.8.0_91 |\n| findbugs | v3.0.0 |\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/12245/artifact/patchprocess/diff-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/12245/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/12245/console |\n| Powered by | Apache Yetus 0.3.0   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2016-07-08T23:30:19.988+0000",
+            "updated": "2016-07-08T23:30:19.988+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15375771",
+            "id": "15375771",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Thanks for the patch [~wangda], \nGiven that discussed approach in YARN-4425 (Fallback Policy based ) is going to take some time as it would require significant modifications, i would agree to go for intermittent modification to optimize the non exclusive mode scheduling.\nOnly concern i have is if the size of default partition is greater than the non exclusive partition then on one allocation in default we are resetting the counter, would it be productive ?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-07-13T21:14:39.184+0000",
+            "updated": "2016-07-14T03:11:42.149+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15376095",
+            "id": "15376095",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~Naganarasimha], that's a good point, actually I have thought about this while working on the patch.\nThe only purpose of doing this is for simple, we could have some better logic like gradually decrease the counter depends on ratio of #nodes in default partition and #nodes in specific partitions, but they could be complex and potentially can be a regression since we don't know what happened. Please share your thoughts. \n\nThanks,",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-07-14T00:49:32.535+0000",
+            "updated": "2016-07-14T00:49:32.535+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15377092",
+            "id": "15377092",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "I feel the current approach seems simple and transparent to solve the container allocation for non-exclusive labels.\n\nFew alternatives could have been like:\n1. We could still allocate no_label containers to a non-exclusive partition (OR do not reset the scheduling opportunity) provided\n- non-exclusive partition pending + no_label container resource demand(for 1 request) < total free resources (available) in non-exclusive. \n- It is possible that complete *pending* resource for a non-exclusive partition may not be able to allocate due to user-limit/factor, am-resource-percentage etc. So if we can get effective pending value, we could add to the equation and can do more allocation in non-exclusive partition.\n\n2. Another idea is to do over committing when specific per-partition demand is coming for non-exclusive partition. And do a preemption if needed for other container. This is of very aggressive nature, So I am not feeling it ll be acceptable.\n\nBut these are not very transparent or easier to explain to user as a whitebox operation. So we could discuss and continue this in a new ticket provided current patch goes in. I could raise another ticket as an improvement task. Thoughts [~leftnoteasy] / [~Naganarasimha Garla].",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-07-14T15:11:03.133+0000",
+            "updated": "2016-07-14T15:11:03.133+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15378914",
+            "id": "15378914",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Thanks [~leftnoteasy]. I am taking over the issue and will help to add few more checks.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-07-15T06:38:22.963+0000",
+            "updated": "2016-07-15T06:38:22.963+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15378954",
+            "id": "15378954",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Hi [~sunilg] & [~wangda],\n   Few thoughts on the approach mentioned by both of you \n{quote}\nif (Resources.greaterThan(rc,\n    application.getCSContext().getClusterResource(),\n    application.getCSContext().getClusterResourceUsage()\n        .getPending(node.getPartition()), Resources.none()) || StringUtils\n    .equals(node.getPartition(), RMNodeLabelsManager.NO_LABEL)) {\n  application.resetMissedNonPartitionedRequestSchedulingOpportunity(\n      priority);\n}\n{quote}\nIssue i see is we are trying to revert the counter at application level but trying to evaluate the pending resources of current node's partition. What if multiple non exclusive partitions are there?\nSimilar things apply for the approaches captured by Sunil too.\nI beleive idea here is to delay the allocation in non exclusive mode till some time so that preemption doesnt kick in. so would it be a good idea to depend on partition of the node ?\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-07-15T07:25:44.292+0000",
+            "updated": "2016-07-15T08:13:38.083+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15379671",
+            "id": "15379671",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Thanks [~Naganarasimha Garla] for the insightful thoughts.\n\nBy looking into one aspect like *\u201cimprove the allocation for non-exclusive label when requests are from an application of no_label\u201d*, we can try to help each such app to go ahead with its allocation on a non-exclusive label by not waiting for all node heartbeats.\nFor that I think we can only look in to that very partition (node\u2019s partition on which a node heartbeat is under processing for an app), and see whether we can use some resource for this no_label app. Yes, I agree with your top level view and its good to have an idea about other non-exclusive partition as well. Since we are having a node with us with some free space in current heartbeat, if we can push a no_label container here under limits, i think we are solving problem step by step.\nAnd I very much agree to the comment about the chances of preemption to kick in. I think a fair balance is to be attained for the speed of allocations for no_label apps on a label against larger imbalances over queue\u2019s capacity so that preemption may kick in.\n\nSo the checks which I have mentioned can be w.r.t an app or its queue so that we will try to solve the problem specific to each app by app. A much better and high level solution may cause lot of refactoring I guess. So suggested a simpler approach here. Thoughts?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-07-15T16:56:05.670+0000",
+            "updated": "2016-07-15T16:56:05.670+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15382158",
+            "id": "15382158",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Attaching new patch with the mentioned approach . This is very generic top level approach, and more lenient to avoid resetting the scheduling opportunity counter so that more allocation may happen. I have not checked per-queue level resource checks (if we do this, then we will become more stricter), rather done the upper check with total resource of the label. Pls share the thoughts.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-07-18T12:02:07.936+0000",
+            "updated": "2016-07-18T12:02:07.936+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15382243",
+            "id": "15382243",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (/) *{color:green}+1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue} 0m 31s {color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green} 0m 0s {color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green} 0m 0s {color} | {color:green} The patch appears to include 2 new or modified test files. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 7m 0s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 34s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green} 0m 23s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green} 0m 40s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green} 0m 17s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green} 0m 56s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 20s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 0m 32s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 31s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green} 0m 31s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green} 0m 20s {color} | {color:green} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager: The patch generated 0 new + 144 unchanged - 1 fixed = 144 total (was 145) {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green} 0m 37s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green} 0m 13s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green} 0m 0s {color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green} 1m 6s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 20s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} unit {color} | {color:green} 36m 39s {color} | {color:green} hadoop-yarn-server-resourcemanager in the patch passed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green} 0m 16s {color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 51m 55s {color} | {color:black} {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:9560f25 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12818534/YARN-5342.2.patch |\n| JIRA Issue | YARN-5342 |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 27b8976a2675 3.13.0-36-lowlatency #63-Ubuntu SMP PREEMPT Wed Sep 3 21:56:12 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / 5b4a708 |\n| Default Java | 1.8.0_91 |\n| findbugs | v3.0.0 |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/12354/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/12354/console |\n| Powered by | Apache Yetus 0.3.0   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2016-07-18T13:04:21.974+0000",
+            "updated": "2016-07-18T13:04:21.974+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15382251",
+            "id": "15382251",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Hi [~sunilg],\n      As discussed offline i still feel we should not have logic to reset counter in an app based on the pending resources of the NonExclusive Partition Node, Assume there are 3 partitions (P1(2 nodes),P2(20), default(30) ), and allocation happened on P1 in that case we reset the counter if pending resource is more in P1 but P2 could have allocated to request with Default partition. hence its not correct to have logic based on P1's node pending resource\nOptions i would suggest is :\n# Get the used resources of Default partition and if its greater than particular configured percentage or is 100 then do not reset else reset.\n# Just subract 1 from the counter for allocation in each of NonExclusive Partition Node. If we think its not efficient that only 1 gets subracted i.e only 1 hb everytime then we can subract allocations done for a given time period say 5 seconds.\n\nThoughts ?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-07-18T13:10:18.408+0000",
+            "updated": "2016-07-18T13:10:18.408+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15382622",
+            "id": "15382622",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~Naganarasimha], I understand your concerns about our existing proposal still aggressively resetting missed opportunity that could lead to slowness of allocation or resource under utilization.\n\nI also agree that solving this issue need some global information and abstractions such as YARN-4425. I would like to be more conservative and keep this change as simple as possible since I don't want it brings other issues such as an app asks for a specific partition but cannot get it because of shareable resource allocation.\n\nI think your proposal approach could alleviate existing slowness of resource allocation, but could also lead to shareable resource allocation cut in line while more specific resource request are pending. Unless we can do more comprehensive tests, I will not be very confident with more complicated approach (such as decrease missed-opportunity counter in some rate instead of resetting them).\n\nAre you OK with moving comprehensive fixes to a separate JIRA and keeps simple and straightforward changes in this one?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-07-18T17:10:40.949+0000",
+            "updated": "2016-07-18T17:10:40.949+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15382702",
+            "id": "15382702",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "[~wangda] & [~sunilg],\n     Well i agree that YARN-4425 is too much of changes and i am not foreseeing that as immediate solution for 2.8, but i am not completely convinced to check for Allocated Node's Partition's pending resource. \nbq.  but could also lead to shareable resource allocation cut in line while more specific resource request are pending.\nIMHO it would be ideal to check whether pending resources are existing in a given partition before allocating a container in NonExclusive mode rather than after container allocation during resetting the counter for a app. Because in next NonExclusive mode allocation for the node of this parition might skip this application for which reset happened but might allocate to another application but still that partition might have pending resource requests.\n\nSo if you want to acheive the same i would suggest that have a check for pending resources before allocation in NonExclusive mode and not to reset this counter(in app) for containers allocated in NonExclusive mode. \nThoughts? \n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-07-18T17:47:34.202+0000",
+            "updated": "2016-07-18T17:47:34.202+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15384522",
+            "id": "15384522",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~Naganarasimha], \n\nbq. Because in next NonExclusive mode allocation for the node of this parition might skip this application for which reset happened but might allocate to another application but still that partition might have pending resource requests.\n\nIIUC, we now do allocation twice for shareable node partition, first one is for exclusive allocation and second one is for shareable allocation. This is already implicitly confirmed the non-exclusive allocation is safe. \n\nPlease let me know if I missed anything. I want to check this patch in as soon as possible for 2.8 and do more comprehensive in follow up JIRAs.\n\nThanks,",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-07-19T17:11:39.751+0000",
+            "updated": "2016-07-19T17:11:39.751+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15388047",
+            "id": "15388047",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Hi [~wangda] & [~sunilg],\n    As per our offline discussion patch is almost fine 2.8 release just that \nRegularContainerAllocator.java  l712-739 : This part of the code is not required.\n\nOther improvements we can raise new jira and track it there",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-07-21T17:05:50.620+0000",
+            "updated": "2016-07-21T17:05:50.620+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15389275",
+            "id": "15389275",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Thanks [~leftnoteasy] and [~Naganarasimha Garla]. As we discussed, current patch will only reset the scheduling opportunity if allocation has happened on default label. For all other sharable partition allocation, we will try allocate maximum. \n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-07-22T10:19:17.351+0000",
+            "updated": "2016-07-22T10:19:17.351+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15389339",
+            "id": "15389339",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (/) *{color:green}+1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue} 0m 32s {color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green} 0m 0s {color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green} 0m 0s {color} | {color:green} The patch appears to include 2 new or modified test files. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 7m 16s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 37s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green} 0m 24s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green} 0m 38s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green} 0m 17s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green} 1m 2s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 21s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 0m 30s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 29s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green} 0m 29s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green} 0m 19s {color} | {color:green} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager: The patch generated 0 new + 129 unchanged - 1 fixed = 129 total (was 130) {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green} 0m 35s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green} 0m 15s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green} 0m 0s {color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green} 1m 1s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 18s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} unit {color} | {color:green} 36m 31s {color} | {color:green} hadoop-yarn-server-resourcemanager in the patch passed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green} 0m 16s {color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 52m 0s {color} | {color:black} {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:9560f25 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12819583/YARN-5342.3.patch |\n| JIRA Issue | YARN-5342 |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 7dc578e7fd50 3.13.0-36-lowlatency #63-Ubuntu SMP PREEMPT Wed Sep 3 21:56:12 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / dca6335 |\n| Default Java | 1.8.0_91 |\n| findbugs | v3.0.0 |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/12464/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/12464/console |\n| Powered by | Apache Yetus 0.3.0   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2016-07-22T11:20:27.349+0000",
+            "updated": "2016-07-22T11:20:27.349+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15389784",
+            "id": "15389784",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Hi [~sunilg],\n    Just one small nit \nin *resetNonPartitionedSchedulingOpportunity* {{allocationResult}} param/argument is not required.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-07-22T16:32:04.789+0000",
+            "updated": "2016-07-22T16:32:04.789+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15389858",
+            "id": "15389858",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Thanks [~Naganarasimha Garla] for the comments. Updating new patch.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-07-22T17:16:28.673+0000",
+            "updated": "2016-07-22T17:16:28.673+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15389978",
+            "id": "15389978",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue} 0m 29s {color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green} 0m 0s {color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green} 0m 0s {color} | {color:green} The patch appears to include 2 new or modified test files. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 7m 41s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 36s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green} 0m 25s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green} 0m 45s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green} 0m 18s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green} 1m 3s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 23s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 0m 37s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 36s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green} 0m 36s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green} 0m 22s {color} | {color:green} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager: The patch generated 0 new + 129 unchanged - 1 fixed = 129 total (was 130) {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green} 0m 42s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green} 0m 17s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green} 0m 0s {color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green} 1m 19s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 21s {color} | {color:green} the patch passed {color} |\n| {color:red}-1{color} | {color:red} unit {color} | {color:red} 34m 8s {color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green} 0m 17s {color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 50m 58s {color} | {color:black} {color} |\n\\\\\n\\\\\n|| Reason || Tests ||\n| Failed junit tests | hadoop.yarn.server.resourcemanager.security.TestDelegationTokenRenewer |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:9560f25 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12819674/YARN-5342.4.patch |\n| JIRA Issue | YARN-5342 |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 2264eca53cc2 3.13.0-36-lowlatency #63-Ubuntu SMP PREEMPT Wed Sep 3 21:56:12 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / c60a68c |\n| Default Java | 1.8.0_91 |\n| findbugs | v3.0.0 |\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/12466/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| unit test logs |  https://builds.apache.org/job/PreCommit-YARN-Build/12466/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/12466/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/12466/console |\n| Powered by | Apache Yetus 0.3.0   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2016-07-22T18:18:47.868+0000",
+            "updated": "2016-07-22T18:18:47.868+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15390356",
+            "id": "15390356",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Patch LGTM, thanks [~sunilg]. Will commit in a few days if no objections.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-07-22T23:26:14.793+0000",
+            "updated": "2016-07-22T23:26:14.793+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15391216",
+            "id": "15391216",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Thanks [~sunilg], Patch LGTM.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-07-25T00:44:13.119+0000",
+            "updated": "2016-07-25T00:44:13.119+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15393170",
+            "id": "15393170",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "[~wangda], If you are occupied, Shall i commit this jira ?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-07-26T03:56:13.270+0000",
+            "updated": "2016-07-26T03:56:13.270+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15394891",
+            "id": "15394891",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Committing this.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-07-27T01:09:44.972+0000",
+            "updated": "2016-07-27T01:09:44.972+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15394916",
+            "id": "15394916",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "SUCCESS: Integrated in Hadoop-trunk-Commit #10159 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/10159/])\nYARN-5342. Improve non-exclusive node partition resource allocation in (wangda: rev 49969b16cdba0f251b9f8bf3d8df9906e38b5c61)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/scheduler/capacity/TestApplicationPriority.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/scheduler/capacity/allocator/RegularContainerAllocator.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/scheduler/capacity/TestNodeLabelContainerAllocation.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2016-07-27T01:40:43.517+0000",
+            "updated": "2016-07-27T01:40:43.517+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15395019",
+            "id": "15395019",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Committed to trunk/branch-2.\n\n[~sunilg], mind to update the patch to branch-2.8? It has some conflicts.\nThanks,",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-07-27T04:21:33.734+0000",
+            "updated": "2016-07-27T04:21:33.734+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15395618",
+            "id": "15395618",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Thanks [~leftnoteasy] for the review and commit and thanks [~Naganarasimha Garla] for the review. Also attaching branch-2.8 patch.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-07-27T12:54:42.474+0000",
+            "updated": "2016-07-27T12:54:42.474+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15395909",
+            "id": "15395909",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue} 0m 19s {color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green} 0m 0s {color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green} 0m 0s {color} | {color:green} The patch appears to include 2 new or modified test files. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 32m 3s {color} | {color:green} branch-2.8 passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 31s {color} | {color:green} branch-2.8 passed with JDK v1.8.0_101 {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 31s {color} | {color:green} branch-2.8 passed with JDK v1.7.0_101 {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green} 0m 21s {color} | {color:green} branch-2.8 passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green} 0m 41s {color} | {color:green} branch-2.8 passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green} 0m 21s {color} | {color:green} branch-2.8 passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green} 1m 15s {color} | {color:green} branch-2.8 passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 24s {color} | {color:green} branch-2.8 passed with JDK v1.8.0_101 {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 24s {color} | {color:green} branch-2.8 passed with JDK v1.7.0_101 {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 0m 32s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 24s {color} | {color:green} the patch passed with JDK v1.8.0_101 {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green} 0m 24s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 30s {color} | {color:green} the patch passed with JDK v1.7.0_101 {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green} 0m 30s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green} 0m 17s {color} | {color:green} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager: The patch generated 0 new + 13 unchanged - 1 fixed = 13 total (was 14) {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green} 0m 36s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green} 0m 14s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green} 0m 0s {color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green} 1m 19s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 17s {color} | {color:green} the patch passed with JDK v1.8.0_101 {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 22s {color} | {color:green} the patch passed with JDK v1.7.0_101 {color} |\n| {color:red}-1{color} | {color:red} unit {color} | {color:red} 73m 44s {color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed with JDK v1.8.0_101. {color} |\n| {color:red}-1{color} | {color:red} unit {color} | {color:red} 74m 46s {color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed with JDK v1.7.0_101. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green} 0m 17s {color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 191m 15s {color} | {color:black} {color} |\n\\\\\n\\\\\n|| Reason || Tests ||\n| JDK v1.8.0_101 Failed junit tests | hadoop.yarn.server.resourcemanager.TestClientRMTokens |\n|   | hadoop.yarn.server.resourcemanager.TestAMAuthorization |\n| JDK v1.7.0_101 Failed junit tests | hadoop.yarn.server.resourcemanager.TestClientRMTokens |\n|   | hadoop.yarn.server.resourcemanager.TestAMAuthorization |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:5af2af1 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12820439/YARN-5342-branch-2.8.001.patch |\n| JIRA Issue | YARN-5342 |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 35aa2a7d3537 3.13.0-36-lowlatency #63-Ubuntu SMP PREEMPT Wed Sep 3 21:56:12 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | branch-2.8 / 5dc29ab |\n| Default Java | 1.7.0_101 |\n| Multi-JDK versions |  /usr/lib/jvm/java-8-oracle:1.8.0_101 /usr/lib/jvm/java-7-openjdk-amd64:1.7.0_101 |\n| findbugs | v3.0.0 |\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/12521/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager-jdk1.8.0_101.txt |\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/12521/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager-jdk1.7.0_101.txt |\n| unit test logs |  https://builds.apache.org/job/PreCommit-YARN-Build/12521/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager-jdk1.8.0_101.txt https://builds.apache.org/job/PreCommit-YARN-Build/12521/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager-jdk1.7.0_101.txt |\n| JDK v1.7.0_101  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/12521/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/12521/console |\n| Powered by | Apache Yetus 0.3.0   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2016-07-27T16:09:50.220+0000",
+            "updated": "2016-07-27T16:09:50.220+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15405332",
+            "id": "15405332",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Thanks for attaching the patch for 2.8, seems like jenkins run is fine, Test case failures are not related to the patch.\n [~wangda] can you commit patch and resolve this jira ?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2016-08-03T05:16:35.815+0000",
+            "updated": "2016-08-03T05:16:35.815+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15406369",
+            "id": "15406369",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Committed to 2.8 as well, thanks [~sunilg] and reviews from [~Naganarasimha]!",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-08-03T18:32:02.750+0000",
+            "updated": "2016-08-03T18:32:02.750+0000"
+          }
+        ],
+        "maxResults": 30,
+        "total": 30,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5342/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2019-04-05T18:18:52.185+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 30,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15368527",
+        "id": "15368527",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Attached ver.1 patch for review\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-07-08T21:34:31.309+0000",
+        "updated": "2016-07-08T21:34:31.309+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15368702",
+        "id": "15368702",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue} 0m 20s {color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green} 0m 0s {color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green} 0m 0s {color} | {color:green} The patch appears to include 2 new or modified test files. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 6m 55s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 31s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green} 0m 22s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green} 0m 36s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green} 0m 14s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green} 0m 57s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 20s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 0m 29s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 29s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green} 0m 29s {color} | {color:green} the patch passed {color} |\n| {color:red}-1{color} | {color:red} checkstyle {color} | {color:red} 0m 19s {color} | {color:red} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager: The patch generated 2 new + 143 unchanged - 1 fixed = 145 total (was 144) {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green} 0m 32s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green} 0m 11s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green} 0m 0s {color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green} 1m 6s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 17s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} unit {color} | {color:green} 31m 52s {color} | {color:green} hadoop-yarn-server-resourcemanager in the patch passed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green} 0m 15s {color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 46m 23s {color} | {color:black} {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:9560f25 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12816921/YARN-5342.1.patch |\n| JIRA Issue | YARN-5342 |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 428cc5925319 3.13.0-36-lowlatency #63-Ubuntu SMP PREEMPT Wed Sep 3 21:56:12 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / 932aed6 |\n| Default Java | 1.8.0_91 |\n| findbugs | v3.0.0 |\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/12245/artifact/patchprocess/diff-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/12245/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/12245/console |\n| Powered by | Apache Yetus 0.3.0   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2016-07-08T23:30:19.988+0000",
+        "updated": "2016-07-08T23:30:19.988+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15375771",
+        "id": "15375771",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Thanks for the patch [~wangda], \nGiven that discussed approach in YARN-4425 (Fallback Policy based ) is going to take some time as it would require significant modifications, i would agree to go for intermittent modification to optimize the non exclusive mode scheduling.\nOnly concern i have is if the size of default partition is greater than the non exclusive partition then on one allocation in default we are resetting the counter, would it be productive ?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-07-13T21:14:39.184+0000",
+        "updated": "2016-07-14T03:11:42.149+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15376095",
+        "id": "15376095",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~Naganarasimha], that's a good point, actually I have thought about this while working on the patch.\nThe only purpose of doing this is for simple, we could have some better logic like gradually decrease the counter depends on ratio of #nodes in default partition and #nodes in specific partitions, but they could be complex and potentially can be a regression since we don't know what happened. Please share your thoughts. \n\nThanks,",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-07-14T00:49:32.535+0000",
+        "updated": "2016-07-14T00:49:32.535+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15377092",
+        "id": "15377092",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "I feel the current approach seems simple and transparent to solve the container allocation for non-exclusive labels.\n\nFew alternatives could have been like:\n1. We could still allocate no_label containers to a non-exclusive partition (OR do not reset the scheduling opportunity) provided\n- non-exclusive partition pending + no_label container resource demand(for 1 request) < total free resources (available) in non-exclusive. \n- It is possible that complete *pending* resource for a non-exclusive partition may not be able to allocate due to user-limit/factor, am-resource-percentage etc. So if we can get effective pending value, we could add to the equation and can do more allocation in non-exclusive partition.\n\n2. Another idea is to do over committing when specific per-partition demand is coming for non-exclusive partition. And do a preemption if needed for other container. This is of very aggressive nature, So I am not feeling it ll be acceptable.\n\nBut these are not very transparent or easier to explain to user as a whitebox operation. So we could discuss and continue this in a new ticket provided current patch goes in. I could raise another ticket as an improvement task. Thoughts [~leftnoteasy] / [~Naganarasimha Garla].",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-07-14T15:11:03.133+0000",
+        "updated": "2016-07-14T15:11:03.133+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15378914",
+        "id": "15378914",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Thanks [~leftnoteasy]. I am taking over the issue and will help to add few more checks.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-07-15T06:38:22.963+0000",
+        "updated": "2016-07-15T06:38:22.963+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15378954",
+        "id": "15378954",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Hi [~sunilg] & [~wangda],\n   Few thoughts on the approach mentioned by both of you \n{quote}\nif (Resources.greaterThan(rc,\n    application.getCSContext().getClusterResource(),\n    application.getCSContext().getClusterResourceUsage()\n        .getPending(node.getPartition()), Resources.none()) || StringUtils\n    .equals(node.getPartition(), RMNodeLabelsManager.NO_LABEL)) {\n  application.resetMissedNonPartitionedRequestSchedulingOpportunity(\n      priority);\n}\n{quote}\nIssue i see is we are trying to revert the counter at application level but trying to evaluate the pending resources of current node's partition. What if multiple non exclusive partitions are there?\nSimilar things apply for the approaches captured by Sunil too.\nI beleive idea here is to delay the allocation in non exclusive mode till some time so that preemption doesnt kick in. so would it be a good idea to depend on partition of the node ?\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-07-15T07:25:44.292+0000",
+        "updated": "2016-07-15T08:13:38.083+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15379671",
+        "id": "15379671",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Thanks [~Naganarasimha Garla] for the insightful thoughts.\n\nBy looking into one aspect like *\u201cimprove the allocation for non-exclusive label when requests are from an application of no_label\u201d*, we can try to help each such app to go ahead with its allocation on a non-exclusive label by not waiting for all node heartbeats.\nFor that I think we can only look in to that very partition (node\u2019s partition on which a node heartbeat is under processing for an app), and see whether we can use some resource for this no_label app. Yes, I agree with your top level view and its good to have an idea about other non-exclusive partition as well. Since we are having a node with us with some free space in current heartbeat, if we can push a no_label container here under limits, i think we are solving problem step by step.\nAnd I very much agree to the comment about the chances of preemption to kick in. I think a fair balance is to be attained for the speed of allocations for no_label apps on a label against larger imbalances over queue\u2019s capacity so that preemption may kick in.\n\nSo the checks which I have mentioned can be w.r.t an app or its queue so that we will try to solve the problem specific to each app by app. A much better and high level solution may cause lot of refactoring I guess. So suggested a simpler approach here. Thoughts?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-07-15T16:56:05.670+0000",
+        "updated": "2016-07-15T16:56:05.670+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15382158",
+        "id": "15382158",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Attaching new patch with the mentioned approach . This is very generic top level approach, and more lenient to avoid resetting the scheduling opportunity counter so that more allocation may happen. I have not checked per-queue level resource checks (if we do this, then we will become more stricter), rather done the upper check with total resource of the label. Pls share the thoughts.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-07-18T12:02:07.936+0000",
+        "updated": "2016-07-18T12:02:07.936+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15382243",
+        "id": "15382243",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (/) *{color:green}+1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue} 0m 31s {color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green} 0m 0s {color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green} 0m 0s {color} | {color:green} The patch appears to include 2 new or modified test files. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 7m 0s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 34s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green} 0m 23s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green} 0m 40s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green} 0m 17s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green} 0m 56s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 20s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 0m 32s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 31s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green} 0m 31s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green} 0m 20s {color} | {color:green} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager: The patch generated 0 new + 144 unchanged - 1 fixed = 144 total (was 145) {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green} 0m 37s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green} 0m 13s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green} 0m 0s {color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green} 1m 6s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 20s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} unit {color} | {color:green} 36m 39s {color} | {color:green} hadoop-yarn-server-resourcemanager in the patch passed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green} 0m 16s {color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 51m 55s {color} | {color:black} {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:9560f25 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12818534/YARN-5342.2.patch |\n| JIRA Issue | YARN-5342 |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 27b8976a2675 3.13.0-36-lowlatency #63-Ubuntu SMP PREEMPT Wed Sep 3 21:56:12 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / 5b4a708 |\n| Default Java | 1.8.0_91 |\n| findbugs | v3.0.0 |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/12354/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/12354/console |\n| Powered by | Apache Yetus 0.3.0   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2016-07-18T13:04:21.974+0000",
+        "updated": "2016-07-18T13:04:21.974+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15382251",
+        "id": "15382251",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Hi [~sunilg],\n      As discussed offline i still feel we should not have logic to reset counter in an app based on the pending resources of the NonExclusive Partition Node, Assume there are 3 partitions (P1(2 nodes),P2(20), default(30) ), and allocation happened on P1 in that case we reset the counter if pending resource is more in P1 but P2 could have allocated to request with Default partition. hence its not correct to have logic based on P1's node pending resource\nOptions i would suggest is :\n# Get the used resources of Default partition and if its greater than particular configured percentage or is 100 then do not reset else reset.\n# Just subract 1 from the counter for allocation in each of NonExclusive Partition Node. If we think its not efficient that only 1 gets subracted i.e only 1 hb everytime then we can subract allocations done for a given time period say 5 seconds.\n\nThoughts ?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-07-18T13:10:18.408+0000",
+        "updated": "2016-07-18T13:10:18.408+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15382622",
+        "id": "15382622",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~Naganarasimha], I understand your concerns about our existing proposal still aggressively resetting missed opportunity that could lead to slowness of allocation or resource under utilization.\n\nI also agree that solving this issue need some global information and abstractions such as YARN-4425. I would like to be more conservative and keep this change as simple as possible since I don't want it brings other issues such as an app asks for a specific partition but cannot get it because of shareable resource allocation.\n\nI think your proposal approach could alleviate existing slowness of resource allocation, but could also lead to shareable resource allocation cut in line while more specific resource request are pending. Unless we can do more comprehensive tests, I will not be very confident with more complicated approach (such as decrease missed-opportunity counter in some rate instead of resetting them).\n\nAre you OK with moving comprehensive fixes to a separate JIRA and keeps simple and straightforward changes in this one?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-07-18T17:10:40.949+0000",
+        "updated": "2016-07-18T17:10:40.949+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15382702",
+        "id": "15382702",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "[~wangda] & [~sunilg],\n     Well i agree that YARN-4425 is too much of changes and i am not foreseeing that as immediate solution for 2.8, but i am not completely convinced to check for Allocated Node's Partition's pending resource. \nbq.  but could also lead to shareable resource allocation cut in line while more specific resource request are pending.\nIMHO it would be ideal to check whether pending resources are existing in a given partition before allocating a container in NonExclusive mode rather than after container allocation during resetting the counter for a app. Because in next NonExclusive mode allocation for the node of this parition might skip this application for which reset happened but might allocate to another application but still that partition might have pending resource requests.\n\nSo if you want to acheive the same i would suggest that have a check for pending resources before allocation in NonExclusive mode and not to reset this counter(in app) for containers allocated in NonExclusive mode. \nThoughts? \n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-07-18T17:47:34.202+0000",
+        "updated": "2016-07-18T17:47:34.202+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15384522",
+        "id": "15384522",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~Naganarasimha], \n\nbq. Because in next NonExclusive mode allocation for the node of this parition might skip this application for which reset happened but might allocate to another application but still that partition might have pending resource requests.\n\nIIUC, we now do allocation twice for shareable node partition, first one is for exclusive allocation and second one is for shareable allocation. This is already implicitly confirmed the non-exclusive allocation is safe. \n\nPlease let me know if I missed anything. I want to check this patch in as soon as possible for 2.8 and do more comprehensive in follow up JIRAs.\n\nThanks,",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-07-19T17:11:39.751+0000",
+        "updated": "2016-07-19T17:11:39.751+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15388047",
+        "id": "15388047",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Hi [~wangda] & [~sunilg],\n    As per our offline discussion patch is almost fine 2.8 release just that \nRegularContainerAllocator.java  l712-739 : This part of the code is not required.\n\nOther improvements we can raise new jira and track it there",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-07-21T17:05:50.620+0000",
+        "updated": "2016-07-21T17:05:50.620+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15389275",
+        "id": "15389275",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Thanks [~leftnoteasy] and [~Naganarasimha Garla]. As we discussed, current patch will only reset the scheduling opportunity if allocation has happened on default label. For all other sharable partition allocation, we will try allocate maximum. \n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-07-22T10:19:17.351+0000",
+        "updated": "2016-07-22T10:19:17.351+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15389339",
+        "id": "15389339",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (/) *{color:green}+1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue} 0m 32s {color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green} 0m 0s {color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green} 0m 0s {color} | {color:green} The patch appears to include 2 new or modified test files. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 7m 16s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 37s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green} 0m 24s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green} 0m 38s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green} 0m 17s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green} 1m 2s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 21s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 0m 30s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 29s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green} 0m 29s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green} 0m 19s {color} | {color:green} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager: The patch generated 0 new + 129 unchanged - 1 fixed = 129 total (was 130) {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green} 0m 35s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green} 0m 15s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green} 0m 0s {color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green} 1m 1s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 18s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} unit {color} | {color:green} 36m 31s {color} | {color:green} hadoop-yarn-server-resourcemanager in the patch passed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green} 0m 16s {color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 52m 0s {color} | {color:black} {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:9560f25 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12819583/YARN-5342.3.patch |\n| JIRA Issue | YARN-5342 |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 7dc578e7fd50 3.13.0-36-lowlatency #63-Ubuntu SMP PREEMPT Wed Sep 3 21:56:12 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / dca6335 |\n| Default Java | 1.8.0_91 |\n| findbugs | v3.0.0 |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/12464/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/12464/console |\n| Powered by | Apache Yetus 0.3.0   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2016-07-22T11:20:27.349+0000",
+        "updated": "2016-07-22T11:20:27.349+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15389784",
+        "id": "15389784",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Hi [~sunilg],\n    Just one small nit \nin *resetNonPartitionedSchedulingOpportunity* {{allocationResult}} param/argument is not required.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-07-22T16:32:04.789+0000",
+        "updated": "2016-07-22T16:32:04.789+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15389858",
+        "id": "15389858",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Thanks [~Naganarasimha Garla] for the comments. Updating new patch.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-07-22T17:16:28.673+0000",
+        "updated": "2016-07-22T17:16:28.673+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15389978",
+        "id": "15389978",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue} 0m 29s {color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green} 0m 0s {color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green} 0m 0s {color} | {color:green} The patch appears to include 2 new or modified test files. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 7m 41s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 36s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green} 0m 25s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green} 0m 45s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green} 0m 18s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green} 1m 3s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 23s {color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 0m 37s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 36s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green} 0m 36s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green} 0m 22s {color} | {color:green} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager: The patch generated 0 new + 129 unchanged - 1 fixed = 129 total (was 130) {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green} 0m 42s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green} 0m 17s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green} 0m 0s {color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green} 1m 19s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 21s {color} | {color:green} the patch passed {color} |\n| {color:red}-1{color} | {color:red} unit {color} | {color:red} 34m 8s {color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green} 0m 17s {color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 50m 58s {color} | {color:black} {color} |\n\\\\\n\\\\\n|| Reason || Tests ||\n| Failed junit tests | hadoop.yarn.server.resourcemanager.security.TestDelegationTokenRenewer |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:9560f25 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12819674/YARN-5342.4.patch |\n| JIRA Issue | YARN-5342 |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 2264eca53cc2 3.13.0-36-lowlatency #63-Ubuntu SMP PREEMPT Wed Sep 3 21:56:12 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / c60a68c |\n| Default Java | 1.8.0_91 |\n| findbugs | v3.0.0 |\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/12466/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n| unit test logs |  https://builds.apache.org/job/PreCommit-YARN-Build/12466/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager.txt |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/12466/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/12466/console |\n| Powered by | Apache Yetus 0.3.0   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2016-07-22T18:18:47.868+0000",
+        "updated": "2016-07-22T18:18:47.868+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15390356",
+        "id": "15390356",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Patch LGTM, thanks [~sunilg]. Will commit in a few days if no objections.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-07-22T23:26:14.793+0000",
+        "updated": "2016-07-22T23:26:14.793+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15391216",
+        "id": "15391216",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Thanks [~sunilg], Patch LGTM.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-07-25T00:44:13.119+0000",
+        "updated": "2016-07-25T00:44:13.119+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15393170",
+        "id": "15393170",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "[~wangda], If you are occupied, Shall i commit this jira ?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-07-26T03:56:13.270+0000",
+        "updated": "2016-07-26T03:56:13.270+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15394891",
+        "id": "15394891",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Committing this.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-07-27T01:09:44.972+0000",
+        "updated": "2016-07-27T01:09:44.972+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15394916",
+        "id": "15394916",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "SUCCESS: Integrated in Hadoop-trunk-Commit #10159 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/10159/])\nYARN-5342. Improve non-exclusive node partition resource allocation in (wangda: rev 49969b16cdba0f251b9f8bf3d8df9906e38b5c61)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/scheduler/capacity/TestApplicationPriority.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/scheduler/capacity/allocator/RegularContainerAllocator.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/scheduler/capacity/TestNodeLabelContainerAllocation.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2016-07-27T01:40:43.517+0000",
+        "updated": "2016-07-27T01:40:43.517+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15395019",
+        "id": "15395019",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Committed to trunk/branch-2.\n\n[~sunilg], mind to update the patch to branch-2.8? It has some conflicts.\nThanks,",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-07-27T04:21:33.734+0000",
+        "updated": "2016-07-27T04:21:33.734+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15395618",
+        "id": "15395618",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Thanks [~leftnoteasy] for the review and commit and thanks [~Naganarasimha Garla] for the review. Also attaching branch-2.8 patch.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-07-27T12:54:42.474+0000",
+        "updated": "2016-07-27T12:54:42.474+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15395909",
+        "id": "15395909",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue} 0m 19s {color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green} 0m 0s {color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green} 0m 0s {color} | {color:green} The patch appears to include 2 new or modified test files. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 32m 3s {color} | {color:green} branch-2.8 passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 31s {color} | {color:green} branch-2.8 passed with JDK v1.8.0_101 {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 31s {color} | {color:green} branch-2.8 passed with JDK v1.7.0_101 {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green} 0m 21s {color} | {color:green} branch-2.8 passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green} 0m 41s {color} | {color:green} branch-2.8 passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green} 0m 21s {color} | {color:green} branch-2.8 passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green} 1m 15s {color} | {color:green} branch-2.8 passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 24s {color} | {color:green} branch-2.8 passed with JDK v1.8.0_101 {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 24s {color} | {color:green} branch-2.8 passed with JDK v1.7.0_101 {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 0m 32s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 24s {color} | {color:green} the patch passed with JDK v1.8.0_101 {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green} 0m 24s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green} 0m 30s {color} | {color:green} the patch passed with JDK v1.7.0_101 {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green} 0m 30s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green} 0m 17s {color} | {color:green} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager: The patch generated 0 new + 13 unchanged - 1 fixed = 13 total (was 14) {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green} 0m 36s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green} 0m 14s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green} 0m 0s {color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green} 1m 19s {color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 17s {color} | {color:green} the patch passed with JDK v1.8.0_101 {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green} 0m 22s {color} | {color:green} the patch passed with JDK v1.7.0_101 {color} |\n| {color:red}-1{color} | {color:red} unit {color} | {color:red} 73m 44s {color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed with JDK v1.8.0_101. {color} |\n| {color:red}-1{color} | {color:red} unit {color} | {color:red} 74m 46s {color} | {color:red} hadoop-yarn-server-resourcemanager in the patch failed with JDK v1.7.0_101. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green} 0m 17s {color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 191m 15s {color} | {color:black} {color} |\n\\\\\n\\\\\n|| Reason || Tests ||\n| JDK v1.8.0_101 Failed junit tests | hadoop.yarn.server.resourcemanager.TestClientRMTokens |\n|   | hadoop.yarn.server.resourcemanager.TestAMAuthorization |\n| JDK v1.7.0_101 Failed junit tests | hadoop.yarn.server.resourcemanager.TestClientRMTokens |\n|   | hadoop.yarn.server.resourcemanager.TestAMAuthorization |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:5af2af1 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12820439/YARN-5342-branch-2.8.001.patch |\n| JIRA Issue | YARN-5342 |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 35aa2a7d3537 3.13.0-36-lowlatency #63-Ubuntu SMP PREEMPT Wed Sep 3 21:56:12 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | branch-2.8 / 5dc29ab |\n| Default Java | 1.7.0_101 |\n| Multi-JDK versions |  /usr/lib/jvm/java-8-oracle:1.8.0_101 /usr/lib/jvm/java-7-openjdk-amd64:1.7.0_101 |\n| findbugs | v3.0.0 |\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/12521/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager-jdk1.8.0_101.txt |\n| unit | https://builds.apache.org/job/PreCommit-YARN-Build/12521/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager-jdk1.7.0_101.txt |\n| unit test logs |  https://builds.apache.org/job/PreCommit-YARN-Build/12521/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager-jdk1.8.0_101.txt https://builds.apache.org/job/PreCommit-YARN-Build/12521/artifact/patchprocess/patch-unit-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-resourcemanager-jdk1.7.0_101.txt |\n| JDK v1.7.0_101  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/12521/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/12521/console |\n| Powered by | Apache Yetus 0.3.0   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2016-07-27T16:09:50.220+0000",
+        "updated": "2016-07-27T16:09:50.220+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15405332",
+        "id": "15405332",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Thanks for attaching the patch for 2.8, seems like jenkins run is fine, Test case failures are not related to the patch.\n [~wangda] can you commit patch and resolve this jira ?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2016-08-03T05:16:35.815+0000",
+        "updated": "2016-08-03T05:16:35.815+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12987938/comment/15406369",
+        "id": "15406369",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Committed to 2.8 as well, thanks [~sunilg] and reviews from [~Naganarasimha]!",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-08-03T18:32:02.750+0000",
+        "updated": "2016-08-03T18:32:02.750+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5342/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 30,
+        "returned": 30
+      }
+    ]
+  }
+}

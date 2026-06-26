@@ -1,0 +1,880 @@
+{
+  "downloaded_at": "2026-06-25T10:21:44.373662+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-4088",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-4088?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12859509",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509",
+    "key": "YARN-4088",
+    "fields": {
+      "summary": "RM should be able to process heartbeats from NM concurrently",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319322",
+          "id": "12319322",
+          "name": "resourcemanager"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319325",
+          "id": "12319325",
+          "name": "scheduler"
+        }
+      ],
+      "subtasks": [],
+      "created": "2015-08-27T04:08:58.352+0000",
+      "description": "Today, the RM sequentially processes one heartbeat after another. \n\nImagine a 3000 server cluster with each server heart-beating every 3s. This gives the RM 1ms on average to process each NM heartbeat. That is tough.\n\nIt is true that there are several underlying datastructures that will be touched during heartbeat processing. So, it is non-trivial to parallelize the NM heartbeat. Yet, it is quite doable...\n\nParallelizing the NM heartbeat would substantially improve the scalability of the RM, allowing it to either \na) run larger clusters or \nb) support faster heartbeats or dynamic scaling of heartbeats\nc) take more asks from each application or \nc) use cleverer/ more expensive algorithms such as node labels or better packing or ...\n\nIndeed the RM's scalability limit has been cited as the motivating reason for a variety of efforts which will become less needed if this can be solved. Ditto for slow heartbeats.  See Sparrow and Mercury papers for example.\n\nCan we take a shot at this?\nIf not, could we discuss why.\n",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/14717746",
+            "id": "14717746",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Is the suggestion to process them in concurrently? Not quite sure what async means here? Is it async wrt the RPC thread?\nAnother alternative would be to dynamically adjust the NM heartbeat interval. IIRC, the NM next heartbeat interval is sent by the RM in the response to the heartbeat. If not, then this could be added. The RM could potentially increase this interval till it reaches a steady/stable state of heartbeat processing. This would help in self-adjusting to cluster sizes. Small for small cluster and high for high cluster. This could tune up under high load and then tune down once load diminishes.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-08-27T23:24:42.427+0000",
+            "updated": "2015-08-27T23:24:42.427+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/14717798",
+            "id": "14717798",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=srikanthkandula",
+              "name": "srikanthkandula",
+              "key": "srikanthkandula",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Srikanth Kandula",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Yes, concurrently.   Your suggestion is a good one. In that, it does give the RM more time to be clever on small clusters. But, no such luck on say a 3K server cluster. Avoiding serialization may be the answer to most other problems.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=srikanthkandula",
+              "name": "srikanthkandula",
+              "key": "srikanthkandula",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Srikanth Kandula",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-08-27T23:56:15.937+0000",
+            "updated": "2015-08-27T23:56:15.937+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/14717831",
+            "id": "14717831",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Why not on a 3K cluster? We could slowdown heartbeats to (say 10s) on a 3K node cluster. That should work though I agree that NM info would be stale for longer, if that's your point.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-08-28T00:38:05.399+0000",
+            "updated": "2015-08-28T00:38:05.399+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/14717887",
+            "id": "14717887",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=srikanthkandula",
+              "name": "srikanthkandula",
+              "key": "srikanthkandula",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Srikanth Kandula",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "See the problem with slower heartbeats is that if the tasks are short-running, there will be a cluster-wide throughput drop due to the feedback delay. This is one of the points that Sparrow (Spark) and Mercury hammer Yarn on... Of course, reusing containers *can* help but other ducks have to align well.  In general, slowing the heartbeat is not a good thing.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=srikanthkandula",
+              "name": "srikanthkandula",
+              "key": "srikanthkandula",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Srikanth Kandula",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-08-28T01:36:32.448+0000",
+            "updated": "2015-08-28T01:36:32.448+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/14717907",
+            "id": "14717907",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Right. So the combined objective is to continue to have small heartbeat intervals with larger clusters while still using the central scheduler for all allocations. Clearly, in theory, that is a bottleneck by design and our attempt is to engineer our way out of it for medium size clusters. Right? :)",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-08-28T02:03:05.316+0000",
+            "updated": "2015-08-28T02:03:05.316+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/14718597",
+            "id": "14718597",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "bq. See the problem with slower heartbeats is that if the tasks are short-running, there will be a cluster-wide throughput drop due to the feedback delay.\nThe nodemanager will do an out-of-band heartbeat if a container is killed, and IMHO should do the same when a container completes (not sure what's so special about killed vs. exiting wrt. scheduling).  Of course you can still get storms of heartbeats even though you explicitly tuned down the heartbeat interval if the cluster is churning containers at a very fast rate.\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2015-08-28T13:52:09.585+0000",
+            "updated": "2015-08-28T13:52:09.585+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/14727761",
+            "id": "14727761",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=srikanthkandula",
+              "name": "srikanthkandula",
+              "key": "srikanthkandula",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Srikanth Kandula",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "True. a) Not sure if this (out-of-band heartbeat upon container completion) happens today. b) Processing one NM at a time is unlikely to cope well with the storms of heartbeats.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=srikanthkandula",
+              "name": "srikanthkandula",
+              "key": "srikanthkandula",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Srikanth Kandula",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-09-02T18:17:23.730+0000",
+            "updated": "2015-09-02T18:17:23.730+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/14728158",
+            "id": "14728158",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "bq. Not sure if this (out-of-band heartbeat upon container completion) happens today\nThe OOB heartbeat is occurring to a degree if the cluster is running a lot of MapReduce.  Currently the MapReduce AM will proactively kill any task that reports a terminal status over the umbilical protocol.  There's then a race between the task container completing on its own and the AM killing the task via the NM.  If the latter wins the race then we get an OOB heartbeat since today a stop container request generates it.  I see the kill winning the race fairly often on our clusters, so we are getting a lot of OOB heartbeats in practice.\n\nGeneral OOB heartbeats on any type of container completion does not occur today but is proposed by YARN-2046.\n\nbq.  Processing one NM at a time is unlikely to cope well with the storms of heartbeats.\nThis was a big problem in the past and the scheduler could fall far behind, but this was mitigated to a large degree with batching of heartbeats (e.g.: YARN-365).\n\nAgree in general though that allowing the scheduler to be more concurrent would be nice.  ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2015-09-02T22:36:29.727+0000",
+            "updated": "2015-09-02T22:36:29.727+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/16383305",
+            "id": "16383305",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=imstefanlee",
+              "name": "imstefanlee",
+              "key": "imstefanlee",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10448",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10448",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10448",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10448"
+              },
+              "displayName": "stefanlee",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "[~jlowe]\u00a0 if\u00a0 the OOB heartbeat could reduce the ability of ResourceManager schedule?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=imstefanlee",
+              "name": "imstefanlee",
+              "key": "imstefanlee",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10448",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10448",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10448",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10448"
+              },
+              "displayName": "stefanlee",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2018-03-02T07:51:04.322+0000",
+            "updated": "2018-03-02T07:51:04.322+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/16383597",
+            "id": "16383597",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "bq. if  the OOB heartbeat could reduce the ability of ResourceManager schedule?\r\n\r\nOOB heartbeats are designed to improve the latency of scheduling in the RM.  Without them, the RM will not know about recently freed resources on a node until the next node heartbeat.  That heartbeat could be several seconds away depending upon the configured NM heartbeat interval.\r\n\r\nThe real issue isn't so much responding to heartbeats concurrently as it is _scheduling concurrently_.  The heartbeats are technically processed in parallel today.  Each heartbeat is handled by an IPC Server handler thread, and for the most part the processing in that Server handler thread does not block.  However that heartbeat posts node update events to the scheduler event dispatcher, and processing those events in the scheduler thread is serialized.  That's where the scaling bottleneck lies.\r\n\r\nThe node update scheduler events are coalesced if the scheduler thread is not keeping up, so I don't see OOB heartbeats as a hinderance to the scheduler.  Since this was filed the NM now OOB heartbeats on any type of container completion, so this should allow the NM hearbeat interval to scale much higher (i.e.: on the order of tens of seconds or minutes) without an appreciable reduction in scheduling latency.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2018-03-02T14:06:19.422+0000",
+            "updated": "2018-03-02T14:06:19.422+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/16385503",
+            "id": "16385503",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=imstefanlee",
+              "name": "imstefanlee",
+              "key": "imstefanlee",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10448",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10448",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10448",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10448"
+              },
+              "displayName": "stefanlee",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "yep !!! *processing those events in the scheduler thread is serialized*\u00a0is the key point. thanks a lot [~jlowe]\r\n\r\n\u00a0",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=imstefanlee",
+              "name": "imstefanlee",
+              "key": "imstefanlee",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10448",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10448",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10448",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10448"
+              },
+              "displayName": "stefanlee",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2018-03-05T02:31:30.765+0000",
+            "updated": "2018-03-05T02:31:30.765+0000"
+          }
+        ],
+        "maxResults": 11,
+        "total": 11,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-4088/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2018-03-05T02:31:30.765+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 11,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/14717746",
+        "id": "14717746",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Is the suggestion to process them in concurrently? Not quite sure what async means here? Is it async wrt the RPC thread?\nAnother alternative would be to dynamically adjust the NM heartbeat interval. IIRC, the NM next heartbeat interval is sent by the RM in the response to the heartbeat. If not, then this could be added. The RM could potentially increase this interval till it reaches a steady/stable state of heartbeat processing. This would help in self-adjusting to cluster sizes. Small for small cluster and high for high cluster. This could tune up under high load and then tune down once load diminishes.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-08-27T23:24:42.427+0000",
+        "updated": "2015-08-27T23:24:42.427+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/14717798",
+        "id": "14717798",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=srikanthkandula",
+          "name": "srikanthkandula",
+          "key": "srikanthkandula",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Srikanth Kandula",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Yes, concurrently.   Your suggestion is a good one. In that, it does give the RM more time to be clever on small clusters. But, no such luck on say a 3K server cluster. Avoiding serialization may be the answer to most other problems.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=srikanthkandula",
+          "name": "srikanthkandula",
+          "key": "srikanthkandula",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Srikanth Kandula",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-08-27T23:56:15.937+0000",
+        "updated": "2015-08-27T23:56:15.937+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/14717831",
+        "id": "14717831",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Why not on a 3K cluster? We could slowdown heartbeats to (say 10s) on a 3K node cluster. That should work though I agree that NM info would be stale for longer, if that's your point.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-08-28T00:38:05.399+0000",
+        "updated": "2015-08-28T00:38:05.399+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/14717887",
+        "id": "14717887",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=srikanthkandula",
+          "name": "srikanthkandula",
+          "key": "srikanthkandula",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Srikanth Kandula",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "See the problem with slower heartbeats is that if the tasks are short-running, there will be a cluster-wide throughput drop due to the feedback delay. This is one of the points that Sparrow (Spark) and Mercury hammer Yarn on... Of course, reusing containers *can* help but other ducks have to align well.  In general, slowing the heartbeat is not a good thing.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=srikanthkandula",
+          "name": "srikanthkandula",
+          "key": "srikanthkandula",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Srikanth Kandula",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-08-28T01:36:32.448+0000",
+        "updated": "2015-08-28T01:36:32.448+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/14717907",
+        "id": "14717907",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Right. So the combined objective is to continue to have small heartbeat intervals with larger clusters while still using the central scheduler for all allocations. Clearly, in theory, that is a bottleneck by design and our attempt is to engineer our way out of it for medium size clusters. Right? :)",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-08-28T02:03:05.316+0000",
+        "updated": "2015-08-28T02:03:05.316+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/14718597",
+        "id": "14718597",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "bq. See the problem with slower heartbeats is that if the tasks are short-running, there will be a cluster-wide throughput drop due to the feedback delay.\nThe nodemanager will do an out-of-band heartbeat if a container is killed, and IMHO should do the same when a container completes (not sure what's so special about killed vs. exiting wrt. scheduling).  Of course you can still get storms of heartbeats even though you explicitly tuned down the heartbeat interval if the cluster is churning containers at a very fast rate.\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2015-08-28T13:52:09.585+0000",
+        "updated": "2015-08-28T13:52:09.585+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/14727761",
+        "id": "14727761",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=srikanthkandula",
+          "name": "srikanthkandula",
+          "key": "srikanthkandula",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Srikanth Kandula",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "True. a) Not sure if this (out-of-band heartbeat upon container completion) happens today. b) Processing one NM at a time is unlikely to cope well with the storms of heartbeats.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=srikanthkandula",
+          "name": "srikanthkandula",
+          "key": "srikanthkandula",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Srikanth Kandula",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-09-02T18:17:23.730+0000",
+        "updated": "2015-09-02T18:17:23.730+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/14728158",
+        "id": "14728158",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "bq. Not sure if this (out-of-band heartbeat upon container completion) happens today\nThe OOB heartbeat is occurring to a degree if the cluster is running a lot of MapReduce.  Currently the MapReduce AM will proactively kill any task that reports a terminal status over the umbilical protocol.  There's then a race between the task container completing on its own and the AM killing the task via the NM.  If the latter wins the race then we get an OOB heartbeat since today a stop container request generates it.  I see the kill winning the race fairly often on our clusters, so we are getting a lot of OOB heartbeats in practice.\n\nGeneral OOB heartbeats on any type of container completion does not occur today but is proposed by YARN-2046.\n\nbq.  Processing one NM at a time is unlikely to cope well with the storms of heartbeats.\nThis was a big problem in the past and the scheduler could fall far behind, but this was mitigated to a large degree with batching of heartbeats (e.g.: YARN-365).\n\nAgree in general though that allowing the scheduler to be more concurrent would be nice.  ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2015-09-02T22:36:29.727+0000",
+        "updated": "2015-09-02T22:36:29.727+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/16383305",
+        "id": "16383305",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=imstefanlee",
+          "name": "imstefanlee",
+          "key": "imstefanlee",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10448",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10448",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10448",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10448"
+          },
+          "displayName": "stefanlee",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "[~jlowe]\u00a0 if\u00a0 the OOB heartbeat could reduce the ability of ResourceManager schedule?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=imstefanlee",
+          "name": "imstefanlee",
+          "key": "imstefanlee",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10448",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10448",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10448",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10448"
+          },
+          "displayName": "stefanlee",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2018-03-02T07:51:04.322+0000",
+        "updated": "2018-03-02T07:51:04.322+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/16383597",
+        "id": "16383597",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "bq. if  the OOB heartbeat could reduce the ability of ResourceManager schedule?\r\n\r\nOOB heartbeats are designed to improve the latency of scheduling in the RM.  Without them, the RM will not know about recently freed resources on a node until the next node heartbeat.  That heartbeat could be several seconds away depending upon the configured NM heartbeat interval.\r\n\r\nThe real issue isn't so much responding to heartbeats concurrently as it is _scheduling concurrently_.  The heartbeats are technically processed in parallel today.  Each heartbeat is handled by an IPC Server handler thread, and for the most part the processing in that Server handler thread does not block.  However that heartbeat posts node update events to the scheduler event dispatcher, and processing those events in the scheduler thread is serialized.  That's where the scaling bottleneck lies.\r\n\r\nThe node update scheduler events are coalesced if the scheduler thread is not keeping up, so I don't see OOB heartbeats as a hinderance to the scheduler.  Since this was filed the NM now OOB heartbeats on any type of container completion, so this should allow the NM hearbeat interval to scale much higher (i.e.: on the order of tens of seconds or minutes) without an appreciable reduction in scheduling latency.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2018-03-02T14:06:19.422+0000",
+        "updated": "2018-03-02T14:06:19.422+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12859509/comment/16385503",
+        "id": "16385503",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=imstefanlee",
+          "name": "imstefanlee",
+          "key": "imstefanlee",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10448",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10448",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10448",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10448"
+          },
+          "displayName": "stefanlee",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "yep !!! *processing those events in the scheduler thread is serialized*\u00a0is the key point. thanks a lot [~jlowe]\r\n\r\n\u00a0",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=imstefanlee",
+          "name": "imstefanlee",
+          "key": "imstefanlee",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10448",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10448",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10448",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10448"
+          },
+          "displayName": "stefanlee",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2018-03-05T02:31:30.765+0000",
+        "updated": "2018-03-05T02:31:30.765+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-4088/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 11,
+        "returned": 11
+      }
+    ]
+  }
+}

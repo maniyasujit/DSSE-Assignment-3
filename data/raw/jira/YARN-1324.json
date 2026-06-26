@@ -1,0 +1,519 @@
+{
+  "downloaded_at": "2026-06-25T10:23:43.653110+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-1324",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1324?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12674609",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12674609",
+    "key": "YARN-1324",
+    "fields": {
+      "summary": "NodeManager potentially causes unnecessary operations on all its disks",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2013-10-18T22:24:59.992+0000",
+      "description": "Currently, for every container, the NM creates a directory on every disk and expects the container-task to choose 1 of them and load balance the use of the disks across all containers. \n1) This may have worked fine in the MR world where MR tasks would randomly choose dirs but in general we cannot expect every app/task writer to understand these nuances and randomly pick disks. So we could end up overloading the first disk if most people decide to use the first disk.\n2) This makes a number of NM operations to scan every disk (thus randomizing that disk) to locate the dir which the task has actually chosen to use for its files. Makes all these operations expensive for the NM as well as disruptive for users of disks that did not have the real task working dirs.\n\nI propose that NM should up-front decide the disk it is assigning to tasks. It could choose to do so randomly or weighted-randomly by looking at space and load on each disk. So it could do a better job of load balancing. Then, it would associate the chosen working directory with the container context so that subsequent operations on the NM can directly seek to the correct location instead of having to seek on every disk.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12674609/comment/13799667",
+            "id": "13799667",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "It wasn't done like that with MR world only in mind. Even outside MR, many apps want to write data in parallel and want to take advantage of multiple disks. We cannot make NM to decide one disk because of that.\n\nApps/containers that don't care about load-balancing or multiple disks can chose to always write to the first disk and NM will eventually load balance them.\n\nTo have true load-balancing all the time (and not just post container finish), YARN needs cooperative containers. And the better solution for that is to make apps ask the number of disks to write when they launch containers. That way YARN isn't overriding users intention to use/not use multiple disks.\n\nThe title should be changed with problem description (and not the solution).",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2013-10-18T23:57:39.402+0000",
+            "updated": "2013-10-18T23:57:39.402+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12674609/comment/13799698",
+            "id": "13799698",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Are there current applications that want to write in parallel to multiple local disks? If not, then we should probably figure out how to support them well when they show up. In the meanwhile, we could look at the above mentioned drawbacks and decide whether the they are worth fixing or not, either by restricting solution above or some other solution. Are the above drawbacks worthwhile issues? If yes, are there alternative proposals for a solution?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-10-19T00:35:38.160+0000",
+            "updated": "2013-10-19T00:35:38.160+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12674609/comment/13799964",
+            "id": "13799964",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "bq. Are there current applications that want to write in parallel to multiple local disks?\nClearly MR. I'm sure others do too.\n\nbq. If not, then we should probably figure out how to support them well when they show up.\nWe cannot break MR.\n\nbq. In the meanwhile, we could look at the above mentioned drawbacks and decide whether the they are worth fixing or not, either by restricting solution above or some other solution. Are the above drawbacks worthwhile issues? If yes, are there alternative proposals for a solution?\nI just gave a solution above that may just work: \"And the better solution for that is to make apps ask the number of disks to write when they launch containers. That way YARN isn't overriding users intention to use/not use multiple disks.\"\n\nIf that solution sounds fine, we can run with it, thinking more about disk resources in general.\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2013-10-19T18:12:12.109+0000",
+            "updated": "2013-10-19T18:12:12.109+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12674609/comment/13799970",
+            "id": "13799970",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "When does MR use multiple disks in the same task/container? Isnt the map output written to a single indexed partition file?\n\nRequiring apps to specify the number of disks for a container is also a viable solution and can be done in a back-compatible manner by changing MR to specify multiple disks and leaving the default to 1 for apps that dont care.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-10-19T18:42:00.004+0000",
+            "updated": "2013-10-19T18:42:00.004+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12674609/comment/13809885",
+            "id": "13809885",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cdouglas",
+              "name": "cdouglas",
+              "key": "chris.douglas",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Christopher Douglas",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "bq. When does MR use multiple disks in the same task/container? Isnt the map output written to a single indexed partition file?\n\nSpills are spread across all volumes, but merged into a single file at the end.\n\nWould randomizing the order of disks be a reasonable short-term workaround for (1)? Future changes could weight/elide directories based on other criteria, but that's a simple change. So would changing the \"random\" selection to bias its search order using a hash of the task id (instead of disk usage when creating the spill), so the ShuffleHandler could search fewer directories on average. I agree with Vinod, it would be hard to prevent the search altogether...\n\nbq. Requiring apps to specify the number of disks for a container is also a viable solution and can be done in a back-compatible manner by changing MR to specify multiple disks and leaving the default to 1 for apps that dont care.\n\nThis makes sense as a hint, but some users might interpret it as a constraint and be confused when a NM schedules them on a node the reports fewer local dirs (due to failure, heterogeneous config).",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cdouglas",
+              "name": "cdouglas",
+              "key": "chris.douglas",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Christopher Douglas",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-10-31T03:14:58.421+0000",
+            "updated": "2013-10-31T03:14:58.421+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12674609/comment/13810228",
+            "id": "13810228",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "+1 for randomizing the list of directories.  Even if we allow an app to ask for multiple paths and they do so, it's more likely to spread the load around for apps with unsophisticated load balancing algorithms.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2013-10-31T13:11:19.523+0000",
+            "updated": "2013-10-31T13:11:19.523+0000"
+          }
+        ],
+        "maxResults": 6,
+        "total": 6,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1324/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2013-10-31T13:11:19.523+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 6,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12674609/comment/13799667",
+        "id": "13799667",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "It wasn't done like that with MR world only in mind. Even outside MR, many apps want to write data in parallel and want to take advantage of multiple disks. We cannot make NM to decide one disk because of that.\n\nApps/containers that don't care about load-balancing or multiple disks can chose to always write to the first disk and NM will eventually load balance them.\n\nTo have true load-balancing all the time (and not just post container finish), YARN needs cooperative containers. And the better solution for that is to make apps ask the number of disks to write when they launch containers. That way YARN isn't overriding users intention to use/not use multiple disks.\n\nThe title should be changed with problem description (and not the solution).",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2013-10-18T23:57:39.402+0000",
+        "updated": "2013-10-18T23:57:39.402+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12674609/comment/13799698",
+        "id": "13799698",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Are there current applications that want to write in parallel to multiple local disks? If not, then we should probably figure out how to support them well when they show up. In the meanwhile, we could look at the above mentioned drawbacks and decide whether the they are worth fixing or not, either by restricting solution above or some other solution. Are the above drawbacks worthwhile issues? If yes, are there alternative proposals for a solution?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-10-19T00:35:38.160+0000",
+        "updated": "2013-10-19T00:35:38.160+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12674609/comment/13799964",
+        "id": "13799964",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "bq. Are there current applications that want to write in parallel to multiple local disks?\nClearly MR. I'm sure others do too.\n\nbq. If not, then we should probably figure out how to support them well when they show up.\nWe cannot break MR.\n\nbq. In the meanwhile, we could look at the above mentioned drawbacks and decide whether the they are worth fixing or not, either by restricting solution above or some other solution. Are the above drawbacks worthwhile issues? If yes, are there alternative proposals for a solution?\nI just gave a solution above that may just work: \"And the better solution for that is to make apps ask the number of disks to write when they launch containers. That way YARN isn't overriding users intention to use/not use multiple disks.\"\n\nIf that solution sounds fine, we can run with it, thinking more about disk resources in general.\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2013-10-19T18:12:12.109+0000",
+        "updated": "2013-10-19T18:12:12.109+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12674609/comment/13799970",
+        "id": "13799970",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "When does MR use multiple disks in the same task/container? Isnt the map output written to a single indexed partition file?\n\nRequiring apps to specify the number of disks for a container is also a viable solution and can be done in a back-compatible manner by changing MR to specify multiple disks and leaving the default to 1 for apps that dont care.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-10-19T18:42:00.004+0000",
+        "updated": "2013-10-19T18:42:00.004+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12674609/comment/13809885",
+        "id": "13809885",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cdouglas",
+          "name": "cdouglas",
+          "key": "chris.douglas",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Christopher Douglas",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "bq. When does MR use multiple disks in the same task/container? Isnt the map output written to a single indexed partition file?\n\nSpills are spread across all volumes, but merged into a single file at the end.\n\nWould randomizing the order of disks be a reasonable short-term workaround for (1)? Future changes could weight/elide directories based on other criteria, but that's a simple change. So would changing the \"random\" selection to bias its search order using a hash of the task id (instead of disk usage when creating the spill), so the ShuffleHandler could search fewer directories on average. I agree with Vinod, it would be hard to prevent the search altogether...\n\nbq. Requiring apps to specify the number of disks for a container is also a viable solution and can be done in a back-compatible manner by changing MR to specify multiple disks and leaving the default to 1 for apps that dont care.\n\nThis makes sense as a hint, but some users might interpret it as a constraint and be confused when a NM schedules them on a node the reports fewer local dirs (due to failure, heterogeneous config).",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cdouglas",
+          "name": "cdouglas",
+          "key": "chris.douglas",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Christopher Douglas",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-10-31T03:14:58.421+0000",
+        "updated": "2013-10-31T03:14:58.421+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12674609/comment/13810228",
+        "id": "13810228",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "+1 for randomizing the list of directories.  Even if we allow an app to ask for multiple paths and they do so, it's more likely to spread the load around for apps with unsophisticated load balancing algorithms.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2013-10-31T13:11:19.523+0000",
+        "updated": "2013-10-31T13:11:19.523+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1324/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 6,
+        "returned": 6
+      }
+    ]
+  }
+}

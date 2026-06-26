@@ -1,0 +1,247 @@
+{
+  "downloaded_at": "2026-06-25T10:18:16.331939+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-10955",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-10955?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13401293",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13401293",
+    "key": "YARN-10955",
+    "fields": {
+      "summary": "Add health check mechanism to improve troubleshooting skills for RM",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319322",
+          "id": "12319322",
+          "name": "resourcemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2021-09-15T08:35:59.443+0000",
+      "description": "RM is the most complex\u00a0component in YARN with many basic or core services including RPC servers, event dispatchers, HTTP server, core scheduler, state managers etc., and some of them depends on other basic components like ZooKeeper, HDFS.\u00a0\r\n\r\nCurrently we may have to find some\u00a0suspicious traces from many related metrics and tremendous logs while encountering an unclear issue, hope to locate the\u00a0root\u00a0cause of the problem. For example, some applications keep staying in NEW_SAVING state, which can be caused by lost of ZooKeeper connections or jam in event dispatcher, the useful traces is sinking in\u00a0many metrics and logs. That's not easy to figure out what happened even for some experts, let alone common users.\r\n\r\nSo I propose to add\u00a0a common health check mechanism to improve troubleshooting skills for RM, in my general thought, we can\r\n * add a HealthReporter interface as follows:\r\n{code:java}\r\npublic interface HealthReporter {\r\n  HealthReport getHealthReport();\r\n}\r\n{code}\r\nHealthReport can have some generic fields like isHealthy(boolean), workState(enum: NORMAL/IDLE/BUSY), updateTime(long), diagnostics(string) and keyMetrics(Map<String, Object>).\r\n\r\n * make some key services implement HealthReporter interface and generate health report via evaluating the internal state.\r\n * add HealthCheckerService which can manage and monitor all reportable services, support checking and fetching health reports periodically and manually (can be triggered by REST API), publishing metrics and logs as well.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [
+        "pull-request-available"
+      ],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13401293/comment/17415388",
+            "id": "17415388",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tao+Yang",
+              "name": "Tao Yang",
+              "key": "tao yang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Tao Yang",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Any suggestions and comments are welcome!\r\n\r\ncc\u00a0[~cheersyang], [~leftnoteasy], [~sunil.g],\u00a0hope to hear your thoughts about this.\r\n\r\nThanks!",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tao+Yang",
+              "name": "Tao Yang",
+              "key": "tao yang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Tao Yang",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2021-09-15T08:43:23.705+0000",
+            "updated": "2021-09-15T08:43:23.705+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13401293/comment/18015805",
+            "id": "18015805",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "zheng-weihao closed pull request #3539: YARN-10955. Add health check mechanism to improve troubleshooting skills for RM\nURL: https://github.com/apache/hadoop/pull/3539\n\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2025-08-24T02:09:30.251+0000",
+            "updated": "2025-08-24T02:09:30.251+0000"
+          }
+        ],
+        "maxResults": 2,
+        "total": 2,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-10955/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2025-08-24T02:09:30.469+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 2,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13401293/comment/17415388",
+        "id": "17415388",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tao+Yang",
+          "name": "Tao Yang",
+          "key": "tao yang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Tao Yang",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Any suggestions and comments are welcome!\r\n\r\ncc\u00a0[~cheersyang], [~leftnoteasy], [~sunil.g],\u00a0hope to hear your thoughts about this.\r\n\r\nThanks!",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tao+Yang",
+          "name": "Tao Yang",
+          "key": "tao yang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Tao Yang",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2021-09-15T08:43:23.705+0000",
+        "updated": "2021-09-15T08:43:23.705+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13401293/comment/18015805",
+        "id": "18015805",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "zheng-weihao closed pull request #3539: YARN-10955. Add health check mechanism to improve troubleshooting skills for RM\nURL: https://github.com/apache/hadoop/pull/3539\n\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2025-08-24T02:09:30.251+0000",
+        "updated": "2025-08-24T02:09:30.251+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-10955/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 2,
+        "returned": 2
+      }
+    ]
+  }
+}

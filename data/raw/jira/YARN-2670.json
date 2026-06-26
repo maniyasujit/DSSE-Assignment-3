@@ -1,0 +1,239 @@
+{
+  "downloaded_at": "2026-06-25T10:22:48.892590+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-2670",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2670?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12747135",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12747135",
+    "key": "YARN-2670",
+    "fields": {
+      "summary": "Adding feedback capability to capacity scheduler from external systems",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+        "id": "2",
+        "description": "A new feature of the product, which has yet to be developed.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+        "name": "New Feature",
+        "subtask": false,
+        "avatarId": 21141
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2014-10-09T21:57:33.074+0000",
+      "description": "The sheer growth in data volume and Hadoop cluster size make it a significant challenge to diagnose and locate problems in a production-level cluster environment efficiently and within a short period of time. Often times, the distributed monitoring systems are not capable of detecting a problem well in advance when a large-scale Hadoop cluster starts to deteriorate in performance or becomes unavailable. Thus, incoming workloads, scheduled between the time when cluster starts to deteriorate and the time when the problem is identified, suffer from longer execution times. As a result, both reliability and throughput of the cluster reduce significantly. we address this problem by proposing a system called Astro, which consists of a predictive model and an extension to the Capacity scheduler. The predictive model in Astro takes into account a rich set of cluster behavioral information that are collected by monitoring processes and model them using machine learning algorithms to predict future behavior of the cluster. The Astro predictive model detects anomalies in the cluster and also identifies a ranked set of metrics that have contributed the most towards the problem. The Astro scheduler uses the prediction outcome and the list of metrics to decide whether it needs to move and reduce workloads from the problematic cluster nodes or to prevent additional workload allocations to them, in order to improve both throughput and reliability of the cluster.\n\nThis JIRA is only for adding feedback capabilities to Capacity Scheduler which can take feedback from external systems.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12747135/comment/14385978",
+            "id": "14385978",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "I really welcome this line of thinking. \n\nWe did some work in this space, and demonstrated that under certain experimental conditions a feedback loop on instantaneous cluster conditions, when coupled with proper extensions of the scheduler can lead to substantial perf improvements (the Limplock paper http://dl.acm.org/citation.cfm?id=2523627 discuss related ideas).\n\nThis is in particular relevant, as YARN does not track all resources (e.g., no disk, net bookeeping/policing). Also this is needed to account for load produced by other services running on the box, but not managed by YARN, e.g., HDFS / HBase.\n\nI look forward to hear more about Astro and how you are attacking this, do you have any document or initial patch for this?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-03-29T21:54:46.495+0000",
+            "updated": "2015-03-29T21:54:46.495+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12747135/comment/15192982",
+            "id": "15192982",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hasonhai",
+              "name": "hasonhai",
+              "key": "hasonhai",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Ha Son Hai",
+              "active": true,
+              "timeZone": "Europe/Berlin"
+            },
+            "body": "Is there any news on this JIRA? I'm also very interested in this.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hasonhai",
+              "name": "hasonhai",
+              "key": "hasonhai",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Ha Son Hai",
+              "active": true,
+              "timeZone": "Europe/Berlin"
+            },
+            "created": "2016-03-14T09:39:50.013+0000",
+            "updated": "2016-03-14T09:39:50.013+0000"
+          }
+        ],
+        "maxResults": 2,
+        "total": 2,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2670/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2017-01-07T01:40:49.077+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 2,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12747135/comment/14385978",
+        "id": "14385978",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "I really welcome this line of thinking. \n\nWe did some work in this space, and demonstrated that under certain experimental conditions a feedback loop on instantaneous cluster conditions, when coupled with proper extensions of the scheduler can lead to substantial perf improvements (the Limplock paper http://dl.acm.org/citation.cfm?id=2523627 discuss related ideas).\n\nThis is in particular relevant, as YARN does not track all resources (e.g., no disk, net bookeeping/policing). Also this is needed to account for load produced by other services running on the box, but not managed by YARN, e.g., HDFS / HBase.\n\nI look forward to hear more about Astro and how you are attacking this, do you have any document or initial patch for this?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-03-29T21:54:46.495+0000",
+        "updated": "2015-03-29T21:54:46.495+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12747135/comment/15192982",
+        "id": "15192982",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hasonhai",
+          "name": "hasonhai",
+          "key": "hasonhai",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Ha Son Hai",
+          "active": true,
+          "timeZone": "Europe/Berlin"
+        },
+        "body": "Is there any news on this JIRA? I'm also very interested in this.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hasonhai",
+          "name": "hasonhai",
+          "key": "hasonhai",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Ha Son Hai",
+          "active": true,
+          "timeZone": "Europe/Berlin"
+        },
+        "created": "2016-03-14T09:39:50.013+0000",
+        "updated": "2016-03-14T09:39:50.013+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2670/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 2,
+        "returned": 2
+      }
+    ]
+  }
+}

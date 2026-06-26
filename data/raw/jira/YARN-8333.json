@@ -1,0 +1,1020 @@
+{
+  "downloaded_at": "2026-06-25T10:19:19.337949+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-8333",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8333?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13160736",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736",
+    "key": "YARN-8333",
+    "fields": {
+      "summary": "Load balance YARN services using RegistryDNS multiple A records",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12331058",
+          "id": "12331058",
+          "name": "yarn-native-services"
+        }
+      ],
+      "subtasks": [],
+      "created": "2018-05-21T16:13:30.272+0000",
+      "description": "For scaling stateless containers, it would be great to support DNS round robin for fault tolerance and load balancing.  The current DNS record format for RegistryDNS is [container-instance].[application-name].[username].[domain].  For example:\r\n\r\n{code}\r\nappcatalog-0.appname.hbase.ycluster. IN A 123.123.123.120\r\nappcatalog-1.appname.hbase.ycluster. IN A 123.123.123.121\r\nappcatalog-2.appname.hbase.ycluster. IN A 123.123.123.122\r\nappcatalog-3.appname.hbase.ycluster. IN A 123.123.123.123\r\n{code}\r\n\r\nIt would be nice to add multi-A record that contains all IP addresses of the same component in addition to the instance based records.  For example:\r\n\r\n{code}\r\nappcatalog.appname.hbase.ycluster. IN A 123.123.123.120\r\nappcatalog.appname.hbase.ycluster. IN A 123.123.123.121\r\nappcatalog.appname.hbase.ycluster. IN A 123.123.123.122\r\nappcatalog.appname.hbase.ycluster. IN A 123.123.123.123\r\n{code}\r\n",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/1",
+        "id": "1",
+        "description": "A fix for this issue is checked into the tree and tested.",
+        "name": "Fixed"
+      },
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12924854",
+          "id": "12924854",
+          "filename": "YARN-8333.001.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+            "name": "eyang",
+            "key": "eyang",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Eric Yang",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2018-05-24T00:24:04.043+0000",
+          "size": 9339,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12924854/YARN-8333.001.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12924974",
+          "id": "12924974",
+          "filename": "YARN-8333.002.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+            "name": "eyang",
+            "key": "eyang",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Eric Yang",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2018-05-24T16:18:00.345+0000",
+          "size": 9364,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12924974/YARN-8333.002.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12925828",
+          "id": "12925828",
+          "filename": "YARN-8333.003.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+            "name": "eyang",
+            "key": "eyang",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Eric Yang",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2018-05-30T23:13:21.480+0000",
+          "size": 11304,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12925828/YARN-8333.003.patch"
+        }
+      ],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16488241",
+            "id": "16488241",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Patch 001 added multi-A record per component.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-05-24T00:24:53.146+0000",
+            "updated": "2018-05-24T00:24:53.146+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16488283",
+            "id": "16488283",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+              "name": "genericqa",
+              "key": "genericqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+              },
+              "displayName": "genericqa",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (/) *{color:green}+1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 25s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 23m 39s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 21s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 12s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 21s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green}  9m 23s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 31s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 16s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 19s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 18s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 18s{color} | {color:green} the patch passed {color} |\r\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 11s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-registry: The patch generated 7 new + 8 unchanged - 0 fixed = 15 total (was 8) {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 21s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green}  9m 46s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 36s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 13s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 55s{color} | {color:green} hadoop-yarn-registry in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 23s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 48m 35s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=17.05.0-ce Server=17.05.0-ce Image:yetus/hadoop:abb62dd |\r\n| JIRA Issue | YARN-8333 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12924854/YARN-8333.001.patch |\r\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux a01231175909 4.4.0-64-generic #85-Ubuntu SMP Mon Feb 20 11:50:30 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / d996479 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_162 |\r\n| findbugs | v3.1.0-RC1 |\r\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/20849/artifact/out/diff-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-registry.txt |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/20849/testReport/ |\r\n| Max. process+thread count | 442 (vs. ulimit of 10000) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-registry U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-registry |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/20849/console |\r\n| Powered by | Apache Yetus 0.8.0-SNAPSHOT   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+              "name": "genericqa",
+              "key": "genericqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+              },
+              "displayName": "genericqa",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2018-05-24T01:25:49.506+0000",
+            "updated": "2018-05-24T01:25:49.506+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16489365",
+            "id": "16489365",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Patch 002 fixed check style issues.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-05-24T16:46:57.840+0000",
+            "updated": "2018-05-24T16:46:57.840+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16489414",
+            "id": "16489414",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+              "name": "genericqa",
+              "key": "genericqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+              },
+              "displayName": "genericqa",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (/) *{color:green}+1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 21s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 22m 46s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 19s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 12s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 20s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green}  8m 48s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 26s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 16s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 21s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 16s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 16s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 10s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 18s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green}  9m 29s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 33s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 14s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 48s{color} | {color:green} hadoop-yarn-registry in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 19s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 46m 13s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=17.05.0-ce Server=17.05.0-ce Image:yetus/hadoop:abb62dd |\r\n| JIRA Issue | YARN-8333 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12924974/YARN-8333.002.patch |\r\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux 29a9157b67bf 4.4.0-64-generic #85-Ubuntu SMP Mon Feb 20 11:50:30 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 1388de1 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_162 |\r\n| findbugs | v3.1.0-RC1 |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/20855/testReport/ |\r\n| Max. process+thread count | 439 (vs. ulimit of 10000) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-registry U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-registry |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/20855/console |\r\n| Powered by | Apache Yetus 0.8.0-SNAPSHOT   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+              "name": "genericqa",
+              "key": "genericqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+              },
+              "displayName": "genericqa",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2018-05-24T17:12:59.055+0000",
+            "updated": "2018-05-24T17:12:59.055+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16493774",
+            "id": "16493774",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=billie",
+              "name": "billie",
+              "key": "billie.rinaldi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=billie.rinaldi&avatarId=30233",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=billie.rinaldi&avatarId=30233",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=billie.rinaldi&avatarId=30233",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=billie.rinaldi&avatarId=30233"
+              },
+              "displayName": "Billie Rinaldi",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "body": "Hey [~eyang], I think this is a great idea. I tested out the patch and it worked well. My only suggestion is that I think we should add information about the new records to ServiceDiscovery.md.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=billie",
+              "name": "billie",
+              "key": "billie.rinaldi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=billie.rinaldi&avatarId=30233",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=billie.rinaldi&avatarId=30233",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=billie.rinaldi&avatarId=30233",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=billie.rinaldi&avatarId=30233"
+              },
+              "displayName": "Billie Rinaldi",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "created": "2018-05-29T16:13:50.643+0000",
+            "updated": "2018-05-29T16:13:50.643+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16495861",
+            "id": "16495861",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~billie.rinaldi] Thank you for the review.  Patch 3 added documentation to ServiceDiscovery.md.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-05-30T23:10:25.934+0000",
+            "updated": "2018-05-30T23:10:25.934+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16495924",
+            "id": "16495924",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+              "name": "genericqa",
+              "key": "genericqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+              },
+              "displayName": "genericqa",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (/) *{color:green}+1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 25s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  1m  6s{color} | {color:blue} Maven dependency ordering for branch {color} |\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 23m  4s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  7m 53s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  1m  3s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 48s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 11m 14s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:blue}0{color} | {color:blue} findbugs {color} | {color:blue}  0m  0s{color} | {color:blue} Skipped patched modules with no Java source: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-site {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 39s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 34s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  0m  9s{color} | {color:blue} Maven dependency ordering for patch {color} |\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 33s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  6m 45s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  6m 45s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  1m 20s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 45s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 10m 11s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:blue}0{color} | {color:blue} findbugs {color} | {color:blue}  0m  0s{color} | {color:blue} Skipped patched modules with no Java source: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-site {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 39s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 38s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 52s{color} | {color:green} hadoop-yarn-registry in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 19s{color} | {color:green} hadoop-yarn-site in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 27s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 69m 13s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=17.05.0-ce Server=17.05.0-ce Image:yetus/hadoop:abb62dd |\r\n| JIRA Issue | YARN-8333 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12925826/YARN-8333.003.patch |\r\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux a92e85fc5dbf 4.4.0-64-generic #85-Ubuntu SMP Mon Feb 20 11:50:30 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 02c4b89 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_162 |\r\n| findbugs | v3.1.0-RC1 |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/20900/testReport/ |\r\n| Max. process+thread count | 440 (vs. ulimit of 10000) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-registry hadoop-yarn-project/hadoop-yarn/hadoop-yarn-site U: hadoop-yarn-project/hadoop-yarn |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/20900/console |\r\n| Powered by | Apache Yetus 0.8.0-SNAPSHOT   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+              "name": "genericqa",
+              "key": "genericqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+              },
+              "displayName": "genericqa",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2018-05-31T00:19:57.618+0000",
+            "updated": "2018-05-31T00:19:57.618+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16495935",
+            "id": "16495935",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+              "name": "genericqa",
+              "key": "genericqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+              },
+              "displayName": "genericqa",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (/) *{color:green}+1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 25s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  1m 18s{color} | {color:blue} Maven dependency ordering for branch {color} |\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 24m 16s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  7m 40s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  1m  7s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 48s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 11m 26s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:blue}0{color} | {color:blue} findbugs {color} | {color:blue}  0m  0s{color} | {color:blue} Skipped patched modules with no Java source: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-site {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 41s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 39s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  0m 26s{color} | {color:blue} Maven dependency ordering for patch {color} |\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 30s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  6m 31s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  6m 31s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  1m  6s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 44s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green}  9m 48s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:blue}0{color} | {color:blue} findbugs {color} | {color:blue}  0m  0s{color} | {color:blue} Skipped patched modules with no Java source: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-site {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 45s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 49s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  1m  4s{color} | {color:green} hadoop-yarn-registry in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 23s{color} | {color:green} hadoop-yarn-site in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 39s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 71m  0s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=17.05.0-ce Server=17.05.0-ce Image:yetus/hadoop:abb62dd |\r\n| JIRA Issue | YARN-8333 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12925828/YARN-8333.003.patch |\r\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux a2808df67ac0 4.4.0-64-generic #85-Ubuntu SMP Mon Feb 20 11:50:30 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 02c4b89 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_162 |\r\n| findbugs | v3.1.0-RC1 |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/20901/testReport/ |\r\n| Max. process+thread count | 448 (vs. ulimit of 10000) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-registry hadoop-yarn-project/hadoop-yarn/hadoop-yarn-site U: hadoop-yarn-project/hadoop-yarn |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/20901/console |\r\n| Powered by | Apache Yetus 0.8.0-SNAPSHOT   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+              "name": "genericqa",
+              "key": "genericqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+              },
+              "displayName": "genericqa",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2018-05-31T00:32:04.347+0000",
+            "updated": "2018-05-31T00:32:04.347+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16496551",
+            "id": "16496551",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=billie",
+              "name": "billie",
+              "key": "billie.rinaldi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=billie.rinaldi&avatarId=30233",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=billie.rinaldi&avatarId=30233",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=billie.rinaldi&avatarId=30233",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=billie.rinaldi&avatarId=30233"
+              },
+              "displayName": "Billie Rinaldi",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "body": "Thanks, [~eyang]! +1 for patch 3. I will commit this to trunk and branch-3.1.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=billie",
+              "name": "billie",
+              "key": "billie.rinaldi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=billie.rinaldi&avatarId=30233",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=billie.rinaldi&avatarId=30233",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=billie.rinaldi&avatarId=30233",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=billie.rinaldi&avatarId=30233"
+              },
+              "displayName": "Billie Rinaldi",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "created": "2018-05-31T13:45:51.657+0000",
+            "updated": "2018-05-31T13:45:51.657+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16496567",
+            "id": "16496567",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "FAILURE: Integrated in Jenkins build Hadoop-trunk-Commit #14323 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/14323/])\nYARN-8333. Load balance YARN services using RegistryDNS multiple A (billie: rev 6bc92e304fe05e80f13830104d1fd2c59da8344b)\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-registry/src/main/java/org/apache/hadoop/registry/server/dns/ContainerServiceRecordProcessor.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-registry/src/test/java/org/apache/hadoop/registry/server/dns/TestRegistryDNS.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-site/src/site/markdown/yarn-service/ServiceDiscovery.md\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-registry/src/main/java/org/apache/hadoop/registry/server/dns/BaseServiceRecordProcessor.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2018-05-31T13:48:36.676+0000",
+            "updated": "2018-05-31T13:48:36.676+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16496604",
+            "id": "16496604",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=billie",
+              "name": "billie",
+              "key": "billie.rinaldi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=billie.rinaldi&avatarId=30233",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=billie.rinaldi&avatarId=30233",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=billie.rinaldi&avatarId=30233",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=billie.rinaldi&avatarId=30233"
+              },
+              "displayName": "Billie Rinaldi",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "body": "Jenkins failure was due to the build using the wrong version of libprotoc.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=billie",
+              "name": "billie",
+              "key": "billie.rinaldi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=billie.rinaldi&avatarId=30233",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=billie.rinaldi&avatarId=30233",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=billie.rinaldi&avatarId=30233",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=billie.rinaldi&avatarId=30233"
+              },
+              "displayName": "Billie Rinaldi",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "created": "2018-05-31T14:10:47.908+0000",
+            "updated": "2018-05-31T14:10:47.908+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16496737",
+            "id": "16496737",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thank you [~billie.rinaldi] for the review and commit.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-05-31T15:49:51.620+0000",
+            "updated": "2018-05-31T15:49:51.620+0000"
+          }
+        ],
+        "maxResults": 12,
+        "total": 12,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8333/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2018-05-31T15:49:51.620+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 12,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16488241",
+        "id": "16488241",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Patch 001 added multi-A record per component.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-05-24T00:24:53.146+0000",
+        "updated": "2018-05-24T00:24:53.146+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16488283",
+        "id": "16488283",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+          "name": "genericqa",
+          "key": "genericqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+          },
+          "displayName": "genericqa",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (/) *{color:green}+1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 25s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 23m 39s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 21s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 12s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 21s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green}  9m 23s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 31s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 16s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 19s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 18s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 18s{color} | {color:green} the patch passed {color} |\r\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 11s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-registry: The patch generated 7 new + 8 unchanged - 0 fixed = 15 total (was 8) {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 21s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green}  9m 46s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 36s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 13s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 55s{color} | {color:green} hadoop-yarn-registry in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 23s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 48m 35s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=17.05.0-ce Server=17.05.0-ce Image:yetus/hadoop:abb62dd |\r\n| JIRA Issue | YARN-8333 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12924854/YARN-8333.001.patch |\r\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux a01231175909 4.4.0-64-generic #85-Ubuntu SMP Mon Feb 20 11:50:30 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / d996479 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_162 |\r\n| findbugs | v3.1.0-RC1 |\r\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/20849/artifact/out/diff-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-registry.txt |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/20849/testReport/ |\r\n| Max. process+thread count | 442 (vs. ulimit of 10000) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-registry U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-registry |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/20849/console |\r\n| Powered by | Apache Yetus 0.8.0-SNAPSHOT   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+          "name": "genericqa",
+          "key": "genericqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+          },
+          "displayName": "genericqa",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2018-05-24T01:25:49.506+0000",
+        "updated": "2018-05-24T01:25:49.506+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16489365",
+        "id": "16489365",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Patch 002 fixed check style issues.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-05-24T16:46:57.840+0000",
+        "updated": "2018-05-24T16:46:57.840+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16489414",
+        "id": "16489414",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+          "name": "genericqa",
+          "key": "genericqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+          },
+          "displayName": "genericqa",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (/) *{color:green}+1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 21s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 22m 46s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 19s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 12s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 20s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green}  8m 48s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 26s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 16s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 21s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 16s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 16s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 10s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 18s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green}  9m 29s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 33s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 14s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 48s{color} | {color:green} hadoop-yarn-registry in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 19s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 46m 13s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=17.05.0-ce Server=17.05.0-ce Image:yetus/hadoop:abb62dd |\r\n| JIRA Issue | YARN-8333 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12924974/YARN-8333.002.patch |\r\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux 29a9157b67bf 4.4.0-64-generic #85-Ubuntu SMP Mon Feb 20 11:50:30 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 1388de1 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_162 |\r\n| findbugs | v3.1.0-RC1 |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/20855/testReport/ |\r\n| Max. process+thread count | 439 (vs. ulimit of 10000) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-registry U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-registry |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/20855/console |\r\n| Powered by | Apache Yetus 0.8.0-SNAPSHOT   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+          "name": "genericqa",
+          "key": "genericqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+          },
+          "displayName": "genericqa",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2018-05-24T17:12:59.055+0000",
+        "updated": "2018-05-24T17:12:59.055+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16493774",
+        "id": "16493774",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=billie",
+          "name": "billie",
+          "key": "billie.rinaldi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=billie.rinaldi&avatarId=30233",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=billie.rinaldi&avatarId=30233",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=billie.rinaldi&avatarId=30233",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=billie.rinaldi&avatarId=30233"
+          },
+          "displayName": "Billie Rinaldi",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "body": "Hey [~eyang], I think this is a great idea. I tested out the patch and it worked well. My only suggestion is that I think we should add information about the new records to ServiceDiscovery.md.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=billie",
+          "name": "billie",
+          "key": "billie.rinaldi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=billie.rinaldi&avatarId=30233",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=billie.rinaldi&avatarId=30233",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=billie.rinaldi&avatarId=30233",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=billie.rinaldi&avatarId=30233"
+          },
+          "displayName": "Billie Rinaldi",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "created": "2018-05-29T16:13:50.643+0000",
+        "updated": "2018-05-29T16:13:50.643+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16495861",
+        "id": "16495861",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~billie.rinaldi] Thank you for the review.  Patch 3 added documentation to ServiceDiscovery.md.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-05-30T23:10:25.934+0000",
+        "updated": "2018-05-30T23:10:25.934+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16495924",
+        "id": "16495924",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+          "name": "genericqa",
+          "key": "genericqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+          },
+          "displayName": "genericqa",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (/) *{color:green}+1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 25s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  1m  6s{color} | {color:blue} Maven dependency ordering for branch {color} |\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 23m  4s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  7m 53s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  1m  3s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 48s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 11m 14s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:blue}0{color} | {color:blue} findbugs {color} | {color:blue}  0m  0s{color} | {color:blue} Skipped patched modules with no Java source: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-site {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 39s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 34s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  0m  9s{color} | {color:blue} Maven dependency ordering for patch {color} |\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 33s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  6m 45s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  6m 45s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  1m 20s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 45s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 10m 11s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:blue}0{color} | {color:blue} findbugs {color} | {color:blue}  0m  0s{color} | {color:blue} Skipped patched modules with no Java source: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-site {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 39s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 38s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 52s{color} | {color:green} hadoop-yarn-registry in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 19s{color} | {color:green} hadoop-yarn-site in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 27s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 69m 13s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=17.05.0-ce Server=17.05.0-ce Image:yetus/hadoop:abb62dd |\r\n| JIRA Issue | YARN-8333 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12925826/YARN-8333.003.patch |\r\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux a92e85fc5dbf 4.4.0-64-generic #85-Ubuntu SMP Mon Feb 20 11:50:30 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 02c4b89 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_162 |\r\n| findbugs | v3.1.0-RC1 |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/20900/testReport/ |\r\n| Max. process+thread count | 440 (vs. ulimit of 10000) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-registry hadoop-yarn-project/hadoop-yarn/hadoop-yarn-site U: hadoop-yarn-project/hadoop-yarn |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/20900/console |\r\n| Powered by | Apache Yetus 0.8.0-SNAPSHOT   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+          "name": "genericqa",
+          "key": "genericqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+          },
+          "displayName": "genericqa",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2018-05-31T00:19:57.618+0000",
+        "updated": "2018-05-31T00:19:57.618+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16495935",
+        "id": "16495935",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+          "name": "genericqa",
+          "key": "genericqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+          },
+          "displayName": "genericqa",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (/) *{color:green}+1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 25s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  1m 18s{color} | {color:blue} Maven dependency ordering for branch {color} |\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 24m 16s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  7m 40s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  1m  7s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 48s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 11m 26s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:blue}0{color} | {color:blue} findbugs {color} | {color:blue}  0m  0s{color} | {color:blue} Skipped patched modules with no Java source: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-site {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 41s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 39s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:blue}0{color} | {color:blue} mvndep {color} | {color:blue}  0m 26s{color} | {color:blue} Maven dependency ordering for patch {color} |\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 30s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  6m 31s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  6m 31s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  1m  6s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 44s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green}  9m 48s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:blue}0{color} | {color:blue} findbugs {color} | {color:blue}  0m  0s{color} | {color:blue} Skipped patched modules with no Java source: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-site {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 45s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 49s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  1m  4s{color} | {color:green} hadoop-yarn-registry in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 23s{color} | {color:green} hadoop-yarn-site in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 39s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black} 71m  0s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=17.05.0-ce Server=17.05.0-ce Image:yetus/hadoop:abb62dd |\r\n| JIRA Issue | YARN-8333 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12925828/YARN-8333.003.patch |\r\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux a2808df67ac0 4.4.0-64-generic #85-Ubuntu SMP Mon Feb 20 11:50:30 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 02c4b89 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_162 |\r\n| findbugs | v3.1.0-RC1 |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/20901/testReport/ |\r\n| Max. process+thread count | 448 (vs. ulimit of 10000) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-registry hadoop-yarn-project/hadoop-yarn/hadoop-yarn-site U: hadoop-yarn-project/hadoop-yarn |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/20901/console |\r\n| Powered by | Apache Yetus 0.8.0-SNAPSHOT   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=genericqa",
+          "name": "genericqa",
+          "key": "genericqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=genericqa&avatarId=33630",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=genericqa&avatarId=33630",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=genericqa&avatarId=33630",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=genericqa&avatarId=33630"
+          },
+          "displayName": "genericqa",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2018-05-31T00:32:04.347+0000",
+        "updated": "2018-05-31T00:32:04.347+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16496551",
+        "id": "16496551",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=billie",
+          "name": "billie",
+          "key": "billie.rinaldi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=billie.rinaldi&avatarId=30233",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=billie.rinaldi&avatarId=30233",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=billie.rinaldi&avatarId=30233",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=billie.rinaldi&avatarId=30233"
+          },
+          "displayName": "Billie Rinaldi",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "body": "Thanks, [~eyang]! +1 for patch 3. I will commit this to trunk and branch-3.1.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=billie",
+          "name": "billie",
+          "key": "billie.rinaldi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=billie.rinaldi&avatarId=30233",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=billie.rinaldi&avatarId=30233",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=billie.rinaldi&avatarId=30233",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=billie.rinaldi&avatarId=30233"
+          },
+          "displayName": "Billie Rinaldi",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "created": "2018-05-31T13:45:51.657+0000",
+        "updated": "2018-05-31T13:45:51.657+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16496567",
+        "id": "16496567",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "FAILURE: Integrated in Jenkins build Hadoop-trunk-Commit #14323 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/14323/])\nYARN-8333. Load balance YARN services using RegistryDNS multiple A (billie: rev 6bc92e304fe05e80f13830104d1fd2c59da8344b)\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-registry/src/main/java/org/apache/hadoop/registry/server/dns/ContainerServiceRecordProcessor.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-registry/src/test/java/org/apache/hadoop/registry/server/dns/TestRegistryDNS.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-site/src/site/markdown/yarn-service/ServiceDiscovery.md\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-registry/src/main/java/org/apache/hadoop/registry/server/dns/BaseServiceRecordProcessor.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2018-05-31T13:48:36.676+0000",
+        "updated": "2018-05-31T13:48:36.676+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16496604",
+        "id": "16496604",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=billie",
+          "name": "billie",
+          "key": "billie.rinaldi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=billie.rinaldi&avatarId=30233",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=billie.rinaldi&avatarId=30233",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=billie.rinaldi&avatarId=30233",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=billie.rinaldi&avatarId=30233"
+          },
+          "displayName": "Billie Rinaldi",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "body": "Jenkins failure was due to the build using the wrong version of libprotoc.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=billie",
+          "name": "billie",
+          "key": "billie.rinaldi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=billie.rinaldi&avatarId=30233",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=billie.rinaldi&avatarId=30233",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=billie.rinaldi&avatarId=30233",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=billie.rinaldi&avatarId=30233"
+          },
+          "displayName": "Billie Rinaldi",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "created": "2018-05-31T14:10:47.908+0000",
+        "updated": "2018-05-31T14:10:47.908+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13160736/comment/16496737",
+        "id": "16496737",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thank you [~billie.rinaldi] for the review and commit.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-05-31T15:49:51.620+0000",
+        "updated": "2018-05-31T15:49:51.620+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8333/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 12,
+        "returned": 12
+      }
+    ]
+  }
+}

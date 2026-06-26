@@ -1,0 +1,582 @@
+{
+  "downloaded_at": "2026-06-25T10:20:35.555504+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-5846",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5846?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13018829",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13018829",
+    "key": "YARN-5846",
+    "fields": {
+      "summary": "Improve the fairscheduler attemptScheduler ",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12322906",
+          "id": "12322906",
+          "name": "fairscheduler",
+          "description": "Fair Scheduler"
+        }
+      ],
+      "subtasks": [],
+      "created": "2016-11-07T13:30:02.171+0000",
+      "description": "when I assign a container, we must consider two factor:\n    (1) sort the queue and application, and select the proper request. \n    (2) then we assure this request's host is just this node (data locality). or skip this loop!\nthis algorithm regard the sorting queue and application as primary factor. when yarn consider data locality, for example, yarn.scheduler.fair.locality.threshold.node=1, yarn.scheduler.fair.locality.threshold.rack=1 (or yarn.scheduler.fair.locality-delay-rack-ms and yarn.scheduler.fair.locality-delay-node-ms is very large) and lots of applications are runnig, the process of assigning contianer becomes very slow.\nI think data locality is more important then the sequence of the queue and applications. \nI wanna a new algorithm like this:\n\t(1) when resourcemanager accept a new request, notice the RMNodeImpl, and then record this association between RMNode and request\n\t(2) when assign containers for node, we assign container by RMNodeImpl's association between RMNode and request directly\n\t(3) then I consider the priority of queue and applation. In one object of RMNodeImpl, we sort the request of association.\n\t(4) and I think the sorting of current algorithm is consuming, in especial, losts of applications are running, lots of sorting are called. so I think we should sort the queue and applicaiton in a daemon thread, because less error of queues's sequences is allowed.\n\t\n\t\n\t\n\t",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/2",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/critical.svg",
+        "name": "Critical",
+        "id": "2"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/3",
+        "id": "3",
+        "description": "The problem is a duplicate of an existing issue.",
+        "name": "Duplicate"
+      },
+      "labels": [
+        "fairscheduler"
+      ],
+      "attachment": [],
+      "issuelinks": [
+        {
+          "id": "12491665",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12491665",
+          "type": {
+            "id": "12310000",
+            "name": "Duplicate",
+            "inward": "is duplicated by",
+            "outward": "duplicates",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310000"
+          },
+          "outwardIssue": {
+            "id": "12972528",
+            "key": "YARN-5139",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12972528",
+            "fields": {
+              "summary": "[Umbrella] Move YARN scheduler towards global scheduler",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+                "id": "2",
+                "description": "A new feature of the product, which has yet to be developed.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+                "name": "New Feature",
+                "subtask": false,
+                "avatarId": 21141
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13018829/comment/15644739",
+            "id": "15644739",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+              "name": "templedf",
+              "key": "templedf",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+              },
+              "displayName": "Daniel Templeton",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks for the ideas, [~zhengchenyu].  Some of what you're discussing may fall under the umbrella of YARN-5139, which is attempting to make scheduling more efficient by scheduling independent of node heartbeats.  The rest of what you're suggesting sounds like a new scheduler implementation rather than an improvement to fair scheduler.  If you consider the application and queue priority last, how can the scheduler ensure fair distribution of resources according to shares?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+              "name": "templedf",
+              "key": "templedf",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+              },
+              "displayName": "Daniel Templeton",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-11-07T17:09:20.997+0000",
+            "updated": "2016-11-07T17:09:20.997+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13018829/comment/15646638",
+            "id": "15646638",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhengchenyu",
+              "name": "zhengchenyu",
+              "key": "zhengchenyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chenyu Zheng",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Yeah! I thinks my suggestion may be a new scheduler. And YARN-5139 is indeed a good idea, I will follow this issue, thank you for you recommendation!\nAs to this problem\uff0cI think a daemon thread would update the shares, and keep the sequence of the queue and applications. In One Node, the requests are order by this sequence. But I don't known which model is best.\nFor examaple\uff1a\n(1) one node have one request RB tree. updating the sequence of the queue and applicaiton in a daemon thread will update the sequence (this idea derives from fair-scheduler of linux kernel, and is compared to the cpu, and request is compared to task). Then the leftmost node would be the next assigned request.\n(2) a global daemon thread update every queue and application, and calculate their share. and request of one node's share is multiplied by its priority, then sort all the request. we assigned the container by this sequence.\nNotes: Why do I consider locality as primary? Because our cluster has many hot data, many nodes will connect these hot data. adding the replications blindly is Unrealistic, and network bandwidth is our bottleneck. So I want increase the locality as far as possible. But high locality affect the rate assigned container.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhengchenyu",
+              "name": "zhengchenyu",
+              "key": "zhengchenyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chenyu Zheng",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2016-11-08T06:11:28.558+0000",
+            "updated": "2016-11-08T06:41:34.696+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13018829/comment/15650458",
+            "id": "15650458",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=piaoyu+zhang",
+              "name": "piaoyu zhang",
+              "key": "piaoyu zhang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=piaoyu+zhang&avatarId=21665",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=piaoyu+zhang&avatarId=21665",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=piaoyu+zhang&avatarId=21665",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=piaoyu+zhang&avatarId=21665"
+              },
+              "displayName": "zhangyubiao",
+              "active": true,
+              "timeZone": "Asia/Hong_Kong"
+            },
+            "body": ":)",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=piaoyu+zhang",
+              "name": "piaoyu zhang",
+              "key": "piaoyu zhang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=piaoyu+zhang&avatarId=21665",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=piaoyu+zhang&avatarId=21665",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=piaoyu+zhang&avatarId=21665",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=piaoyu+zhang&avatarId=21665"
+              },
+              "displayName": "zhangyubiao",
+              "active": true,
+              "timeZone": "Asia/Hong_Kong"
+            },
+            "created": "2016-11-09T09:38:12.421+0000",
+            "updated": "2016-11-09T09:38:12.421+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13018829/comment/15802340",
+            "id": "15802340",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Hi, we shouldn't set fix version here unless the commit get checked in.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2017-01-05T19:47:53.040+0000",
+            "updated": "2017-01-05T19:47:53.040+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13018829/comment/15829221",
+            "id": "15829221",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhengchenyu",
+              "name": "zhengchenyu",
+              "key": "zhengchenyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chenyu Zheng",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "please pay attention to YARN-5139",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhengchenyu",
+              "name": "zhengchenyu",
+              "key": "zhengchenyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chenyu Zheng",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2017-01-19T03:08:31.764+0000",
+            "updated": "2017-01-19T03:08:31.764+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13018829/comment/15829223",
+            "id": "15829223",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhengchenyu",
+              "name": "zhengchenyu",
+              "key": "zhengchenyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chenyu Zheng",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "please pay attention to YARN-5139",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhengchenyu",
+              "name": "zhengchenyu",
+              "key": "zhengchenyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chenyu Zheng",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2017-01-19T03:10:10.942+0000",
+            "updated": "2017-01-19T03:10:10.942+0000"
+          }
+        ],
+        "maxResults": 6,
+        "total": 6,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5846/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2017-01-19T03:10:10.947+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 6,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13018829/comment/15644739",
+        "id": "15644739",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+          "name": "templedf",
+          "key": "templedf",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+          },
+          "displayName": "Daniel Templeton",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks for the ideas, [~zhengchenyu].  Some of what you're discussing may fall under the umbrella of YARN-5139, which is attempting to make scheduling more efficient by scheduling independent of node heartbeats.  The rest of what you're suggesting sounds like a new scheduler implementation rather than an improvement to fair scheduler.  If you consider the application and queue priority last, how can the scheduler ensure fair distribution of resources according to shares?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+          "name": "templedf",
+          "key": "templedf",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+          },
+          "displayName": "Daniel Templeton",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-11-07T17:09:20.997+0000",
+        "updated": "2016-11-07T17:09:20.997+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13018829/comment/15646638",
+        "id": "15646638",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhengchenyu",
+          "name": "zhengchenyu",
+          "key": "zhengchenyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chenyu Zheng",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Yeah! I thinks my suggestion may be a new scheduler. And YARN-5139 is indeed a good idea, I will follow this issue, thank you for you recommendation!\nAs to this problem\uff0cI think a daemon thread would update the shares, and keep the sequence of the queue and applications. In One Node, the requests are order by this sequence. But I don't known which model is best.\nFor examaple\uff1a\n(1) one node have one request RB tree. updating the sequence of the queue and applicaiton in a daemon thread will update the sequence (this idea derives from fair-scheduler of linux kernel, and is compared to the cpu, and request is compared to task). Then the leftmost node would be the next assigned request.\n(2) a global daemon thread update every queue and application, and calculate their share. and request of one node's share is multiplied by its priority, then sort all the request. we assigned the container by this sequence.\nNotes: Why do I consider locality as primary? Because our cluster has many hot data, many nodes will connect these hot data. adding the replications blindly is Unrealistic, and network bandwidth is our bottleneck. So I want increase the locality as far as possible. But high locality affect the rate assigned container.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhengchenyu",
+          "name": "zhengchenyu",
+          "key": "zhengchenyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chenyu Zheng",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2016-11-08T06:11:28.558+0000",
+        "updated": "2016-11-08T06:41:34.696+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13018829/comment/15650458",
+        "id": "15650458",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=piaoyu+zhang",
+          "name": "piaoyu zhang",
+          "key": "piaoyu zhang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=piaoyu+zhang&avatarId=21665",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=piaoyu+zhang&avatarId=21665",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=piaoyu+zhang&avatarId=21665",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=piaoyu+zhang&avatarId=21665"
+          },
+          "displayName": "zhangyubiao",
+          "active": true,
+          "timeZone": "Asia/Hong_Kong"
+        },
+        "body": ":)",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=piaoyu+zhang",
+          "name": "piaoyu zhang",
+          "key": "piaoyu zhang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=piaoyu+zhang&avatarId=21665",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=piaoyu+zhang&avatarId=21665",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=piaoyu+zhang&avatarId=21665",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=piaoyu+zhang&avatarId=21665"
+          },
+          "displayName": "zhangyubiao",
+          "active": true,
+          "timeZone": "Asia/Hong_Kong"
+        },
+        "created": "2016-11-09T09:38:12.421+0000",
+        "updated": "2016-11-09T09:38:12.421+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13018829/comment/15802340",
+        "id": "15802340",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Hi, we shouldn't set fix version here unless the commit get checked in.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2017-01-05T19:47:53.040+0000",
+        "updated": "2017-01-05T19:47:53.040+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13018829/comment/15829221",
+        "id": "15829221",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhengchenyu",
+          "name": "zhengchenyu",
+          "key": "zhengchenyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chenyu Zheng",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "please pay attention to YARN-5139",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhengchenyu",
+          "name": "zhengchenyu",
+          "key": "zhengchenyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chenyu Zheng",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2017-01-19T03:08:31.764+0000",
+        "updated": "2017-01-19T03:08:31.764+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13018829/comment/15829223",
+        "id": "15829223",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhengchenyu",
+          "name": "zhengchenyu",
+          "key": "zhengchenyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chenyu Zheng",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "please pay attention to YARN-5139",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhengchenyu",
+          "name": "zhengchenyu",
+          "key": "zhengchenyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chenyu Zheng",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2017-01-19T03:10:10.942+0000",
+        "updated": "2017-01-19T03:10:10.942+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5846/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 6,
+        "returned": 6
+      }
+    ]
+  }
+}

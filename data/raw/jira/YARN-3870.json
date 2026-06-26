@@ -1,0 +1,1530 @@
+{
+  "downloaded_at": "2026-06-25T10:21:55.808635+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-3870",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3870?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12841719",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719",
+    "key": "YARN-3870",
+    "fields": {
+      "summary": "Providing raw container request information for fine scheduling",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12631889",
+        "key": "YARN-397",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12631889",
+        "fields": {
+          "summary": "RM Scheduler api enhancements",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+            "description": "The issue is open and ready for the assignee to start work on it.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+            "name": "Open",
+            "id": "1",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+            "id": "4",
+            "description": "An improvement or enhancement to an existing feature or task.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+            "name": "Improvement",
+            "subtask": false,
+            "avatarId": 21140
+          }
+        }
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319416",
+          "id": "12319416",
+          "name": "api"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319414",
+          "id": "12319414",
+          "name": "applications"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319324",
+          "id": "12319324",
+          "name": "capacityscheduler"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12322906",
+          "id": "12322906",
+          "name": "fairscheduler",
+          "description": "Fair Scheduler"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319322",
+          "id": "12319322",
+          "name": "resourcemanager"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319325",
+          "id": "12319325",
+          "name": "scheduler"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12325004",
+          "id": "12325004",
+          "name": "yarn"
+        }
+      ],
+      "subtasks": [],
+      "created": "2015-06-30T15:20:32.777+0000",
+      "description": "Currently, when AM sends container requests to RM and scheduler, it expands individual container requests into host/rack/any format. For instance, if I am asking for container request with preference \"host1, host2, host3\", assuming all are in the same rack rack1, instead of sending one raw container request to RM/Scheduler with raw preference list, it basically expand it to become 5 different objects with host1, host2, host3, rack1 and any in there. When scheduler receives information, it basically already lost the raw request. This is ok for single container request, but it will cause trouble when dealing with multiple container requests from the same application. Consider this case:\n6 hosts, two racks:\nrack1 (host1, host2, host3) rack2 (host4, host5, host6)\nWhen application requests two containers with different data locality preference:\nc1: host1, host2, host4\nc2: host2, host3, host5\nThis will end up with following container request list when client sending request to RM/Scheduler:\nhost1: 1 instance\nhost2: 2 instances\nhost3: 1 instance\nhost4: 1 instance\nhost5: 1 instance\nrack1: 2 instances\nrack2: 2 instances\nany: 2 instances\nFundamentally, it is hard for scheduler to make a right judgement without knowing the raw container request. The situation will get worse when dealing with affinity and anti-affinity or even gang scheduling etc.\n\nWe need some way to provide raw container request information for fine scheduling purpose.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [
+        {
+          "id": "12430807",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12430807",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "12630471",
+            "key": "YARN-371",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630471",
+            "fields": {
+              "summary": "Resource-centric compression in AM-RM protocol limits scheduling",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12461955",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12461955",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "12953708",
+            "key": "YARN-4879",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12953708",
+            "fields": {
+              "summary": "Enhance Allocate Protocol to Identify Requests Explicitly",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+                "id": "4",
+                "description": "An improvement or enhancement to an existing feature or task.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+                "name": "Improvement",
+                "subtask": false,
+                "avatarId": 21140
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15069208",
+            "id": "15069208",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+              "name": "asuresh",
+              "key": "asuresh",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Suresh",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thank you for starting this discussion [~grey]\n\nCorrect me if I am wrong, what you are proposing, I guess is some way for the Scheduler to co-relate the expanded Resource Requests. I do feel this would be genuinely useful, not only from a Scheduling perspective for eg. making affinity / anti-afinity scheduling decisions viz. YARN-1042. This will also greatly help improving pre-emption decisions in the FairScheduler viz. YARN-2154.. \n\nThis would also be extremely useful for AMs too. Currently the MRAM does the book keeping and matches an allocated container to ResourceRequest. AMs can be generally relieved of this job if an allocated Container Token can easily be matched against a Resource Request.\n\nOne possible approach could be to have the AMClient generate a unique id for a Resource request and tag each of the expanded requests (Node, Rack and ANY) with this id. This Id can then be passed around in the Container/ContainerTokenIdentifier.\n\n[~kasha@cloudera.com], [~vinodkv], [~leftnoteasy], Thoughts ?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+              "name": "asuresh",
+              "key": "asuresh",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Suresh",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-12-23T06:11:23.337+0000",
+            "updated": "2015-12-23T06:11:23.337+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15070178",
+            "id": "15070178",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=subru",
+              "name": "subru",
+              "key": "subru",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=subru&avatarId=21709",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=subru&avatarId=21709",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=subru&avatarId=21709",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=subru&avatarId=21709"
+              },
+              "displayName": "Subramaniam Krishnan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "+1 on this.\n\nThanks [~grey] for raising this. I have been having offline discussions with [~asuresh] and [~curino] around Distributed Scheduling (YARN-2877) and Federation (YARN-2915). In both scenarios, sending the raw container request and letting the RM expand will save us a lot of pain as currently we are finding it very difficult to route requests correctly in the AMRMProxy (YARN-2844) ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=subru",
+              "name": "subru",
+              "key": "subru",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=subru&avatarId=21709",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=subru&avatarId=21709",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=subru&avatarId=21709",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=subru&avatarId=21709"
+              },
+              "displayName": "Subramaniam Krishnan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-12-23T20:50:46.010+0000",
+            "updated": "2015-12-23T20:50:46.010+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15070186",
+            "id": "15070186",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Hi [~grey],\n\nThanks for raising this, we definitely need such mechanism to better describe our resource request.\n\n[~asuresh], I'm not sure how the unique id works? Are you planing to add it as a key to AppSchedulingInfo resource requests map? (e.g. {{Map = <priority, <id, <resourceName, request>>>}})",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-12-23T20:56:10.389+0000",
+            "updated": "2015-12-23T20:56:10.389+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15070279",
+            "id": "15070279",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+              "name": "asuresh",
+              "key": "asuresh",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Suresh",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~leftnoteasy], With respect to the AM, I was thinking.. just having it as a field in the ReseourceRequest as well as the Container (returned by the allocate call) would suffice.\nFrom the perspective of the Scheduler, yes, {{Map = <priority, <id, <resourceName, request>>>}} was the direction I was thinking.. Correct me if I am wrong, but, currently, there is an implicit understanding that all resources requests for the same resource requirement should have the same priority. Having an explicit request id would allow us to remove that constraint as well..",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+              "name": "asuresh",
+              "key": "asuresh",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Suresh",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-12-23T22:46:22.368+0000",
+            "updated": "2015-12-23T22:46:22.368+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15074658",
+            "id": "15074658",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "+1 to improving the way we are storing ResourceRequests in AppSchedulingInfo. \n\nIn the context of YARN-4485, I would like to put a timestamp on when each ResourceRequest was received. We can use this to determine the container allocation latency at allocation-time. Today, we store all ResourceRequests for the same priority and locality together irrespective of whether the requests came all together or separate.\n\n[~asuresh] - what do you think of using <appAttempt#, timestamp> for id? I forget the details - how do we handle an AM restart, do we create a new AppSchedulingInfo? If so, we can just use the timestamp as is. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-12-30T06:04:21.502+0000",
+            "updated": "2015-12-30T06:04:21.502+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15074685",
+            "id": "15074685",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Hi [~kasha]/[~asuresh],\n\nI think this JIRA and YARN-4485 are different:\n- This JIRA is focus on \"resource request group\", like the example in description.\n{code}\nc1: host1, host2, host4\nc2: host2, host3, host5\n{code}\nCurrent resource request cannot store \"group by\" info.\n- YARN-4485 is focus on timestamp:\nSome random thoughts for YARN-4485,\nI think we cannot simply update timestamp when new resource request arrives. For example, at T1, AM asks 100 * 1G container; after 2 mins (T2), assume there's no container allocated, AM asks 100 * 1G container, we cannot say the resource request is added at T2. Instead, we should only set new timestamp for incremental asks (e.g. AM asks 120 * 1G container at T2, we should say, 100 resource requests from T1, and 20 resource requests from T2).",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-12-30T06:39:07.948+0000",
+            "updated": "2015-12-30T06:39:07.948+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15074755",
+            "id": "15074755",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xinxianyin",
+              "name": "xinxianyin",
+              "key": "xinxianyin",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Xianyin Xin",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "+1 for adding an unique id for a resource request, but i would suggest we consider these kind of problems in a more systematic way, considering YARN-314, YARN-1042, YARN-371, YARN-4485 and this.\n\nLike my comment in YARN-314, a natural way the scheduler works should like a factory, it receives orders, and prepare for that. Once we accept the work philosophy, we'll find it's natural and necessary for a resource order has the following dimensions\n1. order id, which can identify an order, and can get overdue, or has a time limit;\n2. priority;\n3. a collection of request unit, each specifies a kind of resource request,that should have a coordinate of <ResourceName/nodeLabels, Capability, NumOfContainers>;\n4. relaxLocality;\n5. canbeDecomposed, or ifGangScheduling;\n6. ...\nScheduler do scheduling based on order form, and should not swallow any information passed from the app.\n\nAny thoughts?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=xinxianyin",
+              "name": "xinxianyin",
+              "key": "xinxianyin",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Xianyin Xin",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2015-12-30T07:55:27.314+0000",
+            "updated": "2015-12-30T07:55:27.314+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15075740",
+            "id": "15075740",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "bq. I think this JIRA and YARN-4485 are different:\n\nbq. I think we cannot simply update timestamp when new resource request arrives. For example, at T1, AM asks 100 * 1G container; after 2 mins (T2), assume there's no container allocated, AM asks 100 * 1G container, we cannot say the resource request is added at T2. Instead, we should only set new timestamp for incremental asks\n\nFor YARN-4485, I was planning on taking this exact approach. While the two JIRAs and their purposes are different, the ability to identify a set of requests that arrived at one point in time requires similar updates to the data structures we use in AppSchedulingInfo. \n\nbq. what do you think of using <appAttempt#, timestamp> for id?\nTimestamps for Ids might not be a good idea especially when an AM can restart. Also, there might be merit to differentiating two ResourceRequests (say, at different priorities) received at the same time. \n\nDiscussed this with [~asuresh] and [~subru] offline. We felt the following changes would help us address multiple JIRAs (as [~xinxianyin] listed):\n# Add an ID field to ResourceRequest - this can be a sequence number for each application. On AM restarts, a subsequent attempt could choose to resume from appropriate sequence number. If the AM doesn't add an ID, the RM could add one. Or, we could have the RM add the IDs and return them to the AM for help with book keeping. \n# YARN-4485 would likely want to add a timestamp in addition to this. Given the IDs, we likely don't have to do special delta handling. \n# In case the number of containers in the existing ResourceRequest increases, the delta is given a new ID. e.g  - e.g. App increases request from 3 containers to 7 containers of same capability etc., the first three would have ID '1' and the next four would have ID '2'. \n# In case the number of containers corresponding to an existing ResourceRequest decreases, the number of containers is reduced from the largest ID to the smallest ID until the decrease is accounted for. e.g. If an app asks for 3, 7 and 2 containers in subsequent allocate calls, once these calls are processed, the app has 2 containers with ID '1'. \n# The resource-request data structure in AppSchedulingInfo will be this {{Map<Priority, Map<ID, Map<String, Map<Resource, ResourceRequest>>>>}}. This would help YARN-314 as well. YARN-314 will need a few more changes to fix up the matching in each of the schedulers.\n# Note that we will still be expanding a ResourceRequest to node-local, rack-local and ANY requests. These would now be tied with an ID and hence can be updated correctly.\n\nIf folks feel this would address all requirements, I could take a stab at the first patch. [~asuresh] and [~subru] have graciously offered to iterate on my prelim patch to fix up any issues in FairScheduler and CapacityScheduler. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-12-31T05:51:07.892+0000",
+            "updated": "2015-12-31T05:51:07.892+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15075991",
+            "id": "15075991",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=grey",
+              "name": "grey",
+              "key": "grey",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "George Reyes",
+              "active": true,
+              "timeZone": "America/Toronto"
+            },
+            "body": "[~kasha], I am thinking whether we also need some update for the response part to correlate it with the ResourceRequest ID. As the scheduling is asynchronous, AM will also need to know the relation between response and request.\n\nAnother question is whether we should make this detailed information as parameter controlled, as it may increase the AM/RM communication overhead.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=grey",
+              "name": "grey",
+              "key": "grey",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "George Reyes",
+              "active": true,
+              "timeZone": "America/Toronto"
+            },
+            "created": "2015-12-31T14:58:42.171+0000",
+            "updated": "2015-12-31T14:58:42.171+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15076629",
+            "id": "15076629",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "bq. Karthik Kambatla, I am thinking whether we also need some update for the response part to correlate it with the ResourceRequest ID. As the scheduling is asynchronous, AM will also need to know the relation between response and request.\n\nbq. If the AM doesn't add an ID, the RM could add one. Or, we could have the RM add the IDs and return them to the AM for help with book keeping.\n\nThought more about this. Since one AllocateRequest could have multiple ResourceRequests, the protocol becomes quite complicated if the RM creates an ID instead of the AM. How about we expect the AM to set this ID? If the AM doesn't set, we treat the requests the same way we do today (ID = -1). In the AllocateResponse, the RM could send the last received ResourceRequest. The AM could look at this ACK to see if it has to resend the requests? The AMRMClient and MR-AM could be updated to do this. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-01-02T18:21:27.160+0000",
+            "updated": "2016-01-02T18:21:27.160+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15076642",
+            "id": "15076642",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+              "name": "asuresh",
+              "key": "asuresh",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Suresh",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "+1 to having the AM create the ID (which I guess is required if the AM is to co-relate a resourcereq with a container response). Can we set the ID that is something of a combination of {{app_attempt_id + seq_id}}, where seq_id is incremented monotonically per app attempt ? to distinguish between different app attempts.\n\nAlso, I guess the outstanding requests for an app needs to be stored in the state store so subsequent app attempts can be intimated of unfullfulled reqs\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+              "name": "asuresh",
+              "key": "asuresh",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Suresh",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-01-02T19:39:33.815+0000",
+            "updated": "2016-01-02T19:39:33.815+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15076743",
+            "id": "15076743",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Was fleshing this out further. The number of IDs and hence ResourceRequests could be O(num. outstanding containers) which could pose problems as outlined in YARN-371. In fact, this JIRA is a duplicate of YARN-371: may be, we should close this and continue the discussion there. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-01-03T01:26:45.613+0000",
+            "updated": "2016-01-03T01:26:45.613+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15076746",
+            "id": "15076746",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+              "name": "asuresh",
+              "key": "asuresh",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Suresh",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Hmmm... not sure entirely sure the argument holds, or I might be missing something. For eg. even without an ID, what happens today if an application makes each request with a different Priority ?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+              "name": "asuresh",
+              "key": "asuresh",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Suresh",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-01-03T01:50:22.435+0000",
+            "updated": "2016-01-03T01:50:22.435+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15076775",
+            "id": "15076775",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~kasha],\n\nbq. Was fleshing this out further. The number of IDs and hence ResourceRequests could be O(num. outstanding containers) which could pose problems as outlined in YARN-371. In fact, this JIRA is a duplicate of YARN-371: may be, we should close this and continue the discussion there.\n\nAs I mentioned above, I think we shouldn't combine YARN-371 and YARN-4485 together: YARN-4485 is more like an internal change of scheduler to me:\n\nLet's say an AM originally requests 1000 container (T1), then AM requests 1200 containers (T2), then after scheduler allocated 100 containers, AM requests 1200 containers again (T3).\n\nFor the original request, scheduler records: T1, 1000.\nAfter T2, scheduler records: T1, 1000; T2, 200.\nAfter T3, scheduler records: T1, 900 (scheduler allocates 100 containers); T2, 200; T3, 100.\n\nInstead recording timestamps for all resource requests, AM only needs to record timestamp to #pending-requests. And scheduler will \"dequeue\" from the timestamp to #pending-requests (sorted by time) when container allocated.\n\nLike what you said, it will be hard to ask AM to set the ID, but scheduler should easily set it. But this solution needs more work if we want to save these timestamps when RM restart.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-01-03T07:01:23.463+0000",
+            "updated": "2016-01-03T07:01:23.463+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15079334",
+            "id": "15079334",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~leftnoteasy] - agree that YARN-4485 doesn't necessarily need ID-ing all requests corresponding to one task. \n\nThe JIRAs are related only due to the data-structures in AppSchedulingInfo:\n# If we add IDs as discussed here, we don't need any other data-structure changes except adding a timestamp to each ResourceRequest. \n# If we don't add IDs, we might need to store the resource-requests as Map<Priority, Map <timestamp, Map <resourceName, Map, ResourceRequest>>>>. This is required to be able to handle cases where the AM retracts some of the container requests. Refer to my example above with 3, 7 and 2 containers. \n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-01-03T07:58:28.701+0000",
+            "updated": "2016-01-03T07:58:28.701+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15080363",
+            "id": "15080363",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "I am not saying we shouldn't do this. I am only saying we should likely discuss this on YARN-371 so folks there are aware of this conversation. \n\nbq. even without an ID, what happens today if an application makes each request with a different Priority ?\nIn that case, we would still run into too many ResourceRequests, however this is unlikely to happen on a cluster that isn't compromised.\n\nOutside of this, today, we hold a lot more information about all running containers. Storing resource-requests for outstanding requests might not be prohibitively expensive. \n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-01-03T08:29:55.210+0000",
+            "updated": "2016-01-03T08:29:55.210+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15081242",
+            "id": "15081242",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=grey",
+              "name": "grey",
+              "key": "grey",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "George Reyes",
+              "active": true,
+              "timeZone": "America/Toronto"
+            },
+            "body": "I am not against to combine this JIRA and YARN-371, There is common ground between these two JIRAs. And more likely the final technical solution will be single solution to cover both, though it's not necessary. Maybe we can view YARN-371 as a technical speculation and YARN-3870 as one related use case (if YARN-371 is resolved, YARN-3870 should be covered). \n\nFrom another angle, YARN-3870 could be resolved via approaches without ID. The scheduling is more care about the current snapshot of resource requests from applications. It's not mandatory to have the ID, as long as the snapshot can provide detailed resource request information, scheduler can do fine scheduling. The ID will mainly help to prevent/handle issues from asynchronous protocol.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=grey",
+              "name": "grey",
+              "key": "grey",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "George Reyes",
+              "active": true,
+              "timeZone": "America/Toronto"
+            },
+            "created": "2016-01-04T15:02:23.344+0000",
+            "updated": "2016-01-04T15:02:23.344+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15082312",
+            "id": "15082312",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=subru",
+              "name": "subru",
+              "key": "subru",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=subru&avatarId=21709",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=subru&avatarId=21709",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=subru&avatarId=21709",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=subru&avatarId=21709"
+              },
+              "displayName": "Subramaniam Krishnan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Regarding the ID, I am in principle fine with asking the AM to set it. We do have the option of reusing the _responseID_ of *AllocateRequest* which both the RM and AM maintain today. It would be good to also link the _responseID_ to the actual allocated container in *AllocateResponse* as this is a useful hint for the AMs. In fact has been requested by [~markus.weimer] to simplify certain bookkeeping for the [REEF | http://reef.apache.org/ ] AM.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=subru",
+              "name": "subru",
+              "key": "subru",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=subru&avatarId=21709",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=subru&avatarId=21709",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=subru&avatarId=21709",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=subru&avatarId=21709"
+              },
+              "displayName": "Subramaniam Krishnan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-01-05T03:28:07.766+0000",
+            "updated": "2016-01-05T03:28:07.766+0000"
+          }
+        ],
+        "maxResults": 18,
+        "total": 18,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3870/votes",
+        "votes": 1,
+        "hasVoted": false
+      },
+      "updated": "2017-08-31T16:37:10.985+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 18,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15069208",
+        "id": "15069208",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+          "name": "asuresh",
+          "key": "asuresh",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Suresh",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thank you for starting this discussion [~grey]\n\nCorrect me if I am wrong, what you are proposing, I guess is some way for the Scheduler to co-relate the expanded Resource Requests. I do feel this would be genuinely useful, not only from a Scheduling perspective for eg. making affinity / anti-afinity scheduling decisions viz. YARN-1042. This will also greatly help improving pre-emption decisions in the FairScheduler viz. YARN-2154.. \n\nThis would also be extremely useful for AMs too. Currently the MRAM does the book keeping and matches an allocated container to ResourceRequest. AMs can be generally relieved of this job if an allocated Container Token can easily be matched against a Resource Request.\n\nOne possible approach could be to have the AMClient generate a unique id for a Resource request and tag each of the expanded requests (Node, Rack and ANY) with this id. This Id can then be passed around in the Container/ContainerTokenIdentifier.\n\n[~kasha@cloudera.com], [~vinodkv], [~leftnoteasy], Thoughts ?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+          "name": "asuresh",
+          "key": "asuresh",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Suresh",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-12-23T06:11:23.337+0000",
+        "updated": "2015-12-23T06:11:23.337+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15070178",
+        "id": "15070178",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=subru",
+          "name": "subru",
+          "key": "subru",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=subru&avatarId=21709",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=subru&avatarId=21709",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=subru&avatarId=21709",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=subru&avatarId=21709"
+          },
+          "displayName": "Subramaniam Krishnan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "+1 on this.\n\nThanks [~grey] for raising this. I have been having offline discussions with [~asuresh] and [~curino] around Distributed Scheduling (YARN-2877) and Federation (YARN-2915). In both scenarios, sending the raw container request and letting the RM expand will save us a lot of pain as currently we are finding it very difficult to route requests correctly in the AMRMProxy (YARN-2844) ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=subru",
+          "name": "subru",
+          "key": "subru",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=subru&avatarId=21709",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=subru&avatarId=21709",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=subru&avatarId=21709",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=subru&avatarId=21709"
+          },
+          "displayName": "Subramaniam Krishnan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-12-23T20:50:46.010+0000",
+        "updated": "2015-12-23T20:50:46.010+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15070186",
+        "id": "15070186",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Hi [~grey],\n\nThanks for raising this, we definitely need such mechanism to better describe our resource request.\n\n[~asuresh], I'm not sure how the unique id works? Are you planing to add it as a key to AppSchedulingInfo resource requests map? (e.g. {{Map = <priority, <id, <resourceName, request>>>}})",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-12-23T20:56:10.389+0000",
+        "updated": "2015-12-23T20:56:10.389+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15070279",
+        "id": "15070279",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+          "name": "asuresh",
+          "key": "asuresh",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Suresh",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~leftnoteasy], With respect to the AM, I was thinking.. just having it as a field in the ReseourceRequest as well as the Container (returned by the allocate call) would suffice.\nFrom the perspective of the Scheduler, yes, {{Map = <priority, <id, <resourceName, request>>>}} was the direction I was thinking.. Correct me if I am wrong, but, currently, there is an implicit understanding that all resources requests for the same resource requirement should have the same priority. Having an explicit request id would allow us to remove that constraint as well..",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+          "name": "asuresh",
+          "key": "asuresh",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Suresh",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-12-23T22:46:22.368+0000",
+        "updated": "2015-12-23T22:46:22.368+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15074658",
+        "id": "15074658",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "+1 to improving the way we are storing ResourceRequests in AppSchedulingInfo. \n\nIn the context of YARN-4485, I would like to put a timestamp on when each ResourceRequest was received. We can use this to determine the container allocation latency at allocation-time. Today, we store all ResourceRequests for the same priority and locality together irrespective of whether the requests came all together or separate.\n\n[~asuresh] - what do you think of using <appAttempt#, timestamp> for id? I forget the details - how do we handle an AM restart, do we create a new AppSchedulingInfo? If so, we can just use the timestamp as is. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-12-30T06:04:21.502+0000",
+        "updated": "2015-12-30T06:04:21.502+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15074685",
+        "id": "15074685",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Hi [~kasha]/[~asuresh],\n\nI think this JIRA and YARN-4485 are different:\n- This JIRA is focus on \"resource request group\", like the example in description.\n{code}\nc1: host1, host2, host4\nc2: host2, host3, host5\n{code}\nCurrent resource request cannot store \"group by\" info.\n- YARN-4485 is focus on timestamp:\nSome random thoughts for YARN-4485,\nI think we cannot simply update timestamp when new resource request arrives. For example, at T1, AM asks 100 * 1G container; after 2 mins (T2), assume there's no container allocated, AM asks 100 * 1G container, we cannot say the resource request is added at T2. Instead, we should only set new timestamp for incremental asks (e.g. AM asks 120 * 1G container at T2, we should say, 100 resource requests from T1, and 20 resource requests from T2).",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-12-30T06:39:07.948+0000",
+        "updated": "2015-12-30T06:39:07.948+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15074755",
+        "id": "15074755",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xinxianyin",
+          "name": "xinxianyin",
+          "key": "xinxianyin",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Xianyin Xin",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "+1 for adding an unique id for a resource request, but i would suggest we consider these kind of problems in a more systematic way, considering YARN-314, YARN-1042, YARN-371, YARN-4485 and this.\n\nLike my comment in YARN-314, a natural way the scheduler works should like a factory, it receives orders, and prepare for that. Once we accept the work philosophy, we'll find it's natural and necessary for a resource order has the following dimensions\n1. order id, which can identify an order, and can get overdue, or has a time limit;\n2. priority;\n3. a collection of request unit, each specifies a kind of resource request,that should have a coordinate of <ResourceName/nodeLabels, Capability, NumOfContainers>;\n4. relaxLocality;\n5. canbeDecomposed, or ifGangScheduling;\n6. ...\nScheduler do scheduling based on order form, and should not swallow any information passed from the app.\n\nAny thoughts?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=xinxianyin",
+          "name": "xinxianyin",
+          "key": "xinxianyin",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Xianyin Xin",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2015-12-30T07:55:27.314+0000",
+        "updated": "2015-12-30T07:55:27.314+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15075740",
+        "id": "15075740",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "bq. I think this JIRA and YARN-4485 are different:\n\nbq. I think we cannot simply update timestamp when new resource request arrives. For example, at T1, AM asks 100 * 1G container; after 2 mins (T2), assume there's no container allocated, AM asks 100 * 1G container, we cannot say the resource request is added at T2. Instead, we should only set new timestamp for incremental asks\n\nFor YARN-4485, I was planning on taking this exact approach. While the two JIRAs and their purposes are different, the ability to identify a set of requests that arrived at one point in time requires similar updates to the data structures we use in AppSchedulingInfo. \n\nbq. what do you think of using <appAttempt#, timestamp> for id?\nTimestamps for Ids might not be a good idea especially when an AM can restart. Also, there might be merit to differentiating two ResourceRequests (say, at different priorities) received at the same time. \n\nDiscussed this with [~asuresh] and [~subru] offline. We felt the following changes would help us address multiple JIRAs (as [~xinxianyin] listed):\n# Add an ID field to ResourceRequest - this can be a sequence number for each application. On AM restarts, a subsequent attempt could choose to resume from appropriate sequence number. If the AM doesn't add an ID, the RM could add one. Or, we could have the RM add the IDs and return them to the AM for help with book keeping. \n# YARN-4485 would likely want to add a timestamp in addition to this. Given the IDs, we likely don't have to do special delta handling. \n# In case the number of containers in the existing ResourceRequest increases, the delta is given a new ID. e.g  - e.g. App increases request from 3 containers to 7 containers of same capability etc., the first three would have ID '1' and the next four would have ID '2'. \n# In case the number of containers corresponding to an existing ResourceRequest decreases, the number of containers is reduced from the largest ID to the smallest ID until the decrease is accounted for. e.g. If an app asks for 3, 7 and 2 containers in subsequent allocate calls, once these calls are processed, the app has 2 containers with ID '1'. \n# The resource-request data structure in AppSchedulingInfo will be this {{Map<Priority, Map<ID, Map<String, Map<Resource, ResourceRequest>>>>}}. This would help YARN-314 as well. YARN-314 will need a few more changes to fix up the matching in each of the schedulers.\n# Note that we will still be expanding a ResourceRequest to node-local, rack-local and ANY requests. These would now be tied with an ID and hence can be updated correctly.\n\nIf folks feel this would address all requirements, I could take a stab at the first patch. [~asuresh] and [~subru] have graciously offered to iterate on my prelim patch to fix up any issues in FairScheduler and CapacityScheduler. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-12-31T05:51:07.892+0000",
+        "updated": "2015-12-31T05:51:07.892+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15075991",
+        "id": "15075991",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=grey",
+          "name": "grey",
+          "key": "grey",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "George Reyes",
+          "active": true,
+          "timeZone": "America/Toronto"
+        },
+        "body": "[~kasha], I am thinking whether we also need some update for the response part to correlate it with the ResourceRequest ID. As the scheduling is asynchronous, AM will also need to know the relation between response and request.\n\nAnother question is whether we should make this detailed information as parameter controlled, as it may increase the AM/RM communication overhead.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=grey",
+          "name": "grey",
+          "key": "grey",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "George Reyes",
+          "active": true,
+          "timeZone": "America/Toronto"
+        },
+        "created": "2015-12-31T14:58:42.171+0000",
+        "updated": "2015-12-31T14:58:42.171+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15076629",
+        "id": "15076629",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "bq. Karthik Kambatla, I am thinking whether we also need some update for the response part to correlate it with the ResourceRequest ID. As the scheduling is asynchronous, AM will also need to know the relation between response and request.\n\nbq. If the AM doesn't add an ID, the RM could add one. Or, we could have the RM add the IDs and return them to the AM for help with book keeping.\n\nThought more about this. Since one AllocateRequest could have multiple ResourceRequests, the protocol becomes quite complicated if the RM creates an ID instead of the AM. How about we expect the AM to set this ID? If the AM doesn't set, we treat the requests the same way we do today (ID = -1). In the AllocateResponse, the RM could send the last received ResourceRequest. The AM could look at this ACK to see if it has to resend the requests? The AMRMClient and MR-AM could be updated to do this. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-01-02T18:21:27.160+0000",
+        "updated": "2016-01-02T18:21:27.160+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15076642",
+        "id": "15076642",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+          "name": "asuresh",
+          "key": "asuresh",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Suresh",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "+1 to having the AM create the ID (which I guess is required if the AM is to co-relate a resourcereq with a container response). Can we set the ID that is something of a combination of {{app_attempt_id + seq_id}}, where seq_id is incremented monotonically per app attempt ? to distinguish between different app attempts.\n\nAlso, I guess the outstanding requests for an app needs to be stored in the state store so subsequent app attempts can be intimated of unfullfulled reqs\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+          "name": "asuresh",
+          "key": "asuresh",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Suresh",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-01-02T19:39:33.815+0000",
+        "updated": "2016-01-02T19:39:33.815+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15076743",
+        "id": "15076743",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Was fleshing this out further. The number of IDs and hence ResourceRequests could be O(num. outstanding containers) which could pose problems as outlined in YARN-371. In fact, this JIRA is a duplicate of YARN-371: may be, we should close this and continue the discussion there. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-01-03T01:26:45.613+0000",
+        "updated": "2016-01-03T01:26:45.613+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15076746",
+        "id": "15076746",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+          "name": "asuresh",
+          "key": "asuresh",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Suresh",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Hmmm... not sure entirely sure the argument holds, or I might be missing something. For eg. even without an ID, what happens today if an application makes each request with a different Priority ?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+          "name": "asuresh",
+          "key": "asuresh",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Suresh",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-01-03T01:50:22.435+0000",
+        "updated": "2016-01-03T01:50:22.435+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15076775",
+        "id": "15076775",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~kasha],\n\nbq. Was fleshing this out further. The number of IDs and hence ResourceRequests could be O(num. outstanding containers) which could pose problems as outlined in YARN-371. In fact, this JIRA is a duplicate of YARN-371: may be, we should close this and continue the discussion there.\n\nAs I mentioned above, I think we shouldn't combine YARN-371 and YARN-4485 together: YARN-4485 is more like an internal change of scheduler to me:\n\nLet's say an AM originally requests 1000 container (T1), then AM requests 1200 containers (T2), then after scheduler allocated 100 containers, AM requests 1200 containers again (T3).\n\nFor the original request, scheduler records: T1, 1000.\nAfter T2, scheduler records: T1, 1000; T2, 200.\nAfter T3, scheduler records: T1, 900 (scheduler allocates 100 containers); T2, 200; T3, 100.\n\nInstead recording timestamps for all resource requests, AM only needs to record timestamp to #pending-requests. And scheduler will \"dequeue\" from the timestamp to #pending-requests (sorted by time) when container allocated.\n\nLike what you said, it will be hard to ask AM to set the ID, but scheduler should easily set it. But this solution needs more work if we want to save these timestamps when RM restart.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-01-03T07:01:23.463+0000",
+        "updated": "2016-01-03T07:01:23.463+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15079334",
+        "id": "15079334",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~leftnoteasy] - agree that YARN-4485 doesn't necessarily need ID-ing all requests corresponding to one task. \n\nThe JIRAs are related only due to the data-structures in AppSchedulingInfo:\n# If we add IDs as discussed here, we don't need any other data-structure changes except adding a timestamp to each ResourceRequest. \n# If we don't add IDs, we might need to store the resource-requests as Map<Priority, Map <timestamp, Map <resourceName, Map, ResourceRequest>>>>. This is required to be able to handle cases where the AM retracts some of the container requests. Refer to my example above with 3, 7 and 2 containers. \n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-01-03T07:58:28.701+0000",
+        "updated": "2016-01-03T07:58:28.701+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15080363",
+        "id": "15080363",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "I am not saying we shouldn't do this. I am only saying we should likely discuss this on YARN-371 so folks there are aware of this conversation. \n\nbq. even without an ID, what happens today if an application makes each request with a different Priority ?\nIn that case, we would still run into too many ResourceRequests, however this is unlikely to happen on a cluster that isn't compromised.\n\nOutside of this, today, we hold a lot more information about all running containers. Storing resource-requests for outstanding requests might not be prohibitively expensive. \n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-01-03T08:29:55.210+0000",
+        "updated": "2016-01-03T08:29:55.210+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15081242",
+        "id": "15081242",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=grey",
+          "name": "grey",
+          "key": "grey",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "George Reyes",
+          "active": true,
+          "timeZone": "America/Toronto"
+        },
+        "body": "I am not against to combine this JIRA and YARN-371, There is common ground between these two JIRAs. And more likely the final technical solution will be single solution to cover both, though it's not necessary. Maybe we can view YARN-371 as a technical speculation and YARN-3870 as one related use case (if YARN-371 is resolved, YARN-3870 should be covered). \n\nFrom another angle, YARN-3870 could be resolved via approaches without ID. The scheduling is more care about the current snapshot of resource requests from applications. It's not mandatory to have the ID, as long as the snapshot can provide detailed resource request information, scheduler can do fine scheduling. The ID will mainly help to prevent/handle issues from asynchronous protocol.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=grey",
+          "name": "grey",
+          "key": "grey",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "George Reyes",
+          "active": true,
+          "timeZone": "America/Toronto"
+        },
+        "created": "2016-01-04T15:02:23.344+0000",
+        "updated": "2016-01-04T15:02:23.344+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12841719/comment/15082312",
+        "id": "15082312",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=subru",
+          "name": "subru",
+          "key": "subru",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=subru&avatarId=21709",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=subru&avatarId=21709",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=subru&avatarId=21709",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=subru&avatarId=21709"
+          },
+          "displayName": "Subramaniam Krishnan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Regarding the ID, I am in principle fine with asking the AM to set it. We do have the option of reusing the _responseID_ of *AllocateRequest* which both the RM and AM maintain today. It would be good to also link the _responseID_ to the actual allocated container in *AllocateResponse* as this is a useful hint for the AMs. In fact has been requested by [~markus.weimer] to simplify certain bookkeeping for the [REEF | http://reef.apache.org/ ] AM.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=subru",
+          "name": "subru",
+          "key": "subru",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=subru&avatarId=21709",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=subru&avatarId=21709",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=subru&avatarId=21709",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=subru&avatarId=21709"
+          },
+          "displayName": "Subramaniam Krishnan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-01-05T03:28:07.766+0000",
+        "updated": "2016-01-05T03:28:07.766+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3870/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 18,
+        "returned": 18
+      }
+    ]
+  }
+}

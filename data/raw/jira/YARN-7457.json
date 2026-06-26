@@ -1,0 +1,1536 @@
+{
+  "downloaded_at": "2026-06-25T10:19:47.078040+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-7457",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-7457?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13116839",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839",
+    "key": "YARN-7457",
+    "fields": {
+      "summary": "Delay scheduling should be an individual policy instead of part of scheduler implementation",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12972528",
+        "key": "YARN-5139",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12972528",
+        "fields": {
+          "summary": "[Umbrella] Move YARN scheduler towards global scheduler",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+            "description": "The issue is open and ready for the assignee to start work on it.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+            "name": "Open",
+            "id": "1",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+            "id": "2",
+            "description": "A new feature of the product, which has yet to be developed.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+            "name": "New Feature",
+            "subtask": false,
+            "avatarId": 21141
+          }
+        }
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2017-11-08T00:14:42.458+0000",
+      "description": "Currently, different schedulers have slightly different delay scheduling implementations. Ideally we should make delay scheduling independent from scheduler implementation. Benefits of doing this:\r\n\r\n1) Applications can choose which delay scheduling policy to use, it could be time-based / missed-opportunistic-based or whatever new delay scheduling policy supported by the cluster. Now it is global config of scheduler.\r\n\r\n2) Make scheduler implementations simpler and reusable.\r\n\r\nh2. {color:red}Running design doc: https://docs.google.com/document/d/1rY-CJPLbGk3Xj_8sxre61y2YkHJFK8oqKOshro1ZY3A/edit#heading=h.xnzvh9nn283a{color}",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16244360",
+            "id": "16244360",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+              "name": "templedf",
+              "key": "templedf",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+              },
+              "displayName": "Daniel Templeton",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "I think it makes good sense to abstract that out as a service.  It was actually on my todo list.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+              "name": "templedf",
+              "key": "templedf",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+              },
+              "displayName": "Daniel Templeton",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-11-08T17:22:54.276+0000",
+            "updated": "2017-11-08T17:22:54.276+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16244419",
+            "id": "16244419",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~templedf], please feel free to take it over if you have interests, I don't have bandwidth to start this in the next several weeks. I can help with reviews.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-11-08T17:48:56.813+0000",
+            "updated": "2017-11-08T17:48:56.813+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16244426",
+            "id": "16244426",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+              "name": "templedf",
+              "key": "templedf",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+              },
+              "displayName": "Daniel Templeton",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "I have a long to-do list. :)  We'll see who gets there first.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+              "name": "templedf",
+              "key": "templedf",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+              },
+              "displayName": "Daniel Templeton",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-11-08T17:53:55.611+0000",
+            "updated": "2017-11-08T17:53:55.611+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16244474",
+            "id": "16244474",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Sounds good :)",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-11-08T18:21:22.150+0000",
+            "updated": "2017-11-08T18:21:22.150+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16290223",
+            "id": "16290223",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tao+Yang",
+              "name": "Tao Yang",
+              "key": "tao yang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Tao Yang",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Hi, [~leftnoteasy], [~templedf]\r\nI'm glad to take a crack at this work and have created a [design doc|https://docs.google.com/document/d/1rY-CJPLbGk3Xj_8sxre61y2YkHJFK8oqKOshro1ZY3A/edit#] on google-docs. \r\nPlease feel free to comment and give your suggestions, Thanks.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tao+Yang",
+              "name": "Tao Yang",
+              "key": "tao yang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Tao Yang",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2017-12-14T01:52:46.041+0000",
+            "updated": "2017-12-14T01:52:46.041+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16290233",
+            "id": "16290233",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Reassigned to [~Tao Yang], \r\n\r\nThanks Tao for sharing this design doc. Comments regarding the design doc: \r\n\r\n1) Overall I think the separate request to update delay scheduling is overkill. We should have a way to tell YARN how to choose delay scheduling policy as well as delay parameters. Instead of changing protocol, I suggest initially we can put it under ApplicationSubmissionContext#getAMContainerSpec#environments. With this, we don\u2019t have to change protocols and all existing YARN apps can use it without editing code. \r\n\r\n2) I\u2019m doubt if it is a valid case that a single YARN app wants to choose different delay policies for different SchedulerRequestKey. If it is a non-requirement, #1 should be enough in the short term until we figure out solid requirements.\r\n\r\n3) The original purpose of the JIRA is to make following logics separate from main scheduler implementation:\r\n* AppSchedulingInfo#canDelayTo\r\n* AppPlacementAllocator#canDelayTo\r\n* And all delay-scheduling related logics (such as RegularContainerAllocator#canAssign) \r\nTo clarify, this doesn\u2019t necessarily mean we should move these logics to a separate service. In my opinion, applications should determine how to do delay scheduling by themselves. So to me a proper place to handle this logic is inside AppPlacementAllocator, but feel free to suggest if you have any other thoughts.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-12-14T02:15:35.868+0000",
+            "updated": "2017-12-14T02:15:35.868+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16290752",
+            "id": "16290752",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "body": "Hi [~Tao Yang]\r\n\r\nThanks for working on this.\r\nI agree with [~leftnoteasy]'s point that it should be fairly enough to assume one delay policy per app. But I don't think {{ApplicationSubmissionContext#getAMContainerSpec#environments}} is a good place to add such info, it looks a bit weird to specify a delay scheduling policy in container's launch context. Maybe we can extend {{RegisterApplicationMasterRequest}}?\r\n\r\nThanks",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "created": "2017-12-14T12:02:37.668+0000",
+            "updated": "2017-12-14T12:02:37.668+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16291209",
+            "id": "16291209",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~cheersyang], thanks for the comment. I also agree that putting it to AMContainerSpec might be weird. However, it seems like the simplest way for applications to consume. One idea from [~sunilg] is to introduce a String to String map inside ApplicationSubmissionContext (or RegisterAMRequest) just for scheduling hint, and it will copy AMSpec#environment if the scheduling hint map is absent. Sounds like a plan? \r\n\r\nRegarding this JIRA, I would suggest to split it into two parts, the first part is to do refactorings to existing implementations and move logics from scheduler to app placement allocator. 2nd part is to change APIs and allow apps to choose delay scheduling policy. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-12-14T17:25:41.958+0000",
+            "updated": "2017-12-14T17:25:41.958+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16291289",
+            "id": "16291289",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Yes [~leftnoteasy]. In my YARN-7494 , I am already refactoring AppPlacementAllocator to pick from a factory and use a StringStringMap on ASC for scheduling env's alone.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2017-12-14T18:11:43.392+0000",
+            "updated": "2017-12-14T18:11:43.392+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16291868",
+            "id": "16291868",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+              "name": "kkaranasos",
+              "key": "kkaranasos",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+              },
+              "displayName": "Konstantinos Karanasos",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Hi guys, I was just looking into this JIRA and I wanted to share some thoughts.\r\n\r\nFirst, I agree that the way we specify delay should be decoupled from the scheduler implementation. So, there should be a pluggable policy that specifies if I want my scheduler to, say, relax locality based on missed opportunities or based on time.\r\nI also see the need for each application to specify how \"urgent\" its requests are. That is, one app might want to relax locality after 1 sec and another might want to relax after 1 min.\r\n\r\nWhat I do not see is use cases where one application will want to wait 5 missed opportunities and another wait 10 secs.\r\nI am not sure even what are the semantics of such a placement for the scheduler.\r\nMore importantly, missed opportunities is an implementation detail of the way our schedulers work today, and is something that I think should not be surfaced to applications. Missed opportunities do not mean anything to apps, and in fact, like you say, the capacity scheduler interprets them differently from the fair scheduler, which is yet another reason it should not be surfaced. On the other hand, time is much more tangible and we could surface that.\r\n\r\nTo sum up, I think each application should specify its urgency of getting a specific container, but there should be a common way to specify that urgency across all applications, rather than having some specify missed opportunities and others specify time. We can have a scheduler-wide pluggable policy determining if the \"urgency\" will be time or missed opportunities, and then have applications give a number, specifying how urgent their demand is. In a first cut, this number can be directly translated to seconds or missed opportunities by our schedulers.\r\n\r\nLooping in [~subru] -- I just ran the above ideas by him. He also mentioned that we should not surface more the missed opportunities. Moreover, he took a step further the notion of urgency I mentioned above, saying that ultimately we want applications to specify the utility of their requests as a cost function.\r\n\r\nThoughts?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+              "name": "kkaranasos",
+              "key": "kkaranasos",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+              },
+              "displayName": "Konstantinos Karanasos",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-12-15T01:11:56.027+0000",
+            "updated": "2017-12-15T01:11:56.027+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16291951",
+            "id": "16291951",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~kkaranasos], thanks for posting the comment. I agree that missed opportunistic is not a good protocol. The cost function is an interesting idea, with that we can even consider crazy ideas like training a deep neural network to do the placement in the future.\r\n\r\nI'm not sure if specifying urgency number is a good idea or not, the time-based delay is easy for people to understand.\r\n\r\nIn general, since we're all agree that delay scheduling logic should be decoupled, I propose to do it as the first step and discuss more while working on that.\r\n\r\nbq. I also see the need for each application to specify how \"urgent\" its requests are. That is, one app might want to relax locality after 1 sec and another might want to relax after 1 min.\r\nAgree. This is why we introduced delayed-or in YARN-6592. In addition to that, I think we can add a common String to String scheduling hint to AppSubmissionContext/RegisterAMRequest for legacy apps which using ResourceRequest and other tasks (such as YARN-7494) can benefit from the scheduling hint maps. \r\n\r\n\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-12-15T02:42:24.040+0000",
+            "updated": "2017-12-15T02:42:24.040+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16291977",
+            "id": "16291977",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+              "name": "kkaranasos",
+              "key": "kkaranasos",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+              },
+              "displayName": "Konstantinos Karanasos",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Hi [~leftnoteasy], to make sure we are on the same page:\r\n\r\n* Will applications be able to specify delays both in terms of missed opportunities and time? Or you are thinking of ditching the missed opportunities option?\r\n* New apps will be using the delayed-or constraint from YARN-6592, right?\r\n* With the string to string map, you are suggesting to add something like \"delay_to_rack\" -> \"10 sec\" as a hint? If these are legacy apps, they will still have to be modified to use this new hint. But I understand they will not have to switch to SchedulingRequests. That said, do you expect this to get all the way to the scheduler, or at some point to automatically translate these to SchedulingRequests? I think it will get messy to have two code paths for that.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+              "name": "kkaranasos",
+              "key": "kkaranasos",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+              },
+              "displayName": "Konstantinos Karanasos",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-12-15T03:21:08.423+0000",
+            "updated": "2017-12-15T03:21:08.423+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16292012",
+            "id": "16292012",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "bq. Or you are thinking of ditching the missed opportunities option?\r\nI would prefer to ditch missed opportunities option. \r\n\r\nbq. New apps will be using the delayed-or constraint from YARN-6592, right?\r\nYes \r\n\r\nbq. With the string to string map, you are suggesting to add something like \"delay_to_rack\" -> \"10 sec\" as a hint?\r\nYes\r\n\r\nbq. If these are legacy apps, they will still have to be modified to use this new hint.\r\nNot really, as I mentioned above, there's one way to let legacy apps to use the new hint without modifying the code (idea credit to [~sunilg]). \r\nbq. ... and it will copy AMSpec#environment if the scheduling hint map is absent. ...\r\n\r\nbq. That said, do you expect this to get all the way to the scheduler, or at some point to automatically translate these to SchedulingRequests? I think it will get messy to have two code paths for that.\r\nI haven't thought about the implementation of this yet, ideally delay policy implementation should not depend on SchedulingRequest, it only takes input from SchedulingRequest (or hint environments). We can figure out impl details while working on the logics.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-12-15T04:09:33.804+0000",
+            "updated": "2017-12-15T04:09:33.804+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16292621",
+            "id": "16292621",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tao+Yang",
+              "name": "Tao Yang",
+              "key": "tao yang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Tao Yang",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Thanks all for your comments. \r\nI didn't clarify the true purpose about this work at first. Now from your discussions, now I have some questions:\r\n* Overall, the purpose of this JIRA is to handle all delay scheduling requirements and the implementation can be splitted to two parts. \r\nThe current part of this JIRA is to just concern about locality delay scheduling for legacy apps who use ResourceRequest and should not change APIs. The future part is to support DELAY_OR in PlacementConstraintExpression and the current work should consider common interface and procedure for it. Right?\r\n* Regarding of ditching the missed opportunities option, it means that the delay scheduling definition from apps is time-based but default delay scheduling conf in scheduler is still missed-opportunistic-based (no need to change), right? \r\n* StringStringMap of scheduling hint in ApplicationSubmissionContext from YARN-7494 can't be found in the v1 patch, [~sunilg], will it be changed in v2 patch?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tao+Yang",
+              "name": "Tao Yang",
+              "key": "tao yang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Tao Yang",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2017-12-15T14:41:17.188+0000",
+            "updated": "2017-12-15T14:41:17.188+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16292953",
+            "id": "16292953",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+              "name": "kkaranasos",
+              "key": "kkaranasos",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+              },
+              "displayName": "Konstantinos Karanasos",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "bq. I would prefer to ditch missed opportunities option.\r\n[~leftnoteasy], this is the part I was missing.\r\nI agree that time-based delay is better for end-users and that we could eventually get rid of missed opportunities.\r\nBut I don't think we can get rid of them soon, there are too many applications configured based on them.\r\n\r\nGiven that we should have both time and missed opportunities (at least for some time), I believe we should not let one application specify missed opportunities and the other time-based delays.\r\nThat's why I was suggesting to have a cluster-wide parameter that will specify the delay implementation, i.e., whether we want time-based or missed opportunities. And then let applications give a number for configuring their delay, which will mean either seconds or missed opportunities, depending on the cluster-wide parameter for the implementation.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+              "name": "kkaranasos",
+              "key": "kkaranasos",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+              },
+              "displayName": "Konstantinos Karanasos",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-12-15T18:10:35.917+0000",
+            "updated": "2017-12-15T18:10:35.917+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16293075",
+            "id": "16293075",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~kkaranasos], \r\n\r\nSince delay scheduling policy will be per-app, I think it should be fine if one app requests time-based and the other requests m-o-based. This will be fine to migrate apps from m-o-based to time-based since changing one app won't impact other running apps.\r\n\r\n[~Tao Yang], \r\nSince both JIRAs may need the string-string map. I would prefer to create a separate JIRA to add the API instead of coupling two JIRAs together. [~sunilg] thoughts?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-12-15T19:31:37.162+0000",
+            "updated": "2017-12-15T19:31:37.162+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16293095",
+            "id": "16293095",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "I have uploaded patch in YARN-7494 by implementing scheduling envs. I think I could take that patch out of YARN-7494 and create a new ticket so that it can go in first, and by that both of us can be unblocked. [~leftnoteasy] [~Tao Yang] [~kkaranasos] Thoughts?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2017-12-15T19:46:08.006+0000",
+            "updated": "2017-12-15T19:46:08.006+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16293338",
+            "id": "16293338",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~sunilg], creating a new ticket and unblock the two efforts sounds like a good plan.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-12-15T22:07:34.081+0000",
+            "updated": "2017-12-15T22:07:34.081+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16293491",
+            "id": "16293491",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+              "name": "kkaranasos",
+              "key": "kkaranasos",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+              },
+              "displayName": "Konstantinos Karanasos",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "bq. Since delay scheduling policy will be per-app, I think it should be fine if one app requests time-based and the other requests m-o-based.\r\nBut this entails exposing missed opportunities to applications, and I think we should really not do that. Let's chat offline to converge faster.\r\n\r\n[~sunilg], sure, please go ahead with the new JIRA. In the meantime, we can decide what to include in the envs for specifying delays.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+              "name": "kkaranasos",
+              "key": "kkaranasos",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+              },
+              "displayName": "Konstantinos Karanasos",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-12-16T00:51:05.969+0000",
+            "updated": "2017-12-16T00:51:05.969+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16294836",
+            "id": "16294836",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Thank you. I raised YARN-7666 to track this.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+              "name": "sunilg",
+              "key": "sunilg",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sunil G",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2017-12-18T11:27:41.262+0000",
+            "updated": "2017-12-18T11:27:41.262+0000"
+          }
+        ],
+        "maxResults": 20,
+        "total": 20,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-7457/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2017-12-18T11:27:41.262+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 20,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16244360",
+        "id": "16244360",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+          "name": "templedf",
+          "key": "templedf",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+          },
+          "displayName": "Daniel Templeton",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "I think it makes good sense to abstract that out as a service.  It was actually on my todo list.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+          "name": "templedf",
+          "key": "templedf",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+          },
+          "displayName": "Daniel Templeton",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-11-08T17:22:54.276+0000",
+        "updated": "2017-11-08T17:22:54.276+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16244419",
+        "id": "16244419",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~templedf], please feel free to take it over if you have interests, I don't have bandwidth to start this in the next several weeks. I can help with reviews.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-11-08T17:48:56.813+0000",
+        "updated": "2017-11-08T17:48:56.813+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16244426",
+        "id": "16244426",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+          "name": "templedf",
+          "key": "templedf",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+          },
+          "displayName": "Daniel Templeton",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "I have a long to-do list. :)  We'll see who gets there first.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+          "name": "templedf",
+          "key": "templedf",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+          },
+          "displayName": "Daniel Templeton",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-11-08T17:53:55.611+0000",
+        "updated": "2017-11-08T17:53:55.611+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16244474",
+        "id": "16244474",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Sounds good :)",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-11-08T18:21:22.150+0000",
+        "updated": "2017-11-08T18:21:22.150+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16290223",
+        "id": "16290223",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tao+Yang",
+          "name": "Tao Yang",
+          "key": "tao yang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Tao Yang",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Hi, [~leftnoteasy], [~templedf]\r\nI'm glad to take a crack at this work and have created a [design doc|https://docs.google.com/document/d/1rY-CJPLbGk3Xj_8sxre61y2YkHJFK8oqKOshro1ZY3A/edit#] on google-docs. \r\nPlease feel free to comment and give your suggestions, Thanks.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tao+Yang",
+          "name": "Tao Yang",
+          "key": "tao yang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Tao Yang",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2017-12-14T01:52:46.041+0000",
+        "updated": "2017-12-14T01:52:46.041+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16290233",
+        "id": "16290233",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Reassigned to [~Tao Yang], \r\n\r\nThanks Tao for sharing this design doc. Comments regarding the design doc: \r\n\r\n1) Overall I think the separate request to update delay scheduling is overkill. We should have a way to tell YARN how to choose delay scheduling policy as well as delay parameters. Instead of changing protocol, I suggest initially we can put it under ApplicationSubmissionContext#getAMContainerSpec#environments. With this, we don\u2019t have to change protocols and all existing YARN apps can use it without editing code. \r\n\r\n2) I\u2019m doubt if it is a valid case that a single YARN app wants to choose different delay policies for different SchedulerRequestKey. If it is a non-requirement, #1 should be enough in the short term until we figure out solid requirements.\r\n\r\n3) The original purpose of the JIRA is to make following logics separate from main scheduler implementation:\r\n* AppSchedulingInfo#canDelayTo\r\n* AppPlacementAllocator#canDelayTo\r\n* And all delay-scheduling related logics (such as RegularContainerAllocator#canAssign) \r\nTo clarify, this doesn\u2019t necessarily mean we should move these logics to a separate service. In my opinion, applications should determine how to do delay scheduling by themselves. So to me a proper place to handle this logic is inside AppPlacementAllocator, but feel free to suggest if you have any other thoughts.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-12-14T02:15:35.868+0000",
+        "updated": "2017-12-14T02:15:35.868+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16290752",
+        "id": "16290752",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "body": "Hi [~Tao Yang]\r\n\r\nThanks for working on this.\r\nI agree with [~leftnoteasy]'s point that it should be fairly enough to assume one delay policy per app. But I don't think {{ApplicationSubmissionContext#getAMContainerSpec#environments}} is a good place to add such info, it looks a bit weird to specify a delay scheduling policy in container's launch context. Maybe we can extend {{RegisterApplicationMasterRequest}}?\r\n\r\nThanks",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "created": "2017-12-14T12:02:37.668+0000",
+        "updated": "2017-12-14T12:02:37.668+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16291209",
+        "id": "16291209",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~cheersyang], thanks for the comment. I also agree that putting it to AMContainerSpec might be weird. However, it seems like the simplest way for applications to consume. One idea from [~sunilg] is to introduce a String to String map inside ApplicationSubmissionContext (or RegisterAMRequest) just for scheduling hint, and it will copy AMSpec#environment if the scheduling hint map is absent. Sounds like a plan? \r\n\r\nRegarding this JIRA, I would suggest to split it into two parts, the first part is to do refactorings to existing implementations and move logics from scheduler to app placement allocator. 2nd part is to change APIs and allow apps to choose delay scheduling policy. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-12-14T17:25:41.958+0000",
+        "updated": "2017-12-14T17:25:41.958+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16291289",
+        "id": "16291289",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Yes [~leftnoteasy]. In my YARN-7494 , I am already refactoring AppPlacementAllocator to pick from a factory and use a StringStringMap on ASC for scheduling env's alone.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2017-12-14T18:11:43.392+0000",
+        "updated": "2017-12-14T18:11:43.392+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16291868",
+        "id": "16291868",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+          "name": "kkaranasos",
+          "key": "kkaranasos",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+          },
+          "displayName": "Konstantinos Karanasos",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Hi guys, I was just looking into this JIRA and I wanted to share some thoughts.\r\n\r\nFirst, I agree that the way we specify delay should be decoupled from the scheduler implementation. So, there should be a pluggable policy that specifies if I want my scheduler to, say, relax locality based on missed opportunities or based on time.\r\nI also see the need for each application to specify how \"urgent\" its requests are. That is, one app might want to relax locality after 1 sec and another might want to relax after 1 min.\r\n\r\nWhat I do not see is use cases where one application will want to wait 5 missed opportunities and another wait 10 secs.\r\nI am not sure even what are the semantics of such a placement for the scheduler.\r\nMore importantly, missed opportunities is an implementation detail of the way our schedulers work today, and is something that I think should not be surfaced to applications. Missed opportunities do not mean anything to apps, and in fact, like you say, the capacity scheduler interprets them differently from the fair scheduler, which is yet another reason it should not be surfaced. On the other hand, time is much more tangible and we could surface that.\r\n\r\nTo sum up, I think each application should specify its urgency of getting a specific container, but there should be a common way to specify that urgency across all applications, rather than having some specify missed opportunities and others specify time. We can have a scheduler-wide pluggable policy determining if the \"urgency\" will be time or missed opportunities, and then have applications give a number, specifying how urgent their demand is. In a first cut, this number can be directly translated to seconds or missed opportunities by our schedulers.\r\n\r\nLooping in [~subru] -- I just ran the above ideas by him. He also mentioned that we should not surface more the missed opportunities. Moreover, he took a step further the notion of urgency I mentioned above, saying that ultimately we want applications to specify the utility of their requests as a cost function.\r\n\r\nThoughts?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+          "name": "kkaranasos",
+          "key": "kkaranasos",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+          },
+          "displayName": "Konstantinos Karanasos",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-12-15T01:11:56.027+0000",
+        "updated": "2017-12-15T01:11:56.027+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16291951",
+        "id": "16291951",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~kkaranasos], thanks for posting the comment. I agree that missed opportunistic is not a good protocol. The cost function is an interesting idea, with that we can even consider crazy ideas like training a deep neural network to do the placement in the future.\r\n\r\nI'm not sure if specifying urgency number is a good idea or not, the time-based delay is easy for people to understand.\r\n\r\nIn general, since we're all agree that delay scheduling logic should be decoupled, I propose to do it as the first step and discuss more while working on that.\r\n\r\nbq. I also see the need for each application to specify how \"urgent\" its requests are. That is, one app might want to relax locality after 1 sec and another might want to relax after 1 min.\r\nAgree. This is why we introduced delayed-or in YARN-6592. In addition to that, I think we can add a common String to String scheduling hint to AppSubmissionContext/RegisterAMRequest for legacy apps which using ResourceRequest and other tasks (such as YARN-7494) can benefit from the scheduling hint maps. \r\n\r\n\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-12-15T02:42:24.040+0000",
+        "updated": "2017-12-15T02:42:24.040+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16291977",
+        "id": "16291977",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+          "name": "kkaranasos",
+          "key": "kkaranasos",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+          },
+          "displayName": "Konstantinos Karanasos",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Hi [~leftnoteasy], to make sure we are on the same page:\r\n\r\n* Will applications be able to specify delays both in terms of missed opportunities and time? Or you are thinking of ditching the missed opportunities option?\r\n* New apps will be using the delayed-or constraint from YARN-6592, right?\r\n* With the string to string map, you are suggesting to add something like \"delay_to_rack\" -> \"10 sec\" as a hint? If these are legacy apps, they will still have to be modified to use this new hint. But I understand they will not have to switch to SchedulingRequests. That said, do you expect this to get all the way to the scheduler, or at some point to automatically translate these to SchedulingRequests? I think it will get messy to have two code paths for that.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+          "name": "kkaranasos",
+          "key": "kkaranasos",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+          },
+          "displayName": "Konstantinos Karanasos",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-12-15T03:21:08.423+0000",
+        "updated": "2017-12-15T03:21:08.423+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16292012",
+        "id": "16292012",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "bq. Or you are thinking of ditching the missed opportunities option?\r\nI would prefer to ditch missed opportunities option. \r\n\r\nbq. New apps will be using the delayed-or constraint from YARN-6592, right?\r\nYes \r\n\r\nbq. With the string to string map, you are suggesting to add something like \"delay_to_rack\" -> \"10 sec\" as a hint?\r\nYes\r\n\r\nbq. If these are legacy apps, they will still have to be modified to use this new hint.\r\nNot really, as I mentioned above, there's one way to let legacy apps to use the new hint without modifying the code (idea credit to [~sunilg]). \r\nbq. ... and it will copy AMSpec#environment if the scheduling hint map is absent. ...\r\n\r\nbq. That said, do you expect this to get all the way to the scheduler, or at some point to automatically translate these to SchedulingRequests? I think it will get messy to have two code paths for that.\r\nI haven't thought about the implementation of this yet, ideally delay policy implementation should not depend on SchedulingRequest, it only takes input from SchedulingRequest (or hint environments). We can figure out impl details while working on the logics.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-12-15T04:09:33.804+0000",
+        "updated": "2017-12-15T04:09:33.804+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16292621",
+        "id": "16292621",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tao+Yang",
+          "name": "Tao Yang",
+          "key": "tao yang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Tao Yang",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Thanks all for your comments. \r\nI didn't clarify the true purpose about this work at first. Now from your discussions, now I have some questions:\r\n* Overall, the purpose of this JIRA is to handle all delay scheduling requirements and the implementation can be splitted to two parts. \r\nThe current part of this JIRA is to just concern about locality delay scheduling for legacy apps who use ResourceRequest and should not change APIs. The future part is to support DELAY_OR in PlacementConstraintExpression and the current work should consider common interface and procedure for it. Right?\r\n* Regarding of ditching the missed opportunities option, it means that the delay scheduling definition from apps is time-based but default delay scheduling conf in scheduler is still missed-opportunistic-based (no need to change), right? \r\n* StringStringMap of scheduling hint in ApplicationSubmissionContext from YARN-7494 can't be found in the v1 patch, [~sunilg], will it be changed in v2 patch?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tao+Yang",
+          "name": "Tao Yang",
+          "key": "tao yang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Tao Yang",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2017-12-15T14:41:17.188+0000",
+        "updated": "2017-12-15T14:41:17.188+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16292953",
+        "id": "16292953",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+          "name": "kkaranasos",
+          "key": "kkaranasos",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+          },
+          "displayName": "Konstantinos Karanasos",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "bq. I would prefer to ditch missed opportunities option.\r\n[~leftnoteasy], this is the part I was missing.\r\nI agree that time-based delay is better for end-users and that we could eventually get rid of missed opportunities.\r\nBut I don't think we can get rid of them soon, there are too many applications configured based on them.\r\n\r\nGiven that we should have both time and missed opportunities (at least for some time), I believe we should not let one application specify missed opportunities and the other time-based delays.\r\nThat's why I was suggesting to have a cluster-wide parameter that will specify the delay implementation, i.e., whether we want time-based or missed opportunities. And then let applications give a number for configuring their delay, which will mean either seconds or missed opportunities, depending on the cluster-wide parameter for the implementation.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+          "name": "kkaranasos",
+          "key": "kkaranasos",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+          },
+          "displayName": "Konstantinos Karanasos",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-12-15T18:10:35.917+0000",
+        "updated": "2017-12-15T18:10:35.917+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16293075",
+        "id": "16293075",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~kkaranasos], \r\n\r\nSince delay scheduling policy will be per-app, I think it should be fine if one app requests time-based and the other requests m-o-based. This will be fine to migrate apps from m-o-based to time-based since changing one app won't impact other running apps.\r\n\r\n[~Tao Yang], \r\nSince both JIRAs may need the string-string map. I would prefer to create a separate JIRA to add the API instead of coupling two JIRAs together. [~sunilg] thoughts?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-12-15T19:31:37.162+0000",
+        "updated": "2017-12-15T19:31:37.162+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16293095",
+        "id": "16293095",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "I have uploaded patch in YARN-7494 by implementing scheduling envs. I think I could take that patch out of YARN-7494 and create a new ticket so that it can go in first, and by that both of us can be unblocked. [~leftnoteasy] [~Tao Yang] [~kkaranasos] Thoughts?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2017-12-15T19:46:08.006+0000",
+        "updated": "2017-12-15T19:46:08.006+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16293338",
+        "id": "16293338",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~sunilg], creating a new ticket and unblock the two efforts sounds like a good plan.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-12-15T22:07:34.081+0000",
+        "updated": "2017-12-15T22:07:34.081+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16293491",
+        "id": "16293491",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+          "name": "kkaranasos",
+          "key": "kkaranasos",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+          },
+          "displayName": "Konstantinos Karanasos",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "bq. Since delay scheduling policy will be per-app, I think it should be fine if one app requests time-based and the other requests m-o-based.\r\nBut this entails exposing missed opportunities to applications, and I think we should really not do that. Let's chat offline to converge faster.\r\n\r\n[~sunilg], sure, please go ahead with the new JIRA. In the meantime, we can decide what to include in the envs for specifying delays.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+          "name": "kkaranasos",
+          "key": "kkaranasos",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+          },
+          "displayName": "Konstantinos Karanasos",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-12-16T00:51:05.969+0000",
+        "updated": "2017-12-16T00:51:05.969+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13116839/comment/16294836",
+        "id": "16294836",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Thank you. I raised YARN-7666 to track this.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sunilg",
+          "name": "sunilg",
+          "key": "sunilg",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sunil G",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2017-12-18T11:27:41.262+0000",
+        "updated": "2017-12-18T11:27:41.262+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-7457/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 20,
+        "returned": 20
+      }
+    ]
+  }
+}

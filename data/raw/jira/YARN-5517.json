@@ -1,0 +1,532 @@
+{
+  "downloaded_at": "2026-06-25T10:20:50.258007+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-5517",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5517?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12996861",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12996861",
+    "key": "YARN-5517",
+    "fields": {
+      "summary": "Add GPU as a resource type for scheduling",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319325",
+          "id": "12319325",
+          "name": "scheduler"
+        }
+      ],
+      "subtasks": [],
+      "created": "2016-08-12T07:22:24.790+0000",
+      "description": "Currently YARN only support scheduling based on memory and cpu.\nThere is the issue(YARN-3926) which proposed to extend the YARN resource model.\nAnd there is the issue(YARN-4122) to add support for GPU as a resource  using docker.\n\nBut these issues didn\u2019t release yet so I just added GPU resource type like memory and cpu.\nI don\u2019t consider GPU isolation like YARN-4122.\n\nThe properties for GPU resource type is similar to cpu core.\n\nmapred-default.xml\nmapreduce.map.gpu.cores (default 0)\nmapreduce.reduce.gpu.cores\t(default 0)\nyarn.app.mapreduce.am.resource.gpu-cores (default 0)\n\nyarn-default.xml\nyarn.scheduler.minimum-allocation-gcores (default 0)\t\nyarn.scheduler.maximum-allocation-gcores (default 8)\nyarn.nodemanager.resource.gcores (default 0)\n\nI attached the patch for branch-2.7.1",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/3",
+        "id": "3",
+        "description": "The problem is a duplicate of an existing issue.",
+        "name": "Duplicate"
+      },
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12823421",
+          "id": "12823421",
+          "filename": "aggregate_resource_allocation.jpg",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=Jaeboo",
+            "name": "Jaeboo",
+            "key": "jaeboo",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Jaeboo Jeong",
+            "active": true,
+            "timeZone": "Asia/Seoul"
+          },
+          "created": "2016-08-12T07:26:28.128+0000",
+          "size": 80906,
+          "mimeType": "image/jpeg",
+          "content": "https://issues.apache.org/jira/secure/attachment/12823421/aggregate_resource_allocation.jpg"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12823420",
+          "id": "12823420",
+          "filename": "container_example.jpg",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=Jaeboo",
+            "name": "Jaeboo",
+            "key": "jaeboo",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Jaeboo Jeong",
+            "active": true,
+            "timeZone": "Asia/Seoul"
+          },
+          "created": "2016-08-12T07:26:28.094+0000",
+          "size": 49817,
+          "mimeType": "image/jpeg",
+          "content": "https://issues.apache.org/jira/secure/attachment/12823420/container_example.jpg"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12823422",
+          "id": "12823422",
+          "filename": "RM-scheduler_metrics.jpg",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=Jaeboo",
+            "name": "Jaeboo",
+            "key": "jaeboo",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Jaeboo Jeong",
+            "active": true,
+            "timeZone": "Asia/Seoul"
+          },
+          "created": "2016-08-12T07:26:28.136+0000",
+          "size": 38283,
+          "mimeType": "image/jpeg",
+          "content": "https://issues.apache.org/jira/secure/attachment/12823422/RM-scheduler_metrics.jpg"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12823419",
+          "id": "12823419",
+          "filename": "YARN-5517-branch-2.7.1.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=Jaeboo",
+            "name": "Jaeboo",
+            "key": "jaeboo",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Jaeboo Jeong",
+            "active": true,
+            "timeZone": "Asia/Seoul"
+          },
+          "created": "2016-08-12T07:24:03.248+0000",
+          "size": 568990,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12823419/YARN-5517-branch-2.7.1.patch"
+        }
+      ],
+      "issuelinks": [
+        {
+          "id": "12484442",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12484442",
+          "type": {
+            "id": "12310051",
+            "name": "Supercedes",
+            "inward": "is superceded by",
+            "outward": "supercedes",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310051"
+          },
+          "outwardIssue": {
+            "id": "12862103",
+            "key": "YARN-4122",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12862103",
+            "fields": {
+              "summary": "Add support for GPU as a resource",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12996861/comment/15881918",
+            "id": "15881918",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "bq. There is the issue(YARN-3926) which proposed to extend the YARN resource model.\nbq. But these issues didn\u2019t release yet so I just added GPU resource type like memory and cpu.\nYARN-3926 is much further along now, though it did take a bit of time. Further, as the size of the patch here demonstrates, it's better to support arbitrary resources in a pluggable manner instead of continuing to hard-code them into the core.\n\nI propose we close this as a dup of YARN-3926.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2017-02-24T04:25:38.895+0000",
+            "updated": "2017-02-24T04:25:38.895+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12996861/comment/15883192",
+            "id": "15883192",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Yeah, I agree to close this as dup of YARN-3926 .",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-02-24T17:53:51.178+0000",
+            "updated": "2017-02-24T17:53:51.178+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12996861/comment/15883209",
+            "id": "15883209",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+              "name": "templedf",
+              "key": "templedf",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+              },
+              "displayName": "Daniel Templeton",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Yep, I agree.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+              "name": "templedf",
+              "key": "templedf",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+              },
+              "displayName": "Daniel Templeton",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-02-24T18:00:14.085+0000",
+            "updated": "2017-02-24T18:00:14.085+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12996861/comment/15884747",
+            "id": "15884747",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Jaeboo",
+              "name": "Jaeboo",
+              "key": "jaeboo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jaeboo Jeong",
+              "active": true,
+              "timeZone": "Asia/Seoul"
+            },
+            "body": "This patch just is intended for use with hadoop 2.7.\nI agree with Vinod's comment.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Jaeboo",
+              "name": "Jaeboo",
+              "key": "jaeboo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jaeboo Jeong",
+              "active": true,
+              "timeZone": "Asia/Seoul"
+            },
+            "created": "2017-02-26T13:23:29.368+0000",
+            "updated": "2017-02-26T13:23:29.368+0000"
+          }
+        ],
+        "maxResults": 4,
+        "total": 4,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5517/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2018-06-18T05:55:35.244+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 4,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12996861/comment/15881918",
+        "id": "15881918",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "bq. There is the issue(YARN-3926) which proposed to extend the YARN resource model.\nbq. But these issues didn\u2019t release yet so I just added GPU resource type like memory and cpu.\nYARN-3926 is much further along now, though it did take a bit of time. Further, as the size of the patch here demonstrates, it's better to support arbitrary resources in a pluggable manner instead of continuing to hard-code them into the core.\n\nI propose we close this as a dup of YARN-3926.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2017-02-24T04:25:38.895+0000",
+        "updated": "2017-02-24T04:25:38.895+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12996861/comment/15883192",
+        "id": "15883192",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Yeah, I agree to close this as dup of YARN-3926 .",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-02-24T17:53:51.178+0000",
+        "updated": "2017-02-24T17:53:51.178+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12996861/comment/15883209",
+        "id": "15883209",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+          "name": "templedf",
+          "key": "templedf",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+          },
+          "displayName": "Daniel Templeton",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Yep, I agree.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+          "name": "templedf",
+          "key": "templedf",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+          },
+          "displayName": "Daniel Templeton",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-02-24T18:00:14.085+0000",
+        "updated": "2017-02-24T18:00:14.085+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12996861/comment/15884747",
+        "id": "15884747",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Jaeboo",
+          "name": "Jaeboo",
+          "key": "jaeboo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jaeboo Jeong",
+          "active": true,
+          "timeZone": "Asia/Seoul"
+        },
+        "body": "This patch just is intended for use with hadoop 2.7.\nI agree with Vinod's comment.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Jaeboo",
+          "name": "Jaeboo",
+          "key": "jaeboo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jaeboo Jeong",
+          "active": true,
+          "timeZone": "Asia/Seoul"
+        },
+        "created": "2017-02-26T13:23:29.368+0000",
+        "updated": "2017-02-26T13:23:29.368+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5517/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 4,
+        "returned": 4
+      }
+    ]
+  }
+}
