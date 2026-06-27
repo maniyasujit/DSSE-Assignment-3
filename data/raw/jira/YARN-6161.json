@@ -1,0 +1,364 @@
+{
+  "downloaded_at": "2026-06-25T10:20:25.038542+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-6161",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-6161?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13041446",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13041446",
+    "key": "YARN-6161",
+    "fields": {
+      "summary": "YARN support for port allocation",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+        "id": "1",
+        "description": "A problem which impairs or prevents the functions of the product.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+        "name": "Bug",
+        "subtask": false,
+        "avatarId": 21133
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12331058",
+          "id": "12331058",
+          "name": "yarn-native-services"
+        }
+      ],
+      "subtasks": [],
+      "created": "2017-02-08T18:09:31.200+0000",
+      "description": "Since there is no agent code in YARN native services, we need another mechanism for allocating ports to containers. This is not necessary when running Docker containers, but it will become important when an agent-less docker-less provider is introduced.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [
+        {
+          "id": "12493777",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12493777",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "13041441",
+            "key": "YARN-6160",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13041441",
+            "fields": {
+              "summary": "Create an agent-less docker-less provider in the native services framework",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13041446/comment/16144292",
+            "id": "16144292",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "The current design supports host network, bridge network and fixed-cidr.  The possible combinations of port allocations are:\n\n| Network Type | Port allocation method | YARN resource tracking |\n| host | Random port | No action, OS handles port allocation |\n| host | Fixed port | YARN tracks ports assignment |\n| bridge | Random port | No action, OS handles port allocation |\n| bridge | Fixed port | YARN map and track ports assignment |\n| cidr | Random port | No action, OS handles port allocation |\n| cidr | Fixed port | YARN tracks ports assignment |\n\nWhere bridge means container has private network address but port is exposed to outside world on host network.\nWhere cidr means container is issued with IP from the same subnet as the host network.\n\nBridge with random port is likely an unsupported configuration due to late binding of port information by application and docker does not become aware of the port existence.  This feature requires tracking of port usage by containers, and mapping port redirection for bridged network.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-08-28T20:25:02.956+0000",
+            "updated": "2017-08-28T20:25:02.956+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13041446/comment/16144453",
+            "id": "16144453",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Is this duplicated by YARN-7079?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-08-28T22:16:35.494+0000",
+            "updated": "2017-08-28T22:16:35.494+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13041446/comment/16145630",
+            "id": "16145630",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=billie",
+              "name": "billie",
+              "key": "billie.rinaldi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=billie.rinaldi&avatarId=30233",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=billie.rinaldi&avatarId=30233",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=billie.rinaldi&avatarId=30233",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=billie.rinaldi&avatarId=30233"
+              },
+              "displayName": "Billie Rinaldi",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "body": "Yes, they do appear to be duplicates. Perhaps we can repurpose this ticket to focus on yarn-native-services integration with the port allocation feature, once YARN-7079 is completed.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=billie",
+              "name": "billie",
+              "key": "billie.rinaldi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=billie.rinaldi&avatarId=30233",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=billie.rinaldi&avatarId=30233",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=billie.rinaldi&avatarId=30233",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=billie.rinaldi&avatarId=30233"
+              },
+              "displayName": "Billie Rinaldi",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "created": "2017-08-29T16:36:51.649+0000",
+            "updated": "2017-08-29T16:36:51.649+0000"
+          }
+        ],
+        "maxResults": 3,
+        "total": 3,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-6161/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2017-09-13T22:16:25.319+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 3,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13041446/comment/16144292",
+        "id": "16144292",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "The current design supports host network, bridge network and fixed-cidr.  The possible combinations of port allocations are:\n\n| Network Type | Port allocation method | YARN resource tracking |\n| host | Random port | No action, OS handles port allocation |\n| host | Fixed port | YARN tracks ports assignment |\n| bridge | Random port | No action, OS handles port allocation |\n| bridge | Fixed port | YARN map and track ports assignment |\n| cidr | Random port | No action, OS handles port allocation |\n| cidr | Fixed port | YARN tracks ports assignment |\n\nWhere bridge means container has private network address but port is exposed to outside world on host network.\nWhere cidr means container is issued with IP from the same subnet as the host network.\n\nBridge with random port is likely an unsupported configuration due to late binding of port information by application and docker does not become aware of the port existence.  This feature requires tracking of port usage by containers, and mapping port redirection for bridged network.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-08-28T20:25:02.956+0000",
+        "updated": "2017-08-28T20:25:02.956+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13041446/comment/16144453",
+        "id": "16144453",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Is this duplicated by YARN-7079?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-08-28T22:16:35.494+0000",
+        "updated": "2017-08-28T22:16:35.494+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13041446/comment/16145630",
+        "id": "16145630",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=billie",
+          "name": "billie",
+          "key": "billie.rinaldi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=billie.rinaldi&avatarId=30233",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=billie.rinaldi&avatarId=30233",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=billie.rinaldi&avatarId=30233",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=billie.rinaldi&avatarId=30233"
+          },
+          "displayName": "Billie Rinaldi",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "body": "Yes, they do appear to be duplicates. Perhaps we can repurpose this ticket to focus on yarn-native-services integration with the port allocation feature, once YARN-7079 is completed.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=billie",
+          "name": "billie",
+          "key": "billie.rinaldi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=billie.rinaldi&avatarId=30233",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=billie.rinaldi&avatarId=30233",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=billie.rinaldi&avatarId=30233",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=billie.rinaldi&avatarId=30233"
+          },
+          "displayName": "Billie Rinaldi",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "created": "2017-08-29T16:36:51.649+0000",
+        "updated": "2017-08-29T16:36:51.649+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-6161/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 3,
+        "returned": 3
+      }
+    ]
+  }
+}

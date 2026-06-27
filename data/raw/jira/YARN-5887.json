@@ -1,0 +1,276 @@
+{
+  "downloaded_at": "2026-06-25T10:20:33.996428+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-5887",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5887?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13020886",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13020886",
+    "key": "YARN-5887",
+    "fields": {
+      "summary": "Policies for choosing which opportunistic containers to kill",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12998596",
+        "key": "YARN-5541",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12998596",
+        "fields": {
+          "summary": "Handling of opportunistic containers in the NM",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+            "description": "The issue is open and ready for the assignee to start work on it.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+            "name": "Open",
+            "id": "1",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+            "id": "2",
+            "description": "A new feature of the product, which has yet to be developed.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+            "name": "New Feature",
+            "subtask": false,
+            "avatarId": 21141
+          }
+        }
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2016-11-15T18:52:25.383+0000",
+      "description": "When a guaranteed container arrives at an NM but there are no resources to start its execution, opportunistic containers will be killed to make space for the guaranteed container.\n\nAt the moment, we kill opportunistic containers in reverse order of arrival (first the most recently started ones). This is not always the right decision. \nFor example, we might want to minimize the number of containers killed: to start a 6GB container, we could kill one 6GB opportunistic or three 2GB ones. \nAnother example would be to refrain from killing containers of jobs that are very close to completion (we have to pass job completion information to the NM in that case).",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13020886/comment/16160621",
+            "id": "16160621",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Hugo+Oshiro",
+              "name": "Hugo Oshiro",
+              "key": "hugo oshiro",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hugo Kiyodi Oshiro",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Hi. Considering the approach for killing container based in job completion:\n1. Where would be a good place to pass the information to NM. ContainerLaunchContext ?\n2. How job complete information should be calculated? numCompletedContainers / numTotalContainers is OK?\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Hugo+Oshiro",
+              "name": "Hugo Oshiro",
+              "key": "hugo oshiro",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hugo Kiyodi Oshiro",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-09-11T03:43:07.782+0000",
+            "updated": "2017-09-11T03:43:07.782+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13020886/comment/16181302",
+            "id": "16181302",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+              "name": "kkaranasos",
+              "key": "kkaranasos",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+              },
+              "displayName": "Konstantinos Karanasos",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Hi [~Hugo Oshiro],\nThe problem with the {{ContainerLaunchContext}} is that it gets created once and not updated during the execution.\nWhat you want is the RM to periodically inform the NMs about the progress of applications for containers that are running on that NM.\nSo I think adding it in the node heartbeat response is the right way. You can look into the {{NodeStatusUpdater}} class to start.\n\nFor calculating the job progress, there are multiple ways. One of the implementations I had done internally at some point was doing exactly what you are suggesting. It is not ideal, but it is definitely a first approximation. More involved strategies could look into the DAG structure (you might wait for a single mapper to finish for starting the next stage) or take into account estimates of task runtimes from previous executions (so if you expect a task to run for 2 hours and another for 10 seconds, you can take that into account when calculating progress).\n\nHope this helps.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+              "name": "kkaranasos",
+              "key": "kkaranasos",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+              },
+              "displayName": "Konstantinos Karanasos",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-09-26T18:41:55.795+0000",
+            "updated": "2017-09-26T18:41:55.795+0000"
+          }
+        ],
+        "maxResults": 2,
+        "total": 2,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5887/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2018-12-24T09:18:27.047+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 2,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13020886/comment/16160621",
+        "id": "16160621",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Hugo+Oshiro",
+          "name": "Hugo Oshiro",
+          "key": "hugo oshiro",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hugo Kiyodi Oshiro",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Hi. Considering the approach for killing container based in job completion:\n1. Where would be a good place to pass the information to NM. ContainerLaunchContext ?\n2. How job complete information should be calculated? numCompletedContainers / numTotalContainers is OK?\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Hugo+Oshiro",
+          "name": "Hugo Oshiro",
+          "key": "hugo oshiro",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hugo Kiyodi Oshiro",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-09-11T03:43:07.782+0000",
+        "updated": "2017-09-11T03:43:07.782+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13020886/comment/16181302",
+        "id": "16181302",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+          "name": "kkaranasos",
+          "key": "kkaranasos",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+          },
+          "displayName": "Konstantinos Karanasos",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Hi [~Hugo Oshiro],\nThe problem with the {{ContainerLaunchContext}} is that it gets created once and not updated during the execution.\nWhat you want is the RM to periodically inform the NMs about the progress of applications for containers that are running on that NM.\nSo I think adding it in the node heartbeat response is the right way. You can look into the {{NodeStatusUpdater}} class to start.\n\nFor calculating the job progress, there are multiple ways. One of the implementations I had done internally at some point was doing exactly what you are suggesting. It is not ideal, but it is definitely a first approximation. More involved strategies could look into the DAG structure (you might wait for a single mapper to finish for starting the next stage) or take into account estimates of task runtimes from previous executions (so if you expect a task to run for 2 hours and another for 10 seconds, you can take that into account when calculating progress).\n\nHope this helps.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkaranasos",
+          "name": "kkaranasos",
+          "key": "kkaranasos",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=kkaranasos&avatarId=21934",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=kkaranasos&avatarId=21934",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=kkaranasos&avatarId=21934",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=kkaranasos&avatarId=21934"
+          },
+          "displayName": "Konstantinos Karanasos",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-09-26T18:41:55.795+0000",
+        "updated": "2017-09-26T18:41:55.795+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5887/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 2,
+        "returned": 2
+      }
+    ]
+  }
+}

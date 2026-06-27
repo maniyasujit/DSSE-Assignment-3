@@ -1,0 +1,351 @@
+{
+  "downloaded_at": "2026-06-25T10:24:55.020011+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-11066",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-11066?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13423755",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13423755",
+    "key": "YARN-11066",
+    "fields": {
+      "summary": "Flexible AQC doesn't check the Queue ACLs when submitting apps",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+        "id": "1",
+        "description": "A problem which impairs or prevents the functions of the product.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+        "name": "Bug",
+        "subtask": false,
+        "avatarId": 21133
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319324",
+          "id": "12319324",
+          "name": "capacityscheduler"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12325004",
+          "id": "12325004",
+          "name": "yarn"
+        }
+      ],
+      "subtasks": [],
+      "created": "2022-01-20T13:09:15.063+0000",
+      "description": "Reproduction steps:\r\n\r\n1. Use the attached configuration: [^capacity-scheduler.xml]\r\n2. Enable *yarn.acl.enable* in yarn-site.xml.\r\n3. Try to submit an application with any user other than *user1, user2, user3*.\r\n\r\n{code}\r\nyarn jar hadoop-mapreduce-examples-3.4.0-SNAPSHOT.jar pi 1 10\r\n{code}\r\n\r\nThe *first* app submission will succeed with *someuser:somegroup* the *root.parent.somegroup.someuser* queue will be created. When the *root.parent.somegroup* dynamic parent queue already exists then the ACLs in *root.parent* will be checked and the *someuser* won't be able to submit an another app. But queues are deleted automatically, so this is a serious security issue.\r\n\r\nThis issue doesn't happen when dynamic parent queue is not created just a dynamic leaf queue.\r\n\r\nAnother inconsistency is that the ACLs configured with templates works on dynamic leaf queues, but not when there is a dynamic parent queue too.\r\n\r\n",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/2",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/critical.svg",
+        "name": "Critical",
+        "id": "2"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/1",
+        "id": "1",
+        "description": "A fix for this issue is checked into the tree and tested.",
+        "name": "Fixed"
+      },
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/13039155",
+          "id": "13039155",
+          "filename": "capacity-scheduler.xml",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=tdomok",
+            "name": "tdomok",
+            "key": "tdomok",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tdomok&avatarId=47196",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tdomok&avatarId=47196",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tdomok&avatarId=47196",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tdomok&avatarId=47196"
+            },
+            "displayName": "Tamas Domok",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2022-01-20T12:53:21.751+0000",
+          "size": 3365,
+          "mimeType": "text/xml",
+          "content": "https://issues.apache.org/jira/secure/attachment/13039155/capacity-scheduler.xml"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/13039205",
+          "id": "13039205",
+          "filename": "Screenshot 2022-01-21 at 10.00.32.png",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=tdomok",
+            "name": "tdomok",
+            "key": "tdomok",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tdomok&avatarId=47196",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tdomok&avatarId=47196",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tdomok&avatarId=47196",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tdomok&avatarId=47196"
+            },
+            "displayName": "Tamas Domok",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2022-01-21T09:01:01.336+0000",
+          "size": 161040,
+          "mimeType": "image/png",
+          "content": "https://issues.apache.org/jira/secure/attachment/13039205/Screenshot+2022-01-21+at+10.00.32.png"
+        }
+      ],
+      "issuelinks": [
+        {
+          "id": "12632237",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12632237",
+          "type": {
+            "id": "12310660",
+            "name": "Completes",
+            "inward": "is fixed by",
+            "outward": "fixes",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310660"
+          },
+          "inwardIssue": {
+            "id": "13425129",
+            "key": "YARN-11069",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13425129",
+            "fields": {
+              "summary": "Dynamic Queue ACL handling in Legacy and Flexible Auto Created Queues",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+                "id": "2",
+                "description": "A new feature of the product, which has yet to be developed.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+                "name": "New Feature",
+                "subtask": false,
+                "avatarId": 21141
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13423755/comment/17479913",
+            "id": "17479913",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tdomok",
+              "name": "tdomok",
+              "key": "tdomok",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tdomok&avatarId=47196",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tdomok&avatarId=47196",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tdomok&avatarId=47196",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tdomok&avatarId=47196"
+              },
+              "displayName": "Tamas Domok",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Investigation:\r\n\r\nRMAppManager\r\n{code}\r\n  private RMAppImpl createAndPopulateNewRMApp(\r\n....\r\n    if (!isRecovery && YarnConfiguration.isAclEnabled(conf)) {\r\n      if (scheduler instanceof CapacityScheduler) {\r\n        String queueName = placementContext == null ?\r\n            submissionContext.getQueue() : placementContext.getFullQueuePath();\r\n\r\n        String appName = submissionContext.getApplicationName();\r\n        CSQueue csqueue = ((CapacityScheduler) scheduler).getQueue(queueName);\r\n\r\n        if (csqueue == null && placementContext != null) {\r\n          //could be an auto created queue through queue mapping. Validate\r\n          // parent queue exists and has valid acls\r\n          String parentQueueName = placementContext.getParentQueue();\r\n          csqueue = ((CapacityScheduler) scheduler).getQueue(parentQueueName);\r\n        }\r\n\r\n        if (csqueue != null\r\n            && !authorizer.checkPermission(\r\n{code}\r\n\r\n !Screenshot 2022-01-21 at 10.00.32.png! \r\n\r\nThe csqueue is null so no acl's will be checked.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tdomok",
+              "name": "tdomok",
+              "key": "tdomok",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tdomok&avatarId=47196",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tdomok&avatarId=47196",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tdomok&avatarId=47196",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tdomok&avatarId=47196"
+              },
+              "displayName": "Tamas Domok",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2022-01-21T09:01:21.272+0000",
+            "updated": "2022-01-21T09:01:21.272+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13423755/comment/17514487",
+            "id": "17514487",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tdomok",
+              "name": "tdomok",
+              "key": "tdomok",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tdomok&avatarId=47196",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tdomok&avatarId=47196",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tdomok&avatarId=47196",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tdomok&avatarId=47196"
+              },
+              "displayName": "Tamas Domok",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "It's fixed in YARN-11069, branch-3.3 is not affected there is no auto-queue-creation-v2 there yet.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tdomok",
+              "name": "tdomok",
+              "key": "tdomok",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tdomok&avatarId=47196",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tdomok&avatarId=47196",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tdomok&avatarId=47196",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tdomok&avatarId=47196"
+              },
+              "displayName": "Tamas Domok",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2022-03-30T07:35:42.556+0000",
+            "updated": "2022-03-30T07:35:42.556+0000"
+          }
+        ],
+        "maxResults": 2,
+        "total": 2,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-11066/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2022-03-30T07:35:42.558+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 2,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13423755/comment/17479913",
+        "id": "17479913",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tdomok",
+          "name": "tdomok",
+          "key": "tdomok",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tdomok&avatarId=47196",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tdomok&avatarId=47196",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tdomok&avatarId=47196",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tdomok&avatarId=47196"
+          },
+          "displayName": "Tamas Domok",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Investigation:\r\n\r\nRMAppManager\r\n{code}\r\n  private RMAppImpl createAndPopulateNewRMApp(\r\n....\r\n    if (!isRecovery && YarnConfiguration.isAclEnabled(conf)) {\r\n      if (scheduler instanceof CapacityScheduler) {\r\n        String queueName = placementContext == null ?\r\n            submissionContext.getQueue() : placementContext.getFullQueuePath();\r\n\r\n        String appName = submissionContext.getApplicationName();\r\n        CSQueue csqueue = ((CapacityScheduler) scheduler).getQueue(queueName);\r\n\r\n        if (csqueue == null && placementContext != null) {\r\n          //could be an auto created queue through queue mapping. Validate\r\n          // parent queue exists and has valid acls\r\n          String parentQueueName = placementContext.getParentQueue();\r\n          csqueue = ((CapacityScheduler) scheduler).getQueue(parentQueueName);\r\n        }\r\n\r\n        if (csqueue != null\r\n            && !authorizer.checkPermission(\r\n{code}\r\n\r\n !Screenshot 2022-01-21 at 10.00.32.png! \r\n\r\nThe csqueue is null so no acl's will be checked.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tdomok",
+          "name": "tdomok",
+          "key": "tdomok",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tdomok&avatarId=47196",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tdomok&avatarId=47196",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tdomok&avatarId=47196",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tdomok&avatarId=47196"
+          },
+          "displayName": "Tamas Domok",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2022-01-21T09:01:21.272+0000",
+        "updated": "2022-01-21T09:01:21.272+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13423755/comment/17514487",
+        "id": "17514487",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tdomok",
+          "name": "tdomok",
+          "key": "tdomok",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tdomok&avatarId=47196",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tdomok&avatarId=47196",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tdomok&avatarId=47196",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tdomok&avatarId=47196"
+          },
+          "displayName": "Tamas Domok",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "It's fixed in YARN-11069, branch-3.3 is not affected there is no auto-queue-creation-v2 there yet.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tdomok",
+          "name": "tdomok",
+          "key": "tdomok",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=tdomok&avatarId=47196",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=tdomok&avatarId=47196",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=tdomok&avatarId=47196",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=tdomok&avatarId=47196"
+          },
+          "displayName": "Tamas Domok",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2022-03-30T07:35:42.556+0000",
+        "updated": "2022-03-30T07:35:42.556+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-11066/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 2,
+        "returned": 2
+      }
+    ]
+  }
+}

@@ -1,0 +1,436 @@
+{
+  "downloaded_at": "2026-06-25T10:24:56.886465+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-11199",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-11199?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13468662",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13468662",
+    "key": "YARN-11199",
+    "fields": {
+      "summary": "Replace htrace-core with hbase-noop-htrace for CVE-2018-7489, CVE-2020-35491, CVE-2020-35490, and CVE-2020-36518 ",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12333739",
+          "id": "12333739",
+          "name": "timelineservice"
+        }
+      ],
+      "subtasks": [],
+      "created": "2022-06-27T18:14:48.717+0000",
+      "description": "Distributions of Hadoop still contain htrace, which is a critical CVE-2018-7489 concerning FasterXML jackson-databind.\u00a0 This can be addressed by replacing `htrace-core` with `hbase-noop-htrace` in Hadoop builds.\u00a0 I'll extract this from [HADOOP-18311|https://issues.apache.org/jira/browse/HADOOP-18311].\r\n\r\nDownloading the published 3.3.3 distribution we can find htrace-core:\r\n{code:java}\r\n% tar -tzf ~/Downloads/hadoop-3.3.3.tar.gz | grep htrace\r\nhadoop-3.3.3/share/hadoop/yarn/timelineservice/lib/htrace-core-3.1.0-incubating.jar{code}\r\nIt also appears in builds of trunk\r\n{noformat}\r\n% mvn -nsu clean install -Pdist,native -Drequire.snappy -Drequire.zstd -Drequire.openssl -Drequire.isal -DskipTests -Dtar -Dmaven.javadoc.skip=true\r\n[...]\r\n% tar -tzf hadoop-dist/target/hadoop-3.4.0-SNAPSHOT.tar.gz | grep htrace\r\nhadoop-3.4.0-SNAPSHOT/share/hadoop/yarn/timelineservice/lib/htrace-core-3.1.0-incubating.jar{noformat}\r\n\u00a0\r\n\r\n\u00a0\r\n\r\n\u00a0",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [
+        "pull-request-available"
+      ],
+      "attachment": [],
+      "issuelinks": [
+        {
+          "id": "12642674",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12642674",
+          "type": {
+            "id": "12310460",
+            "name": "Child-Issue",
+            "inward": "is a child of",
+            "outward": "is a parent of",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310460"
+          },
+          "inwardIssue": {
+            "id": "13458586",
+            "key": "HADOOP-18311",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13458586",
+            "fields": {
+              "summary": "Upgrade dependencies to address several CVEs",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+                "id": "4",
+                "description": "An improvement or enhancement to an existing feature or task.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+                "name": "Improvement",
+                "subtask": false,
+                "avatarId": 21140
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13468662/comment/17559382",
+            "id": "17559382",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=svaughan",
+              "name": "svaughan",
+              "key": "svaughan",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34045",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34045",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34045",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34045"
+              },
+              "displayName": "Steve Vaughan",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Add the following CVEs also tied to htrace-core:\r\n * CVE-2020-35491\r\n * CVE-2020-35490\r\n * CVE-2020-36518",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=svaughan",
+              "name": "svaughan",
+              "key": "svaughan",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34045",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34045",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34045",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34045"
+              },
+              "displayName": "Steve Vaughan",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2022-06-27T19:43:28.581+0000",
+            "updated": "2022-06-27T19:43:28.581+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13468662/comment/17559465",
+            "id": "17559465",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=iwasakims",
+              "name": "iwasakims",
+              "key": "iwasakims",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=iwasakims&avatarId=38403",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=iwasakims&avatarId=38403",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=iwasakims&avatarId=38403",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=iwasakims&avatarId=38403"
+              },
+              "displayName": "Masatake Iwasaki",
+              "active": true,
+              "timeZone": "Asia/Tokyo"
+            },
+            "body": "I decreased the priority. The jar is only used by timelineservice and {{hadoop classpath}} does not contain the jars. Jackson is only used (to write JSON) by SpanReceiver which is not loaded by default. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=iwasakims",
+              "name": "iwasakims",
+              "key": "iwasakims",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=iwasakims&avatarId=38403",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=iwasakims&avatarId=38403",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=iwasakims&avatarId=38403",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=iwasakims&avatarId=38403"
+              },
+              "displayName": "Masatake Iwasaki",
+              "active": true,
+              "timeZone": "Asia/Tokyo"
+            },
+            "created": "2022-06-28T02:23:00.808+0000",
+            "updated": "2022-06-28T02:23:00.808+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13468662/comment/18036664",
+            "id": "18036664",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "github-actions[bot] commented on PR #4506:\nURL: https://github.com/apache/hadoop/pull/4506#issuecomment-3509006650\n\n   We're closing this stale PR because it has been open for 100 days with no activity. This isn't a judgement on the merit of the PR in any way. It's just a way of keeping the PR queue manageable.\n   If you feel like this was a mistake, or you would like to continue working on it, please feel free to re-open it and ask for a committer to remove the stale tag and review again.\n   Thanks all for your contribution.\n\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2025-11-10T00:25:15.179+0000",
+            "updated": "2025-11-10T00:25:15.179+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13468662/comment/18037293",
+            "id": "18037293",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "github-actions[bot] closed pull request #4506: YARN-11199. Replace htrace-core with hbase-noop-htrace\nURL: https://github.com/apache/hadoop/pull/4506\n\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2025-11-11T00:24:12.880+0000",
+            "updated": "2025-11-11T00:24:12.880+0000"
+          }
+        ],
+        "maxResults": 4,
+        "total": 4,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-11199/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2025-11-11T00:24:13.089+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 4,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13468662/comment/17559382",
+        "id": "17559382",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=svaughan",
+          "name": "svaughan",
+          "key": "svaughan",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34045",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34045",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34045",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34045"
+          },
+          "displayName": "Steve Vaughan",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Add the following CVEs also tied to htrace-core:\r\n * CVE-2020-35491\r\n * CVE-2020-35490\r\n * CVE-2020-36518",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=svaughan",
+          "name": "svaughan",
+          "key": "svaughan",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34045",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34045",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34045",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34045"
+          },
+          "displayName": "Steve Vaughan",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2022-06-27T19:43:28.581+0000",
+        "updated": "2022-06-27T19:43:28.581+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13468662/comment/17559465",
+        "id": "17559465",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=iwasakims",
+          "name": "iwasakims",
+          "key": "iwasakims",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=iwasakims&avatarId=38403",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=iwasakims&avatarId=38403",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=iwasakims&avatarId=38403",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=iwasakims&avatarId=38403"
+          },
+          "displayName": "Masatake Iwasaki",
+          "active": true,
+          "timeZone": "Asia/Tokyo"
+        },
+        "body": "I decreased the priority. The jar is only used by timelineservice and {{hadoop classpath}} does not contain the jars. Jackson is only used (to write JSON) by SpanReceiver which is not loaded by default. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=iwasakims",
+          "name": "iwasakims",
+          "key": "iwasakims",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=iwasakims&avatarId=38403",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=iwasakims&avatarId=38403",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=iwasakims&avatarId=38403",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=iwasakims&avatarId=38403"
+          },
+          "displayName": "Masatake Iwasaki",
+          "active": true,
+          "timeZone": "Asia/Tokyo"
+        },
+        "created": "2022-06-28T02:23:00.808+0000",
+        "updated": "2022-06-28T02:23:00.808+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13468662/comment/18036664",
+        "id": "18036664",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "github-actions[bot] commented on PR #4506:\nURL: https://github.com/apache/hadoop/pull/4506#issuecomment-3509006650\n\n   We're closing this stale PR because it has been open for 100 days with no activity. This isn't a judgement on the merit of the PR in any way. It's just a way of keeping the PR queue manageable.\n   If you feel like this was a mistake, or you would like to continue working on it, please feel free to re-open it and ask for a committer to remove the stale tag and review again.\n   Thanks all for your contribution.\n\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2025-11-10T00:25:15.179+0000",
+        "updated": "2025-11-10T00:25:15.179+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13468662/comment/18037293",
+        "id": "18037293",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "github-actions[bot] closed pull request #4506: YARN-11199. Replace htrace-core with hbase-noop-htrace\nURL: https://github.com/apache/hadoop/pull/4506\n\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2025-11-11T00:24:12.880+0000",
+        "updated": "2025-11-11T00:24:12.880+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-11199/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 4,
+        "returned": 4
+      }
+    ]
+  }
+}

@@ -1,0 +1,1738 @@
+{
+  "downloaded_at": "2026-06-25T10:23:25.998371+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-1710",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1710?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12694396",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396",
+    "key": "YARN-1710",
+    "fields": {
+      "summary": "Admission Control: agents to allocate reservation",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12662883",
+        "key": "YARN-1051",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12662883",
+        "fields": {
+          "summary": "YARN Admission Control/Planner: enhancing the resource allocation model with time.",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+            "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+            "name": "Closed",
+            "id": "6",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+            "id": "4",
+            "description": "An improvement or enhancement to an existing feature or task.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+            "name": "Improvement",
+            "subtask": false,
+            "avatarId": 21140
+          }
+        }
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319322",
+          "id": "12319322",
+          "name": "resourcemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2014-02-11T00:58:42.950+0000",
+      "description": "This JIRA tracks the algorithms used to allocate a user ReservationRequest coming in from the new reservation API (YARN-1708), in the inventory subsystem (YARN-1709) maintaining the current plan for the cluster. The focus of this \"agents\" is to quickly find a solution for the set of contraints provided by the user, and the physical constraints of the plan.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/1",
+        "id": "1",
+        "description": "A fix for this issue is checked into the tree and tested.",
+        "name": "Fixed"
+      },
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12665486",
+          "id": "12665486",
+          "filename": "YARN-1710.1.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+            "name": "curino",
+            "key": "curino",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+            },
+            "displayName": "Carlo Curino",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2014-08-29T23:39:18.474+0000",
+          "size": 46355,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12665486/YARN-1710.1.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12668243",
+          "id": "12668243",
+          "filename": "YARN-1710.2.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+            "name": "curino",
+            "key": "curino",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+            },
+            "displayName": "Carlo Curino",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2014-09-12T02:21:18.441+0000",
+          "size": 43549,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12668243/YARN-1710.2.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12668391",
+          "id": "12668391",
+          "filename": "YARN-1710.3.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+            "name": "curino",
+            "key": "curino",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+            },
+            "displayName": "Carlo Curino",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2014-09-12T17:21:21.337+0000",
+          "size": 43562,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12668391/YARN-1710.3.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12668512",
+          "id": "12668512",
+          "filename": "YARN-1710.4.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+            "name": "curino",
+            "key": "curino",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+            },
+            "displayName": "Carlo Curino",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2014-09-13T00:19:45.188+0000",
+          "size": 43519,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12668512/YARN-1710.4.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12652531",
+          "id": "12652531",
+          "filename": "YARN-1710.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+            "name": "curino",
+            "key": "curino",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+            },
+            "displayName": "Carlo Curino",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2014-06-26T01:14:58.168+0000",
+          "size": 46263,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12652531/YARN-1710.patch"
+        }
+      ],
+      "issuelinks": [
+        {
+          "id": "12382832",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12382832",
+          "type": {
+            "id": "10032",
+            "name": "Blocker",
+            "inward": "is blocked by",
+            "outward": "blocks",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10032"
+          },
+          "inwardIssue": {
+            "id": "12694394",
+            "key": "YARN-1709",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694394",
+            "fields": {
+              "summary": "Admission Control: Reservation subsystem",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                "name": "Closed",
+                "id": "6",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12382833",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12382833",
+          "type": {
+            "id": "12310010",
+            "name": "Incorporates",
+            "inward": "is part of",
+            "outward": "incorporates",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310010"
+          },
+          "inwardIssue": {
+            "id": "12662883",
+            "key": "YARN-1051",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12662883",
+            "fields": {
+              "summary": "YARN Admission Control/Planner: enhancing the resource allocation model with time.",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                "name": "Closed",
+                "id": "6",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+                "id": "4",
+                "description": "An improvement or enhancement to an existing feature or task.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+                "name": "Improvement",
+                "subtask": false,
+                "avatarId": 21140
+              }
+            }
+          }
+        },
+        {
+          "id": "12382831",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12382831",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "12694397",
+            "key": "YARN-1711",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694397",
+            "fields": {
+              "summary": "CapacityOverTimePolicy: a policy to enforce quotas over time for YARN-1709",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                "name": "Closed",
+                "id": "6",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14044243",
+            "id": "14044243",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "I uploaded a patch that contains a GreedyReservationAgent. \n\nThe philosophy behind this agent is to greedily place from the deadline back towards arrival. This intuitively increase the chances of a job showing up later \nbut with an earlier deadline to find space in the plan. It works well when paired with opportunistic anticipation of work (i.e., thanks to YARN-1957 even if the\nreservation has a zero allocation at the moment the scheduler can give it resources if they are not claim by anyone.). \n\nSmarter placement policies are worth thinking about, and will increase the % of jobs accepted, or minimize other parameters such as preemption. We are\nexploring this space. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-06-26T01:21:44.484+0000",
+            "updated": "2014-06-26T01:21:44.484+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14044345",
+            "id": "14044345",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=subru",
+              "name": "subru",
+              "key": "subru",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=subru&avatarId=21709",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=subru&avatarId=21709",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=subru&avatarId=21709",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=subru&avatarId=21709"
+              },
+              "displayName": "Subramaniam Krishnan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "We have attached a patch for review, feedback welcome.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=subru",
+              "name": "subru",
+              "key": "subru",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=subru&avatarId=21709",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=subru&avatarId=21709",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=subru&avatarId=21709",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=subru&avatarId=21709"
+              },
+              "displayName": "Subramaniam Krishnan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-06-26T04:46:03.955+0000",
+            "updated": "2014-06-26T04:46:03.955+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14044353",
+            "id": "14044353",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12652531/YARN-1710.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 1 new or modified test files.\n\n    {color:red}-1 javac{color:red}.  The patch appears to cause the build to fail.\n\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/4084//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-06-26T05:05:13.309+0000",
+            "updated": "2014-06-26T05:05:13.309+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14044414",
+            "id": "14044414",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "As discussed before the patches are not meant to be applicable independently. We are working on YARN-1051 dev branch for that.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-06-26T07:20:35.565+0000",
+            "updated": "2014-06-26T07:20:35.565+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14116069",
+            "id": "14116069",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12665487/YARN-1712.1.patch\n  against trunk revision 9ad413b.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 1 new or modified test files.\n\n    {color:red}-1 javac{color:red}.  The patch appears to cause the build to fail.\n\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/4781//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-08-29T23:56:19.180+0000",
+            "updated": "2014-08-29T23:56:19.180+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14129038",
+            "id": "14129038",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cdouglas",
+              "name": "cdouglas",
+              "key": "chris.douglas",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Christopher Douglas",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "{{GreedyReservationAgent}}\n* Consider {{@link}} for {{ReservationRequest}} in class javadoc\n* An inline comment could replace the {{adjustContract()}} method\n* Most of the javadoc on private methods can be cut\n* {{currentReservationStage}} does not need to be declared outside the loop\n* {{allocations}} cannot be null\n* An internal {{Resource(0, 0)}} could be reused\n* {{li}} should be part of the loop ({{for}} not {{while}}). Its initialization is unreadable; please use temp vars.\n* Generally, embedded calls are difficult to read:\n{code}\nif (findEarliestTime(allocations.keySet()) > earliestStart) {\n  allocations.put(new ReservationInterval(earliestStart,\n      findEarliestTime(allocations.keySet())), ReservationRequest\n      .newInstance(Resource.newInstance(0, 0), 0));\n  // consider to add trailing zeros at the end for simmetry\n}\n{code}\nAssuming the {{ReservationRequest}} is never modified by the plan:\n{code}\nprivate final ZERO_RSRC =\n    ReservationRequest.newInstance(Resource.newInstance(0, 0), 0);\n// ...\nlong allocStart = findEarliestTime(allocations.keySet());\nif (allocStart > earliestStart) {\n  ReservationInterval preAlloc =\n    new ReservationInterval(earliestStart, allocStart);\n  allocations.put(preAlloc, ZERO_RSRC);\n}\n{code}\n* {{findEarliestTime(allocations.keySet())}} is called several times and should be memoized\n** Would a {{TreeSet}} be more appropriate, given this access pattern?\n* Instead of:\n{code}\nboolean result = false;\nif (oldReservation != null) {\n  result = plan.updateReservation(capReservation);\n} else {\n  result = plan.addReservation(capReservation);\n}\nreturn result;\n{code}\nConsider:\n{code}\nif (oldReservation != null) {\n  return plan.updateReservation(capReservation);\n}\nreturn plan.addReservation(capReservation);\n{code}\n* A comment unpacking the arithmetic for calculating {{curMaxGang}} would help readability\n\n{{TestGreedyReservationAgent}}\n* Instead of fixing the seed, consider setting and logging it for each run.\n* {{testStress}} is brittle, as it verifies only the timeout; {{testBig}} and {{testSmall}} don't verify anything. Both tests are useful, but probably not as part of the build. Dropping the annotation and adding a {{main()}} that calls each fo them would be one alternative.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cdouglas",
+              "name": "cdouglas",
+              "key": "chris.douglas",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Christopher Douglas",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-09-10T20:28:13.559+0000",
+            "updated": "2014-09-10T20:28:13.559+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14131026",
+            "id": "14131026",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "[~chris.douglas], thanks for the always insightful feedback. \n\nI attach a patch addressing all your comments with two minor exceptions:\n * I am not memoizing findEarliestTime, as it would only save one invocation (the others are on diff sets, or updated version of the same set). Similarly TreeSet would only help partially, as we need to search for both \nmin(startTime) and max(endTime), hence no single ordering can help both.\n * for the iterator on stages, I find the for loop less readable than a while (as the initialization and increment will be large/not very readable) \n\nThe rest is done as you suggest. Let me know if it looks good or if there is anything else to be addressed.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-09-12T02:19:36.313+0000",
+            "updated": "2014-09-12T02:19:36.313+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14131035",
+            "id": "14131035",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12668243/YARN-1710.2.patch\n  against trunk revision 6b8b160.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 1 new or modified test files.\n\n    {color:red}-1 javac{color:red}.  The patch appears to cause the build to fail.\n\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/4909//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-09-12T02:35:56.289+0000",
+            "updated": "2014-09-12T02:35:56.289+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14131700",
+            "id": "14131700",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cdouglas",
+              "name": "cdouglas",
+              "key": "chris.douglas",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Christopher Douglas",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "bq. I am not memoizing findEarliestTime, as it would only save one invocation (the others are on diff sets, or updated version of the same set)\n\nI'm confused. There are three invocations:\n{code}\n    if (findEarliestTime(allocations.keySet()) > earliestStart) {\n      allocations.put(new ReservationInterval(earliestStart,\n          findEarliestTime(allocations.keySet())), ZERO_RES);\n    }\n    ReservationAllocation capReservation =\n        new InMemoryReservationAllocation(reservationId, contract, user,\n            plan.getQueueName(), findEarliestTime(allocations.keySet()),\n            findLatestTime(allocations.keySet()), allocations,\n            plan.getResourceCalculator(), plan.getMinimumAllocation());\n{code}\nIsn't earliest time is either the earliest in the set, or the interval this just added?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cdouglas",
+              "name": "cdouglas",
+              "key": "chris.douglas",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Christopher Douglas",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-09-12T16:10:38.576+0000",
+            "updated": "2014-09-12T16:10:38.576+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14131772",
+            "id": "14131772",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "I understand what you meant (after our brief chat). I addressed it in the version I just uploaded (v3).",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-09-12T17:23:00.427+0000",
+            "updated": "2014-09-12T17:23:00.427+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14131797",
+            "id": "14131797",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12668391/YARN-1710.3.patch\n  against trunk revision 78b0483.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 1 new or modified test files.\n\n    {color:red}-1 javac{color:red}.  The patch appears to cause the build to fail.\n\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/4926//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-09-12T17:36:00.681+0000",
+            "updated": "2014-09-12T17:36:00.681+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14132356",
+            "id": "14132356",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Minor fix addressing [~chris.douglas] comments further.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-09-13T00:20:25.776+0000",
+            "updated": "2014-09-13T00:20:25.776+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14132383",
+            "id": "14132383",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12668512/YARN-1710.4.patch\n  against trunk revision a0ad975.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 1 new or modified test files.\n\n    {color:red}-1 javac{color:red}.  The patch appears to cause the build to fail.\n\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/4949//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-09-13T00:35:56.959+0000",
+            "updated": "2014-09-13T00:35:56.959+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14132466",
+            "id": "14132466",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cdouglas",
+              "name": "cdouglas",
+              "key": "chris.douglas",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Christopher Douglas",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "+1 lgtm. Thanks [~curino] for all the iterations on this",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cdouglas",
+              "name": "cdouglas",
+              "key": "chris.douglas",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Christopher Douglas",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-09-13T02:04:17.304+0000",
+            "updated": "2014-09-13T02:04:17.304+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14134721",
+            "id": "14134721",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "I committed this to the YARN-1051 branch. Thaks to [~chris.douglas] for the helpful review.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+              "name": "curino",
+              "key": "curino",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+              },
+              "displayName": "Carlo Curino",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-09-16T00:02:24.550+0000",
+            "updated": "2014-09-16T00:02:24.550+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14158765",
+            "id": "14158765",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "FAILURE: Integrated in Hadoop-trunk-Commit #6189 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/6189/])\nYARN-1710. Logic to find allocations within a Plan that satisfy user ReservationRequest(s). Contributed by Carlo Curino and Subru Krishnan. (cdouglas: rev f66ffcf832235e0da0bb050fff08e248b547c360)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/GreedyReservationAgent.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/ReservationAgent.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/TestGreedyReservationAgent.java\n* YARN-1051-CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/exceptions/ContractValidationException.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-10-04T00:13:25.267+0000",
+            "updated": "2014-10-04T00:13:25.267+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14159036",
+            "id": "14159036",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "SUCCESS: Integrated in Hadoop-Yarn-trunk #700 (See [https://builds.apache.org/job/Hadoop-Yarn-trunk/700/])\nYARN-1710. Logic to find allocations within a Plan that satisfy user ReservationRequest(s). Contributed by Carlo Curino and Subru Krishnan. (cdouglas: rev f66ffcf832235e0da0bb050fff08e248b547c360)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/GreedyReservationAgent.java\n* YARN-1051-CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/exceptions/ContractValidationException.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/TestGreedyReservationAgent.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/ReservationAgent.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-10-04T07:46:04.657+0000",
+            "updated": "2014-10-04T07:46:04.657+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14159143",
+            "id": "14159143",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "SUCCESS: Integrated in Hadoop-Hdfs-trunk #1891 (See [https://builds.apache.org/job/Hadoop-Hdfs-trunk/1891/])\nYARN-1710. Logic to find allocations within a Plan that satisfy user ReservationRequest(s). Contributed by Carlo Curino and Subru Krishnan. (cdouglas: rev f66ffcf832235e0da0bb050fff08e248b547c360)\n* YARN-1051-CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/TestGreedyReservationAgent.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/GreedyReservationAgent.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/exceptions/ContractValidationException.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/ReservationAgent.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-10-04T14:14:08.141+0000",
+            "updated": "2014-10-04T14:14:08.141+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14159167",
+            "id": "14159167",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "FAILURE: Integrated in Hadoop-Mapreduce-trunk #1916 (See [https://builds.apache.org/job/Hadoop-Mapreduce-trunk/1916/])\nYARN-1710. Logic to find allocations within a Plan that satisfy user ReservationRequest(s). Contributed by Carlo Curino and Subru Krishnan. (cdouglas: rev f66ffcf832235e0da0bb050fff08e248b547c360)\n* YARN-1051-CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/ReservationAgent.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/exceptions/ContractValidationException.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/GreedyReservationAgent.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/TestGreedyReservationAgent.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-10-04T15:11:35.236+0000",
+            "updated": "2014-10-04T15:11:35.236+0000"
+          }
+        ],
+        "maxResults": 19,
+        "total": 19,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1710/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2014-12-01T03:09:47.455+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+        "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+        "name": "Closed",
+        "id": "6",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 19,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14044243",
+        "id": "14044243",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "I uploaded a patch that contains a GreedyReservationAgent. \n\nThe philosophy behind this agent is to greedily place from the deadline back towards arrival. This intuitively increase the chances of a job showing up later \nbut with an earlier deadline to find space in the plan. It works well when paired with opportunistic anticipation of work (i.e., thanks to YARN-1957 even if the\nreservation has a zero allocation at the moment the scheduler can give it resources if they are not claim by anyone.). \n\nSmarter placement policies are worth thinking about, and will increase the % of jobs accepted, or minimize other parameters such as preemption. We are\nexploring this space. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-06-26T01:21:44.484+0000",
+        "updated": "2014-06-26T01:21:44.484+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14044345",
+        "id": "14044345",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=subru",
+          "name": "subru",
+          "key": "subru",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=subru&avatarId=21709",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=subru&avatarId=21709",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=subru&avatarId=21709",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=subru&avatarId=21709"
+          },
+          "displayName": "Subramaniam Krishnan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "We have attached a patch for review, feedback welcome.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=subru",
+          "name": "subru",
+          "key": "subru",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=subru&avatarId=21709",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=subru&avatarId=21709",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=subru&avatarId=21709",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=subru&avatarId=21709"
+          },
+          "displayName": "Subramaniam Krishnan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-06-26T04:46:03.955+0000",
+        "updated": "2014-06-26T04:46:03.955+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14044353",
+        "id": "14044353",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12652531/YARN-1710.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 1 new or modified test files.\n\n    {color:red}-1 javac{color:red}.  The patch appears to cause the build to fail.\n\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/4084//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-06-26T05:05:13.309+0000",
+        "updated": "2014-06-26T05:05:13.309+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14044414",
+        "id": "14044414",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "As discussed before the patches are not meant to be applicable independently. We are working on YARN-1051 dev branch for that.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-06-26T07:20:35.565+0000",
+        "updated": "2014-06-26T07:20:35.565+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14116069",
+        "id": "14116069",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12665487/YARN-1712.1.patch\n  against trunk revision 9ad413b.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 1 new or modified test files.\n\n    {color:red}-1 javac{color:red}.  The patch appears to cause the build to fail.\n\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/4781//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-08-29T23:56:19.180+0000",
+        "updated": "2014-08-29T23:56:19.180+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14129038",
+        "id": "14129038",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cdouglas",
+          "name": "cdouglas",
+          "key": "chris.douglas",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Christopher Douglas",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "{{GreedyReservationAgent}}\n* Consider {{@link}} for {{ReservationRequest}} in class javadoc\n* An inline comment could replace the {{adjustContract()}} method\n* Most of the javadoc on private methods can be cut\n* {{currentReservationStage}} does not need to be declared outside the loop\n* {{allocations}} cannot be null\n* An internal {{Resource(0, 0)}} could be reused\n* {{li}} should be part of the loop ({{for}} not {{while}}). Its initialization is unreadable; please use temp vars.\n* Generally, embedded calls are difficult to read:\n{code}\nif (findEarliestTime(allocations.keySet()) > earliestStart) {\n  allocations.put(new ReservationInterval(earliestStart,\n      findEarliestTime(allocations.keySet())), ReservationRequest\n      .newInstance(Resource.newInstance(0, 0), 0));\n  // consider to add trailing zeros at the end for simmetry\n}\n{code}\nAssuming the {{ReservationRequest}} is never modified by the plan:\n{code}\nprivate final ZERO_RSRC =\n    ReservationRequest.newInstance(Resource.newInstance(0, 0), 0);\n// ...\nlong allocStart = findEarliestTime(allocations.keySet());\nif (allocStart > earliestStart) {\n  ReservationInterval preAlloc =\n    new ReservationInterval(earliestStart, allocStart);\n  allocations.put(preAlloc, ZERO_RSRC);\n}\n{code}\n* {{findEarliestTime(allocations.keySet())}} is called several times and should be memoized\n** Would a {{TreeSet}} be more appropriate, given this access pattern?\n* Instead of:\n{code}\nboolean result = false;\nif (oldReservation != null) {\n  result = plan.updateReservation(capReservation);\n} else {\n  result = plan.addReservation(capReservation);\n}\nreturn result;\n{code}\nConsider:\n{code}\nif (oldReservation != null) {\n  return plan.updateReservation(capReservation);\n}\nreturn plan.addReservation(capReservation);\n{code}\n* A comment unpacking the arithmetic for calculating {{curMaxGang}} would help readability\n\n{{TestGreedyReservationAgent}}\n* Instead of fixing the seed, consider setting and logging it for each run.\n* {{testStress}} is brittle, as it verifies only the timeout; {{testBig}} and {{testSmall}} don't verify anything. Both tests are useful, but probably not as part of the build. Dropping the annotation and adding a {{main()}} that calls each fo them would be one alternative.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cdouglas",
+          "name": "cdouglas",
+          "key": "chris.douglas",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Christopher Douglas",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-09-10T20:28:13.559+0000",
+        "updated": "2014-09-10T20:28:13.559+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14131026",
+        "id": "14131026",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "[~chris.douglas], thanks for the always insightful feedback. \n\nI attach a patch addressing all your comments with two minor exceptions:\n * I am not memoizing findEarliestTime, as it would only save one invocation (the others are on diff sets, or updated version of the same set). Similarly TreeSet would only help partially, as we need to search for both \nmin(startTime) and max(endTime), hence no single ordering can help both.\n * for the iterator on stages, I find the for loop less readable than a while (as the initialization and increment will be large/not very readable) \n\nThe rest is done as you suggest. Let me know if it looks good or if there is anything else to be addressed.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-09-12T02:19:36.313+0000",
+        "updated": "2014-09-12T02:19:36.313+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14131035",
+        "id": "14131035",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12668243/YARN-1710.2.patch\n  against trunk revision 6b8b160.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 1 new or modified test files.\n\n    {color:red}-1 javac{color:red}.  The patch appears to cause the build to fail.\n\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/4909//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-09-12T02:35:56.289+0000",
+        "updated": "2014-09-12T02:35:56.289+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14131700",
+        "id": "14131700",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cdouglas",
+          "name": "cdouglas",
+          "key": "chris.douglas",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Christopher Douglas",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "bq. I am not memoizing findEarliestTime, as it would only save one invocation (the others are on diff sets, or updated version of the same set)\n\nI'm confused. There are three invocations:\n{code}\n    if (findEarliestTime(allocations.keySet()) > earliestStart) {\n      allocations.put(new ReservationInterval(earliestStart,\n          findEarliestTime(allocations.keySet())), ZERO_RES);\n    }\n    ReservationAllocation capReservation =\n        new InMemoryReservationAllocation(reservationId, contract, user,\n            plan.getQueueName(), findEarliestTime(allocations.keySet()),\n            findLatestTime(allocations.keySet()), allocations,\n            plan.getResourceCalculator(), plan.getMinimumAllocation());\n{code}\nIsn't earliest time is either the earliest in the set, or the interval this just added?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cdouglas",
+          "name": "cdouglas",
+          "key": "chris.douglas",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Christopher Douglas",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-09-12T16:10:38.576+0000",
+        "updated": "2014-09-12T16:10:38.576+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14131772",
+        "id": "14131772",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "I understand what you meant (after our brief chat). I addressed it in the version I just uploaded (v3).",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-09-12T17:23:00.427+0000",
+        "updated": "2014-09-12T17:23:00.427+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14131797",
+        "id": "14131797",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12668391/YARN-1710.3.patch\n  against trunk revision 78b0483.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 1 new or modified test files.\n\n    {color:red}-1 javac{color:red}.  The patch appears to cause the build to fail.\n\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/4926//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-09-12T17:36:00.681+0000",
+        "updated": "2014-09-12T17:36:00.681+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14132356",
+        "id": "14132356",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Minor fix addressing [~chris.douglas] comments further.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-09-13T00:20:25.776+0000",
+        "updated": "2014-09-13T00:20:25.776+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14132383",
+        "id": "14132383",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12668512/YARN-1710.4.patch\n  against trunk revision a0ad975.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 1 new or modified test files.\n\n    {color:red}-1 javac{color:red}.  The patch appears to cause the build to fail.\n\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/4949//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-09-13T00:35:56.959+0000",
+        "updated": "2014-09-13T00:35:56.959+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14132466",
+        "id": "14132466",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cdouglas",
+          "name": "cdouglas",
+          "key": "chris.douglas",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Christopher Douglas",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "+1 lgtm. Thanks [~curino] for all the iterations on this",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cdouglas",
+          "name": "cdouglas",
+          "key": "chris.douglas",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Christopher Douglas",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-09-13T02:04:17.304+0000",
+        "updated": "2014-09-13T02:04:17.304+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14134721",
+        "id": "14134721",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "I committed this to the YARN-1051 branch. Thaks to [~chris.douglas] for the helpful review.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=curino",
+          "name": "curino",
+          "key": "curino",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=curino&avatarId=21704",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=curino&avatarId=21704",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=curino&avatarId=21704",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=curino&avatarId=21704"
+          },
+          "displayName": "Carlo Curino",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-09-16T00:02:24.550+0000",
+        "updated": "2014-09-16T00:02:24.550+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14158765",
+        "id": "14158765",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "FAILURE: Integrated in Hadoop-trunk-Commit #6189 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/6189/])\nYARN-1710. Logic to find allocations within a Plan that satisfy user ReservationRequest(s). Contributed by Carlo Curino and Subru Krishnan. (cdouglas: rev f66ffcf832235e0da0bb050fff08e248b547c360)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/GreedyReservationAgent.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/ReservationAgent.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/TestGreedyReservationAgent.java\n* YARN-1051-CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/exceptions/ContractValidationException.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-10-04T00:13:25.267+0000",
+        "updated": "2014-10-04T00:13:25.267+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14159036",
+        "id": "14159036",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "SUCCESS: Integrated in Hadoop-Yarn-trunk #700 (See [https://builds.apache.org/job/Hadoop-Yarn-trunk/700/])\nYARN-1710. Logic to find allocations within a Plan that satisfy user ReservationRequest(s). Contributed by Carlo Curino and Subru Krishnan. (cdouglas: rev f66ffcf832235e0da0bb050fff08e248b547c360)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/GreedyReservationAgent.java\n* YARN-1051-CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/exceptions/ContractValidationException.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/TestGreedyReservationAgent.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/ReservationAgent.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-10-04T07:46:04.657+0000",
+        "updated": "2014-10-04T07:46:04.657+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14159143",
+        "id": "14159143",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "SUCCESS: Integrated in Hadoop-Hdfs-trunk #1891 (See [https://builds.apache.org/job/Hadoop-Hdfs-trunk/1891/])\nYARN-1710. Logic to find allocations within a Plan that satisfy user ReservationRequest(s). Contributed by Carlo Curino and Subru Krishnan. (cdouglas: rev f66ffcf832235e0da0bb050fff08e248b547c360)\n* YARN-1051-CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/TestGreedyReservationAgent.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/GreedyReservationAgent.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/exceptions/ContractValidationException.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/ReservationAgent.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-10-04T14:14:08.141+0000",
+        "updated": "2014-10-04T14:14:08.141+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12694396/comment/14159167",
+        "id": "14159167",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "FAILURE: Integrated in Hadoop-Mapreduce-trunk #1916 (See [https://builds.apache.org/job/Hadoop-Mapreduce-trunk/1916/])\nYARN-1710. Logic to find allocations within a Plan that satisfy user ReservationRequest(s). Contributed by Carlo Curino and Subru Krishnan. (cdouglas: rev f66ffcf832235e0da0bb050fff08e248b547c360)\n* YARN-1051-CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/ReservationAgent.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/exceptions/ContractValidationException.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/GreedyReservationAgent.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/reservation/TestGreedyReservationAgent.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-10-04T15:11:35.236+0000",
+        "updated": "2014-10-04T15:11:35.236+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-1710/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 19,
+        "returned": 19
+      }
+    ]
+  }
+}

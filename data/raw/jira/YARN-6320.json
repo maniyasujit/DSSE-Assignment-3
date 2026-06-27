@@ -1,0 +1,379 @@
+{
+  "downloaded_at": "2026-06-25T10:20:21.344448+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-6320",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-6320?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13049967",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13049967",
+    "key": "YARN-6320",
+    "fields": {
+      "summary": "FairScheduler:Identifying apps to assign in updateThread",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+        "id": "1",
+        "description": "A problem which impairs or prevents the functions of the product.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+        "name": "Bug",
+        "subtask": false,
+        "avatarId": 21133
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2017-03-10T08:34:21.024+0000",
+      "description": "In FairScheduler today, we have 1)UpdateThread that update queue/app status, fairshare, starvation info, 2)nodeUpdate triggered by NM heartbeat that do the scheduling. When we handle one nodeUpdate, we will top-down from the root queue to the leafqueues and find the most needy application to allocate container according to queue's fairshare. Also we should sort children at each hierarchy level.\nMy thought is that we have a global sorted {{candidateAppList}} which keeps apps need to assign, and move the logic that \"find app that should allocate resource to\" from nodeUpdate to UpdateThread. In UpdateThread, we find candidate apps to assign and put them into {{candidateAppList}}. In nodeUpdate, we consume the list and allocate containers to apps. \nAs far as I see, we can have 3 benifits:\n1, nodeUpdate() is invoked much more frequently than update() in UpdateThread, especially in a large cluster. As a result we can reduce much unnecessary sorting.\n2, It will have better coordination with YARN-5829, we can indicate apps to assign more directly rather than let nodes find the best apps to assign.\n3, It seems to be easier to introduce scheduling restricts such as nodelabel, affinity/anti-affinity into FS, since we can pre-allocate containers asynchronously.\n[~kasha], [~templedf], [~yufeigu] like to hear your thoughts.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13049967/comment/15905903",
+            "id": "15905903",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+              "name": "templedf",
+              "key": "templedf",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+              },
+              "displayName": "Daniel Templeton",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Excellent idea. That's something we've been kicking around for a while.  YARN-5139 proposes that model for the capacity scheduler.  Have a look at the specs there for a sense of scope.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+              "name": "templedf",
+              "key": "templedf",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+              },
+              "displayName": "Daniel Templeton",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-03-11T00:03:23.709+0000",
+            "updated": "2017-03-11T00:03:23.709+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13049967/comment/15923043",
+            "id": "15923043",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "As Daniel mentioned, we have been thinking about something like this for a while now.\n\nOne thing to watch out for is the list of apps maintained needs to be sorted appropriately. If this list is not sorted, we might end up giving the same app multiple containers probably ignoring a more deserving app. In a queue hierarchy with FAIR, DRF and FIFO policies, this global sorting of apps is hard. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-03-13T21:59:14.948+0000",
+            "updated": "2017-03-13T21:59:14.948+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13049967/comment/15923469",
+            "id": "15923469",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tao+Jie",
+              "name": "Tao Jie",
+              "key": "tao jie",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Tao Jie",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "[~kasha] thank you for sharing your comment.\nI try to do like that, we compute resource deficit for every app considering policies in updateThread. In the list of apps maintained, we sort apps by the amount of resource deficit.  And generally we try to assign container to apps with the most resource deficit in each nodeUpdate.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tao+Jie",
+              "name": "Tao Jie",
+              "key": "tao jie",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Tao Jie",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-03-14T03:00:39.932+0000",
+            "updated": "2017-03-14T03:00:39.932+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13049967/comment/16032452",
+            "id": "16032452",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+              "name": "daemon",
+              "key": "daemon",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "YunFan Zhou",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "I think I have solved the problem and in my test environment the scheduler can assign over 5000 containers per second.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+              "name": "daemon",
+              "key": "daemon",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "YunFan Zhou",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-06-01T05:09:54.522+0000",
+            "updated": "2017-06-01T05:09:54.522+0000"
+          }
+        ],
+        "maxResults": 4,
+        "total": 4,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-6320/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2017-06-01T05:09:54.522+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 4,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13049967/comment/15905903",
+        "id": "15905903",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+          "name": "templedf",
+          "key": "templedf",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+          },
+          "displayName": "Daniel Templeton",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Excellent idea. That's something we've been kicking around for a while.  YARN-5139 proposes that model for the capacity scheduler.  Have a look at the specs there for a sense of scope.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=templedf",
+          "name": "templedf",
+          "key": "templedf",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=templedf&avatarId=24879",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=templedf&avatarId=24879",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=templedf&avatarId=24879",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=templedf&avatarId=24879"
+          },
+          "displayName": "Daniel Templeton",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-03-11T00:03:23.709+0000",
+        "updated": "2017-03-11T00:03:23.709+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13049967/comment/15923043",
+        "id": "15923043",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "As Daniel mentioned, we have been thinking about something like this for a while now.\n\nOne thing to watch out for is the list of apps maintained needs to be sorted appropriately. If this list is not sorted, we might end up giving the same app multiple containers probably ignoring a more deserving app. In a queue hierarchy with FAIR, DRF and FIFO policies, this global sorting of apps is hard. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-03-13T21:59:14.948+0000",
+        "updated": "2017-03-13T21:59:14.948+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13049967/comment/15923469",
+        "id": "15923469",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tao+Jie",
+          "name": "Tao Jie",
+          "key": "tao jie",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Tao Jie",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "[~kasha] thank you for sharing your comment.\nI try to do like that, we compute resource deficit for every app considering policies in updateThread. In the list of apps maintained, we sort apps by the amount of resource deficit.  And generally we try to assign container to apps with the most resource deficit in each nodeUpdate.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tao+Jie",
+          "name": "Tao Jie",
+          "key": "tao jie",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Tao Jie",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-03-14T03:00:39.932+0000",
+        "updated": "2017-03-14T03:00:39.932+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13049967/comment/16032452",
+        "id": "16032452",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+          "name": "daemon",
+          "key": "daemon",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "YunFan Zhou",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "I think I have solved the problem and in my test environment the scheduler can assign over 5000 containers per second.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=daemon",
+          "name": "daemon",
+          "key": "daemon",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "YunFan Zhou",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-06-01T05:09:54.522+0000",
+        "updated": "2017-06-01T05:09:54.522+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-6320/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 4,
+        "returned": 4
+      }
+    ]
+  }
+}

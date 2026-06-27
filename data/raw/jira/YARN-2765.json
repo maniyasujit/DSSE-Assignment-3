@@ -1,0 +1,1827 @@
+{
+  "downloaded_at": "2026-06-25T10:22:45.948141+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-2765",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2765?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12751284",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284",
+    "key": "YARN-2765",
+    "fields": {
+      "summary": "Add leveldb-based implementation for RMStateStore",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12559788",
+        "key": "YARN-128",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12559788",
+        "fields": {
+          "summary": "[Umbrella] RM Restart Phase 1: State storage and non-work-preserving recovery",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+            "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+            "name": "Resolved",
+            "id": "5",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+            "id": "2",
+            "description": "A new feature of the product, which has yet to be developed.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+            "name": "New Feature",
+            "subtask": false,
+            "avatarId": 21141
+          }
+        }
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319322",
+          "id": "12319322",
+          "name": "resourcemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2014-10-29T01:42:06.662+0000",
+      "description": "It would be nice to have a leveldb option to the resourcemanager recovery store. Leveldb would provide some benefits over the existing filesystem store such as better support for atomic operations, fewer I/O ops per state update, and far fewer total files on the filesystem.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/1",
+        "id": "1",
+        "description": "A fix for this issue is checked into the tree and tested.",
+        "name": "Fixed"
+      },
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12677800",
+          "id": "12677800",
+          "filename": "YARN-2765.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+            "name": "jlowe",
+            "key": "jlowe",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Jason Darrell Lowe",
+            "active": true,
+            "timeZone": "America/Chicago"
+          },
+          "created": "2014-10-29T01:43:42.038+0000",
+          "size": 34506,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12677800/YARN-2765.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12677911",
+          "id": "12677911",
+          "filename": "YARN-2765v2.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+            "name": "jlowe",
+            "key": "jlowe",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Jason Darrell Lowe",
+            "active": true,
+            "timeZone": "America/Chicago"
+          },
+          "created": "2014-10-29T15:50:25.125+0000",
+          "size": 35276,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12677911/YARN-2765v2.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12684476",
+          "id": "12684476",
+          "filename": "YARN-2765v3.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+            "name": "jlowe",
+            "key": "jlowe",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Jason Darrell Lowe",
+            "active": true,
+            "timeZone": "America/Chicago"
+          },
+          "created": "2014-12-01T21:15:25.360+0000",
+          "size": 34038,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12684476/YARN-2765v3.patch"
+        }
+      ],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14187931",
+            "id": "14187931",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12677800/YARN-2765.patch\n  against trunk revision 3c5f5af.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 2 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:red}-1 core tests{color}.  The patch failed these unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager:\n\n                  org.apache.hadoop.yarn.server.resourcemanager.TestRMRestart\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/5618//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/5618//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-10-29T03:01:23.801+0000",
+            "updated": "2014-10-29T03:01:23.801+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14187955",
+            "id": "14187955",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+              "name": "ozawa",
+              "key": "ozawa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+              },
+              "displayName": "Tsuyoshi Ozawa",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~jlowe], great work! It looks good to me overall including error handling and resource management.\n\nMinor nits:\n\nHow about adding helper methods like getKeyPrefix/getNodePath for getting key prefix and node path? ZKRMStateStore also does so.\n{code}\n    String keyPrefix = RM_APP_ROOT + \"/\" + appId + \"/\";\n    ...\n    String appKey = RM_APP_ROOT + \"/\" + appId\n{code}\n\nI found that the patch includes lots hard-coded \"/\".  I think it's better to have private field SEPARATOR = \"/\". ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+              "name": "ozawa",
+              "key": "ozawa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+              },
+              "displayName": "Tsuyoshi Ozawa",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-10-29T03:48:45.017+0000",
+            "updated": "2014-10-29T03:48:45.017+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14187987",
+            "id": "14187987",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~jlowe], the leveldb should be a good choice over local file system in terms of the merits mentioned in the description. One drawback I can think of is that while LeveldbRMStateStore is lightweight for single RM restarting, multiple RMs of HA are not able to share this single-host database. Correct me if I'm wrong.\n\nBTW, I saw you also have other Jira for JHS using leveldb. Did you have a chance to think of an enhanced k/v db: rocksdb? I guess it will benefit the RM case as well as the timeline case.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-10-29T04:34:08.685+0000",
+            "updated": "2014-10-29T04:34:08.685+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14188480",
+            "id": "14188480",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "Thanks for the review, Tsuyoshi!\n\nbq. How about adding helper methods like getKeyPrefix/getNodePath for getting key prefix and node path?\n\nSure, added some helper methods to compute leveldb keys for various things.\n\nbq. I found that the patch includes lots hard-coded \"/\". I think it's better to have private field SEPARATOR = \"/\". \n\nIMHO this makes the code less readable, similar to a code style like {{final int ONE = 1}}.  But I don't care too strongly about it and changed all occurrences to SEPARATOR.\n\nFor Zhijie's comments:\n\nbq. One drawback I can think of is that while LeveldbRMStateStore is lightweight for single RM restarting, multiple RMs of HA are not able to share this single-host database.\n\nThis should work if the leveldb database is on a network store like a filer.  Leveldb uses locks to prevent multiple processes from trying to access the database simultaneously, so there's a little bit of help for the fencing scenarios.  However the fencing script actions would have to do some extra work to force a poorly-behaving resourcemanager to let go of the locks so a standby RM can open the store and become active.\n\nbq. Did you have a chance to think of an enhanced k/v db: rocksdb?\n\nI briefly considered using rocksdb for this but decided against it for a couple of reasons:\n\n* leveldb is already used by the timeline server and nodemanager, and I would rather avoid adding yet another new dependency for this\n* leveldb supports win32/win64, but it doesn't appear that the standard rocksdbjni distribution has support for Windows.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2014-10-29T15:50:25.141+0000",
+            "updated": "2014-10-29T15:50:25.141+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14188589",
+            "id": "14188589",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12677911/YARN-2765v2.patch\n  against trunk revision ec63a3f.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 2 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/5626//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/5626//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-10-29T17:10:41.841+0000",
+            "updated": "2014-10-29T17:10:41.841+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14188595",
+            "id": "14188595",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "bq. This should work if the leveldb database is on a network store like a filer.\n\nThanks for sharing. This is an interesting use case that I'm not aware of before.\n\nbq. I briefly considered using rocksdb for this but decided against it for a couple of reasons:\n\nIt's not particularly related to this Jira, but I just want to think it out loudly. It seems that rocksdb claims to have better performance in terms of I/O than leveldb, while their APIs are very similar to each other. After we have the leveldb impl, it shouldn't be that difficult to make a rocksdb impl. Probably leveldb is enough to serve as the state store for RM/NM/JHS, but the timeline server may want a stronger one. Rocksdb may be a compromise before migrating to fully distributed storage solution based on HBase. And one other merit I've heard about rocksdb is that it can ride on HDFS. Correct me if I'm wrong, but it seems that rocksdb can also help to scale out the storage problem as well as support RM HA deployment in a shared nothing environment (e.g. without a network storage).\n\nI'm not saying we should go with rocksdb now instead of leveldb, as we know it has been used for other components already. I'm trying to propose if we can think of rocksdb, which looks stronger but still reasonably simple alternate.\n\nThere's a rocksdb jni which seems to have windows support: https://github.com/fusesource/rocksdbjni\n\nIt should be the same org whose leveldbjni is currently used by us.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-10-29T17:12:43.460+0000",
+            "updated": "2014-10-29T17:22:37.790+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14188755",
+            "id": "14188755",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "I agree that the timeline server seems like a worthy candidate for rocksdb.  IIUC rocksdb's main use-case over leveldb is better performance when the database is larger than the node's RAM, which is likely in the case of the timeline server.\n\nbq. And one other merit I've heard about rocksdb is that it can ride on HDFS.\n\nThis is news to me.  I knew rocksdb could be used as a cache of data that came from HDFS or could be backed-up to HDFS, but I didn't think it could read/write directly to it as part of normal operations.\n\nbq. There's a rocksdb jni which seems to have windows support: https://github.com/fusesource/rocksdbjni\n\nAwesome, thanks for finding that.  I was looking at the standard org.rocksdb package.  Only concern with the fusesource option would be if it starts to diverge significantly from the standard one.  The API is already slightly different between the two, and the fusesource one hasn't been touched in a year while the org.rocksdb package was updated just last week.\n\nProbably best to continue this conversation in a separate JIRA proposing we consider rocksdb for the timeline server.  If it works well there it should be very straightforward to provide store backends for the RM, NM, and JHS if it makes sense for them as well.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2014-10-29T18:32:25.518+0000",
+            "updated": "2014-10-29T18:32:25.518+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14189934",
+            "id": "14189934",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+              "name": "ozawa",
+              "key": "ozawa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+              },
+              "displayName": "Tsuyoshi Ozawa",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Currently we can assume that LeveldbRMStateStore is access from single process, thus failure detection itself is done by EmbeddedElector which depends on ZooKeeper in addition to no support of fencing on LevelDBRMStateStore. It means we need to launch ZooKeeper and it's normal decision to use ZKRMStateStore in this case. Please correct me if I'm wrong.\n\nOn another front, if we use RockDB as a backend db of timeline server, we don't need to use leveldb and it's good decision to switch the dependency.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+              "name": "ozawa",
+              "key": "ozawa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+              },
+              "displayName": "Tsuyoshi Ozawa",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-10-30T10:58:02.074+0000",
+            "updated": "2014-10-30T10:58:02.074+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14218766",
+            "id": "14218766",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+              "name": "jianhe",
+              "key": "jianhe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jian He",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "thanks Jason for working on this.  \nIt's useful to have leveldb as an option for RMStateStore, as its more lightweight compared to others. reviewing the patch ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+              "name": "jianhe",
+              "key": "jianhe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jian He",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-11-20T00:17:18.888+0000",
+            "updated": "2014-11-20T00:17:18.888+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14221326",
+            "id": "14221326",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "bq. I knew rocksdb could be used as a cache of data that came from HDFS or could be backed-up to HDFS, but I didn't think it could read/write directly to it as part of normal operations.\n\nHm... I should have wrongly understand the feature. Thanks for correction.\n\nOne question about the patch: Why is it necessary to try create the DB with {{options.createIfMissing(false);}} and then {{options.createIfMissing(true);}} if it fails at first attempt? Can't we do one \"create if missing\"?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-11-21T19:41:05.705+0000",
+            "updated": "2014-11-21T19:41:05.705+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14221448",
+            "id": "14221448",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "bq. Can't we do one \"create if missing\"?\n\nThis is to distinguish between a state store that wasn't there (and thus needs to be created) vs. opening an empty, existing state store.  We log different messages during startup so it's easy to distinguish between these cases.  IMHO it's important to know when the state store wasn't there on startup and needed to be created.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2014-11-21T21:19:11.509+0000",
+            "updated": "2014-11-21T21:19:11.509+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14225262",
+            "id": "14225262",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+              "name": "jianhe",
+              "key": "jianhe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jian He",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "\nThanks, Jason!  Patch looks good. just a few minor comments.\n- Patch needs updated on top of YARN-2404.\n- we may use the following constants from the RMStateStore base class\n\u2014 DB_SCHEMA_VERSION_KEY -> VERSION_NODE\n\u2014 EPOCH_KEY -> EPOCH_NODE\n\u2014 RM_DT_SEQUENCE_NUMBER_KEY: use DELEGATION_TOKEN_SEQUENCE_NUMBER_PREFIX for \u201cRMDTSequentialNumber\u201d\n\n-  this check is always true and so unnecessary, as attemptState is earlier initialized with attemptId\n{code}\n    if (!attemptId.equals(attemptState.getAttemptId())) {\n      throw new YarnRuntimeException(\"The database entry for \" + attemptId\n          + \" contains data for \" + attemptState.getAttemptId());\n    }\n{code}\nSome naming suggestions:\n- loadRMAppAttemptState-> createAttemptState\n- loadRMAppState(String appIdStr, byte[] data) -> createApplicationState\n- {{String itemName = key.substring(keyPrefix.length());}} rename itemName to attemptId, and keyPrefix to attemptNodePrefix\n- Question: does the levelDB client API handle retry ? \n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+              "name": "jianhe",
+              "key": "jianhe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jian He",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-11-25T21:48:05.263+0000",
+            "updated": "2014-11-25T21:48:05.263+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14230471",
+            "id": "14230471",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "Thanks for the review, Jian!\n\nbq. Patch needs updated on top of YARN-2404.\nDone.\n\n{quote}\nDB_SCHEMA_VERSION_KEY -> VERSION_NODE\nEPOCH_KEY -> EPOCH_NODE\n{quote}\nDone.\n\nbq. RM_DT_SEQUENCE_NUMBER_KEY: use DELEGATION_TOKEN_SEQUENCE_NUMBER_PREFIX for \u201cRMDTSequentialNumber\u201d\n\nI did not make this change.  Unlike the filesystem state store we are not using the key to encode the data but rather just as a static key that is atomically updated with new values.  Therefore it's not appropriate to use a key that ends in a prefix, IMHO.  This store is closer to what the ZK store is doing which also uses a separate key string for the sequence number.\n\nbq. this check is always true and so unnecessary, as attemptState is earlier initialized with attemptId\n\nLeft this check since after the refactoring for YARN-2404 the check will verify the attempt ID parsed from the key matches the attempt ID parsed from the value.\n\n{quote}\n    Some naming suggestions:\n    loadRMAppAttemptState-> createAttemptState\n    loadRMAppState(String appIdStr, byte[] data) -> createApplicationState\n    String itemName = key.substring(keyPrefix.length()); rename itemName to attemptId, and keyPrefix to attemptNodePrefix\n{quote}\nDone.\n\nbq. Question: does the levelDB client API handle retry ?\nNo, there are no retries in leveldb itself AFAIK.  The retries are handled by the OS/driver/device layers, as we are hitting the OS filesystem rather than some network layer like HDFS or ZK does.  Retries would be highly unlikely to be successful at the leveldb or app level.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2014-12-01T21:15:25.377+0000",
+            "updated": "2014-12-01T21:15:25.377+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14230598",
+            "id": "14230598",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12684476/YARN-2765v3.patch\n  against trunk revision 86e3993.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 2 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/5963//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/5963//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-12-01T22:42:26.420+0000",
+            "updated": "2014-12-01T22:42:26.420+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14230754",
+            "id": "14230754",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+              "name": "jianhe",
+              "key": "jianhe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jian He",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "looks good, +1",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+              "name": "jianhe",
+              "key": "jianhe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jian He",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-12-02T00:31:47.599+0000",
+            "updated": "2014-12-02T00:31:47.599+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14230775",
+            "id": "14230775",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+              "name": "jianhe",
+              "key": "jianhe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jian He",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Committed to trunk and branch-2.  thanks Jason !\nthanks Tsuyoshi and Zhijie for reviewing  the patch !",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+              "name": "jianhe",
+              "key": "jianhe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jian He",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-12-02T00:46:52.437+0000",
+            "updated": "2014-12-02T00:46:52.437+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14230782",
+            "id": "14230782",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "FAILURE: Integrated in Hadoop-trunk-Commit #6622 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/6622/])\nYARN-2765. Added leveldb-based implementation for RMStateStore. Contributed by Jason Lowe (jianhe: rev a7fba0bc28764e0fb36c335ea60cc58079fe007f)\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/LeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/RMStateStoreTestBase.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/TestLeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/pom.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-12-02T00:53:03.251+0000",
+            "updated": "2014-12-02T00:53:03.251+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14231349",
+            "id": "14231349",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "FAILURE: Integrated in Hadoop-Yarn-trunk-Java8 #23 (See [https://builds.apache.org/job/Hadoop-Yarn-trunk-Java8/23/])\nYARN-2765. Added leveldb-based implementation for RMStateStore. Contributed by Jason Lowe (jianhe: rev a7fba0bc28764e0fb36c335ea60cc58079fe007f)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/LeveldbRMStateStore.java\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/RMStateStoreTestBase.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/TestLeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/pom.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-12-02T11:33:34.418+0000",
+            "updated": "2014-12-02T11:33:34.418+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14231372",
+            "id": "14231372",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "ABORTED: Integrated in Hadoop-Hdfs-trunk #1951 (See [https://builds.apache.org/job/Hadoop-Hdfs-trunk/1951/])\nYARN-2765. Added leveldb-based implementation for RMStateStore. Contributed by Jason Lowe (jianhe: rev a7fba0bc28764e0fb36c335ea60cc58079fe007f)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/LeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/TestLeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/RMStateStoreTestBase.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/pom.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-12-02T11:42:25.738+0000",
+            "updated": "2014-12-02T11:42:25.738+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14231389",
+            "id": "14231389",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "SUCCESS: Integrated in Hadoop-Yarn-trunk #761 (See [https://builds.apache.org/job/Hadoop-Yarn-trunk/761/])\nYARN-2765. Added leveldb-based implementation for RMStateStore. Contributed by Jason Lowe (jianhe: rev a7fba0bc28764e0fb36c335ea60cc58079fe007f)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/RMStateStoreTestBase.java\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/LeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/pom.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/TestLeveldbRMStateStore.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-12-02T11:52:43.857+0000",
+            "updated": "2014-12-02T11:52:43.857+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14231518",
+            "id": "14231518",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "FAILURE: Integrated in Hadoop-Hdfs-trunk-Java8 #23 (See [https://builds.apache.org/job/Hadoop-Hdfs-trunk-Java8/23/])\nYARN-2765. Added leveldb-based implementation for RMStateStore. Contributed by Jason Lowe (jianhe: rev a7fba0bc28764e0fb36c335ea60cc58079fe007f)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/LeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/RMStateStoreTestBase.java\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/TestLeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/pom.xml\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-12-02T14:06:54.928+0000",
+            "updated": "2014-12-02T14:06:54.928+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14231613",
+            "id": "14231613",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "FAILURE: Integrated in Hadoop-Mapreduce-trunk #1975 (See [https://builds.apache.org/job/Hadoop-Mapreduce-trunk/1975/])\nYARN-2765. Added leveldb-based implementation for RMStateStore. Contributed by Jason Lowe (jianhe: rev a7fba0bc28764e0fb36c335ea60cc58079fe007f)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/TestLeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/RMStateStoreTestBase.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/LeveldbRMStateStore.java\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/pom.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-12-02T15:20:09.857+0000",
+            "updated": "2014-12-02T15:20:09.857+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14231632",
+            "id": "14231632",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "SUCCESS: Integrated in Hadoop-Mapreduce-trunk-Java8 #23 (See [https://builds.apache.org/job/Hadoop-Mapreduce-trunk-Java8/23/])\nYARN-2765. Added leveldb-based implementation for RMStateStore. Contributed by Jason Lowe (jianhe: rev a7fba0bc28764e0fb36c335ea60cc58079fe007f)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/TestLeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/LeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/RMStateStoreTestBase.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/pom.xml\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2014-12-02T15:27:31.682+0000",
+            "updated": "2014-12-02T15:27:31.682+0000"
+          }
+        ],
+        "maxResults": 23,
+        "total": 23,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2765/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2015-04-10T20:09:57.000+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+        "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+        "name": "Closed",
+        "id": "6",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 23,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14187931",
+        "id": "14187931",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12677800/YARN-2765.patch\n  against trunk revision 3c5f5af.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 2 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:red}-1 core tests{color}.  The patch failed these unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager:\n\n                  org.apache.hadoop.yarn.server.resourcemanager.TestRMRestart\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/5618//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/5618//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-10-29T03:01:23.801+0000",
+        "updated": "2014-10-29T03:01:23.801+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14187955",
+        "id": "14187955",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+          "name": "ozawa",
+          "key": "ozawa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+          },
+          "displayName": "Tsuyoshi Ozawa",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~jlowe], great work! It looks good to me overall including error handling and resource management.\n\nMinor nits:\n\nHow about adding helper methods like getKeyPrefix/getNodePath for getting key prefix and node path? ZKRMStateStore also does so.\n{code}\n    String keyPrefix = RM_APP_ROOT + \"/\" + appId + \"/\";\n    ...\n    String appKey = RM_APP_ROOT + \"/\" + appId\n{code}\n\nI found that the patch includes lots hard-coded \"/\".  I think it's better to have private field SEPARATOR = \"/\". ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+          "name": "ozawa",
+          "key": "ozawa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+          },
+          "displayName": "Tsuyoshi Ozawa",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-10-29T03:48:45.017+0000",
+        "updated": "2014-10-29T03:48:45.017+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14187987",
+        "id": "14187987",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~jlowe], the leveldb should be a good choice over local file system in terms of the merits mentioned in the description. One drawback I can think of is that while LeveldbRMStateStore is lightweight for single RM restarting, multiple RMs of HA are not able to share this single-host database. Correct me if I'm wrong.\n\nBTW, I saw you also have other Jira for JHS using leveldb. Did you have a chance to think of an enhanced k/v db: rocksdb? I guess it will benefit the RM case as well as the timeline case.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-10-29T04:34:08.685+0000",
+        "updated": "2014-10-29T04:34:08.685+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14188480",
+        "id": "14188480",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "Thanks for the review, Tsuyoshi!\n\nbq. How about adding helper methods like getKeyPrefix/getNodePath for getting key prefix and node path?\n\nSure, added some helper methods to compute leveldb keys for various things.\n\nbq. I found that the patch includes lots hard-coded \"/\". I think it's better to have private field SEPARATOR = \"/\". \n\nIMHO this makes the code less readable, similar to a code style like {{final int ONE = 1}}.  But I don't care too strongly about it and changed all occurrences to SEPARATOR.\n\nFor Zhijie's comments:\n\nbq. One drawback I can think of is that while LeveldbRMStateStore is lightweight for single RM restarting, multiple RMs of HA are not able to share this single-host database.\n\nThis should work if the leveldb database is on a network store like a filer.  Leveldb uses locks to prevent multiple processes from trying to access the database simultaneously, so there's a little bit of help for the fencing scenarios.  However the fencing script actions would have to do some extra work to force a poorly-behaving resourcemanager to let go of the locks so a standby RM can open the store and become active.\n\nbq. Did you have a chance to think of an enhanced k/v db: rocksdb?\n\nI briefly considered using rocksdb for this but decided against it for a couple of reasons:\n\n* leveldb is already used by the timeline server and nodemanager, and I would rather avoid adding yet another new dependency for this\n* leveldb supports win32/win64, but it doesn't appear that the standard rocksdbjni distribution has support for Windows.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2014-10-29T15:50:25.141+0000",
+        "updated": "2014-10-29T15:50:25.141+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14188589",
+        "id": "14188589",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12677911/YARN-2765v2.patch\n  against trunk revision ec63a3f.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 2 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/5626//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/5626//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-10-29T17:10:41.841+0000",
+        "updated": "2014-10-29T17:10:41.841+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14188595",
+        "id": "14188595",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "bq. This should work if the leveldb database is on a network store like a filer.\n\nThanks for sharing. This is an interesting use case that I'm not aware of before.\n\nbq. I briefly considered using rocksdb for this but decided against it for a couple of reasons:\n\nIt's not particularly related to this Jira, but I just want to think it out loudly. It seems that rocksdb claims to have better performance in terms of I/O than leveldb, while their APIs are very similar to each other. After we have the leveldb impl, it shouldn't be that difficult to make a rocksdb impl. Probably leveldb is enough to serve as the state store for RM/NM/JHS, but the timeline server may want a stronger one. Rocksdb may be a compromise before migrating to fully distributed storage solution based on HBase. And one other merit I've heard about rocksdb is that it can ride on HDFS. Correct me if I'm wrong, but it seems that rocksdb can also help to scale out the storage problem as well as support RM HA deployment in a shared nothing environment (e.g. without a network storage).\n\nI'm not saying we should go with rocksdb now instead of leveldb, as we know it has been used for other components already. I'm trying to propose if we can think of rocksdb, which looks stronger but still reasonably simple alternate.\n\nThere's a rocksdb jni which seems to have windows support: https://github.com/fusesource/rocksdbjni\n\nIt should be the same org whose leveldbjni is currently used by us.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-10-29T17:12:43.460+0000",
+        "updated": "2014-10-29T17:22:37.790+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14188755",
+        "id": "14188755",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "I agree that the timeline server seems like a worthy candidate for rocksdb.  IIUC rocksdb's main use-case over leveldb is better performance when the database is larger than the node's RAM, which is likely in the case of the timeline server.\n\nbq. And one other merit I've heard about rocksdb is that it can ride on HDFS.\n\nThis is news to me.  I knew rocksdb could be used as a cache of data that came from HDFS or could be backed-up to HDFS, but I didn't think it could read/write directly to it as part of normal operations.\n\nbq. There's a rocksdb jni which seems to have windows support: https://github.com/fusesource/rocksdbjni\n\nAwesome, thanks for finding that.  I was looking at the standard org.rocksdb package.  Only concern with the fusesource option would be if it starts to diverge significantly from the standard one.  The API is already slightly different between the two, and the fusesource one hasn't been touched in a year while the org.rocksdb package was updated just last week.\n\nProbably best to continue this conversation in a separate JIRA proposing we consider rocksdb for the timeline server.  If it works well there it should be very straightforward to provide store backends for the RM, NM, and JHS if it makes sense for them as well.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2014-10-29T18:32:25.518+0000",
+        "updated": "2014-10-29T18:32:25.518+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14189934",
+        "id": "14189934",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+          "name": "ozawa",
+          "key": "ozawa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+          },
+          "displayName": "Tsuyoshi Ozawa",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Currently we can assume that LeveldbRMStateStore is access from single process, thus failure detection itself is done by EmbeddedElector which depends on ZooKeeper in addition to no support of fencing on LevelDBRMStateStore. It means we need to launch ZooKeeper and it's normal decision to use ZKRMStateStore in this case. Please correct me if I'm wrong.\n\nOn another front, if we use RockDB as a backend db of timeline server, we don't need to use leveldb and it's good decision to switch the dependency.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ozawa",
+          "name": "ozawa",
+          "key": "ozawa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=ozawa&avatarId=21740",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=ozawa&avatarId=21740",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=ozawa&avatarId=21740",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=ozawa&avatarId=21740"
+          },
+          "displayName": "Tsuyoshi Ozawa",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-10-30T10:58:02.074+0000",
+        "updated": "2014-10-30T10:58:02.074+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14218766",
+        "id": "14218766",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+          "name": "jianhe",
+          "key": "jianhe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jian He",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "thanks Jason for working on this.  \nIt's useful to have leveldb as an option for RMStateStore, as its more lightweight compared to others. reviewing the patch ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+          "name": "jianhe",
+          "key": "jianhe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jian He",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-11-20T00:17:18.888+0000",
+        "updated": "2014-11-20T00:17:18.888+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14221326",
+        "id": "14221326",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "bq. I knew rocksdb could be used as a cache of data that came from HDFS or could be backed-up to HDFS, but I didn't think it could read/write directly to it as part of normal operations.\n\nHm... I should have wrongly understand the feature. Thanks for correction.\n\nOne question about the patch: Why is it necessary to try create the DB with {{options.createIfMissing(false);}} and then {{options.createIfMissing(true);}} if it fails at first attempt? Can't we do one \"create if missing\"?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-11-21T19:41:05.705+0000",
+        "updated": "2014-11-21T19:41:05.705+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14221448",
+        "id": "14221448",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "bq. Can't we do one \"create if missing\"?\n\nThis is to distinguish between a state store that wasn't there (and thus needs to be created) vs. opening an empty, existing state store.  We log different messages during startup so it's easy to distinguish between these cases.  IMHO it's important to know when the state store wasn't there on startup and needed to be created.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2014-11-21T21:19:11.509+0000",
+        "updated": "2014-11-21T21:19:11.509+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14225262",
+        "id": "14225262",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+          "name": "jianhe",
+          "key": "jianhe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jian He",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "\nThanks, Jason!  Patch looks good. just a few minor comments.\n- Patch needs updated on top of YARN-2404.\n- we may use the following constants from the RMStateStore base class\n\u2014 DB_SCHEMA_VERSION_KEY -> VERSION_NODE\n\u2014 EPOCH_KEY -> EPOCH_NODE\n\u2014 RM_DT_SEQUENCE_NUMBER_KEY: use DELEGATION_TOKEN_SEQUENCE_NUMBER_PREFIX for \u201cRMDTSequentialNumber\u201d\n\n-  this check is always true and so unnecessary, as attemptState is earlier initialized with attemptId\n{code}\n    if (!attemptId.equals(attemptState.getAttemptId())) {\n      throw new YarnRuntimeException(\"The database entry for \" + attemptId\n          + \" contains data for \" + attemptState.getAttemptId());\n    }\n{code}\nSome naming suggestions:\n- loadRMAppAttemptState-> createAttemptState\n- loadRMAppState(String appIdStr, byte[] data) -> createApplicationState\n- {{String itemName = key.substring(keyPrefix.length());}} rename itemName to attemptId, and keyPrefix to attemptNodePrefix\n- Question: does the levelDB client API handle retry ? \n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+          "name": "jianhe",
+          "key": "jianhe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jian He",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-11-25T21:48:05.263+0000",
+        "updated": "2014-11-25T21:48:05.263+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14230471",
+        "id": "14230471",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "Thanks for the review, Jian!\n\nbq. Patch needs updated on top of YARN-2404.\nDone.\n\n{quote}\nDB_SCHEMA_VERSION_KEY -> VERSION_NODE\nEPOCH_KEY -> EPOCH_NODE\n{quote}\nDone.\n\nbq. RM_DT_SEQUENCE_NUMBER_KEY: use DELEGATION_TOKEN_SEQUENCE_NUMBER_PREFIX for \u201cRMDTSequentialNumber\u201d\n\nI did not make this change.  Unlike the filesystem state store we are not using the key to encode the data but rather just as a static key that is atomically updated with new values.  Therefore it's not appropriate to use a key that ends in a prefix, IMHO.  This store is closer to what the ZK store is doing which also uses a separate key string for the sequence number.\n\nbq. this check is always true and so unnecessary, as attemptState is earlier initialized with attemptId\n\nLeft this check since after the refactoring for YARN-2404 the check will verify the attempt ID parsed from the key matches the attempt ID parsed from the value.\n\n{quote}\n    Some naming suggestions:\n    loadRMAppAttemptState-> createAttemptState\n    loadRMAppState(String appIdStr, byte[] data) -> createApplicationState\n    String itemName = key.substring(keyPrefix.length()); rename itemName to attemptId, and keyPrefix to attemptNodePrefix\n{quote}\nDone.\n\nbq. Question: does the levelDB client API handle retry ?\nNo, there are no retries in leveldb itself AFAIK.  The retries are handled by the OS/driver/device layers, as we are hitting the OS filesystem rather than some network layer like HDFS or ZK does.  Retries would be highly unlikely to be successful at the leveldb or app level.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2014-12-01T21:15:25.377+0000",
+        "updated": "2014-12-01T21:15:25.377+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14230598",
+        "id": "14230598",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12684476/YARN-2765v3.patch\n  against trunk revision 86e3993.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 2 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/5963//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/5963//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-12-01T22:42:26.420+0000",
+        "updated": "2014-12-01T22:42:26.420+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14230754",
+        "id": "14230754",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+          "name": "jianhe",
+          "key": "jianhe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jian He",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "looks good, +1",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+          "name": "jianhe",
+          "key": "jianhe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jian He",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-12-02T00:31:47.599+0000",
+        "updated": "2014-12-02T00:31:47.599+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14230775",
+        "id": "14230775",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+          "name": "jianhe",
+          "key": "jianhe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jian He",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Committed to trunk and branch-2.  thanks Jason !\nthanks Tsuyoshi and Zhijie for reviewing  the patch !",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jianhe",
+          "name": "jianhe",
+          "key": "jianhe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jian He",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-12-02T00:46:52.437+0000",
+        "updated": "2014-12-02T00:46:52.437+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14230782",
+        "id": "14230782",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "FAILURE: Integrated in Hadoop-trunk-Commit #6622 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/6622/])\nYARN-2765. Added leveldb-based implementation for RMStateStore. Contributed by Jason Lowe (jianhe: rev a7fba0bc28764e0fb36c335ea60cc58079fe007f)\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/LeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/RMStateStoreTestBase.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/TestLeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/pom.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-12-02T00:53:03.251+0000",
+        "updated": "2014-12-02T00:53:03.251+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14231349",
+        "id": "14231349",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "FAILURE: Integrated in Hadoop-Yarn-trunk-Java8 #23 (See [https://builds.apache.org/job/Hadoop-Yarn-trunk-Java8/23/])\nYARN-2765. Added leveldb-based implementation for RMStateStore. Contributed by Jason Lowe (jianhe: rev a7fba0bc28764e0fb36c335ea60cc58079fe007f)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/LeveldbRMStateStore.java\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/RMStateStoreTestBase.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/TestLeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/pom.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-12-02T11:33:34.418+0000",
+        "updated": "2014-12-02T11:33:34.418+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14231372",
+        "id": "14231372",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "ABORTED: Integrated in Hadoop-Hdfs-trunk #1951 (See [https://builds.apache.org/job/Hadoop-Hdfs-trunk/1951/])\nYARN-2765. Added leveldb-based implementation for RMStateStore. Contributed by Jason Lowe (jianhe: rev a7fba0bc28764e0fb36c335ea60cc58079fe007f)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/LeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/TestLeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/RMStateStoreTestBase.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/pom.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-12-02T11:42:25.738+0000",
+        "updated": "2014-12-02T11:42:25.738+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14231389",
+        "id": "14231389",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "SUCCESS: Integrated in Hadoop-Yarn-trunk #761 (See [https://builds.apache.org/job/Hadoop-Yarn-trunk/761/])\nYARN-2765. Added leveldb-based implementation for RMStateStore. Contributed by Jason Lowe (jianhe: rev a7fba0bc28764e0fb36c335ea60cc58079fe007f)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/RMStateStoreTestBase.java\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/LeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/pom.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/TestLeveldbRMStateStore.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-12-02T11:52:43.857+0000",
+        "updated": "2014-12-02T11:52:43.857+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14231518",
+        "id": "14231518",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "FAILURE: Integrated in Hadoop-Hdfs-trunk-Java8 #23 (See [https://builds.apache.org/job/Hadoop-Hdfs-trunk-Java8/23/])\nYARN-2765. Added leveldb-based implementation for RMStateStore. Contributed by Jason Lowe (jianhe: rev a7fba0bc28764e0fb36c335ea60cc58079fe007f)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/LeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/RMStateStoreTestBase.java\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/TestLeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/pom.xml\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-12-02T14:06:54.928+0000",
+        "updated": "2014-12-02T14:06:54.928+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14231613",
+        "id": "14231613",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "FAILURE: Integrated in Hadoop-Mapreduce-trunk #1975 (See [https://builds.apache.org/job/Hadoop-Mapreduce-trunk/1975/])\nYARN-2765. Added leveldb-based implementation for RMStateStore. Contributed by Jason Lowe (jianhe: rev a7fba0bc28764e0fb36c335ea60cc58079fe007f)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/TestLeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/RMStateStoreTestBase.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/LeveldbRMStateStore.java\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/pom.xml\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-12-02T15:20:09.857+0000",
+        "updated": "2014-12-02T15:20:09.857+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12751284/comment/14231632",
+        "id": "14231632",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "SUCCESS: Integrated in Hadoop-Mapreduce-trunk-Java8 #23 (See [https://builds.apache.org/job/Hadoop-Mapreduce-trunk-Java8/23/])\nYARN-2765. Added leveldb-based implementation for RMStateStore. Contributed by Jason Lowe (jianhe: rev a7fba0bc28764e0fb36c335ea60cc58079fe007f)\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api/src/main/java/org/apache/hadoop/yarn/conf/YarnConfiguration.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/TestLeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/LeveldbRMStateStore.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/recovery/RMStateStoreTestBase.java\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/main/resources/yarn-default.xml\n* hadoop-yarn-project/CHANGES.txt\n* hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/pom.xml\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2014-12-02T15:27:31.682+0000",
+        "updated": "2014-12-02T15:27:31.682+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2765/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 23,
+        "returned": 23
+      }
+    ]
+  }
+}

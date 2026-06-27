@@ -1,0 +1,1708 @@
+{
+  "downloaded_at": "2026-06-25T10:24:49.578735+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-9608",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9608?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13237942",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942",
+    "key": "YARN-9608",
+    "fields": {
+      "summary": "DecommissioningNodesWatcher should get lists of running applications on node from RMNode.",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12657172",
+        "key": "YARN-914",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12657172",
+        "fields": {
+          "summary": "(Umbrella) Support graceful decommission of nodemanager",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+            "description": "The issue is open and ready for the assignee to start work on it.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+            "name": "Open",
+            "id": "1",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+            "id": "2",
+            "description": "A new feature of the product, which has yet to be developed.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+            "name": "New Feature",
+            "subtask": false,
+            "avatarId": 21141
+          }
+        }
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2019-06-06T11:58:22.110+0000",
+      "description": "At present, DecommissioningNodesWatcher tracks list of running applications and triggers decommission of nodes when all the applications that ran on the node completes. This Jira proposes to solve following problem:\r\n # DecommissioningNodesWatcher skips tracking application containers on a particular node before the node is in DECOMMISSIONING state. It only tracks containers once the node is in DECOMMISSIONING state. This can lead to shuffle data loss of apps whose containers ran on this node before it was moved to decommissioning state.\r\n # It is keeping track of running apps. We can leverage this directly from RMNode.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/1",
+        "id": "1",
+        "description": "A fix for this issue is checked into the tree and tested.",
+        "name": "Fixed"
+      },
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12971164",
+          "id": "12971164",
+          "filename": "YARN-9608.001.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+            "name": "abmodi",
+            "key": "abmodi",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+            },
+            "displayName": "Abhishek Modi",
+            "active": true,
+            "timeZone": "Asia/Kolkata"
+          },
+          "created": "2019-06-07T10:05:30.967+0000",
+          "size": 13891,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12971164/YARN-9608.001.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12971576",
+          "id": "12971576",
+          "filename": "YARN-9608.002.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+            "name": "abmodi",
+            "key": "abmodi",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+            },
+            "displayName": "Abhishek Modi",
+            "active": true,
+            "timeZone": "Asia/Kolkata"
+          },
+          "created": "2019-06-12T11:52:07.298+0000",
+          "size": 13608,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12971576/YARN-9608.002.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12973889",
+          "id": "12973889",
+          "filename": "YARN-9608-branch-3.001.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+            "name": "abmodi",
+            "key": "abmodi",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+            },
+            "displayName": "Abhishek Modi",
+            "active": true,
+            "timeZone": "Asia/Kolkata"
+          },
+          "created": "2019-07-08T07:27:24.832+0000",
+          "size": 14278,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12973889/YARN-9608-branch-3.001.patch"
+        }
+      ],
+      "issuelinks": [
+        {
+          "id": "12663277",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12663277",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "inwardIssue": {
+            "id": "13532799",
+            "key": "YARN-11466",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13532799",
+            "fields": {
+              "summary": "Graceful Decommission for Shuffle Services",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+                "id": "2",
+                "description": "A new feature of the product, which has yet to be developed.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+                "name": "New Feature",
+                "subtask": false,
+                "avatarId": 21141
+              }
+            }
+          }
+        },
+        {
+          "id": "12642691",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12642691",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "inwardIssue": {
+            "id": "13468289",
+            "key": "YARN-11197",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13468289",
+            "fields": {
+              "summary": "Backport YARN-9608 - DecommissioningNodesWatcher should get lists of running applications on node from RMNode.",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+                "id": "4",
+                "description": "An improvement or enhancement to an existing feature or task.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+                "name": "Improvement",
+                "subtask": false,
+                "avatarId": 21140
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16858581",
+            "id": "16858581",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (/) *{color:green}+1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 34s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 18m 54s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 49s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 34s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 49s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 12m 48s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 24s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 30s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 51s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 49s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 49s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 30s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 51s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 12m 29s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 19s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 26s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green} 89m 40s{color} | {color:green} hadoop-yarn-server-resourcemanager in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 32s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black}143m 36s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=18.09.5 Server=18.09.5 Image:yetus/hadoop:bdbca0e53b4 |\r\n| JIRA Issue | YARN-9608 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12971164/YARN-9608.001.patch |\r\n| Optional Tests |  dupname  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux 5c3dd5e38124 4.15.0-48-generic #51-Ubuntu SMP Wed Apr 3 08:28:49 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / a91d24f |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_212 |\r\n| findbugs | v3.1.0-RC1 |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/24249/testReport/ |\r\n| Max. process+thread count | 872 (vs. ulimit of 5500) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/24249/console |\r\n| Powered by | Apache Yetus 0.8.0   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-06-07T12:34:22.724+0000",
+            "updated": "2019-06-07T12:34:22.724+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16859738",
+            "id": "16859738",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+              "name": "abmodi",
+              "key": "abmodi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+              },
+              "displayName": "Abhishek Modi",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "[~subru]\u00a0[~elgoiri] [~giovanni.fumarola] could you please review it. Thanks.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+              "name": "abmodi",
+              "key": "abmodi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+              },
+              "displayName": "Abhishek Modi",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2019-06-10T06:25:45.817+0000",
+            "updated": "2019-06-10T06:25:45.817+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16860470",
+            "id": "16860470",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=wjlei",
+              "name": "wjlei",
+              "key": "wjlei",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "jialei weng",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:#333333}This solution provides an idea to extend life-cycle of node local data to the whole application running time. A small question here, if the application is long running job, the node decommission time will also take longer? And rely on the time-out? [~abmodi] Please correct me if I misunderstand.{color}",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=wjlei",
+              "name": "wjlei",
+              "key": "wjlei",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "jialei weng",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-06-11T01:58:11.589+0000",
+            "updated": "2019-06-11T01:58:42.380+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16860499",
+            "id": "16860499",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+              "name": "abmodi",
+              "key": "abmodi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+              },
+              "displayName": "Abhishek Modi",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "[~wjlei] with this\u00a0jira we are also tracking applications whose containers ran on the node before node was put into Decommissioning state. Previously also node life-cycle was dependent on application run time but it was considering only those applications whose containers were running on the node when node was moved to decommissioning state.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+              "name": "abmodi",
+              "key": "abmodi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+              },
+              "displayName": "Abhishek Modi",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2019-06-11T03:02:58.277+0000",
+            "updated": "2019-06-11T03:02:58.277+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16860614",
+            "id": "16860614",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=wjlei",
+              "name": "wjlei",
+              "key": "wjlei",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "jialei weng",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Thanks, [~abmodi]. Good to learn more.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=wjlei",
+              "name": "wjlei",
+              "key": "wjlei",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "jialei weng",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-06-11T07:13:18.783+0000",
+            "updated": "2019-06-11T07:13:18.783+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16861943",
+            "id": "16861943",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+              "name": "tangzhankun",
+              "key": "tangzhankun",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Zhankun Tang",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Thanks for the patch! [~abmodi].\r\n I took a\u00a0glance at it. Some minor questions:\r\n\r\n1. Is the \"rmNode.getRunningApps()\" deliberate?\r\n{code:java}\r\nDecommissioningNodeContext context = decomNodes.get(rmNode.getNodeID());\r\nrmNode.getRunningApps();\r\nlong now = mclock.getTime();{code}\r\n2. Do we need to update the comment below?\r\n\r\n{code:java}\r\n    // All applications run on the node at or after decommissioningStartTime.\r\n    private List<ApplicationId> appIds;\r\n{code}\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+              "name": "tangzhankun",
+              "key": "tangzhankun",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Zhankun Tang",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-06-12T09:37:33.141+0000",
+            "updated": "2019-06-12T10:24:21.106+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16862041",
+            "id": "16862041",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+              "name": "abmodi",
+              "key": "abmodi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+              },
+              "displayName": "Abhishek Modi",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Thanks [~tangzhankun] for reviewing it. I have taken care of both the points in v2 patch. Thanks.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+              "name": "abmodi",
+              "key": "abmodi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+              },
+              "displayName": "Abhishek Modi",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2019-06-12T11:52:13.959+0000",
+            "updated": "2019-06-12T11:52:13.959+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16862154",
+            "id": "16862154",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (/) *{color:green}+1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 37s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 19m 34s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 51s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 38s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 57s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 12m 58s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 17s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 30s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 44s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 42s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 41s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 28s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 47s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 12m 56s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 20s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 28s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green} 87m 14s{color} | {color:green} hadoop-yarn-server-resourcemanager in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 29s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black}142m  0s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=18.09.5 Server=18.09.5 Image:yetus/hadoop:bdbca0e53b4 |\r\n| JIRA Issue | YARN-9608 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12971576/YARN-9608.002.patch |\r\n| Optional Tests |  dupname  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux c9ad55684673 4.15.0-48-generic #51-Ubuntu SMP Wed Apr 3 08:28:49 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 23c0379 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_212 |\r\n| findbugs | v3.1.0-RC1 |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/24261/testReport/ |\r\n| Max. process+thread count | 878 (vs. ulimit of 5500) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/24261/console |\r\n| Powered by | Apache Yetus 0.8.0   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-06-12T14:23:01.562+0000",
+            "updated": "2019-06-12T14:23:01.562+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16862789",
+            "id": "16862789",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+              "name": "tangzhankun",
+              "key": "tangzhankun",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Zhankun Tang",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "[~abmodi], Thanks. Just read through the whole patch. Two questions:\r\n\r\n1. If there's a long-running Spark shell application A of\u00a0YARN cluster mode, only can the timeout cause the decommissioning node 1 (app A's container ran on it previously, but A's AM running on node 2) to shut down, right?\r\n\r\n2. And if node 1 is shut down due to timeout, and when node 1 is\u00a0re-registered in the future, will the node 1 still be considered\u00a0belongs to running application A?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+              "name": "tangzhankun",
+              "key": "tangzhankun",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Zhankun Tang",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-06-13T07:26:09.212+0000",
+            "updated": "2019-06-13T07:26:09.212+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16862793",
+            "id": "16862793",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+              "name": "abmodi",
+              "key": "abmodi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+              },
+              "displayName": "Abhishek Modi",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Thanks [~tangzhankun] for going through patch:\r\n{quote} # If there's a long-running Spark shell application A of\u00a0YARN cluster mode, only can the timeout cause the decommissioning node 1 (app A's container ran on it previously, but A's AM running on node 2) to shut down, right?{quote}\r\nYes, in this case only timeout or application finish can cause the decommissioning to complete. This behavior would be similar to the behavior in case this node was put in decommissioning state when container for app A was running on the node.\r\n{quote}\u00a0And if node 1 is shut down due to timeout, and when node 1 is\u00a0re-registered in the future, will the node 1 still be considered\u00a0belongs to running application A?\r\n{quote}\r\n\u00a0 No, if node was shut down when no container was running on the node it won't be considered belonging to app A. But in case, work preserving node manager was enabled and\u00a0 a container was recovered on that node for app A, it will be considered to be running app A.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+              "name": "abmodi",
+              "key": "abmodi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+              },
+              "displayName": "Abhishek Modi",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2019-06-13T07:38:11.939+0000",
+            "updated": "2019-06-13T07:38:11.939+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16862826",
+            "id": "16862826",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+              "name": "tangzhankun",
+              "key": "tangzhankun",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Zhankun Tang",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "[~abmodi], Yeah. Thanks for the explanation! +1 from me. I can help to commit this if no one opposes.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+              "name": "tangzhankun",
+              "key": "tangzhankun",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Zhankun Tang",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-06-13T08:29:39.702+0000",
+            "updated": "2019-06-13T08:29:39.702+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16862867",
+            "id": "16862867",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+              "name": "abmodi",
+              "key": "abmodi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+              },
+              "displayName": "Abhishek Modi",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Thanks [~tangzhankun] for reviewing it.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+              "name": "abmodi",
+              "key": "abmodi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+              },
+              "displayName": "Abhishek Modi",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2019-06-13T09:26:07.902+0000",
+            "updated": "2019-06-13T09:26:07.902+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16865309",
+            "id": "16865309",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+              "name": "abmodi",
+              "key": "abmodi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+              },
+              "displayName": "Abhishek Modi",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "[~tangzhankun] Could you please help in committing this. Thanks.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+              "name": "abmodi",
+              "key": "abmodi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+              },
+              "displayName": "Abhishek Modi",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2019-06-17T05:13:38.780+0000",
+            "updated": "2019-06-17T05:13:38.780+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16865389",
+            "id": "16865389",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+              "name": "tangzhankun",
+              "key": "tangzhankun",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Zhankun Tang",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "[~abmodi], Sure. Will commit it soon.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+              "name": "tangzhankun",
+              "key": "tangzhankun",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Zhankun Tang",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-06-17T07:13:38.319+0000",
+            "updated": "2019-06-17T07:13:38.319+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16865479",
+            "id": "16865479",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+              "name": "tangzhankun",
+              "key": "tangzhankun",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Zhankun Tang",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "[~abmodi], thanks for the patch. Committed to trunk(3.3.0).\r\nCould you please also provide a patch for branch-2.9, branch-3 (should be the same for 3.0, 3.1, 3.2)?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+              "name": "tangzhankun",
+              "key": "tangzhankun",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Zhankun Tang",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-06-17T09:44:12.996+0000",
+            "updated": "2019-06-17T09:44:12.996+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16865490",
+            "id": "16865490",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "SUCCESS: Integrated in Jenkins build Hadoop-trunk-Commit #16758 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/16758/])\nYARN-9608. DecommissioningNodesWatcher should get lists of running (ztang: rev 304a47e22cb836cfde227803c853ecf4def870e1)\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/DecommissioningNodesWatcher.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/TestDecommissioningNodesWatcher.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-06-17T10:19:39.619+0000",
+            "updated": "2019-06-17T10:19:39.619+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16865759",
+            "id": "16865759",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+              "name": "abmodi",
+              "key": "abmodi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+              },
+              "displayName": "Abhishek Modi",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Thanks [~tangzhankun] for reviewing and committing it to trunk. I will share patches for branch-2.9 and branch 3.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+              "name": "abmodi",
+              "key": "abmodi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+              },
+              "displayName": "Abhishek Modi",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2019-06-17T16:40:13.631+0000",
+            "updated": "2019-06-17T16:40:13.631+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16880090",
+            "id": "16880090",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (x) *{color:red}-1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m  0s{color} | {color:blue} Docker mode activated. {color} |\r\n| {color:red}-1{color} | {color:red} docker {color} | {color:red}  7m 29s{color} | {color:red} Docker failed to build yetus/hadoop:20ca677. {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| JIRA Issue | YARN-9608 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12973889/YARN-9608-branch-3.001.patch |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/24346/console |\r\n| Powered by | Apache Yetus 0.8.0   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-07-08T07:38:39.421+0000",
+            "updated": "2019-07-08T07:38:39.421+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16906815",
+            "id": "16906815",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+              "name": "tangzhankun",
+              "key": "tangzhankun",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Zhankun Tang",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "I'll resolve it for the time being. And let's backport it to the different branch later",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+              "name": "tangzhankun",
+              "key": "tangzhankun",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Zhankun Tang",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-08-14T02:47:51.303+0000",
+            "updated": "2019-08-14T02:47:51.303+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/17550929",
+            "id": "17550929",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ashelke",
+              "name": "ashelke",
+              "key": "ashelke",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34055",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34055",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34055",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34055"
+              },
+              "displayName": "Akash",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "[~abmodi]\u00a0 can we get patch for hadoop 2.10.1 please\u00a0",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ashelke",
+              "name": "ashelke",
+              "key": "ashelke",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34055",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34055",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34055",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34055"
+              },
+              "displayName": "Akash",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2022-06-07T10:55:04.631+0000",
+            "updated": "2022-06-07T10:55:04.631+0000"
+          }
+        ],
+        "maxResults": 20,
+        "total": 20,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9608/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2023-05-26T05:59:27.922+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 20,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16858581",
+        "id": "16858581",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (/) *{color:green}+1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 34s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 18m 54s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 49s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 34s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 49s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 12m 48s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 24s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 30s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 51s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 49s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 49s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 30s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 51s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 12m 29s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 19s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 26s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green} 89m 40s{color} | {color:green} hadoop-yarn-server-resourcemanager in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 32s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black}143m 36s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=18.09.5 Server=18.09.5 Image:yetus/hadoop:bdbca0e53b4 |\r\n| JIRA Issue | YARN-9608 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12971164/YARN-9608.001.patch |\r\n| Optional Tests |  dupname  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux 5c3dd5e38124 4.15.0-48-generic #51-Ubuntu SMP Wed Apr 3 08:28:49 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / a91d24f |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_212 |\r\n| findbugs | v3.1.0-RC1 |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/24249/testReport/ |\r\n| Max. process+thread count | 872 (vs. ulimit of 5500) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/24249/console |\r\n| Powered by | Apache Yetus 0.8.0   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-06-07T12:34:22.724+0000",
+        "updated": "2019-06-07T12:34:22.724+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16859738",
+        "id": "16859738",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+          "name": "abmodi",
+          "key": "abmodi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+          },
+          "displayName": "Abhishek Modi",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "[~subru]\u00a0[~elgoiri] [~giovanni.fumarola] could you please review it. Thanks.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+          "name": "abmodi",
+          "key": "abmodi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+          },
+          "displayName": "Abhishek Modi",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2019-06-10T06:25:45.817+0000",
+        "updated": "2019-06-10T06:25:45.817+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16860470",
+        "id": "16860470",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=wjlei",
+          "name": "wjlei",
+          "key": "wjlei",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "jialei weng",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:#333333}This solution provides an idea to extend life-cycle of node local data to the whole application running time. A small question here, if the application is long running job, the node decommission time will also take longer? And rely on the time-out? [~abmodi] Please correct me if I misunderstand.{color}",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=wjlei",
+          "name": "wjlei",
+          "key": "wjlei",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "jialei weng",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-06-11T01:58:11.589+0000",
+        "updated": "2019-06-11T01:58:42.380+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16860499",
+        "id": "16860499",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+          "name": "abmodi",
+          "key": "abmodi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+          },
+          "displayName": "Abhishek Modi",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "[~wjlei] with this\u00a0jira we are also tracking applications whose containers ran on the node before node was put into Decommissioning state. Previously also node life-cycle was dependent on application run time but it was considering only those applications whose containers were running on the node when node was moved to decommissioning state.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+          "name": "abmodi",
+          "key": "abmodi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+          },
+          "displayName": "Abhishek Modi",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2019-06-11T03:02:58.277+0000",
+        "updated": "2019-06-11T03:02:58.277+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16860614",
+        "id": "16860614",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=wjlei",
+          "name": "wjlei",
+          "key": "wjlei",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "jialei weng",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Thanks, [~abmodi]. Good to learn more.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=wjlei",
+          "name": "wjlei",
+          "key": "wjlei",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "jialei weng",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-06-11T07:13:18.783+0000",
+        "updated": "2019-06-11T07:13:18.783+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16861943",
+        "id": "16861943",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+          "name": "tangzhankun",
+          "key": "tangzhankun",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Zhankun Tang",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Thanks for the patch! [~abmodi].\r\n I took a\u00a0glance at it. Some minor questions:\r\n\r\n1. Is the \"rmNode.getRunningApps()\" deliberate?\r\n{code:java}\r\nDecommissioningNodeContext context = decomNodes.get(rmNode.getNodeID());\r\nrmNode.getRunningApps();\r\nlong now = mclock.getTime();{code}\r\n2. Do we need to update the comment below?\r\n\r\n{code:java}\r\n    // All applications run on the node at or after decommissioningStartTime.\r\n    private List<ApplicationId> appIds;\r\n{code}\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+          "name": "tangzhankun",
+          "key": "tangzhankun",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Zhankun Tang",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-06-12T09:37:33.141+0000",
+        "updated": "2019-06-12T10:24:21.106+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16862041",
+        "id": "16862041",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+          "name": "abmodi",
+          "key": "abmodi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+          },
+          "displayName": "Abhishek Modi",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Thanks [~tangzhankun] for reviewing it. I have taken care of both the points in v2 patch. Thanks.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+          "name": "abmodi",
+          "key": "abmodi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+          },
+          "displayName": "Abhishek Modi",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2019-06-12T11:52:13.959+0000",
+        "updated": "2019-06-12T11:52:13.959+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16862154",
+        "id": "16862154",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (/) *{color:green}+1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 37s{color} | {color:blue} Docker mode activated. {color} |\r\n|| || || || {color:brown} Prechecks {color} ||\r\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\r\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\r\n|| || || || {color:brown} trunk Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 19m 34s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 51s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 38s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 57s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 12m 58s{color} | {color:green} branch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 17s{color} | {color:green} trunk passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 30s{color} | {color:green} trunk passed {color} |\r\n|| || || || {color:brown} Patch Compile Tests {color} ||\r\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 44s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 42s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 41s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 28s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 47s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\r\n| {color:green}+1{color} | {color:green} shadedclient {color} | {color:green} 12m 56s{color} | {color:green} patch has no errors when building and testing our client artifacts. {color} |\r\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  1m 20s{color} | {color:green} the patch passed {color} |\r\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 28s{color} | {color:green} the patch passed {color} |\r\n|| || || || {color:brown} Other Tests {color} ||\r\n| {color:green}+1{color} | {color:green} unit {color} | {color:green} 87m 14s{color} | {color:green} hadoop-yarn-server-resourcemanager in the patch passed. {color} |\r\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 29s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\r\n| {color:black}{color} | {color:black} {color} | {color:black}142m  0s{color} | {color:black} {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| Docker | Client=18.09.5 Server=18.09.5 Image:yetus/hadoop:bdbca0e53b4 |\r\n| JIRA Issue | YARN-9608 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12971576/YARN-9608.002.patch |\r\n| Optional Tests |  dupname  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  shadedclient  findbugs  checkstyle  |\r\n| uname | Linux c9ad55684673 4.15.0-48-generic #51-Ubuntu SMP Wed Apr 3 08:28:49 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux |\r\n| Build tool | maven |\r\n| Personality | /testptch/patchprocess/precommit/personality/provided.sh |\r\n| git revision | trunk / 23c0379 |\r\n| maven | version: Apache Maven 3.3.9 |\r\n| Default Java | 1.8.0_212 |\r\n| findbugs | v3.1.0-RC1 |\r\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/24261/testReport/ |\r\n| Max. process+thread count | 878 (vs. ulimit of 5500) |\r\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/24261/console |\r\n| Powered by | Apache Yetus 0.8.0   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-06-12T14:23:01.562+0000",
+        "updated": "2019-06-12T14:23:01.562+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16862789",
+        "id": "16862789",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+          "name": "tangzhankun",
+          "key": "tangzhankun",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Zhankun Tang",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "[~abmodi], Thanks. Just read through the whole patch. Two questions:\r\n\r\n1. If there's a long-running Spark shell application A of\u00a0YARN cluster mode, only can the timeout cause the decommissioning node 1 (app A's container ran on it previously, but A's AM running on node 2) to shut down, right?\r\n\r\n2. And if node 1 is shut down due to timeout, and when node 1 is\u00a0re-registered in the future, will the node 1 still be considered\u00a0belongs to running application A?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+          "name": "tangzhankun",
+          "key": "tangzhankun",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Zhankun Tang",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-06-13T07:26:09.212+0000",
+        "updated": "2019-06-13T07:26:09.212+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16862793",
+        "id": "16862793",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+          "name": "abmodi",
+          "key": "abmodi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+          },
+          "displayName": "Abhishek Modi",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Thanks [~tangzhankun] for going through patch:\r\n{quote} # If there's a long-running Spark shell application A of\u00a0YARN cluster mode, only can the timeout cause the decommissioning node 1 (app A's container ran on it previously, but A's AM running on node 2) to shut down, right?{quote}\r\nYes, in this case only timeout or application finish can cause the decommissioning to complete. This behavior would be similar to the behavior in case this node was put in decommissioning state when container for app A was running on the node.\r\n{quote}\u00a0And if node 1 is shut down due to timeout, and when node 1 is\u00a0re-registered in the future, will the node 1 still be considered\u00a0belongs to running application A?\r\n{quote}\r\n\u00a0 No, if node was shut down when no container was running on the node it won't be considered belonging to app A. But in case, work preserving node manager was enabled and\u00a0 a container was recovered on that node for app A, it will be considered to be running app A.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+          "name": "abmodi",
+          "key": "abmodi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+          },
+          "displayName": "Abhishek Modi",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2019-06-13T07:38:11.939+0000",
+        "updated": "2019-06-13T07:38:11.939+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16862826",
+        "id": "16862826",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+          "name": "tangzhankun",
+          "key": "tangzhankun",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Zhankun Tang",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "[~abmodi], Yeah. Thanks for the explanation! +1 from me. I can help to commit this if no one opposes.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+          "name": "tangzhankun",
+          "key": "tangzhankun",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Zhankun Tang",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-06-13T08:29:39.702+0000",
+        "updated": "2019-06-13T08:29:39.702+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16862867",
+        "id": "16862867",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+          "name": "abmodi",
+          "key": "abmodi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+          },
+          "displayName": "Abhishek Modi",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Thanks [~tangzhankun] for reviewing it.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+          "name": "abmodi",
+          "key": "abmodi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+          },
+          "displayName": "Abhishek Modi",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2019-06-13T09:26:07.902+0000",
+        "updated": "2019-06-13T09:26:07.902+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16865309",
+        "id": "16865309",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+          "name": "abmodi",
+          "key": "abmodi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+          },
+          "displayName": "Abhishek Modi",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "[~tangzhankun] Could you please help in committing this. Thanks.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+          "name": "abmodi",
+          "key": "abmodi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+          },
+          "displayName": "Abhishek Modi",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2019-06-17T05:13:38.780+0000",
+        "updated": "2019-06-17T05:13:38.780+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16865389",
+        "id": "16865389",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+          "name": "tangzhankun",
+          "key": "tangzhankun",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Zhankun Tang",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "[~abmodi], Sure. Will commit it soon.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+          "name": "tangzhankun",
+          "key": "tangzhankun",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Zhankun Tang",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-06-17T07:13:38.319+0000",
+        "updated": "2019-06-17T07:13:38.319+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16865479",
+        "id": "16865479",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+          "name": "tangzhankun",
+          "key": "tangzhankun",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Zhankun Tang",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "[~abmodi], thanks for the patch. Committed to trunk(3.3.0).\r\nCould you please also provide a patch for branch-2.9, branch-3 (should be the same for 3.0, 3.1, 3.2)?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+          "name": "tangzhankun",
+          "key": "tangzhankun",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Zhankun Tang",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-06-17T09:44:12.996+0000",
+        "updated": "2019-06-17T09:44:12.996+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16865490",
+        "id": "16865490",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "SUCCESS: Integrated in Jenkins build Hadoop-trunk-Commit #16758 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/16758/])\nYARN-9608. DecommissioningNodesWatcher should get lists of running (ztang: rev 304a47e22cb836cfde227803c853ecf4def870e1)\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/DecommissioningNodesWatcher.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/TestDecommissioningNodesWatcher.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-06-17T10:19:39.619+0000",
+        "updated": "2019-06-17T10:19:39.619+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16865759",
+        "id": "16865759",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+          "name": "abmodi",
+          "key": "abmodi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+          },
+          "displayName": "Abhishek Modi",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Thanks [~tangzhankun] for reviewing and committing it to trunk. I will share patches for branch-2.9 and branch 3.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+          "name": "abmodi",
+          "key": "abmodi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+          },
+          "displayName": "Abhishek Modi",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2019-06-17T16:40:13.631+0000",
+        "updated": "2019-06-17T16:40:13.631+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16880090",
+        "id": "16880090",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (x) *{color:red}-1 overall{color}* |\r\n\\\\\r\n\\\\\r\n|| Vote || Subsystem || Runtime || Comment ||\r\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m  0s{color} | {color:blue} Docker mode activated. {color} |\r\n| {color:red}-1{color} | {color:red} docker {color} | {color:red}  7m 29s{color} | {color:red} Docker failed to build yetus/hadoop:20ca677. {color} |\r\n\\\\\r\n\\\\\r\n|| Subsystem || Report/Notes ||\r\n| JIRA Issue | YARN-9608 |\r\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12973889/YARN-9608-branch-3.001.patch |\r\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/24346/console |\r\n| Powered by | Apache Yetus 0.8.0   http://yetus.apache.org |\r\n\r\n\r\nThis message was automatically generated.\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-07-08T07:38:39.421+0000",
+        "updated": "2019-07-08T07:38:39.421+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/16906815",
+        "id": "16906815",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+          "name": "tangzhankun",
+          "key": "tangzhankun",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Zhankun Tang",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "I'll resolve it for the time being. And let's backport it to the different branch later",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tangzhankun",
+          "name": "tangzhankun",
+          "key": "tangzhankun",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Zhankun Tang",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-08-14T02:47:51.303+0000",
+        "updated": "2019-08-14T02:47:51.303+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13237942/comment/17550929",
+        "id": "17550929",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ashelke",
+          "name": "ashelke",
+          "key": "ashelke",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34055",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34055",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34055",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34055"
+          },
+          "displayName": "Akash",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "[~abmodi]\u00a0 can we get patch for hadoop 2.10.1 please\u00a0",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ashelke",
+          "name": "ashelke",
+          "key": "ashelke",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34055",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34055",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34055",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34055"
+          },
+          "displayName": "Akash",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2022-06-07T10:55:04.631+0000",
+        "updated": "2022-06-07T10:55:04.631+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9608/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 20,
+        "returned": 20
+      }
+    ]
+  }
+}

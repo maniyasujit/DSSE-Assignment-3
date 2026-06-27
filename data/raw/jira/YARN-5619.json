@@ -1,0 +1,114 @@
+{
+  "downloaded_at": "2026-06-25T10:20:45.622003+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-5619",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5619?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13002926",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13002926",
+    "key": "YARN-5619",
+    "fields": {
+      "summary": "Provide way to limit MRJob's stdout/stderr size",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12322905",
+          "id": "12322905",
+          "name": "log-aggregation",
+          "description": "Log aggregation feature"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319323",
+          "id": "12319323",
+          "name": "nodemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2016-09-06T13:44:14.608+0000",
+      "description": "We can run job with huge amount of stdout/stderr and causing undesired consequence. There is already a Jira which is been open for while now:\nhttps://issues.apache.org/jira/browse/YARN-2231\n\nThe possible solution is to redirect Stdout's and Stderr's output to log4j in YarnChild.java main method via commands:\n\nSystem.setErr( new PrintStream( new LoggingOutputStream( <Log4j logger>, Level.ERROR ), true));\nSystem.setOut( new PrintStream( new LoggingOutputStream( <Log4j logger>, Level.INFO ), true));\n\nIn this case System.out and System.err will be redirected to log4j logger with appropriate appender that will direct output to stderr or stdout files with needed size limitation. \n\n\nAdvantages of such solution:\n- it allows us to restrict file sizes during job execution.\n\nDisadvantages:\n- It will work only for MRs jobs.\n- logs are stored in memory and are flushed on disk only after job's finishing (syslog works the same way) - we can loose logs if container will be killed or failed.\n\nIs it appropriate solution for solving this problem, or is there something better?\n\n",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/4",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/minor.svg",
+        "name": "Minor",
+        "id": "4"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/3",
+        "id": "3",
+        "description": "The problem is a duplicate of an existing issue.",
+        "name": "Duplicate"
+      },
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [],
+        "maxResults": 0,
+        "total": 0,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5619/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2016-09-14T15:19:51.383+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 0,
+    "comments": [],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5619/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 0,
+        "returned": 0
+      }
+    ]
+  }
+}

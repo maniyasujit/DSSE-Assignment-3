@@ -1,0 +1,247 @@
+{
+  "downloaded_at": "2026-06-25T10:18:59.235600+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-8981",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8981?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13196655",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13196655",
+    "key": "YARN-8981",
+    "fields": {
+      "summary": "Virtual IP address support",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+        "id": "2",
+        "description": "A new feature of the product, which has yet to be developed.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+        "name": "New Feature",
+        "subtask": false,
+        "avatarId": 21141
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2018-11-06T18:53:29.047+0000",
+      "description": "I couldn't find support for virtual IP addresses in YARN framework.\u00a0\r\n\r\nThis would be great if we have a docker-on-yarn service and if it for example has to be failed over to another physical host, clients can still find it.\u00a0\r\n\r\nSo the idea is for YARN to bring up that virtual IP address (an additional/secondary IP address ) on a physical host where that particular docker container is running, so the clients that use that container's services don't have to change connection details every time that container moves around in YARN cluster.\r\n\r\nSimilarly to virtual IP addresses in Kubernetes world:\r\n\r\n[https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies]\r\n\r\nOne implementation could be through `ip address add` \\ `ip address remove`.\r\n\r\nKubernetes uses a more complicated `kube-proxy`, similarly to `docker-proxy` process in pure dockers / non-kubernetes docker deployments. \r\n\r\nAnother approach is running a separate DNS service for a DNS subdomain (main DNS server would have to forward all requests for that DNS subdomain to a YARN DNS service). In Oracle Clusterware similar process is called GNS: \r\n\r\nhttps://docs.oracle.com/en/database/oracle/oracle-database/12.2/cwsol/about-the-grid-naming-service-vip-address.html#GUID-A4EE0CC6-A5F1-4507-82D6-D5C43E0F1584\r\n\r\nWould be great to have support for either virtual IP addresses managed by YARN directly or something similar to Oracle's GNS dns service.\r\n\r\n\u00a0",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [
+        "DNS",
+        "Docker",
+        "docker",
+        "service",
+        "service-engine",
+        "service-orchestration",
+        "virtual_hosts"
+      ],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13196655/comment/16683355",
+            "id": "16683355",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=liuxun323",
+              "name": "liuxun323",
+              "key": "liuxun323",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=liuxun323&avatarId=40602",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=liuxun323&avatarId=40602",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=liuxun323&avatarId=40602",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=liuxun323&avatarId=40602"
+              },
+              "displayName": "Xun Liu",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "hi, [~Tagar]\r\n\r\nThe virtual IP inside the YARN cluster is already supported by a parallel network created by calico.\r\nYou can refer to the installation instructions for the Docker environment: [https://github.com/apache/hadoop/blob/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-applications/hadoop-yarn-submarine/src/site/markdown/InstallationScriptEN.md]\u00a0\r\nAnd install using the runtime environment installation script; [https://github.com/apache/hadoop/tree/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-applications/hadoop-yarn-submarine/installation]\r\nIt is possible to have the Docker container in YARN run in an internal virtual parallel network.\r\n\r\nHowever, after YARN introduced Docker, there are still some features that need to be strengthened in the support of the network.\r\nFor example, how the services in the internally virtualized Docker container access the network environment outside the cluster.\r\nIn Kubernetes, the reverse proxy can be performed by the ingress latter Traefik.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=liuxun323",
+              "name": "liuxun323",
+              "key": "liuxun323",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=liuxun323&avatarId=40602",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=liuxun323&avatarId=40602",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=liuxun323&avatarId=40602",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=liuxun323&avatarId=40602"
+              },
+              "displayName": "Xun Liu",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2018-11-12T07:54:13.024+0000",
+            "updated": "2018-11-12T07:54:13.024+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13196655/comment/16687237",
+            "id": "16687237",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "@Ruslan Dautkhanov I think this is already supported in YARN.  [YARN service|https://hadoop.apache.org/docs/r3.1.1/hadoop-yarn/hadoop-yarn-site/yarn-service/Overview.html] supports [Service Discovery|https://hadoop.apache.org/docs/r3.1.1/hadoop-yarn/hadoop-yarn-site/yarn-service/ServiceDiscovery.html].  The container hostname is encoded using this format:\r\n{code}\r\n[component-name]-[instance-number].[application-name].[user].[domain]\r\n{code}\r\n\r\nA example is:\r\n{code}\r\nhttpd-0.myapp.john.example.com\r\n{code}\r\n\r\nIP address is automatically discovered and maps to pre-compiled hostnames.  This supports virtual IP use case, where the container may move to another host, and IP address of the dns entry is updated within seconds.  Hence, end user only needs to know the hostname, and able to access the application.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2018-11-14T22:33:32.913+0000",
+            "updated": "2018-11-14T22:33:32.913+0000"
+          }
+        ],
+        "maxResults": 2,
+        "total": 2,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8981/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2018-11-14T22:33:32.913+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 2,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13196655/comment/16683355",
+        "id": "16683355",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=liuxun323",
+          "name": "liuxun323",
+          "key": "liuxun323",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=liuxun323&avatarId=40602",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=liuxun323&avatarId=40602",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=liuxun323&avatarId=40602",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=liuxun323&avatarId=40602"
+          },
+          "displayName": "Xun Liu",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "hi, [~Tagar]\r\n\r\nThe virtual IP inside the YARN cluster is already supported by a parallel network created by calico.\r\nYou can refer to the installation instructions for the Docker environment: [https://github.com/apache/hadoop/blob/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-applications/hadoop-yarn-submarine/src/site/markdown/InstallationScriptEN.md]\u00a0\r\nAnd install using the runtime environment installation script; [https://github.com/apache/hadoop/tree/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-applications/hadoop-yarn-submarine/installation]\r\nIt is possible to have the Docker container in YARN run in an internal virtual parallel network.\r\n\r\nHowever, after YARN introduced Docker, there are still some features that need to be strengthened in the support of the network.\r\nFor example, how the services in the internally virtualized Docker container access the network environment outside the cluster.\r\nIn Kubernetes, the reverse proxy can be performed by the ingress latter Traefik.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=liuxun323",
+          "name": "liuxun323",
+          "key": "liuxun323",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=liuxun323&avatarId=40602",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=liuxun323&avatarId=40602",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=liuxun323&avatarId=40602",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=liuxun323&avatarId=40602"
+          },
+          "displayName": "Xun Liu",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2018-11-12T07:54:13.024+0000",
+        "updated": "2018-11-12T07:54:13.024+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13196655/comment/16687237",
+        "id": "16687237",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "@Ruslan Dautkhanov I think this is already supported in YARN.  [YARN service|https://hadoop.apache.org/docs/r3.1.1/hadoop-yarn/hadoop-yarn-site/yarn-service/Overview.html] supports [Service Discovery|https://hadoop.apache.org/docs/r3.1.1/hadoop-yarn/hadoop-yarn-site/yarn-service/ServiceDiscovery.html].  The container hostname is encoded using this format:\r\n{code}\r\n[component-name]-[instance-number].[application-name].[user].[domain]\r\n{code}\r\n\r\nA example is:\r\n{code}\r\nhttpd-0.myapp.john.example.com\r\n{code}\r\n\r\nIP address is automatically discovered and maps to pre-compiled hostnames.  This supports virtual IP use case, where the container may move to another host, and IP address of the dns entry is updated within seconds.  Hence, end user only needs to know the hostname, and able to access the application.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2018-11-14T22:33:32.913+0000",
+        "updated": "2018-11-14T22:33:32.913+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8981/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 2,
+        "returned": 2
+      }
+    ]
+  }
+}

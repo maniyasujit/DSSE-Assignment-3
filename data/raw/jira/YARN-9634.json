@@ -1,0 +1,519 @@
+{
+  "downloaded_at": "2026-06-25T10:18:44.989562+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-9634",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9634?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13240621",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13240621",
+    "key": "YARN-9634",
+    "fields": {
+      "summary": "Make yarn submit dir and log aggregation dir more evenly distributed",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2019-06-20T09:44:56.167+0000",
+      "description": "When the cluster size is large, the dir which user submits the job, and the dir which container log aggregate, and other information will fill the HDFS directory, because the HDFS directory has a default storage limit, this can be configured by \"yarn.log-aggregation.retain-seconds\" to solve. But\u00a0 the FSNamesystemLock#writeLock and rpc operation which these dir operation triggered will affect the namespace which these dirs are located, in order to get this better we have let this dir in one single HDFS federation namespace, but with the cluster become huge, the single namespace will also affect the rpc performance. In response to this situation, we can change these dirs more distributed among multi namespace dirs, with some policy to choose, such as hash policy and round robin policy.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13240621/comment/16868405",
+            "id": "16868405",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "cc\u00a0[~Tao Yang],[~cheersyang]\u00a0,[~leftnoteasy],\u00a0[~sunilg]",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-06-20T09:49:15.836+0000",
+            "updated": "2019-06-20T09:49:15.836+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13240621/comment/16868547",
+            "id": "16868547",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "body": "Hi [~zhuqi]\u00a0what\u00a0do you mean by the default storage limit, is that the space quota? Can you give an example of how to distribute these dirs, and why that helps? Thanks.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "created": "2019-06-20T14:04:50.991+0000",
+            "updated": "2019-06-20T14:04:50.991+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13240621/comment/16869151",
+            "id": "16869151",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Hi\u00a0[~cheersyang],\r\n\r\nYeah i mean space quota. Also in normal situation, if we don't use quota, i mean that in our large cluster,\u00a0 the fixed namespace binding the submit dir and log aggeration dir, will affect the fixed namespace rpc performance. I think we can add configuration with some round robin policy or hash policy to distributed this dir to configured namespaces among the hdfs federation.\u00a0",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-06-21T03:56:28.770+0000",
+            "updated": "2019-06-21T03:56:28.770+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13240621/comment/16869268",
+            "id": "16869268",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "body": "Hi [~zhuqi]\r\n\r\nThanks. Are you suggesting to let parameter \\{{yarn.nodemanager.remote-app-log-dir}} support multiple dirs, and use e.g round-robin policy to select dirs? If this is the case, will this break something? Such as history server, timeline-server or log CLI etc, I assume some of these components need to read logs from this location. Please elaborate, thanks.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+              "name": "cheersyang",
+              "key": "cheersyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+              },
+              "displayName": "Weiwei Yang",
+              "active": true,
+              "timeZone": "Pacific/Pitcairn"
+            },
+            "created": "2019-06-21T07:38:47.746+0000",
+            "updated": "2019-06-21T07:38:47.746+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13240621/comment/16870015",
+            "id": "16870015",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tao+Yang",
+              "name": "Tao Yang",
+              "key": "tao yang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Tao Yang",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Hi, [~zhuqi].\r\nJust noticed this issue. \r\nThe staging directories used for submission should be managed by application frameworks instead of YARN, requirements are different for frameworks and they should maintain the staging directories themselves, as far as I know, Flink and Spark both can cleanup the staging directories after app totally terminate.\r\nFor log-aggregation directories, there is a cleanup thread in JobHistoryServer, the TTL of these directories can be configured by \"yarn.log-aggregation.retain-seconds\", -1 by default means cleanup disabled, for example, you can set 604800 to retain them for only a week to avoid overflowing the quota.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tao+Yang",
+              "name": "Tao Yang",
+              "key": "tao yang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Tao Yang",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2019-06-22T02:19:01.355+0000",
+            "updated": "2019-06-22T02:19:01.355+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13240621/comment/16870034",
+            "id": "16870034",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Hi, [~Tao Yang].\r\n\r\nThanks for comment. I have changed my description, as\u00a0[~cheersyang]\u00a0commented, my focus is if we can distributed these dirs among multi federation dirs, to get better namenode performance for my HDFS federation. But will affect some other logic, the details should be considered.\r\n\r\n\u00a0",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-06-22T03:31:19.796+0000",
+            "updated": "2019-06-22T03:31:19.796+0000"
+          }
+        ],
+        "maxResults": 6,
+        "total": 6,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9634/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2019-06-22T03:31:19.796+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 6,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13240621/comment/16868405",
+        "id": "16868405",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "cc\u00a0[~Tao Yang],[~cheersyang]\u00a0,[~leftnoteasy],\u00a0[~sunilg]",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-06-20T09:49:15.836+0000",
+        "updated": "2019-06-20T09:49:15.836+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13240621/comment/16868547",
+        "id": "16868547",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "body": "Hi [~zhuqi]\u00a0what\u00a0do you mean by the default storage limit, is that the space quota? Can you give an example of how to distribute these dirs, and why that helps? Thanks.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "created": "2019-06-20T14:04:50.991+0000",
+        "updated": "2019-06-20T14:04:50.991+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13240621/comment/16869151",
+        "id": "16869151",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Hi\u00a0[~cheersyang],\r\n\r\nYeah i mean space quota. Also in normal situation, if we don't use quota, i mean that in our large cluster,\u00a0 the fixed namespace binding the submit dir and log aggeration dir, will affect the fixed namespace rpc performance. I think we can add configuration with some round robin policy or hash policy to distributed this dir to configured namespaces among the hdfs federation.\u00a0",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-06-21T03:56:28.770+0000",
+        "updated": "2019-06-21T03:56:28.770+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13240621/comment/16869268",
+        "id": "16869268",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "body": "Hi [~zhuqi]\r\n\r\nThanks. Are you suggesting to let parameter \\{{yarn.nodemanager.remote-app-log-dir}} support multiple dirs, and use e.g round-robin policy to select dirs? If this is the case, will this break something? Such as history server, timeline-server or log CLI etc, I assume some of these components need to read logs from this location. Please elaborate, thanks.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cheersyang",
+          "name": "cheersyang",
+          "key": "cheersyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cheersyang&avatarId=23772",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cheersyang&avatarId=23772",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cheersyang&avatarId=23772",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cheersyang&avatarId=23772"
+          },
+          "displayName": "Weiwei Yang",
+          "active": true,
+          "timeZone": "Pacific/Pitcairn"
+        },
+        "created": "2019-06-21T07:38:47.746+0000",
+        "updated": "2019-06-21T07:38:47.746+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13240621/comment/16870015",
+        "id": "16870015",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tao+Yang",
+          "name": "Tao Yang",
+          "key": "tao yang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Tao Yang",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Hi, [~zhuqi].\r\nJust noticed this issue. \r\nThe staging directories used for submission should be managed by application frameworks instead of YARN, requirements are different for frameworks and they should maintain the staging directories themselves, as far as I know, Flink and Spark both can cleanup the staging directories after app totally terminate.\r\nFor log-aggregation directories, there is a cleanup thread in JobHistoryServer, the TTL of these directories can be configured by \"yarn.log-aggregation.retain-seconds\", -1 by default means cleanup disabled, for example, you can set 604800 to retain them for only a week to avoid overflowing the quota.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tao+Yang",
+          "name": "Tao Yang",
+          "key": "tao yang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Tao Yang",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2019-06-22T02:19:01.355+0000",
+        "updated": "2019-06-22T02:19:01.355+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13240621/comment/16870034",
+        "id": "16870034",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Hi, [~Tao Yang].\r\n\r\nThanks for comment. I have changed my description, as\u00a0[~cheersyang]\u00a0commented, my focus is if we can distributed these dirs among multi federation dirs, to get better namenode performance for my HDFS federation. But will affect some other logic, the details should be considered.\r\n\r\n\u00a0",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-06-22T03:31:19.796+0000",
+        "updated": "2019-06-22T03:31:19.796+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9634/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 6,
+        "returned": 6
+      }
+    ]
+  }
+}

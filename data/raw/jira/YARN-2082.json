@@ -1,0 +1,546 @@
+{
+  "downloaded_at": "2026-06-25T10:23:11.720408+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-2082",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2082?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12715681",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12715681",
+    "key": "YARN-2082",
+    "fields": {
+      "summary": "Support for alternative log aggregation mechanism",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+        "id": "2",
+        "description": "A new feature of the product, which has yet to be developed.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+        "name": "New Feature",
+        "subtask": false,
+        "avatarId": 21141
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2014-05-21T06:34:37.067+0000",
+      "description": "I will post a more detailed design later. Here is the brief summary and would like to get early feedback.\n\nProblem Statement:\n\nCurrent implementation of log aggregation create one HDFS file for each {application, nodemanager }. These files are relative small, in the range of 1-2 MB. In a large cluster with lots of application and many nodemanagers, it ends up creating lots of small files in HDFS. This creates pressure on HDFS NN on the following ways.\n\n1. It increases NN Memory size. It is mitigated by having history server deletes old log files in HDFS.\n2. Runtime RPC hit on HDFS. Each log aggregation file introduced several NN RPCs such as create, getAdditionalBlock, complete, rename. When the cluster is busy, such RPC hit has impact on NN performance.\n\nIn addition, to support non-MR applications on YARN, we might need to support aggregation for long running applications.\n\n\nDesign choices:\n\n1. Don't aggregate all the logs, as in YARN-221.\n2. Create a dedicated HDFS namespace used only for log aggregation.\n3. Write logs to some key-value store like HBase. HBase's RPC hit on NN will be much less.\n4. Decentralize the application level log aggregation to NMs. All logs for a given application are aggregated first by a dedicated NM before it is pushed to HDFS.\n5. Have NM aggregate logs on a regular basis; each of these log files will have data from different applications and there needs to be some index for quick lookup.\n\n\nProposal:\n\n1. Make yarn log aggregation pluggable for both read and write path. Note that Hadoop FileSystem provides an abstraction and we could ask alternative log aggregator implement compatable FileSystem, but that seems to an overkill.\n\n2. Provide a log aggregation plugin that write to HBase. The scheme design needs to support efficient read on a per application as well as per application+container basis; in addition, it shouldn't create hotspot in a cluster where certain users might create more jobs than others. For example, we can use hash($user+$applicationId} + containerid as the row key.\n",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [
+        {
+          "id": "12388474",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12388474",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "12665777",
+            "key": "YARN-1104",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12665777",
+            "fields": {
+              "summary": "NMs to support rolling logs of stdout & stderr",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12388475",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12388475",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "12665827",
+            "key": "YARN-1111",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12665827",
+            "fields": {
+              "summary": "NM containerlogs servlet can't handle logs of more than a GB",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/6",
+                "description": "The issue is considered finished, the resolution is correct. Issues which are not closed can be reopened.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/closed.png",
+                "name": "Closed",
+                "id": "6",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/4",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/minor.svg",
+                "name": "Minor",
+                "id": "4"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12715681/comment/14004478",
+            "id": "14004478",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "we do have log issues in long-lived apps, but different ones, YARN-1104 and YARN-1111 look at those.\n\nfor those services we don't want the logs aggregated at the end of the run, more streamed off while the app runs along. I don't know if this plugin mechanism would help at that phase, unless the logs were being snapshotted and rolled out.\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2014-05-21T08:28:27.782+0000",
+            "updated": "2014-05-21T08:28:27.782+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12715681/comment/14005427",
+            "id": "14005427",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Just think it out loudly. Instead of making another store based on HBase to host the aggregated logs. Is it possible to reuse the timeline store to do it? I think the event stream data model should be suitable in this case, and there's a pending work to scale out the timeline store with HBase as well (YARN-2032). The additional benefit is that the interfaces for publish and querying the data are ready, and we just need to change the hook or wrap them into a log aggregation plugin.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-05-22T00:05:32.301+0000",
+            "updated": "2014-05-22T00:05:32.301+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12715681/comment/14006753",
+            "id": "14006753",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "We should also consider some scalable solutions on HDFS itself - to post process the logs automatically to reduce the file-count and may be NMs forming a tree of aggregation (with network copy of logs) before hitting HDFS.\n\nIAC, the pluggability is sort of a dup of the proposal at YARN-1440 (albeit for a different reason)?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2014-05-23T03:28:13.423+0000",
+            "updated": "2014-05-23T03:28:13.423+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12715681/comment/14007562",
+            "id": "14007562",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=mingma",
+              "name": "mingma",
+              "key": "mingma",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Ming Ma",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Folks, thanks for the feedbacks and other jiras; quite useful. We have been discussing internally how to mitigate log aggregation's impact on NN for some time. Here are more context and comments.\n\n1. We discussed Vinod's suggestion of post processing before. The issue is that the write RPC hit on NN has already happened. Even more, post processing introduces more hits on NN.\n\n2. Agree that HDFS needs to be more scalable. Some improvements have been done; some are still being worked on. My opinion is we should do both if possible, improve HDFS and improve how applications use HDFS.\n\n3. Reducing the impact on NN in large cluster is our primary motivation, similar to what Jason mentioned in YARN-1440. We use the approach mentioned by [~jira.shegalov], [~ctrezzo] in YARN-221 to mitigate the issue.\n\n4. YARN-1440 also suggested making it pluggable, but it seems the primary motivation is to make it easy for other tools to integrate with yarn logs. If that is the case, we have two requirements to make it make log aggregation pluggable, easy to integrate with other tools and reduce pressure on NN.\n\n5. We discussed writing logs to key-value store before. At that point, we didn't go with that approach as it introduces yarn depend on external component like HBase. Based on recent discussion with [~jira.shegalov] and [~ctrezzo], it sounds like a reasonable approach.  a) timeline store has dependency on HBase and b) the size of logs is small and suitable for HBase scenario.\n\n6. Regarding Zhijie's suggestion of using timeline store, that sounds like an interesting idea, if timeline store is highly available.\n\n7. Regarding Steve' comment for the long running job support. It wasn't our primary goal; just want to make sure if we do end up changing log aggregation, the framework needs to support that scenario as well. If there is long running container and we rotate the logs, is there a plan to aggregate them before the container finishes?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=mingma",
+              "name": "mingma",
+              "key": "mingma",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Ming Ma",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-05-23T19:17:07.420+0000",
+            "updated": "2014-05-23T19:17:07.420+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12715681/comment/17796555",
+            "id": "17796555",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=yifan.stan",
+              "name": "yifan.stan",
+              "key": "yifan.stan",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yifan.stan&avatarId=32319",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yifan.stan&avatarId=32319",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yifan.stan&avatarId=32319",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yifan.stan&avatarId=32319"
+              },
+              "displayName": "Xie YiFan",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Hi, it is a long ticket. We are now suffering from the small files problem. We have 200,000+ jobs per day for one cluster.\r\nSuppose that a job may running on 25 nodemanagers at average. Then the amount of file number should be 200,000 times 25 = 5,000,000 for only one cluster per day. HDFS can't handle so many small files. At the create time of this ticket, we do not introduce timeline V2 which using HBase as backend storage. And now, timeline V2 have good scalability and usability. So i think we can using HBase to store log files.\r\n\r\n[~slfan1989] [~inigoiri] What do you think about this?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=yifan.stan",
+              "name": "yifan.stan",
+              "key": "yifan.stan",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yifan.stan&avatarId=32319",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yifan.stan&avatarId=32319",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yifan.stan&avatarId=32319",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yifan.stan&avatarId=32319"
+              },
+              "displayName": "Xie YiFan",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2023-12-14T05:02:16.144+0000",
+            "updated": "2023-12-14T05:02:16.144+0000"
+          }
+        ],
+        "maxResults": 5,
+        "total": 5,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2082/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2023-12-14T05:02:16.144+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 5,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12715681/comment/14004478",
+        "id": "14004478",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "we do have log issues in long-lived apps, but different ones, YARN-1104 and YARN-1111 look at those.\n\nfor those services we don't want the logs aggregated at the end of the run, more streamed off while the app runs along. I don't know if this plugin mechanism would help at that phase, unless the logs were being snapshotted and rolled out.\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2014-05-21T08:28:27.782+0000",
+        "updated": "2014-05-21T08:28:27.782+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12715681/comment/14005427",
+        "id": "14005427",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Just think it out loudly. Instead of making another store based on HBase to host the aggregated logs. Is it possible to reuse the timeline store to do it? I think the event stream data model should be suitable in this case, and there's a pending work to scale out the timeline store with HBase as well (YARN-2032). The additional benefit is that the interfaces for publish and querying the data are ready, and we just need to change the hook or wrap them into a log aggregation plugin.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-05-22T00:05:32.301+0000",
+        "updated": "2014-05-22T00:05:32.301+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12715681/comment/14006753",
+        "id": "14006753",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "We should also consider some scalable solutions on HDFS itself - to post process the logs automatically to reduce the file-count and may be NMs forming a tree of aggregation (with network copy of logs) before hitting HDFS.\n\nIAC, the pluggability is sort of a dup of the proposal at YARN-1440 (albeit for a different reason)?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2014-05-23T03:28:13.423+0000",
+        "updated": "2014-05-23T03:28:13.423+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12715681/comment/14007562",
+        "id": "14007562",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=mingma",
+          "name": "mingma",
+          "key": "mingma",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Ming Ma",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Folks, thanks for the feedbacks and other jiras; quite useful. We have been discussing internally how to mitigate log aggregation's impact on NN for some time. Here are more context and comments.\n\n1. We discussed Vinod's suggestion of post processing before. The issue is that the write RPC hit on NN has already happened. Even more, post processing introduces more hits on NN.\n\n2. Agree that HDFS needs to be more scalable. Some improvements have been done; some are still being worked on. My opinion is we should do both if possible, improve HDFS and improve how applications use HDFS.\n\n3. Reducing the impact on NN in large cluster is our primary motivation, similar to what Jason mentioned in YARN-1440. We use the approach mentioned by [~jira.shegalov], [~ctrezzo] in YARN-221 to mitigate the issue.\n\n4. YARN-1440 also suggested making it pluggable, but it seems the primary motivation is to make it easy for other tools to integrate with yarn logs. If that is the case, we have two requirements to make it make log aggregation pluggable, easy to integrate with other tools and reduce pressure on NN.\n\n5. We discussed writing logs to key-value store before. At that point, we didn't go with that approach as it introduces yarn depend on external component like HBase. Based on recent discussion with [~jira.shegalov] and [~ctrezzo], it sounds like a reasonable approach.  a) timeline store has dependency on HBase and b) the size of logs is small and suitable for HBase scenario.\n\n6. Regarding Zhijie's suggestion of using timeline store, that sounds like an interesting idea, if timeline store is highly available.\n\n7. Regarding Steve' comment for the long running job support. It wasn't our primary goal; just want to make sure if we do end up changing log aggregation, the framework needs to support that scenario as well. If there is long running container and we rotate the logs, is there a plan to aggregate them before the container finishes?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=mingma",
+          "name": "mingma",
+          "key": "mingma",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Ming Ma",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-05-23T19:17:07.420+0000",
+        "updated": "2014-05-23T19:17:07.420+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12715681/comment/17796555",
+        "id": "17796555",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=yifan.stan",
+          "name": "yifan.stan",
+          "key": "yifan.stan",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yifan.stan&avatarId=32319",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yifan.stan&avatarId=32319",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yifan.stan&avatarId=32319",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yifan.stan&avatarId=32319"
+          },
+          "displayName": "Xie YiFan",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Hi, it is a long ticket. We are now suffering from the small files problem. We have 200,000+ jobs per day for one cluster.\r\nSuppose that a job may running on 25 nodemanagers at average. Then the amount of file number should be 200,000 times 25 = 5,000,000 for only one cluster per day. HDFS can't handle so many small files. At the create time of this ticket, we do not introduce timeline V2 which using HBase as backend storage. And now, timeline V2 have good scalability and usability. So i think we can using HBase to store log files.\r\n\r\n[~slfan1989] [~inigoiri] What do you think about this?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=yifan.stan",
+          "name": "yifan.stan",
+          "key": "yifan.stan",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yifan.stan&avatarId=32319",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yifan.stan&avatarId=32319",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yifan.stan&avatarId=32319",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yifan.stan&avatarId=32319"
+          },
+          "displayName": "Xie YiFan",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2023-12-14T05:02:16.144+0000",
+        "updated": "2023-12-14T05:02:16.144+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2082/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 5,
+        "returned": 5
+      }
+    ]
+  }
+}

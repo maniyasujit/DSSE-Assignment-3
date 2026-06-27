@@ -1,0 +1,110 @@
+{
+  "downloaded_at": "2026-06-25T10:24:58.756166+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-11152",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-11152?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13445099",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13445099",
+    "key": "YARN-11152",
+    "fields": {
+      "summary": "QueueMetrics is leaking memory when creating a new queue during reinitialisation",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+        "id": "1",
+        "description": "A problem which impairs or prevents the functions of the product.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+        "name": "Bug",
+        "subtask": false,
+        "avatarId": 21133
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12327621",
+          "id": "12327621",
+          "name": "capacity scheduler"
+        }
+      ],
+      "subtasks": [],
+      "created": "2022-05-16T07:26:52.725+0000",
+      "description": "Capacity Scheduler handles reinitialisation by reparsing the entire queue hierarchy, then reinitialising the old queue hierarchy by taking the newly parsed queues into account. After this, the newly parsed queues are discarded and they are GCed.\r\nHowever, with the introduction of YARN-6492, we are storing a parent queue in QueueMetrics, which is problematic, because at that point, the parent queue could still point to a parent reference, that is a newly parsed parent queue (which should be discarded after the reinitialisation). Due to this fact, QueueMetrics could contain parents members of an entirely different queue hierarchy than the current hierarchy in use. It could lead to subtle problems as well as memory leak, because one parent reference will keep the whole queue hierarchy alive.\r\nThis problem arised when we programatically added one queue after an other via the mutation API, thus keeping alive hundreds of queue hierarchies at the same time, crippling the GC and the whole RM.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/1",
+        "id": "1",
+        "description": "A fix for this issue is checked into the tree and tested.",
+        "name": "Fixed"
+      },
+      "labels": [
+        "pull-request-available"
+      ],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [],
+        "maxResults": 0,
+        "total": 0,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-11152/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2024-01-28T05:24:17.066+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 0,
+    "comments": [],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-11152/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 0,
+        "returned": 0
+      }
+    ]
+  }
+}

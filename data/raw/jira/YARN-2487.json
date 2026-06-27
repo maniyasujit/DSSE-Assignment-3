@@ -1,0 +1,487 @@
+{
+  "downloaded_at": "2026-06-25T10:22:57.035746+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-2487",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2487?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12738336",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12738336",
+    "key": "YARN-2487",
+    "fields": {
+      "summary": "Need to support timeout of AM When no containers are assigned to it for a defined period",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319322",
+          "id": "12319322",
+          "name": "resourcemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2014-09-02T02:39:16.786+0000",
+      "description": " There are some scenarios where AM will not get containers and indefinitely waiting. We faced one such sceanrio which makes the applications to get hung : \nConsider a cluster setup which has 2 NMS of each 8GB resource,\nAnd 2 applications(MR2) are launched in the default queue where in each AM is taking 2 GB each.\nEach AM is placed in each of the NM. Now each AM is requesting for container of 7Gb  mem resource .\nAs in each NM only 6GB resource is available both the applications are hung forever.\n\nTo avoid such scenarios i would like to propose \ngeneric timeout feature for all AM's in yarn, such that if no containers are assigned for an application for a defined period than yarn can timeout the application attempt.\nDefault can be set to 0 where in RM will not timeout the app attempt and user can set his own timeout when he submits the application",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/2",
+        "id": "2",
+        "description": "The problem described is an issue which will never be fixed.",
+        "name": "Won't Fix"
+      },
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [
+        {
+          "id": "12395678",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12395678",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "inwardIssue": {
+            "id": "12645301",
+            "key": "YARN-624",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12645301",
+            "fields": {
+              "summary": "Support gang scheduling in the AM RM protocol",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12436413",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12436413",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "inwardIssue": {
+            "id": "12838426",
+            "key": "YARN-3813",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12838426",
+            "fields": {
+              "summary": "Support Application timeout feature in YARN. ",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+                "id": "2",
+                "description": "A new feature of the product, which has yet to be developed.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+                "name": "New Feature",
+                "subtask": false,
+                "avatarId": 21141
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12738336/comment/14118228",
+            "id": "14118228",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "link to YARN-624; gang scheduling problem",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2014-09-02T14:21:36.155+0000",
+            "updated": "2014-09-02T14:21:36.155+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12738336/comment/14907477",
+            "id": "14907477",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Seems like to an extent this issue can be resolved using YARN-3813 and its subjira's  but [~nijel], [~rohithsharma] , [~jianhe] & [~wangda], please check weather we need to support the scenario of timing out only in the case app is not running. Based on the above scenario thought it might be required.  Currently closing this jira.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2015-09-25T03:08:32.465+0000",
+            "updated": "2015-09-25T03:08:32.465+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12738336/comment/14907533",
+            "id": "14907533",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+              "name": "rohithsharma",
+              "key": "rohithsharma",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Rohith Sharma K S",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "body": "Hi [~Naganarasimha Garla], it is worth for keeping the application if it is running. But problem is currently YARN does not identifies the reasons for the not progressing. App not progressing could be because of several reasons. So I feel, if any mechanism to get reason for not progressing applications, this could be handled. I believe, YARN-4091 is one such issue which trying to get more debug information and  planning to expose REST interface for getting per application progress information.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+              "name": "rohithsharma",
+              "key": "rohithsharma",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Rohith Sharma K S",
+              "active": true,
+              "timeZone": "America/New_York"
+            },
+            "created": "2015-09-25T04:08:21.675+0000",
+            "updated": "2015-09-25T04:08:21.675+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12738336/comment/15882439",
+            "id": "15882439",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sachin+aggarwal",
+              "name": "sachin aggarwal",
+              "key": "sachin aggarwal",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=sachin+aggarwal&avatarId=25965",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=sachin+aggarwal&avatarId=25965",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=sachin+aggarwal&avatarId=25965",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=sachin+aggarwal&avatarId=25965"
+              },
+              "displayName": "Sachin Aggarwal",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "[~naganarasimha_gr@apache.org] [~rohithsharma]  [~nijel],  [~hejian991]  [~wangda],\n\nI have a usecase which is similar to this. is there a chance you guys can consider this. or let me know if you have any work around this problem.\n\nI am running Jupyter kernel gateway  in my custer. when JKG receives a request it starts a kernel in yarn-client mode.\nin yarn-client mode application master and executer runs in yarn and driver runs outside.\nIn this case notebook comes up and kernel is running but I am not getting any container for master when other guys are using all resources.\nmy aim here is. in such scenario I should wait for some time for resources and then I have to let user know that ur notebook is not able to get resources. please try after sometime and I kill his request.\n\nlet know if you guys have more questions \n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sachin+aggarwal",
+              "name": "sachin aggarwal",
+              "key": "sachin aggarwal",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=sachin+aggarwal&avatarId=25965",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=sachin+aggarwal&avatarId=25965",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=sachin+aggarwal&avatarId=25965",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=sachin+aggarwal&avatarId=25965"
+              },
+              "displayName": "Sachin Aggarwal",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2017-02-24T10:48:56.323+0000",
+            "updated": "2017-02-24T10:48:56.323+0000"
+          }
+        ],
+        "maxResults": 4,
+        "total": 4,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2487/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2017-02-24T10:48:56.323+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 4,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12738336/comment/14118228",
+        "id": "14118228",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "link to YARN-624; gang scheduling problem",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2014-09-02T14:21:36.155+0000",
+        "updated": "2014-09-02T14:21:36.155+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12738336/comment/14907477",
+        "id": "14907477",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Seems like to an extent this issue can be resolved using YARN-3813 and its subjira's  but [~nijel], [~rohithsharma] , [~jianhe] & [~wangda], please check weather we need to support the scenario of timing out only in the case app is not running. Based on the above scenario thought it might be required.  Currently closing this jira.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2015-09-25T03:08:32.465+0000",
+        "updated": "2015-09-25T03:08:32.465+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12738336/comment/14907533",
+        "id": "14907533",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+          "name": "rohithsharma",
+          "key": "rohithsharma",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Rohith Sharma K S",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "body": "Hi [~Naganarasimha Garla], it is worth for keeping the application if it is running. But problem is currently YARN does not identifies the reasons for the not progressing. App not progressing could be because of several reasons. So I feel, if any mechanism to get reason for not progressing applications, this could be handled. I believe, YARN-4091 is one such issue which trying to get more debug information and  planning to expose REST interface for getting per application progress information.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rohithsharma",
+          "name": "rohithsharma",
+          "key": "rohithsharma",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Rohith Sharma K S",
+          "active": true,
+          "timeZone": "America/New_York"
+        },
+        "created": "2015-09-25T04:08:21.675+0000",
+        "updated": "2015-09-25T04:08:21.675+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12738336/comment/15882439",
+        "id": "15882439",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sachin+aggarwal",
+          "name": "sachin aggarwal",
+          "key": "sachin aggarwal",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=sachin+aggarwal&avatarId=25965",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=sachin+aggarwal&avatarId=25965",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=sachin+aggarwal&avatarId=25965",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=sachin+aggarwal&avatarId=25965"
+          },
+          "displayName": "Sachin Aggarwal",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "[~naganarasimha_gr@apache.org] [~rohithsharma]  [~nijel],  [~hejian991]  [~wangda],\n\nI have a usecase which is similar to this. is there a chance you guys can consider this. or let me know if you have any work around this problem.\n\nI am running Jupyter kernel gateway  in my custer. when JKG receives a request it starts a kernel in yarn-client mode.\nin yarn-client mode application master and executer runs in yarn and driver runs outside.\nIn this case notebook comes up and kernel is running but I am not getting any container for master when other guys are using all resources.\nmy aim here is. in such scenario I should wait for some time for resources and then I have to let user know that ur notebook is not able to get resources. please try after sometime and I kill his request.\n\nlet know if you guys have more questions \n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sachin+aggarwal",
+          "name": "sachin aggarwal",
+          "key": "sachin aggarwal",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=sachin+aggarwal&avatarId=25965",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=sachin+aggarwal&avatarId=25965",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=sachin+aggarwal&avatarId=25965",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=sachin+aggarwal&avatarId=25965"
+          },
+          "displayName": "Sachin Aggarwal",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2017-02-24T10:48:56.323+0000",
+        "updated": "2017-02-24T10:48:56.323+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2487/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 4,
+        "returned": 4
+      }
+    ]
+  }
+}

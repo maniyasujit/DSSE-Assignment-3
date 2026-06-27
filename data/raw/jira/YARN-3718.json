@@ -1,0 +1,492 @@
+{
+  "downloaded_at": "2026-06-25T10:22:01.104441+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-3718",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3718?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12832775",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12832775",
+    "key": "YARN-3718",
+    "fields": {
+      "summary": "hadoop-yarn-server-nodemanager's use of Linux Cgroups is non-portable",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12832814",
+        "key": "YARN-3719",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12832814",
+        "fields": {
+          "summary": "Improve Solaris support in YARN",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+            "description": "The issue is open and ready for the assignee to start work on it.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+            "name": "Open",
+            "id": "1",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+            "id": "2",
+            "description": "A new feature of the product, which has yet to be developed.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+            "name": "New Feature",
+            "subtask": false,
+            "avatarId": 21141
+          }
+        }
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319323",
+          "id": "12319323",
+          "name": "nodemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2015-05-26T16:54:10.765+0000",
+      "description": "hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/impl/container-executor.c makes use of the Linux-only Cgroups feature (http://en.wikipedia.org/wiki/Cgroups) when Hadoop is built on Linux, but there is no corresponding functionality for non-Linux platforms.\n\nOther platforms provide similar functionality, e.g. Solaris has an extensive range of resource management features (http://docs.oracle.com/cd/E23824_01/html/821-1460/index.html). Work is needed to abstract the resource management features of Yarn so that the same facilities for resource management can be provided on all platforms that provide the requisite functionality,",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12832775/comment/14559584",
+            "id": "14559584",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "We have container executors for each OS - default for all unix-based, Linux for linux, Windows for windows. Are you proposing adding a new executor for Solaris? If yes, we should mark it a new feature (instead of a bug) and update the title accordingly. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-26T18:41:12.930+0000",
+            "updated": "2015-05-26T18:41:12.930+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12832775/comment/14559590",
+            "id": "14559590",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Never mind. I see this is a subtask of YARN-3719.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-26T18:43:38.637+0000",
+            "updated": "2015-05-26T18:43:38.637+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12832775/comment/14559617",
+            "id": "14559617",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=alanburlison",
+              "name": "alanburlison",
+              "key": "alanburlison",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alan Burlison",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "\n\nYes, I created a new top-level task and moved it under there as there \nare a couple of other YARN-related issues as well.\n\n-- \nAlan Burlison\n--\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=alanburlison",
+              "name": "alanburlison",
+              "key": "alanburlison",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alan Burlison",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2015-05-26T18:51:40.935+0000",
+            "updated": "2015-05-26T18:51:40.935+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12832775/comment/14559634",
+            "id": "14559634",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Not sure if we need a new executor altogether. I'd think this is very similar to YARN-2161/YARN-1327 for Mac/FreeBSD.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2015-05-26T19:03:57.856+0000",
+            "updated": "2015-05-26T19:03:57.856+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12832775/comment/14560766",
+            "id": "14560766",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=alanburlison",
+              "name": "alanburlison",
+              "key": "alanburlison",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alan Burlison",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "As far as I can tell, the solution on BSD is just to disable all resource management features at compile-time. Whilst that approach should probably be taken on initially Solaris, if it makes sense to use RM features on Linux it almost certainly does on Solaris as well. To do that requires taking a close look at how the Linux Cgroup features are currently used and if necessary abstracting that functionality so it can be implemented using both Linux and Solaris RM functionality.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=alanburlison",
+              "name": "alanburlison",
+              "key": "alanburlison",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alan Burlison",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2015-05-27T10:56:01.671+0000",
+            "updated": "2015-05-27T10:56:01.671+0000"
+          }
+        ],
+        "maxResults": 5,
+        "total": 5,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3718/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2015-05-27T10:56:01.671+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 5,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12832775/comment/14559584",
+        "id": "14559584",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "We have container executors for each OS - default for all unix-based, Linux for linux, Windows for windows. Are you proposing adding a new executor for Solaris? If yes, we should mark it a new feature (instead of a bug) and update the title accordingly. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-26T18:41:12.930+0000",
+        "updated": "2015-05-26T18:41:12.930+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12832775/comment/14559590",
+        "id": "14559590",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Never mind. I see this is a subtask of YARN-3719.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-26T18:43:38.637+0000",
+        "updated": "2015-05-26T18:43:38.637+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12832775/comment/14559617",
+        "id": "14559617",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=alanburlison",
+          "name": "alanburlison",
+          "key": "alanburlison",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alan Burlison",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "\n\nYes, I created a new top-level task and moved it under there as there \nare a couple of other YARN-related issues as well.\n\n-- \nAlan Burlison\n--\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=alanburlison",
+          "name": "alanburlison",
+          "key": "alanburlison",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alan Burlison",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2015-05-26T18:51:40.935+0000",
+        "updated": "2015-05-26T18:51:40.935+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12832775/comment/14559634",
+        "id": "14559634",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Not sure if we need a new executor altogether. I'd think this is very similar to YARN-2161/YARN-1327 for Mac/FreeBSD.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2015-05-26T19:03:57.856+0000",
+        "updated": "2015-05-26T19:03:57.856+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12832775/comment/14560766",
+        "id": "14560766",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=alanburlison",
+          "name": "alanburlison",
+          "key": "alanburlison",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alan Burlison",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "As far as I can tell, the solution on BSD is just to disable all resource management features at compile-time. Whilst that approach should probably be taken on initially Solaris, if it makes sense to use RM features on Linux it almost certainly does on Solaris as well. To do that requires taking a close look at how the Linux Cgroup features are currently used and if necessary abstracting that functionality so it can be implemented using both Linux and Solaris RM functionality.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=alanburlison",
+          "name": "alanburlison",
+          "key": "alanburlison",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alan Burlison",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2015-05-27T10:56:01.671+0000",
+        "updated": "2015-05-27T10:56:01.671+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3718/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 5,
+        "returned": 5
+      }
+    ]
+  }
+}

@@ -1,0 +1,735 @@
+{
+  "downloaded_at": "2026-06-25T10:22:54.938152+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-2518",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2518?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12739630",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12739630",
+    "key": "YARN-2518",
+    "fields": {
+      "summary": "Support in-process container executor",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+        "id": "2",
+        "description": "A new feature of the product, which has yet to be developed.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+        "name": "New Feature",
+        "subtask": false,
+        "avatarId": 21141
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319323",
+          "id": "12319323",
+          "name": "nodemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2014-09-05T23:36:59.918+0000",
+      "description": "Node Manage always creates a new process for a new application. We have hit a scenario where we want the node manager to execute the application inside its own process, so we get fast response time. It would be nice if Node Manager or YARN can provide native support for that.\n\nIn general, the scenario is that we have a long running process which can accept requests and process the requests inside its own process. Since YARN is good at scheduling jobs, we want to use YARN to dispatch jobs (e.g. requests in JSON) to the long running process. In that case, we do not want YARN container to spin up a new process for each request. Instead, we want YARN container to send the request to the long running process for further processing.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/4",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/minor.svg",
+        "name": "Minor",
+        "id": "4"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12739630/comment/14123816",
+            "id": "14123816",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bobyangbo",
+              "name": "bobyangbo",
+              "key": "bobyangbo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "BoYang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "We tried to use a custom Container Executor implementation, and hook it up with YARN. It seems working. But it would be still nice if YARN can provide native support for in-process container executor.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bobyangbo",
+              "name": "bobyangbo",
+              "key": "bobyangbo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "BoYang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-09-05T23:38:15.390+0000",
+            "updated": "2014-09-05T23:38:15.390+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12739630/comment/14125797",
+            "id": "14125797",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+              "name": "aw",
+              "key": "aw",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+              },
+              "displayName": "Allen Wittenauer",
+              "active": true,
+              "timeZone": "America/Tijuana"
+            },
+            "body": "This is pretty much incompatible with security. So it should probably fail the nodemanager process under that condition.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+              "name": "aw",
+              "key": "aw",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+              },
+              "displayName": "Allen Wittenauer",
+              "active": true,
+              "timeZone": "America/Tijuana"
+            },
+            "created": "2014-09-08T17:38:18.402+0000",
+            "updated": "2014-09-08T17:38:18.402+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12739630/comment/14125834",
+            "id": "14125834",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bobyangbo",
+              "name": "bobyangbo",
+              "key": "bobyangbo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "BoYang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "In my rough testing, it did not fail the node manager process. In my Container Executor implementation (launchContainer method), I register a new application master, send a message to another long running process, and unregister the application master. I can see the application finished successfully.\n\nOf course, that was my very draft initial testing. We could fine-tune the code to make it work better. But technically it seems doable now. Thus I am curious whether the YARN community could take this feature and provide official support.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bobyangbo",
+              "name": "bobyangbo",
+              "key": "bobyangbo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "BoYang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-09-08T18:06:55.660+0000",
+            "updated": "2014-09-08T18:06:55.660+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12739630/comment/14125838",
+            "id": "14125838",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+              "name": "aw",
+              "key": "aw",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+              },
+              "displayName": "Allen Wittenauer",
+              "active": true,
+              "timeZone": "America/Tijuana"
+            },
+            "body": "Sorry, I wasn't clear:  if this feature goes in, it must fail the nodemanager process if security is enabled due to running tasks as the yarn user being extremely insecure.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+              "name": "aw",
+              "key": "aw",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+              },
+              "displayName": "Allen Wittenauer",
+              "active": true,
+              "timeZone": "America/Tijuana"
+            },
+            "created": "2014-09-08T18:08:46.674+0000",
+            "updated": "2014-09-08T18:08:46.674+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12739630/comment/14125907",
+            "id": "14125907",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bobyangbo",
+              "name": "bobyangbo",
+              "key": "bobyangbo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "BoYang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Yeah, there might be some issues with this, which need to be figure out. Thanks Allen for bring it out. I just come with YARN recently and cannot clearly identify all potential issues now.\n\nMy point is that this in-process container executor seems to be a generic need from different people. I kind of see several discussion about this in my search. Some uses dummy process (for example, Impala?) as a proxy to relay the task to the long running process for further processing.\n\nSo if the YARN community can realize the need for this common scenario, bring it up for further discussion, and explore the possibilities to support it natively, that will be really appreciated. And it will probably benefit a lot of other people or projects as well, and make YARN a even more generic framework to be adopted more broadly.\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bobyangbo",
+              "name": "bobyangbo",
+              "key": "bobyangbo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "BoYang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-09-08T18:47:33.634+0000",
+            "updated": "2014-09-08T18:47:33.634+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12739630/comment/14132809",
+            "id": "14132809",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Apart from security , Resource isolation , preemption many things don't work in the proposed solution. I would prefer AM & its containers are coded to reuse the containers if launching of new containers are having performance problems.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+              "name": "Naganarasimha",
+              "key": "naganarasimha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Naganarasimha G R",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2014-09-13T16:10:31.945+0000",
+            "updated": "2014-09-13T16:10:31.945+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12739630/comment/14133046",
+            "id": "14133046",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Today's containers in YARN are necessarily process-trees - meaning they are separate processes with their own command-lines, environment etc. If you want an 'in-process' container, given NMs are JVMs, you need native support for some sort of a first-class JVM container in YARN. This doesn't exist today, so this ticket doesn't make much sense as of now.\n\nYour use-case is valid. And as the above comment says, the solution is to launch a container and reuse it.\n\nOne other relevant work you may be interested in is YARN-896.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2014-09-14T01:15:34.235+0000",
+            "updated": "2014-09-14T01:15:34.235+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12739630/comment/14133089",
+            "id": "14133089",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bobyangbo",
+              "name": "bobyangbo",
+              "key": "bobyangbo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "BoYang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Yes, YARN-896 is a similar scenario. Thanks for bring in that. Is there anyone currently looking at that?\n\nBy the way, can you provide more details about \"launch a container and reuse it\"? Let's say the first job comes in and launches an application master container (process). Now the second job comes in. YARN will still launch another application master container (process) for the second one. How to make the second job reuse the previous application master container?\n\nIf you mean reuse the non-application-master containers, that might be possible. But for my scenario, it needs to reuse the application master container. Is there anyway to do that?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bobyangbo",
+              "name": "bobyangbo",
+              "key": "bobyangbo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "BoYang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2014-09-14T05:19:39.906+0000",
+            "updated": "2014-09-14T05:19:39.906+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12739630/comment/14245508",
+            "id": "14245508",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "bq. Yes, YARN-896 is a similar scenario. Thanks for bring in that. Is there anyone currently looking at that?\nA bulk of work related to YARN-896 is done as part of Hadoop 2.6.\n\nbq. By the way, can you provide more details about \"launch a container and reuse it\"? [...] How to make the second job reuse the previous application master container?\nbq. If you mean reuse the non-application-master containers, that might be possible. But for my scenario, it needs to reuse the application master container. Is there anyway to do that?\nYes, I meant non-AM containers first. Reusing AMs should be done outside of YARN but getting clients directly talking to the AM. Or if the 'work' being done in the AM is very little, you can try the unmanaged AM path.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2014-12-13T19:52:29.922+0000",
+            "updated": "2014-12-13T19:52:29.922+0000"
+          }
+        ],
+        "maxResults": 9,
+        "total": 9,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2518/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2014-12-13T19:52:29.922+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 9,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12739630/comment/14123816",
+        "id": "14123816",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bobyangbo",
+          "name": "bobyangbo",
+          "key": "bobyangbo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "BoYang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "We tried to use a custom Container Executor implementation, and hook it up with YARN. It seems working. But it would be still nice if YARN can provide native support for in-process container executor.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bobyangbo",
+          "name": "bobyangbo",
+          "key": "bobyangbo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "BoYang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-09-05T23:38:15.390+0000",
+        "updated": "2014-09-05T23:38:15.390+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12739630/comment/14125797",
+        "id": "14125797",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+          "name": "aw",
+          "key": "aw",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+          },
+          "displayName": "Allen Wittenauer",
+          "active": true,
+          "timeZone": "America/Tijuana"
+        },
+        "body": "This is pretty much incompatible with security. So it should probably fail the nodemanager process under that condition.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+          "name": "aw",
+          "key": "aw",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+          },
+          "displayName": "Allen Wittenauer",
+          "active": true,
+          "timeZone": "America/Tijuana"
+        },
+        "created": "2014-09-08T17:38:18.402+0000",
+        "updated": "2014-09-08T17:38:18.402+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12739630/comment/14125834",
+        "id": "14125834",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bobyangbo",
+          "name": "bobyangbo",
+          "key": "bobyangbo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "BoYang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "In my rough testing, it did not fail the node manager process. In my Container Executor implementation (launchContainer method), I register a new application master, send a message to another long running process, and unregister the application master. I can see the application finished successfully.\n\nOf course, that was my very draft initial testing. We could fine-tune the code to make it work better. But technically it seems doable now. Thus I am curious whether the YARN community could take this feature and provide official support.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bobyangbo",
+          "name": "bobyangbo",
+          "key": "bobyangbo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "BoYang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-09-08T18:06:55.660+0000",
+        "updated": "2014-09-08T18:06:55.660+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12739630/comment/14125838",
+        "id": "14125838",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+          "name": "aw",
+          "key": "aw",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+          },
+          "displayName": "Allen Wittenauer",
+          "active": true,
+          "timeZone": "America/Tijuana"
+        },
+        "body": "Sorry, I wasn't clear:  if this feature goes in, it must fail the nodemanager process if security is enabled due to running tasks as the yarn user being extremely insecure.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=aw",
+          "name": "aw",
+          "key": "aw",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=aw&avatarId=23681",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=aw&avatarId=23681",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=aw&avatarId=23681",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=aw&avatarId=23681"
+          },
+          "displayName": "Allen Wittenauer",
+          "active": true,
+          "timeZone": "America/Tijuana"
+        },
+        "created": "2014-09-08T18:08:46.674+0000",
+        "updated": "2014-09-08T18:08:46.674+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12739630/comment/14125907",
+        "id": "14125907",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bobyangbo",
+          "name": "bobyangbo",
+          "key": "bobyangbo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "BoYang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Yeah, there might be some issues with this, which need to be figure out. Thanks Allen for bring it out. I just come with YARN recently and cannot clearly identify all potential issues now.\n\nMy point is that this in-process container executor seems to be a generic need from different people. I kind of see several discussion about this in my search. Some uses dummy process (for example, Impala?) as a proxy to relay the task to the long running process for further processing.\n\nSo if the YARN community can realize the need for this common scenario, bring it up for further discussion, and explore the possibilities to support it natively, that will be really appreciated. And it will probably benefit a lot of other people or projects as well, and make YARN a even more generic framework to be adopted more broadly.\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bobyangbo",
+          "name": "bobyangbo",
+          "key": "bobyangbo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "BoYang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-09-08T18:47:33.634+0000",
+        "updated": "2014-09-08T18:47:33.634+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12739630/comment/14132809",
+        "id": "14132809",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Apart from security , Resource isolation , preemption many things don't work in the proposed solution. I would prefer AM & its containers are coded to reuse the containers if launching of new containers are having performance problems.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Naganarasimha",
+          "name": "Naganarasimha",
+          "key": "naganarasimha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Naganarasimha G R",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2014-09-13T16:10:31.945+0000",
+        "updated": "2014-09-13T16:10:31.945+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12739630/comment/14133046",
+        "id": "14133046",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Today's containers in YARN are necessarily process-trees - meaning they are separate processes with their own command-lines, environment etc. If you want an 'in-process' container, given NMs are JVMs, you need native support for some sort of a first-class JVM container in YARN. This doesn't exist today, so this ticket doesn't make much sense as of now.\n\nYour use-case is valid. And as the above comment says, the solution is to launch a container and reuse it.\n\nOne other relevant work you may be interested in is YARN-896.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2014-09-14T01:15:34.235+0000",
+        "updated": "2014-09-14T01:15:34.235+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12739630/comment/14133089",
+        "id": "14133089",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bobyangbo",
+          "name": "bobyangbo",
+          "key": "bobyangbo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "BoYang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Yes, YARN-896 is a similar scenario. Thanks for bring in that. Is there anyone currently looking at that?\n\nBy the way, can you provide more details about \"launch a container and reuse it\"? Let's say the first job comes in and launches an application master container (process). Now the second job comes in. YARN will still launch another application master container (process) for the second one. How to make the second job reuse the previous application master container?\n\nIf you mean reuse the non-application-master containers, that might be possible. But for my scenario, it needs to reuse the application master container. Is there anyway to do that?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bobyangbo",
+          "name": "bobyangbo",
+          "key": "bobyangbo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "BoYang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2014-09-14T05:19:39.906+0000",
+        "updated": "2014-09-14T05:19:39.906+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12739630/comment/14245508",
+        "id": "14245508",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "bq. Yes, YARN-896 is a similar scenario. Thanks for bring in that. Is there anyone currently looking at that?\nA bulk of work related to YARN-896 is done as part of Hadoop 2.6.\n\nbq. By the way, can you provide more details about \"launch a container and reuse it\"? [...] How to make the second job reuse the previous application master container?\nbq. If you mean reuse the non-application-master containers, that might be possible. But for my scenario, it needs to reuse the application master container. Is there anyway to do that?\nYes, I meant non-AM containers first. Reusing AMs should be done outside of YARN but getting clients directly talking to the AM. Or if the 'work' being done in the AM is very little, you can try the unmanaged AM path.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2014-12-13T19:52:29.922+0000",
+        "updated": "2014-12-13T19:52:29.922+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-2518/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 9,
+        "returned": 9
+      }
+    ]
+  }
+}

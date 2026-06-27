@@ -1,0 +1,860 @@
+{
+  "downloaded_at": "2026-06-25T10:21:49.490555+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-3997",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3997?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12850219",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219",
+    "key": "YARN-3997",
+    "fields": {
+      "summary": "An Application requesting multiple core containers can't preempt running application made of single core containers",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+        "id": "1",
+        "description": "A problem which impairs or prevents the functions of the product.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+        "name": "Bug",
+        "subtask": false,
+        "avatarId": 21133
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12322906",
+          "id": "12322906",
+          "name": "fairscheduler",
+          "description": "Fair Scheduler"
+        }
+      ],
+      "subtasks": [],
+      "created": "2015-07-30T11:35:23.667+0000",
+      "description": "When our cluster is configured with preemption, and is fully loaded with an application consuming 1-core containers, it will not kill off these containers when a new application kicks in requesting containers with a size > 1, for example 4 core containers.\n\nWhen the \"second\" application attempts to us 1-core containers as well, preemption proceeds as planned and everything works properly.\n\nIt is my assumption, that the fair-scheduler, while recognizing it needs to kill off some container to make room for the new application, fails to find a SINGLE container satisfying the request for a 4-core container (since all existing containers are 1-core containers), and isn't \"smart\" enough to realize it needs to kill off 4 single-core containers (in this case) on a single node, for the new application to be able to proceed...\n\nThe exhibited affect is that the new application is hung indefinitely and never gets the resources it requires.\n\nThis can easily be replicated with any yarn application.\nOur \"goto\" scenario in this case is running pyspark with 1-core executors (containers) while trying to launch h20.ai framework which INSISTS on having at least 4 cores per container.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/2",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/critical.svg",
+        "name": "Critical",
+        "id": "2"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/3",
+        "id": "3",
+        "description": "The problem is a duplicate of an existing issue.",
+        "name": "Duplicate"
+      },
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [
+        {
+          "id": "12479118",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12479118",
+          "type": {
+            "id": "12310010",
+            "name": "Incorporates",
+            "inward": "is part of",
+            "outward": "incorporates",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310010"
+          },
+          "inwardIssue": {
+            "id": "12946005",
+            "key": "YARN-4752",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12946005",
+            "fields": {
+              "summary": "FairScheduler should preempt for a ResourceRequest and all preempted containers should be on the same node",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+                "id": "1",
+                "description": "A problem which impairs or prevents the functions of the product.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+                "name": "Bug",
+                "subtask": false,
+                "avatarId": 21133
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219/comment/14698648",
+            "id": "14698648",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=MindTheGap",
+              "name": "MindTheGap",
+              "key": "mindthegap",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chen Avnery",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "This has happened to me too and I would love for it to have a fix!",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=MindTheGap",
+              "name": "MindTheGap",
+              "key": "mindthegap",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Chen Avnery",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-08-16T12:54:11.142+0000",
+            "updated": "2015-08-16T12:54:11.142+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219/comment/14698709",
+            "id": "14698709",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ilanas",
+              "name": "ilanas",
+              "key": "ilanas",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Ilan Assayag",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Got exactly the same issue too. Very painful...",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ilanas",
+              "name": "ilanas",
+              "key": "ilanas",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Ilan Assayag",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-08-16T15:01:29.919+0000",
+            "updated": "2015-08-16T15:01:29.919+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219/comment/14698734",
+            "id": "14698734",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=umiron",
+              "name": "umiron",
+              "key": "umiron",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Uri Miron",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "I am getting the same issue.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=umiron",
+              "name": "umiron",
+              "key": "umiron",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Uri Miron",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-08-16T15:49:39.545+0000",
+            "updated": "2015-08-16T15:49:39.545+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219/comment/14698825",
+            "id": "14698825",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Was discussing this with [~asuresh] offline, and he wanted to take this up. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-08-16T19:25:39.026+0000",
+            "updated": "2015-08-16T19:25:39.026+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219/comment/14698830",
+            "id": "14698830",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=damageboy",
+              "name": "damageboy",
+              "key": "damageboy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Dan Shechter",
+              "active": true,
+              "timeZone": "Etc/GMT-3"
+            },
+            "body": "Hi,\nI was trying to find the existing unit-tests for the Fair-Scheduler preeption... All I could find was this:\nhttps://github.com/apache/hadoop/blob/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/scheduler/fair/TestFairSchedulerPreemption.java\n\nAre the more tests hiding somewhere else?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=damageboy",
+              "name": "damageboy",
+              "key": "damageboy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Dan Shechter",
+              "active": true,
+              "timeZone": "Etc/GMT-3"
+            },
+            "created": "2015-08-16T19:31:01.977+0000",
+            "updated": "2015-08-16T19:31:01.977+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219/comment/14698835",
+            "id": "14698835",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "TestFairScheduler has a bunch of tests for preemption as well. It would be nice to move all those tests to TestFairSchedulerPreemption. (hint hint)",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-08-16T19:44:38.454+0000",
+            "updated": "2015-08-16T19:44:38.454+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219/comment/15180328",
+            "id": "15180328",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Sorry for the delay in following up on this. I am looking to take a comprehensive look at preemption in FairScheduler. \n\n[~damagebo], [~MindTheGap], [~ilanas], [~umiron] - can any of you comment on if FairScheduler is preempting any containers at all? Is it possible that containers are being preempted, but not all on the same node? I wonder if this is just another manifestation of YARN-2154? ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+              "name": "kasha",
+              "key": "kasha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-03-04T18:33:00.443+0000",
+            "updated": "2016-03-04T18:33:00.443+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219/comment/15281043",
+            "id": "15281043",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~asuresh], do you have plan to finish this recently? May I move this to 2.9 release if you don't have bandwidth recently?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-05-12T00:21:22.779+0000",
+            "updated": "2016-05-12T00:21:22.779+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219/comment/15281107",
+            "id": "15281107",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+              "name": "asuresh",
+              "key": "asuresh",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Suresh",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~leftnoteasy], please go ahead and move it to 2.9",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+              "name": "asuresh",
+              "key": "asuresh",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Suresh",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-05-12T02:03:55.659+0000",
+            "updated": "2016-05-12T02:03:55.659+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219/comment/15281754",
+            "id": "15281754",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks [~asuresh]",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+              "name": "leftnoteasy",
+              "key": "leftnoteasy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+              },
+              "displayName": "Wangda Tan",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-05-12T17:04:59.357+0000",
+            "updated": "2016-05-12T17:04:59.357+0000"
+          }
+        ],
+        "maxResults": 10,
+        "total": 10,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3997/votes",
+        "votes": 3,
+        "hasVoted": false
+      },
+      "updated": "2016-08-31T03:35:22.978+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 10,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219/comment/14698648",
+        "id": "14698648",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=MindTheGap",
+          "name": "MindTheGap",
+          "key": "mindthegap",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chen Avnery",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "This has happened to me too and I would love for it to have a fix!",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=MindTheGap",
+          "name": "MindTheGap",
+          "key": "mindthegap",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Chen Avnery",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-08-16T12:54:11.142+0000",
+        "updated": "2015-08-16T12:54:11.142+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219/comment/14698709",
+        "id": "14698709",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ilanas",
+          "name": "ilanas",
+          "key": "ilanas",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Ilan Assayag",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Got exactly the same issue too. Very painful...",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ilanas",
+          "name": "ilanas",
+          "key": "ilanas",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Ilan Assayag",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-08-16T15:01:29.919+0000",
+        "updated": "2015-08-16T15:01:29.919+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219/comment/14698734",
+        "id": "14698734",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=umiron",
+          "name": "umiron",
+          "key": "umiron",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Uri Miron",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "I am getting the same issue.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=umiron",
+          "name": "umiron",
+          "key": "umiron",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Uri Miron",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-08-16T15:49:39.545+0000",
+        "updated": "2015-08-16T15:49:39.545+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219/comment/14698825",
+        "id": "14698825",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Was discussing this with [~asuresh] offline, and he wanted to take this up. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-08-16T19:25:39.026+0000",
+        "updated": "2015-08-16T19:25:39.026+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219/comment/14698830",
+        "id": "14698830",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=damageboy",
+          "name": "damageboy",
+          "key": "damageboy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Dan Shechter",
+          "active": true,
+          "timeZone": "Etc/GMT-3"
+        },
+        "body": "Hi,\nI was trying to find the existing unit-tests for the Fair-Scheduler preeption... All I could find was this:\nhttps://github.com/apache/hadoop/blob/trunk/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/scheduler/fair/TestFairSchedulerPreemption.java\n\nAre the more tests hiding somewhere else?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=damageboy",
+          "name": "damageboy",
+          "key": "damageboy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Dan Shechter",
+          "active": true,
+          "timeZone": "Etc/GMT-3"
+        },
+        "created": "2015-08-16T19:31:01.977+0000",
+        "updated": "2015-08-16T19:31:01.977+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219/comment/14698835",
+        "id": "14698835",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "TestFairScheduler has a bunch of tests for preemption as well. It would be nice to move all those tests to TestFairSchedulerPreemption. (hint hint)",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-08-16T19:44:38.454+0000",
+        "updated": "2015-08-16T19:44:38.454+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219/comment/15180328",
+        "id": "15180328",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Sorry for the delay in following up on this. I am looking to take a comprehensive look at preemption in FairScheduler. \n\n[~damagebo], [~MindTheGap], [~ilanas], [~umiron] - can any of you comment on if FairScheduler is preempting any containers at all? Is it possible that containers are being preempted, but not all on the same node? I wonder if this is just another manifestation of YARN-2154? ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kasha",
+          "name": "kasha",
+          "key": "kasha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-03-04T18:33:00.443+0000",
+        "updated": "2016-03-04T18:33:00.443+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219/comment/15281043",
+        "id": "15281043",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~asuresh], do you have plan to finish this recently? May I move this to 2.9 release if you don't have bandwidth recently?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-05-12T00:21:22.779+0000",
+        "updated": "2016-05-12T00:21:22.779+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219/comment/15281107",
+        "id": "15281107",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+          "name": "asuresh",
+          "key": "asuresh",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Suresh",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~leftnoteasy], please go ahead and move it to 2.9",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=asuresh",
+          "name": "asuresh",
+          "key": "asuresh",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Suresh",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-05-12T02:03:55.659+0000",
+        "updated": "2016-05-12T02:03:55.659+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12850219/comment/15281754",
+        "id": "15281754",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks [~asuresh]",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=leftnoteasy",
+          "name": "leftnoteasy",
+          "key": "leftnoteasy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=leftnoteasy&avatarId=18647",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=leftnoteasy&avatarId=18647",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=leftnoteasy&avatarId=18647",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=leftnoteasy&avatarId=18647"
+          },
+          "displayName": "Wangda Tan",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-05-12T17:04:59.357+0000",
+        "updated": "2016-05-12T17:04:59.357+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3997/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 10,
+        "returned": 10
+      }
+    ]
+  }
+}

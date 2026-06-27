@@ -1,0 +1,157 @@
+{
+  "downloaded_at": "2026-06-25T10:19:19.065336+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-8345",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8345?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13161368",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13161368",
+    "key": "YARN-8345",
+    "fields": {
+      "summary": "NodeHealthCheckerService to differentiate between reason for UnusableNodes for client to act suitably on it",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+        "id": "2",
+        "description": "A new feature of the product, which has yet to be developed.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+        "name": "New Feature",
+        "subtask": false,
+        "avatarId": 21141
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319323",
+          "id": "12319323",
+          "name": "nodemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2018-05-23T10:18:54.601+0000",
+      "description": "+*Current Scenario :*+\u00a0\r\n\r\nNodeHealthCheckerService marks a node Unhealthy on basis of 2 things :\u00a0\r\n # External Script\r\n # Directory status\r\n\r\nIf a directory is marked as full(as per DiskCheck configs in yarn-site), node manager marks this as unhealthy.\u00a0\r\n\r\nOnce a node is marked unhealthy, mapreduce launches all the map tasks that ran on this usable node. This leads to even successful tasks being relaunched.\r\n\r\n+{color:#333333}*Problem :*{color}+\r\n\r\n{color:#333333}We do not have distinction between disk limit to stop container launch on that node and limit so that reducer can read data from that node.{color}\r\n\r\n{color:#333333}For Example :\u00a0{color}\r\n\r\n{color:#333333}Let us consider a 3 TB disk. If we set\u00a0max\u00a0disk\u00a0utilisation percentage as 95% (since launch of container requires approx 0.15 TB for jobs in our cluster) and there are few nodes where disk utilisation is say 96%, the threshold\u00a0will be breached. These nodes will be marked unhealthy by NodeManager. This will result in all successful mappers being relaunched on other nodes. But still 4% memory is good enough for reducers to read that data. This causes unnecessary delay in our jobs. (Mappers launching again can preempt reducers if there is crunch for space and there are issues with calculating Headroom in Capacity scheduler as well){color}\r\n\r\n\u00a0\r\n\r\n+*Correction :*+\r\n\r\nWe need a state (say UNUSABLE_WRITE) that can let mapreduce know that node is still good for reading data and successful mappers should not be relaunched. This can prevent delay.\r\n\r\n\u00a0\u00a0",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/3",
+        "id": "3",
+        "description": "The problem is a duplicate of an existing issue.",
+        "name": "Duplicate"
+      },
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [
+        {
+          "id": "12535667",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12535667",
+          "type": {
+            "id": "12310000",
+            "name": "Duplicate",
+            "inward": "is duplicated by",
+            "outward": "duplicates",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310000"
+          },
+          "outwardIssue": {
+            "id": "12711136",
+            "key": "YARN-1996",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12711136",
+            "fields": {
+              "summary": "Provide alternative policies for UNHEALTHY nodes.",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+                "id": "2",
+                "description": "A new feature of the product, which has yet to be developed.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+                "name": "New Feature",
+                "subtask": false,
+                "avatarId": 21141
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [],
+        "maxResults": 0,
+        "total": 0,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8345/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2018-06-04T13:46:07.641+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 0,
+    "comments": [],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-8345/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 0,
+        "returned": 0
+      }
+    ]
+  }
+}

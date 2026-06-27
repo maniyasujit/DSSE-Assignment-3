@@ -1,0 +1,1105 @@
+{
+  "downloaded_at": "2026-06-25T10:22:06.661468+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-3636",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3636?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12826746",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746",
+    "key": "YARN-3636",
+    "fields": {
+      "summary": "Abstraction for LocalDirAllocator",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+        "id": "2",
+        "description": "A new feature of the product, which has yet to be developed.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+        "name": "New Feature",
+        "subtask": false,
+        "avatarId": 21141
+      },
+      "components": [],
+      "subtasks": [],
+      "created": "2015-05-02T19:27:19.044+0000",
+      "description": "There are 2 abstractions used to write data to local disk.\nLocalDirAllocator: Allocate paths from a set of configured local directories.\nLocalFileSystem/RawLocalFileSystem: Read/write using java.io.* and java.nio.*\n\nIn the current implementation, local disk is managed by guest OS and not HDFS. The proposal is to provide a new abstraction that encapsulates the above 2 abstractions and hides who manages the local disks. This enables us to provide an alternate implementation where a DFS can manage the local disks and it can be accessed using HDFS APIs. This means the DFS maintains a namespace for node local directories and can create paths that are guaranteed to be present on a specific node.\n\nHere is an example use case for Shuffle: When a mapper writes intermediate data using this new implementation, it will continue write to local disk. When a reducer needs to access data from a remote node, it can use HDFS APIs with a path that points to that node\u2019s local namespace instead of having to use HTTP server to transfer the data across nodes.\n\nNew Abstractions\n1. LocalDiskPathAllocator\nInterface to get file/directory paths from the local disk namespace.\nThis contains all the APIs that are currently supported by LocalDirAllocator. So we just need to change LocalDirAllocator to implement this new interface.\n\n2. LocalDiskUtil\nHelper class to get a handle to LocalDiskPathAllocator and the FileSystem\nthat is used to manage those paths.\nBy default, it will return LocalDirAllocator and LocalFileSystem.\nA supporting DFS can return DFSLocalDirAllocator and an instance of DFS.\n\n3. DFSLocalDirAllocator\nThis is a generic implementation. An allocator is created for a specific node. It uses Configuration object to get user configured base directory and appends the node hostname to it. Hence the returned paths are within the node local namespace.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [
+        "BB2015-05-TBR"
+      ],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12731224",
+          "id": "12731224",
+          "filename": "0001-Abstraction-for-local-disk-path-allocation.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+            "name": "rkannan82",
+            "key": "rkannan82",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+            },
+            "displayName": "Kannan Rajah",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2015-05-07T17:28:51.548+0000",
+          "size": 19164,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12731224/0001-Abstraction-for-local-disk-path-allocation.patch"
+        }
+      ],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14525594",
+            "id": "14525594",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+              "name": "rkannan82",
+              "key": "rkannan82",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+              },
+              "displayName": "Kannan Rajah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Patch uploaded with unit test.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+              "name": "rkannan82",
+              "key": "rkannan82",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+              },
+              "displayName": "Kannan Rajah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-03T01:49:46.559+0000",
+            "updated": "2015-05-03T01:49:46.559+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14529979",
+            "id": "14529979",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+              "name": "rkannan82",
+              "key": "rkannan82",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+              },
+              "displayName": "Kannan Rajah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Please note that the change introduces new classes and only make one minor change to existing class LocalDirAllocator - implements interface and exposes a method to get local dirs. So it should not cause regressions. The goal is to let new app masters use this abstraction and as needed change existing app masters. But that is not in the scope of this bug.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+              "name": "rkannan82",
+              "key": "rkannan82",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+              },
+              "displayName": "Kannan Rajah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-06T05:55:10.531+0000",
+            "updated": "2015-05-06T05:55:10.531+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14530079",
+            "id": "14530079",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "\\\\\n\\\\\n| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | pre-patch |  14m 38s | Pre-patch trunk compilation is healthy. |\n| {color:green}+1{color} | @author |   0m  0s | The patch does not contain any @author tags. |\n| {color:green}+1{color} | tests included |   0m  0s | The patch appears to include 1 new or modified test files. |\n| {color:green}+1{color} | javac |   7m 27s | There were no new javac warning messages. |\n| {color:green}+1{color} | javadoc |   9m 36s | There were no new javadoc warning messages. |\n| {color:green}+1{color} | release audit |   0m 22s | The applied patch does not increase the total number of release audit warnings. |\n| {color:red}-1{color} | checkstyle |   1m  4s | The applied patch generated  6 new checkstyle issues (total was 93, now 99). |\n| {color:red}-1{color} | whitespace |   0m  0s | The patch has 1  line(s) that end in whitespace. Use git apply --whitespace=fix. |\n| {color:green}+1{color} | install |   1m 34s | mvn install still works. |\n| {color:green}+1{color} | eclipse:eclipse |   0m 32s | The patch built with eclipse:eclipse. |\n| {color:green}+1{color} | findbugs |   1m 39s | The patch does not introduce any new Findbugs (version 2.0.3) warnings. |\n| {color:green}+1{color} | common tests |  21m 59s | Tests passed in hadoop-common. |\n| | |  58m 56s | |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Patch URL | http://issues.apache.org/jira/secure/attachment/12730000/0001-Abstraction-for-local-disk-path-allocation.patch |\n| Optional Tests | javadoc javac unit findbugs checkstyle |\n| git revision | trunk / a583a40 |\n| checkstyle |  https://builds.apache.org/job/PreCommit-HADOOP-Build/6502/artifact/patchprocess/diffcheckstylehadoop-common.txt |\n| whitespace | https://builds.apache.org/job/PreCommit-HADOOP-Build/6502/artifact/patchprocess/whitespace.txt |\n| hadoop-common test log | https://builds.apache.org/job/PreCommit-HADOOP-Build/6502/artifact/patchprocess/testrun_hadoop-common.txt |\n| Test Results | https://builds.apache.org/job/PreCommit-HADOOP-Build/6502/testReport/ |\n| Java | 1.7.0_55 |\n| uname | Linux asf905.gq1.ygridcore.net 3.13.0-36-lowlatency #63-Ubuntu SMP PREEMPT Wed Sep 3 21:56:12 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux |\n| Console output | https://builds.apache.org/job/PreCommit-HADOOP-Build/6502/console |\n\n\nThis message was automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-05-06T07:24:42.731+0000",
+            "updated": "2015-05-06T07:24:42.731+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14533044",
+            "id": "14533044",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+              "name": "rkannan82",
+              "key": "rkannan82",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+              },
+              "displayName": "Kannan Rajah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Fixed checkstyle issues.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+              "name": "rkannan82",
+              "key": "rkannan82",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+              },
+              "displayName": "Kannan Rajah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-07T17:26:08.521+0000",
+            "updated": "2015-05-07T17:26:08.521+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14533047",
+            "id": "14533047",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+              "name": "rkannan82",
+              "key": "rkannan82",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+              },
+              "displayName": "Kannan Rajah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Fixed checkstyle issues.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+              "name": "rkannan82",
+              "key": "rkannan82",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+              },
+              "displayName": "Kannan Rajah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-07T17:28:51.553+0000",
+            "updated": "2015-05-07T17:28:51.553+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14533151",
+            "id": "14533151",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "\\\\\n\\\\\n| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | pre-patch |  14m 42s | Pre-patch trunk compilation is healthy. |\n| {color:green}+1{color} | @author |   0m  0s | The patch does not contain any @author tags. |\n| {color:green}+1{color} | tests included |   0m  0s | The patch appears to include 1 new or modified test files. |\n| {color:green}+1{color} | javac |   7m 33s | There were no new javac warning messages. |\n| {color:green}+1{color} | javadoc |   9m 41s | There were no new javadoc warning messages. |\n| {color:green}+1{color} | release audit |   0m 22s | The applied patch does not increase the total number of release audit warnings. |\n| {color:red}-1{color} | checkstyle |   1m  4s | The applied patch generated  2449 new checkstyle issues (total was 2477, now 2488). |\n| {color:red}-1{color} | whitespace |   0m 39s | The patch has 42  line(s) that end in whitespace. Use git apply --whitespace=fix. |\n| {color:green}+1{color} | install |   1m 34s | mvn install still works. |\n| {color:green}+1{color} | eclipse:eclipse |   0m 32s | The patch built with eclipse:eclipse. |\n| {color:green}+1{color} | findbugs |   1m 42s | The patch does not introduce any new Findbugs (version 2.0.3) warnings. |\n| {color:green}+1{color} | common tests |  23m 14s | Tests passed in hadoop-common. |\n| | |  61m  8s | |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Patch URL | http://issues.apache.org/jira/secure/attachment/12731224/0001-Abstraction-for-local-disk-path-allocation.patch |\n| Optional Tests | javadoc javac unit findbugs checkstyle |\n| git revision | trunk / daf3e4e |\n| checkstyle |  https://builds.apache.org/job/PreCommit-HADOOP-Build/6522/artifact/patchprocess/diffcheckstylehadoop-common.txt |\n| whitespace | https://builds.apache.org/job/PreCommit-HADOOP-Build/6522/artifact/patchprocess/whitespace.txt |\n| hadoop-common test log | https://builds.apache.org/job/PreCommit-HADOOP-Build/6522/artifact/patchprocess/testrun_hadoop-common.txt |\n| Test Results | https://builds.apache.org/job/PreCommit-HADOOP-Build/6522/testReport/ |\n| Java | 1.7.0_55 |\n| uname | Linux asf900.gq1.ygridcore.net 3.13.0-36-lowlatency #63-Ubuntu SMP PREEMPT Wed Sep 3 21:56:12 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux |\n| Console output | https://builds.apache.org/job/PreCommit-HADOOP-Build/6522/console |\n\n\nThis message was automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-05-07T18:31:46.863+0000",
+            "updated": "2015-05-07T18:31:46.863+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14533287",
+            "id": "14533287",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+              "name": "rkannan82",
+              "key": "rkannan82",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+              },
+              "displayName": "Kannan Rajah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "The reported issues are not related to this commit.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+              "name": "rkannan82",
+              "key": "rkannan82",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+              },
+              "displayName": "Kannan Rajah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-07T19:57:31.433+0000",
+            "updated": "2015-05-07T19:57:31.433+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14535561",
+            "id": "14535561",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cmccabe",
+              "name": "cmccabe",
+              "key": "cmccabe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cmccabe&avatarId=29060",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cmccabe&avatarId=29060",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cmccabe&avatarId=29060",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cmccabe&avatarId=29060"
+              },
+              "displayName": "Colin McCabe",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "There are many places in the DataNode where we assume that block files are stored on the local filessytem.  It is going to be a huge amount of work to change this.  I think we need at minimum some kind of design doc describing what the goal is here and how we are going to get there from here.  I would also encourage you to consider an alternate approach unless you are really committed to doing the (very large) amount of work needed to make this useful.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=cmccabe",
+              "name": "cmccabe",
+              "key": "cmccabe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cmccabe&avatarId=29060",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cmccabe&avatarId=29060",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cmccabe&avatarId=29060",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cmccabe&avatarId=29060"
+              },
+              "displayName": "Colin McCabe",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-08T21:20:34.862+0000",
+            "updated": "2015-05-08T21:20:34.862+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14535930",
+            "id": "14535930",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+              "name": "rkannan82",
+              "key": "rkannan82",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+              },
+              "displayName": "Kannan Rajah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~cmccabe] The goal is not to make changes to DataNode or anything in HDFS layer. It is to provide an alternative for shuffle. In Apache, this is done using HTTP. In a file system like MapR, the map outputs can be written to DFS instead using the notion of MapR local volumes. While I was trying to see how we can unify the 2 approaches, I realized that the fundamental assumption is that local disks can only be managed by local file system. If we remove this assumption and provide the new abstraction to hadoop common, then we can change Tez app master (for example) to use it. The net effect is that by turning on a setting (yarn.local.disk.path.allocator.use-dfs = true), we can make it use DFS based shuffle instead of HTTP based shuffle. I already have a working Tez App Master using this abstraction. The changes are trivial and limited to about 20 files. I was going to file a Tez JIRA once this got accepted upstream.\n\n2 changes needed top Tez classes:\nBefore\nLocalDirAllocator allocator = new LocalDirAllocator()\nAfter\nLocalDiskPathAllocator allocator = LocalDiskUtil.getPathAllocator()\n\nBefore\nRawLocalFileSystem fs = new FileSystem.getLocal()\nAfter\nFileSystem fs = LocalDiskUtil.getFileSystem()",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+              "name": "rkannan82",
+              "key": "rkannan82",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+              },
+              "displayName": "Kannan Rajah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-08T23:46:04.654+0000",
+            "updated": "2015-05-08T23:46:04.654+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14537303",
+            "id": "14537303",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+              "name": "rkannan82",
+              "key": "rkannan82",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+              },
+              "displayName": "Kannan Rajah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~cmccabe] Since the design and use case was fairly short and simple, I decided to put them in the bug description itself. If you feel that I need to provide further clarifications, I will be happy to compile all of them in a document and attach it.\n\nAlso, to reiterate, this abstraction is similar to the FileSystem abstraction. It let's individual distributions to tailor the implementation to fit their use cases without compromising the design/performance of general use case.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+              "name": "rkannan82",
+              "key": "rkannan82",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+              },
+              "displayName": "Kannan Rajah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-10T18:02:24.330+0000",
+            "updated": "2015-05-10T18:02:24.330+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14540343",
+            "id": "14540343",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~rkannan82] I have not seen this jira/patch in details and so I cannot comment on whether this change is useful or not for Hadoop. However, given that you are trying to make this change for some dependent logic in Tez, perhaps you can open a jira in Tez for this right away instead of waiting for jira to get committed. Tez was designed specifically to allow for such customizations without needing to change Hadoop/cluster infrastructure. So perhaps, if we understand what you are trying to achieve in Tez, then it might be possible to do that within Tez itself or even outside of it.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+              "name": "bikassaha",
+              "key": "bikassaha",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+              },
+              "displayName": "Bikas Saha",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-12T17:52:55.364+0000",
+            "updated": "2015-05-12T17:52:55.364+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14540910",
+            "id": "14540910",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "If this is only for shuffle, I agree, we need an abstraction in Shuffle instead of creating a generic interface for LocalDirAllocator.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2015-05-12T22:33:35.017+0000",
+            "updated": "2015-05-12T22:33:35.017+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14540962",
+            "id": "14540962",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "\\\\\n\\\\\n| (/) *{color:green}+1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | pre-patch |  14m 44s | Pre-patch trunk compilation is healthy. |\n| {color:green}+1{color} | @author |   0m  0s | The patch does not contain any @author tags. |\n| {color:green}+1{color} | tests included |   0m  0s | The patch appears to include 1 new or modified test files. |\n| {color:green}+1{color} | javac |   7m 35s | There were no new javac warning messages. |\n| {color:green}+1{color} | javadoc |   9m 35s | There were no new javadoc warning messages. |\n| {color:green}+1{color} | release audit |   0m 22s | The applied patch does not increase the total number of release audit warnings. |\n| {color:green}+1{color} | checkstyle |   1m  4s | There were no new checkstyle issues. |\n| {color:green}+1{color} | whitespace |   0m  0s | The patch has no lines that end in whitespace. |\n| {color:green}+1{color} | install |   1m 33s | mvn install still works. |\n| {color:green}+1{color} | eclipse:eclipse |   0m 33s | The patch built with eclipse:eclipse. |\n| {color:green}+1{color} | findbugs |   1m 39s | The patch does not introduce any new Findbugs (version 2.0.3) warnings. |\n| {color:green}+1{color} | common tests |  23m 13s | Tests passed in hadoop-common. |\n| | |  60m 21s | |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Patch URL | http://issues.apache.org/jira/secure/attachment/12731224/0001-Abstraction-for-local-disk-path-allocation.patch |\n| Optional Tests | javadoc javac unit findbugs checkstyle |\n| git revision | trunk / f24452d |\n| hadoop-common test log | https://builds.apache.org/job/PreCommit-YARN-Build/7904/artifact/patchprocess/testrun_hadoop-common.txt |\n| Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/7904/testReport/ |\n| Java | 1.7.0_55 |\n| uname | Linux asf902.gq1.ygridcore.net 3.13.0-36-lowlatency #63-Ubuntu SMP PREEMPT Wed Sep 3 21:56:12 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/7904/console |\n\n\nThis message was automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-05-12T23:02:53.775+0000",
+            "updated": "2015-05-12T23:02:53.775+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14540977",
+            "id": "14540977",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+              "name": "rkannan82",
+              "key": "rkannan82",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+              },
+              "displayName": "Kannan Rajah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~vinodkv] I agree that the use case is for shuffle. But since its a fairly simple change to LocalDirAllocator (implementing the interface), it would be beneficial to add it here. Maybe only Shuffle code path will use this interface and LocalDiskUtil for now. But the generalization is about whether DFS can manage node local disks. Please take a look at the design document attached to TEZ-2442.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+              "name": "rkannan82",
+              "key": "rkannan82",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+              },
+              "displayName": "Kannan Rajah",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-05-12T23:15:15.739+0000",
+            "updated": "2015-05-12T23:15:15.739+0000"
+          }
+        ],
+        "maxResults": 14,
+        "total": 14,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3636/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2015-05-12T23:15:15.739+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/10002",
+        "description": "A patch for this issue has been uploaded to JIRA by a contributor.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/document.png",
+        "name": "Patch Available",
+        "id": "10002",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 14,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14525594",
+        "id": "14525594",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+          "name": "rkannan82",
+          "key": "rkannan82",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+          },
+          "displayName": "Kannan Rajah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Patch uploaded with unit test.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+          "name": "rkannan82",
+          "key": "rkannan82",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+          },
+          "displayName": "Kannan Rajah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-03T01:49:46.559+0000",
+        "updated": "2015-05-03T01:49:46.559+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14529979",
+        "id": "14529979",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+          "name": "rkannan82",
+          "key": "rkannan82",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+          },
+          "displayName": "Kannan Rajah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Please note that the change introduces new classes and only make one minor change to existing class LocalDirAllocator - implements interface and exposes a method to get local dirs. So it should not cause regressions. The goal is to let new app masters use this abstraction and as needed change existing app masters. But that is not in the scope of this bug.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+          "name": "rkannan82",
+          "key": "rkannan82",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+          },
+          "displayName": "Kannan Rajah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-06T05:55:10.531+0000",
+        "updated": "2015-05-06T05:55:10.531+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14530079",
+        "id": "14530079",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "\\\\\n\\\\\n| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | pre-patch |  14m 38s | Pre-patch trunk compilation is healthy. |\n| {color:green}+1{color} | @author |   0m  0s | The patch does not contain any @author tags. |\n| {color:green}+1{color} | tests included |   0m  0s | The patch appears to include 1 new or modified test files. |\n| {color:green}+1{color} | javac |   7m 27s | There were no new javac warning messages. |\n| {color:green}+1{color} | javadoc |   9m 36s | There were no new javadoc warning messages. |\n| {color:green}+1{color} | release audit |   0m 22s | The applied patch does not increase the total number of release audit warnings. |\n| {color:red}-1{color} | checkstyle |   1m  4s | The applied patch generated  6 new checkstyle issues (total was 93, now 99). |\n| {color:red}-1{color} | whitespace |   0m  0s | The patch has 1  line(s) that end in whitespace. Use git apply --whitespace=fix. |\n| {color:green}+1{color} | install |   1m 34s | mvn install still works. |\n| {color:green}+1{color} | eclipse:eclipse |   0m 32s | The patch built with eclipse:eclipse. |\n| {color:green}+1{color} | findbugs |   1m 39s | The patch does not introduce any new Findbugs (version 2.0.3) warnings. |\n| {color:green}+1{color} | common tests |  21m 59s | Tests passed in hadoop-common. |\n| | |  58m 56s | |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Patch URL | http://issues.apache.org/jira/secure/attachment/12730000/0001-Abstraction-for-local-disk-path-allocation.patch |\n| Optional Tests | javadoc javac unit findbugs checkstyle |\n| git revision | trunk / a583a40 |\n| checkstyle |  https://builds.apache.org/job/PreCommit-HADOOP-Build/6502/artifact/patchprocess/diffcheckstylehadoop-common.txt |\n| whitespace | https://builds.apache.org/job/PreCommit-HADOOP-Build/6502/artifact/patchprocess/whitespace.txt |\n| hadoop-common test log | https://builds.apache.org/job/PreCommit-HADOOP-Build/6502/artifact/patchprocess/testrun_hadoop-common.txt |\n| Test Results | https://builds.apache.org/job/PreCommit-HADOOP-Build/6502/testReport/ |\n| Java | 1.7.0_55 |\n| uname | Linux asf905.gq1.ygridcore.net 3.13.0-36-lowlatency #63-Ubuntu SMP PREEMPT Wed Sep 3 21:56:12 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux |\n| Console output | https://builds.apache.org/job/PreCommit-HADOOP-Build/6502/console |\n\n\nThis message was automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-05-06T07:24:42.731+0000",
+        "updated": "2015-05-06T07:24:42.731+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14533044",
+        "id": "14533044",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+          "name": "rkannan82",
+          "key": "rkannan82",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+          },
+          "displayName": "Kannan Rajah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Fixed checkstyle issues.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+          "name": "rkannan82",
+          "key": "rkannan82",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+          },
+          "displayName": "Kannan Rajah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-07T17:26:08.521+0000",
+        "updated": "2015-05-07T17:26:08.521+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14533047",
+        "id": "14533047",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+          "name": "rkannan82",
+          "key": "rkannan82",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+          },
+          "displayName": "Kannan Rajah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Fixed checkstyle issues.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+          "name": "rkannan82",
+          "key": "rkannan82",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+          },
+          "displayName": "Kannan Rajah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-07T17:28:51.553+0000",
+        "updated": "2015-05-07T17:28:51.553+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14533151",
+        "id": "14533151",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "\\\\\n\\\\\n| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | pre-patch |  14m 42s | Pre-patch trunk compilation is healthy. |\n| {color:green}+1{color} | @author |   0m  0s | The patch does not contain any @author tags. |\n| {color:green}+1{color} | tests included |   0m  0s | The patch appears to include 1 new or modified test files. |\n| {color:green}+1{color} | javac |   7m 33s | There were no new javac warning messages. |\n| {color:green}+1{color} | javadoc |   9m 41s | There were no new javadoc warning messages. |\n| {color:green}+1{color} | release audit |   0m 22s | The applied patch does not increase the total number of release audit warnings. |\n| {color:red}-1{color} | checkstyle |   1m  4s | The applied patch generated  2449 new checkstyle issues (total was 2477, now 2488). |\n| {color:red}-1{color} | whitespace |   0m 39s | The patch has 42  line(s) that end in whitespace. Use git apply --whitespace=fix. |\n| {color:green}+1{color} | install |   1m 34s | mvn install still works. |\n| {color:green}+1{color} | eclipse:eclipse |   0m 32s | The patch built with eclipse:eclipse. |\n| {color:green}+1{color} | findbugs |   1m 42s | The patch does not introduce any new Findbugs (version 2.0.3) warnings. |\n| {color:green}+1{color} | common tests |  23m 14s | Tests passed in hadoop-common. |\n| | |  61m  8s | |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Patch URL | http://issues.apache.org/jira/secure/attachment/12731224/0001-Abstraction-for-local-disk-path-allocation.patch |\n| Optional Tests | javadoc javac unit findbugs checkstyle |\n| git revision | trunk / daf3e4e |\n| checkstyle |  https://builds.apache.org/job/PreCommit-HADOOP-Build/6522/artifact/patchprocess/diffcheckstylehadoop-common.txt |\n| whitespace | https://builds.apache.org/job/PreCommit-HADOOP-Build/6522/artifact/patchprocess/whitespace.txt |\n| hadoop-common test log | https://builds.apache.org/job/PreCommit-HADOOP-Build/6522/artifact/patchprocess/testrun_hadoop-common.txt |\n| Test Results | https://builds.apache.org/job/PreCommit-HADOOP-Build/6522/testReport/ |\n| Java | 1.7.0_55 |\n| uname | Linux asf900.gq1.ygridcore.net 3.13.0-36-lowlatency #63-Ubuntu SMP PREEMPT Wed Sep 3 21:56:12 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux |\n| Console output | https://builds.apache.org/job/PreCommit-HADOOP-Build/6522/console |\n\n\nThis message was automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-05-07T18:31:46.863+0000",
+        "updated": "2015-05-07T18:31:46.863+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14533287",
+        "id": "14533287",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+          "name": "rkannan82",
+          "key": "rkannan82",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+          },
+          "displayName": "Kannan Rajah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "The reported issues are not related to this commit.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+          "name": "rkannan82",
+          "key": "rkannan82",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+          },
+          "displayName": "Kannan Rajah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-07T19:57:31.433+0000",
+        "updated": "2015-05-07T19:57:31.433+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14535561",
+        "id": "14535561",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cmccabe",
+          "name": "cmccabe",
+          "key": "cmccabe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cmccabe&avatarId=29060",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cmccabe&avatarId=29060",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cmccabe&avatarId=29060",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cmccabe&avatarId=29060"
+          },
+          "displayName": "Colin McCabe",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "There are many places in the DataNode where we assume that block files are stored on the local filessytem.  It is going to be a huge amount of work to change this.  I think we need at minimum some kind of design doc describing what the goal is here and how we are going to get there from here.  I would also encourage you to consider an alternate approach unless you are really committed to doing the (very large) amount of work needed to make this useful.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=cmccabe",
+          "name": "cmccabe",
+          "key": "cmccabe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=cmccabe&avatarId=29060",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=cmccabe&avatarId=29060",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=cmccabe&avatarId=29060",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=cmccabe&avatarId=29060"
+          },
+          "displayName": "Colin McCabe",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-08T21:20:34.862+0000",
+        "updated": "2015-05-08T21:20:34.862+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14535930",
+        "id": "14535930",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+          "name": "rkannan82",
+          "key": "rkannan82",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+          },
+          "displayName": "Kannan Rajah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~cmccabe] The goal is not to make changes to DataNode or anything in HDFS layer. It is to provide an alternative for shuffle. In Apache, this is done using HTTP. In a file system like MapR, the map outputs can be written to DFS instead using the notion of MapR local volumes. While I was trying to see how we can unify the 2 approaches, I realized that the fundamental assumption is that local disks can only be managed by local file system. If we remove this assumption and provide the new abstraction to hadoop common, then we can change Tez app master (for example) to use it. The net effect is that by turning on a setting (yarn.local.disk.path.allocator.use-dfs = true), we can make it use DFS based shuffle instead of HTTP based shuffle. I already have a working Tez App Master using this abstraction. The changes are trivial and limited to about 20 files. I was going to file a Tez JIRA once this got accepted upstream.\n\n2 changes needed top Tez classes:\nBefore\nLocalDirAllocator allocator = new LocalDirAllocator()\nAfter\nLocalDiskPathAllocator allocator = LocalDiskUtil.getPathAllocator()\n\nBefore\nRawLocalFileSystem fs = new FileSystem.getLocal()\nAfter\nFileSystem fs = LocalDiskUtil.getFileSystem()",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+          "name": "rkannan82",
+          "key": "rkannan82",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+          },
+          "displayName": "Kannan Rajah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-08T23:46:04.654+0000",
+        "updated": "2015-05-08T23:46:04.654+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14537303",
+        "id": "14537303",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+          "name": "rkannan82",
+          "key": "rkannan82",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+          },
+          "displayName": "Kannan Rajah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~cmccabe] Since the design and use case was fairly short and simple, I decided to put them in the bug description itself. If you feel that I need to provide further clarifications, I will be happy to compile all of them in a document and attach it.\n\nAlso, to reiterate, this abstraction is similar to the FileSystem abstraction. It let's individual distributions to tailor the implementation to fit their use cases without compromising the design/performance of general use case.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+          "name": "rkannan82",
+          "key": "rkannan82",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+          },
+          "displayName": "Kannan Rajah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-10T18:02:24.330+0000",
+        "updated": "2015-05-10T18:02:24.330+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14540343",
+        "id": "14540343",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~rkannan82] I have not seen this jira/patch in details and so I cannot comment on whether this change is useful or not for Hadoop. However, given that you are trying to make this change for some dependent logic in Tez, perhaps you can open a jira in Tez for this right away instead of waiting for jira to get committed. Tez was designed specifically to allow for such customizations without needing to change Hadoop/cluster infrastructure. So perhaps, if we understand what you are trying to achieve in Tez, then it might be possible to do that within Tez itself or even outside of it.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=bikassaha",
+          "name": "bikassaha",
+          "key": "bikassaha",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=bikassaha&avatarId=29845",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=bikassaha&avatarId=29845",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=bikassaha&avatarId=29845",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=bikassaha&avatarId=29845"
+          },
+          "displayName": "Bikas Saha",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-12T17:52:55.364+0000",
+        "updated": "2015-05-12T17:52:55.364+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14540910",
+        "id": "14540910",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "If this is only for shuffle, I agree, we need an abstraction in Shuffle instead of creating a generic interface for LocalDirAllocator.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2015-05-12T22:33:35.017+0000",
+        "updated": "2015-05-12T22:33:35.017+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14540962",
+        "id": "14540962",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "\\\\\n\\\\\n| (/) *{color:green}+1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | pre-patch |  14m 44s | Pre-patch trunk compilation is healthy. |\n| {color:green}+1{color} | @author |   0m  0s | The patch does not contain any @author tags. |\n| {color:green}+1{color} | tests included |   0m  0s | The patch appears to include 1 new or modified test files. |\n| {color:green}+1{color} | javac |   7m 35s | There were no new javac warning messages. |\n| {color:green}+1{color} | javadoc |   9m 35s | There were no new javadoc warning messages. |\n| {color:green}+1{color} | release audit |   0m 22s | The applied patch does not increase the total number of release audit warnings. |\n| {color:green}+1{color} | checkstyle |   1m  4s | There were no new checkstyle issues. |\n| {color:green}+1{color} | whitespace |   0m  0s | The patch has no lines that end in whitespace. |\n| {color:green}+1{color} | install |   1m 33s | mvn install still works. |\n| {color:green}+1{color} | eclipse:eclipse |   0m 33s | The patch built with eclipse:eclipse. |\n| {color:green}+1{color} | findbugs |   1m 39s | The patch does not introduce any new Findbugs (version 2.0.3) warnings. |\n| {color:green}+1{color} | common tests |  23m 13s | Tests passed in hadoop-common. |\n| | |  60m 21s | |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Patch URL | http://issues.apache.org/jira/secure/attachment/12731224/0001-Abstraction-for-local-disk-path-allocation.patch |\n| Optional Tests | javadoc javac unit findbugs checkstyle |\n| git revision | trunk / f24452d |\n| hadoop-common test log | https://builds.apache.org/job/PreCommit-YARN-Build/7904/artifact/patchprocess/testrun_hadoop-common.txt |\n| Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/7904/testReport/ |\n| Java | 1.7.0_55 |\n| uname | Linux asf902.gq1.ygridcore.net 3.13.0-36-lowlatency #63-Ubuntu SMP PREEMPT Wed Sep 3 21:56:12 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/7904/console |\n\n\nThis message was automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-05-12T23:02:53.775+0000",
+        "updated": "2015-05-12T23:02:53.775+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12826746/comment/14540977",
+        "id": "14540977",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+          "name": "rkannan82",
+          "key": "rkannan82",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+          },
+          "displayName": "Kannan Rajah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~vinodkv] I agree that the use case is for shuffle. But since its a fairly simple change to LocalDirAllocator (implementing the interface), it would be beneficial to add it here. Maybe only Shuffle code path will use this interface and LocalDiskUtil for now. But the generalization is about whether DFS can manage node local disks. Please take a look at the design document attached to TEZ-2442.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=rkannan82",
+          "name": "rkannan82",
+          "key": "rkannan82",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=rkannan82&avatarId=21895",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=rkannan82&avatarId=21895",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=rkannan82&avatarId=21895",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=rkannan82&avatarId=21895"
+          },
+          "displayName": "Kannan Rajah",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-05-12T23:15:15.739+0000",
+        "updated": "2015-05-12T23:15:15.739+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3636/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 14,
+        "returned": 14
+      }
+    ]
+  }
+}

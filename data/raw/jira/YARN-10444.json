@@ -1,0 +1,439 @@
+{
+  "downloaded_at": "2026-06-25T10:24:53.102751+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-10444",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-10444?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13328294",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13328294",
+    "key": "YARN-10444",
+    "fields": {
+      "summary": "Node Manager to use openFile() with whole-file read policy for localizing files.",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319323",
+          "id": "12319323",
+          "name": "nodemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2020-09-18T18:34:19.788+0000",
+      "description": "\r\nHADOOP-16202 adds standard options for declaring the read/seek\r\nPolicy when reading a file. These should be set to sequential IO\r\nWhen localising resources, so that if the default/cluster settings\r\nFor a file system are optimized for random IO, artifact downloads\r\nare still read at the maximum speed possible (one big GET to the EOF).\r\n\r\nMost of this happens in hadoop-common, but some tuning of FSDownload\r\ncan assist\r\n\r\n* tar/jar download must also be sequential\r\n* if the FileStatus is passed around, that can be used\r\n  in the open request to skip checks when loading the file.\r\n  \r\nTogether this can save 3 HEAD requests per resource, with the sequential\r\nIO avoiding any splitting of the big read into separate block GETs",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/4",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/minor.svg",
+        "name": "Minor",
+        "id": "4"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/1",
+        "id": "1",
+        "description": "A fix for this issue is checked into the tree and tested.",
+        "name": "Fixed"
+      },
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [
+        {
+          "id": "12598990",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12598990",
+          "type": {
+            "id": "10001",
+            "name": "dependent",
+            "inward": "is depended upon by",
+            "outward": "depends upon",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10001"
+          },
+          "outwardIssue": {
+            "id": "13222784",
+            "key": "HADOOP-16202",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13222784",
+            "fields": {
+              "summary": "Enhance openFile() for better read performance against object stores ",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+                "id": "4",
+                "description": "An improvement or enhancement to an existing feature or task.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+                "name": "Improvement",
+                "subtask": false,
+                "avatarId": 21140
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13328294/comment/17198492",
+            "id": "17198492",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "The openFile() API is in hadoop 3.3.0, but the standard seek option key/values are only now going in. These changes will be part of the main patch....the YARN JIRA is there for completeness/awareness",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2020-09-18T18:36:38.570+0000",
+            "updated": "2020-09-18T18:36:38.570+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13328294/comment/17198494",
+            "id": "17198494",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "linking to work in https://github.com/apache/hadoop/pull/2168\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2020-09-18T18:46:49.074+0000",
+            "updated": "2020-09-18T18:46:49.074+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13328294/comment/17343836",
+            "id": "17343836",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=weichiu",
+              "name": "weichiu",
+              "key": "jojochuang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=jojochuang&avatarId=25508",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=jojochuang&avatarId=25508",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=jojochuang&avatarId=25508",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=jojochuang&avatarId=25508"
+              },
+              "displayName": "Wei-Chiu Chuang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Rebased PR https://github.com/apache/hadoop/pull/2584",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=weichiu",
+              "name": "weichiu",
+              "key": "jojochuang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=jojochuang&avatarId=25508",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=jojochuang&avatarId=25508",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=jojochuang&avatarId=25508",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=jojochuang&avatarId=25508"
+              },
+              "displayName": "Wei-Chiu Chuang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2021-05-13T12:10:56.804+0000",
+            "updated": "2021-05-13T12:10:56.804+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13328294/comment/17695712",
+            "id": "17695712",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "came in with HADOOP-16202",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+              "name": "stevel@apache.org",
+              "key": "stevel@apache.org",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+              },
+              "displayName": "Steve Loughran",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2023-03-02T13:21:01.732+0000",
+            "updated": "2023-03-02T13:21:01.732+0000"
+          }
+        ],
+        "maxResults": 4,
+        "total": 4,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-10444/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2023-03-02T13:21:38.611+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 4,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13328294/comment/17198492",
+        "id": "17198492",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "The openFile() API is in hadoop 3.3.0, but the standard seek option key/values are only now going in. These changes will be part of the main patch....the YARN JIRA is there for completeness/awareness",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2020-09-18T18:36:38.570+0000",
+        "updated": "2020-09-18T18:36:38.570+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13328294/comment/17198494",
+        "id": "17198494",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "linking to work in https://github.com/apache/hadoop/pull/2168\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2020-09-18T18:46:49.074+0000",
+        "updated": "2020-09-18T18:46:49.074+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13328294/comment/17343836",
+        "id": "17343836",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=weichiu",
+          "name": "weichiu",
+          "key": "jojochuang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=jojochuang&avatarId=25508",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=jojochuang&avatarId=25508",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=jojochuang&avatarId=25508",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=jojochuang&avatarId=25508"
+          },
+          "displayName": "Wei-Chiu Chuang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Rebased PR https://github.com/apache/hadoop/pull/2584",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=weichiu",
+          "name": "weichiu",
+          "key": "jojochuang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=jojochuang&avatarId=25508",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=jojochuang&avatarId=25508",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=jojochuang&avatarId=25508",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=jojochuang&avatarId=25508"
+          },
+          "displayName": "Wei-Chiu Chuang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2021-05-13T12:10:56.804+0000",
+        "updated": "2021-05-13T12:10:56.804+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13328294/comment/17695712",
+        "id": "17695712",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "came in with HADOOP-16202",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=stevel%40apache.org",
+          "name": "stevel@apache.org",
+          "key": "stevel@apache.org",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=stevel%40apache.org&avatarId=16513",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=stevel%40apache.org&avatarId=16513",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=stevel%40apache.org&avatarId=16513",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=stevel%40apache.org&avatarId=16513"
+          },
+          "displayName": "Steve Loughran",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2023-03-02T13:21:01.732+0000",
+        "updated": "2023-03-02T13:21:01.732+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-10444/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 4,
+        "returned": 4
+      }
+    ]
+  }
+}

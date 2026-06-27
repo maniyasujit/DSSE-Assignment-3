@@ -1,0 +1,875 @@
+{
+  "downloaded_at": "2026-06-25T10:24:20.674950+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-462",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-462?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12636117",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117",
+    "key": "YARN-462",
+    "fields": {
+      "summary": "Project Parameter for Chargeback",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+        "id": "2",
+        "description": "A new feature of the product, which has yet to be developed.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+        "name": "New Feature",
+        "subtask": false,
+        "avatarId": 21141
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319322",
+          "id": "12319322",
+          "name": "resourcemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2013-03-08T20:19:41.988+0000",
+      "description": "Problem Summary\n\nFor the purpose of chargeback and better understanding of grid usage, we need to be able to associate applications with \"projects\", e.g. \"pipeline X\", \"property Y\".  This would allow us to aggregate on this property, thereby helping us compute grid resource usage for the entire \"project\".  Currently, for a given application, two things we know about it are the user that submitted it and the queue it was submitted to.  Below, I'll explain why neither of these is adequate for enterprise-level chargeback and understanding resource allocation needs.\n\nWhy Not Users?\n\nIts not individual users that are paying the bill -- its projects.  When one of our real users submits an application on a Hadoop grid, they're presumably not usually doing it for themselves.  They're doing work for some project or team effort, so its that team or project that should be \"charged\" for all its users applications.  Maintaining outside lists of associations between users and projects is error-prone because it is time-sensitive and requires continued ongoing maintenance.  New users join organizations, users leave and users even change projects.  Furthermore, users may split their time between multiple projects, making it ambiguous as to which of a user's projects a given application should be charged.  Also, there can be headless users, which can be even more difficult to link to a project and can be shared between teams or projects.\n\nWhy Not Queues?\n\nThe purpose of queues is for scheduling.  Overloading the queues concept to also mean who should be \"charged\" for an application can have a detrimental effect on the primary purpose of queues.  It could be manageable in the case of a very small number of projects sharing a cluster, but doesn't scale to tens or hundreds of projects sharing a cluster.  If a given cluster is shared between 50 projects, creating 50 separate queues will result in inefficient use of the cluster resources.  Furthermore, a given project may desire more than one queue for different types or priorities of applications.  \n\nProposed Solution\n\nRather than relying on external tools to infer through the user and/or queue who to \"charge\" for a given application, I propose a straightforward approach where that information be explicitly supplied when the application is submitted, just like we do with queues.  Let's use a charge card analogy: when you buy something online, you don't just say who you are and how to ship it, you also specify how you're paying for it.  Similarly, when submitting an application in YARN, you could explicitly specify to whom it's resource usage should be associated (a project, team, cost center, etc).\n\nThis new configuration parameter should default to being optional, so that organizations not interested in chargeback or project-level resource tracking can happily continue on as if it wasn't there.  However, it should be configurable at the cluster-level such that, a given cluster to could elect to make it required, so that all applications would have an associated project.  The value of this new parameter should be exposed via the Resource Manager UI and Resource Manager REST API, so that users and tools can make use of it for chargeback, utilization metrics, etc.\n\nI'm undecided on what to name the new parameter, as I like the flexibility in the ways it could be used.  It is essentially just an additional party other than user or queue that an application can be associated with, so its use is not just limited to a chargeback scenario.  For example, an organization not interested in chargeback could still use this parameter to communicate useful information about a application (e.g. pipelineX.stageN) and aggregate like applications.\n\nEnforcement\n\nCouldn't users just specify this information as a prefix for their job names?  Yes, but the missing piece this could provides is enforcement.  Ideally, I'd like this parameter to work very much like how the queues work.  Like already exists with queues, it'd be ideal if a given user couldn't just specify any old value for this parameter.  It could be configurable such that a given user only has permission to submit applications for specific \"projects\".  Submitting an application with this parameter being anything other than what the given user is allowed, would cause the application to be rejected in the same manner as if the user has specified an invalid queue.\n\nAgain, so as to have no effect on organizations not interested in this feature, this enforcement should be off by default, but configurable at the cluster level such that it could be turned on for clusters wanting to use it.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/13597818",
+            "id": "13597818",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+              "name": "kkambatl",
+              "key": "kkambatl",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": false,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Interesting idea, Kendall.\n\nJust so I understand it right, can't we do this in the current way the schedulers work (CS and FS)? If each chargeable entity has a corresponding queue, it is just submitting to that queue. No? The hierarchy should help us address user, team, etc.\n\nI see one case where that might not work though - if entity A (user) is part of two other entities (teams) B and C and submits jobs to both queues. Is this the particular case you are referring to? Even then you should be able to create queues B.A and C.A and submit the jobs.\n\nAm I missing something basic here?\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+              "name": "kkambatl",
+              "key": "kkambatl",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": false,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-03-09T02:43:21.322+0000",
+            "updated": "2013-03-09T02:43:21.322+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/13597822",
+            "id": "13597822",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+              "name": "kkambatl",
+              "key": "kkambatl",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": false,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "I might have jumped the gun there with my previous comment. I was under the impression the chargeback would factor back in to the scheduling logic. If it is not, it would definitely help in fully understanding the kind of chargebacks you are referring to, and what they are intended for.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+              "name": "kkambatl",
+              "key": "kkambatl",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": false,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-03-09T02:49:54.297+0000",
+            "updated": "2013-03-09T02:49:54.297+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/13598147",
+            "id": "13598147",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+              "name": "acmurthy",
+              "key": "acmurthy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Murthy",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Kendall - what sort of chargeback are you thinking about? Just reporting?\n\nOne of the reasons we implemented hierarchical queues is to ease management for cases like you've talked about here - won't it suffice to have sub-queues?\n\nI have sympathy for the notion of chargebacks, but I'm wary of adding new concepts to YARN without really double-clicking into whether it's really necessary... let's discuss.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+              "name": "acmurthy",
+              "key": "acmurthy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Murthy",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-03-10T03:31:22.526+0000",
+            "updated": "2013-03-10T03:31:22.526+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/13601245",
+            "id": "13601245",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kthrapp",
+              "name": "kthrapp",
+              "key": "kthrapp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Kendall Thrapp",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "Thanks for the questions and feedback.  Yes, first I should clarify what I intended by chargeback.  I'm looking to be able quantify cluster resource usage (memory, CPU, HDFS, etc.) for every application, and then roll that up to the project level.  This would allow us to accurately charge the customer (i.e. team/project) for their grid usage (either literally or just informatively).  I want to provide incentive for more efficient coding, as well as make it easier for teams to compare their resource usage across different software versions of their Hadoop applications, config parameter changes, etc.\n\nI had originally hoped that hierarchical queues could serve this purpose as well, but have since run into several issues with this approach.  The first is that it doesn't scale for clusters with large numbers of projects.  I've seen large clusters shared between over a hundred different projects, each with their own teams of users.  If I recall correctly, queues can't be assigned less than 1% of the total capacity, so it wouldn't be possible to give each of these project their own queue.  Even if we could, I suspect this could result in too much overhead for the scheduler and too much fragmentation of the cluster resources, which could result in poorer overall utilization.\n\nThe second issue is that the project-per-queue approach conflicts with how I see users wanting to use our queues.  In many cases I see queues being used to distinguish application priorities, ensuring that high priority time-sensitive jobs get the resources they need to finish on time, while big but lower priority and less time-sensitive jobs are constrained by being in a smaller queue.  I'd expect a lot of pushback from our users for any chargeback-focused queue configuration that had a negative impact on job run times and meeting SLAs.  The idea of the project/chargeback parameter decouples the two.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kthrapp",
+              "name": "kthrapp",
+              "key": "kthrapp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Kendall Thrapp",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2013-03-13T15:36:49.052+0000",
+            "updated": "2013-03-13T15:36:49.052+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/13601258",
+            "id": "13601258",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kthrapp",
+              "name": "kthrapp",
+              "key": "kthrapp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Kendall Thrapp",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "And yes, the case where entity A (real or headless user) is part of two other entities (teams or projects) B and C and submits jobs to both queues is one of the tricky issues I'm hoping to solve.  Another case is where last week user A was part of team B, but this week is now part of team C, and not wanting any ambiguity in attributing user A's resource usage to the correct team, no matter what day's metrics I'm looking at.  In large enough organizations, that's not necessarily a rare occurrence.  ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kthrapp",
+              "name": "kthrapp",
+              "key": "kthrapp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Kendall Thrapp",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2013-03-13T15:44:52.327+0000",
+            "updated": "2013-03-13T15:44:52.327+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/13601601",
+            "id": "13601601",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=andyrhee",
+              "name": "andyrhee",
+              "key": "andyrhee",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Andy Rhee",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Kendall - Again, another great idea!  Two things popped in my mind.  \n\n1. I wonder if we need to also verify and enforce project validity on a given cluster mapped to a whitelist or blacklist in the cluster config (this might even be tied to external source of truth like LDAP later) or decouple or delegate validation to other parts or external process, e.g. queue, user, or project accounting. \n \n2. Another interesting spin off of your idea could be flexible enforceable parameters or meta config.  Instead of keep modifying the code every time we have a great idea for a new parameter to enforce, it may be more cost effective to allow admins to define enforceable parameters in the cluster config, so that we don't have to worry about what to name new parameter or changing it later, IMHO :)",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=andyrhee",
+              "name": "andyrhee",
+              "key": "andyrhee",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Andy Rhee",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-03-13T20:30:07.482+0000",
+            "updated": "2013-03-13T20:30:07.482+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/13601652",
+            "id": "13601652",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+              "name": "kkambatl",
+              "key": "kkambatl",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": false,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Fair points, Kendall. Thanks for the detailed explanation. As Arun said, the idea seems to be a very useful one, but we should be wary of adding new concepts to YARN. If we decide to go ahead with the chargeback parameter, I am concerned if we will end up duplicating a lot of scheduler code - ACLs, enforcement etc.\n\nI wonder if the following would satisfy your requirements while leveraging all queue definition/ACLs logic and not overloading the scheduler:\n- Idea of a 'project' queue that goes under the leaf queues. These 'project' queues are transparent to the scheduler at scheduling time, but keep track of the actual usage.\n- e.g. root.sales.seller1.sell-coconut-project and root.sales.seller1.sell-pineapple-project could be two queues for seller1. At schedule time, the scheduler views all jobs under both projects to be under seller1 and we hopefully won't run into capacity < 1 issues you are mentioning. Neither does it increase the scheduling latency.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+              "name": "kkambatl",
+              "key": "kkambatl",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Karthik Kambatla",
+              "active": false,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-03-13T21:15:49.207+0000",
+            "updated": "2013-03-13T21:15:49.207+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/13606949",
+            "id": "13606949",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kthrapp",
+              "name": "kthrapp",
+              "key": "kthrapp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Kendall Thrapp",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "Karthik, I think your suggestion for transparent project queues under the leaf queues is an interesting idea and would also meet my requirements.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=kthrapp",
+              "name": "kthrapp",
+              "key": "kthrapp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Kendall Thrapp",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2013-03-19T22:33:43.866+0000",
+            "updated": "2013-03-19T22:33:43.866+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/14945933",
+            "id": "14945933",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tagar",
+              "name": "Tagar",
+              "key": "tagar",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10448",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10448",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10448",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10448"
+              },
+              "displayName": "Ruslan Dautkhanov",
+              "active": true,
+              "timeZone": "America/Denver"
+            },
+            "body": "It's probably related to https://issues.apache.org/jira/browse/YARN-415 ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tagar",
+              "name": "Tagar",
+              "key": "tagar",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10448",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10448",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10448",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10448"
+              },
+              "displayName": "Ruslan Dautkhanov",
+              "active": true,
+              "timeZone": "America/Denver"
+            },
+            "created": "2015-10-06T22:24:34.031+0000",
+            "updated": "2015-10-06T22:24:34.031+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/14945950",
+            "id": "14945950",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "body": "It is related to YARN-415 but not implemented by it.  YARN-415 adds the ability to know the aggregate resource usage of an application, but it doesn't help associate that application with a project or business entity.  To use Kendall's analogy from above, YARN-415 lets us know how much an app costs but not who's supposed to be paying for it.  One would think that would be the user, but in many cluster setups a single user can run jobs for multiple projects.\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+              "name": "jlowe",
+              "key": "jlowe",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Jason Darrell Lowe",
+              "active": true,
+              "timeZone": "America/Chicago"
+            },
+            "created": "2015-10-06T22:44:40.813+0000",
+            "updated": "2015-10-06T22:44:40.813+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/16886402",
+            "id": "16886402",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=epayne",
+              "name": "epayne",
+              "key": "eepayne",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=eepayne&avatarId=40831",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=eepayne&avatarId=40831",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=eepayne&avatarId=40831",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=eepayne&avatarId=40831"
+              },
+              "displayName": "Eric Payne",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "[~kthrapp], it has been several years. Is there still a need for this functionality?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=epayne",
+              "name": "epayne",
+              "key": "eepayne",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=eepayne&avatarId=40831",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=eepayne&avatarId=40831",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=eepayne&avatarId=40831",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=eepayne&avatarId=40831"
+              },
+              "displayName": "Eric Payne",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-07-16T19:26:45.033+0000",
+            "updated": "2019-07-16T19:26:45.033+0000"
+          }
+        ],
+        "maxResults": 11,
+        "total": 11,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-462/votes",
+        "votes": 1,
+        "hasVoted": false
+      },
+      "updated": "2019-07-16T19:26:45.033+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 11,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/13597818",
+        "id": "13597818",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+          "name": "kkambatl",
+          "key": "kkambatl",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": false,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Interesting idea, Kendall.\n\nJust so I understand it right, can't we do this in the current way the schedulers work (CS and FS)? If each chargeable entity has a corresponding queue, it is just submitting to that queue. No? The hierarchy should help us address user, team, etc.\n\nI see one case where that might not work though - if entity A (user) is part of two other entities (teams) B and C and submits jobs to both queues. Is this the particular case you are referring to? Even then you should be able to create queues B.A and C.A and submit the jobs.\n\nAm I missing something basic here?\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+          "name": "kkambatl",
+          "key": "kkambatl",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": false,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-03-09T02:43:21.322+0000",
+        "updated": "2013-03-09T02:43:21.322+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/13597822",
+        "id": "13597822",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+          "name": "kkambatl",
+          "key": "kkambatl",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": false,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "I might have jumped the gun there with my previous comment. I was under the impression the chargeback would factor back in to the scheduling logic. If it is not, it would definitely help in fully understanding the kind of chargebacks you are referring to, and what they are intended for.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+          "name": "kkambatl",
+          "key": "kkambatl",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": false,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-03-09T02:49:54.297+0000",
+        "updated": "2013-03-09T02:49:54.297+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/13598147",
+        "id": "13598147",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+          "name": "acmurthy",
+          "key": "acmurthy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Murthy",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Kendall - what sort of chargeback are you thinking about? Just reporting?\n\nOne of the reasons we implemented hierarchical queues is to ease management for cases like you've talked about here - won't it suffice to have sub-queues?\n\nI have sympathy for the notion of chargebacks, but I'm wary of adding new concepts to YARN without really double-clicking into whether it's really necessary... let's discuss.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+          "name": "acmurthy",
+          "key": "acmurthy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Murthy",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-03-10T03:31:22.526+0000",
+        "updated": "2013-03-10T03:31:22.526+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/13601245",
+        "id": "13601245",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kthrapp",
+          "name": "kthrapp",
+          "key": "kthrapp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Kendall Thrapp",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "Thanks for the questions and feedback.  Yes, first I should clarify what I intended by chargeback.  I'm looking to be able quantify cluster resource usage (memory, CPU, HDFS, etc.) for every application, and then roll that up to the project level.  This would allow us to accurately charge the customer (i.e. team/project) for their grid usage (either literally or just informatively).  I want to provide incentive for more efficient coding, as well as make it easier for teams to compare their resource usage across different software versions of their Hadoop applications, config parameter changes, etc.\n\nI had originally hoped that hierarchical queues could serve this purpose as well, but have since run into several issues with this approach.  The first is that it doesn't scale for clusters with large numbers of projects.  I've seen large clusters shared between over a hundred different projects, each with their own teams of users.  If I recall correctly, queues can't be assigned less than 1% of the total capacity, so it wouldn't be possible to give each of these project their own queue.  Even if we could, I suspect this could result in too much overhead for the scheduler and too much fragmentation of the cluster resources, which could result in poorer overall utilization.\n\nThe second issue is that the project-per-queue approach conflicts with how I see users wanting to use our queues.  In many cases I see queues being used to distinguish application priorities, ensuring that high priority time-sensitive jobs get the resources they need to finish on time, while big but lower priority and less time-sensitive jobs are constrained by being in a smaller queue.  I'd expect a lot of pushback from our users for any chargeback-focused queue configuration that had a negative impact on job run times and meeting SLAs.  The idea of the project/chargeback parameter decouples the two.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kthrapp",
+          "name": "kthrapp",
+          "key": "kthrapp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Kendall Thrapp",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2013-03-13T15:36:49.052+0000",
+        "updated": "2013-03-13T15:36:49.052+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/13601258",
+        "id": "13601258",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kthrapp",
+          "name": "kthrapp",
+          "key": "kthrapp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Kendall Thrapp",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "And yes, the case where entity A (real or headless user) is part of two other entities (teams or projects) B and C and submits jobs to both queues is one of the tricky issues I'm hoping to solve.  Another case is where last week user A was part of team B, but this week is now part of team C, and not wanting any ambiguity in attributing user A's resource usage to the correct team, no matter what day's metrics I'm looking at.  In large enough organizations, that's not necessarily a rare occurrence.  ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kthrapp",
+          "name": "kthrapp",
+          "key": "kthrapp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Kendall Thrapp",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2013-03-13T15:44:52.327+0000",
+        "updated": "2013-03-13T15:44:52.327+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/13601601",
+        "id": "13601601",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=andyrhee",
+          "name": "andyrhee",
+          "key": "andyrhee",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Andy Rhee",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Kendall - Again, another great idea!  Two things popped in my mind.  \n\n1. I wonder if we need to also verify and enforce project validity on a given cluster mapped to a whitelist or blacklist in the cluster config (this might even be tied to external source of truth like LDAP later) or decouple or delegate validation to other parts or external process, e.g. queue, user, or project accounting. \n \n2. Another interesting spin off of your idea could be flexible enforceable parameters or meta config.  Instead of keep modifying the code every time we have a great idea for a new parameter to enforce, it may be more cost effective to allow admins to define enforceable parameters in the cluster config, so that we don't have to worry about what to name new parameter or changing it later, IMHO :)",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=andyrhee",
+          "name": "andyrhee",
+          "key": "andyrhee",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Andy Rhee",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-03-13T20:30:07.482+0000",
+        "updated": "2013-03-13T20:30:07.482+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/13601652",
+        "id": "13601652",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+          "name": "kkambatl",
+          "key": "kkambatl",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": false,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Fair points, Kendall. Thanks for the detailed explanation. As Arun said, the idea seems to be a very useful one, but we should be wary of adding new concepts to YARN. If we decide to go ahead with the chargeback parameter, I am concerned if we will end up duplicating a lot of scheduler code - ACLs, enforcement etc.\n\nI wonder if the following would satisfy your requirements while leveraging all queue definition/ACLs logic and not overloading the scheduler:\n- Idea of a 'project' queue that goes under the leaf queues. These 'project' queues are transparent to the scheduler at scheduling time, but keep track of the actual usage.\n- e.g. root.sales.seller1.sell-coconut-project and root.sales.seller1.sell-pineapple-project could be two queues for seller1. At schedule time, the scheduler views all jobs under both projects to be under seller1 and we hopefully won't run into capacity < 1 issues you are mentioning. Neither does it increase the scheduling latency.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kkambatl",
+          "name": "kkambatl",
+          "key": "kkambatl",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Karthik Kambatla",
+          "active": false,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-03-13T21:15:49.207+0000",
+        "updated": "2013-03-13T21:15:49.207+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/13606949",
+        "id": "13606949",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kthrapp",
+          "name": "kthrapp",
+          "key": "kthrapp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Kendall Thrapp",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "Karthik, I think your suggestion for transparent project queues under the leaf queues is an interesting idea and would also meet my requirements.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=kthrapp",
+          "name": "kthrapp",
+          "key": "kthrapp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Kendall Thrapp",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2013-03-19T22:33:43.866+0000",
+        "updated": "2013-03-19T22:33:43.866+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/14945933",
+        "id": "14945933",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tagar",
+          "name": "Tagar",
+          "key": "tagar",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10448",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10448",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10448",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10448"
+          },
+          "displayName": "Ruslan Dautkhanov",
+          "active": true,
+          "timeZone": "America/Denver"
+        },
+        "body": "It's probably related to https://issues.apache.org/jira/browse/YARN-415 ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=Tagar",
+          "name": "Tagar",
+          "key": "tagar",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10448",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10448",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10448",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10448"
+          },
+          "displayName": "Ruslan Dautkhanov",
+          "active": true,
+          "timeZone": "America/Denver"
+        },
+        "created": "2015-10-06T22:24:34.031+0000",
+        "updated": "2015-10-06T22:24:34.031+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/14945950",
+        "id": "14945950",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "body": "It is related to YARN-415 but not implemented by it.  YARN-415 adds the ability to know the aggregate resource usage of an application, but it doesn't help associate that application with a project or business entity.  To use Kendall's analogy from above, YARN-415 lets us know how much an app costs but not who's supposed to be paying for it.  One would think that would be the user, but in many cluster setups a single user can run jobs for multiple projects.\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jlowe",
+          "name": "jlowe",
+          "key": "jlowe",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Jason Darrell Lowe",
+          "active": true,
+          "timeZone": "America/Chicago"
+        },
+        "created": "2015-10-06T22:44:40.813+0000",
+        "updated": "2015-10-06T22:44:40.813+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12636117/comment/16886402",
+        "id": "16886402",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=epayne",
+          "name": "epayne",
+          "key": "eepayne",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=eepayne&avatarId=40831",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=eepayne&avatarId=40831",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=eepayne&avatarId=40831",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=eepayne&avatarId=40831"
+          },
+          "displayName": "Eric Payne",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "[~kthrapp], it has been several years. Is there still a need for this functionality?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=epayne",
+          "name": "epayne",
+          "key": "eepayne",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=eepayne&avatarId=40831",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=eepayne&avatarId=40831",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=eepayne&avatarId=40831",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=eepayne&avatarId=40831"
+          },
+          "displayName": "Eric Payne",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-07-16T19:26:45.033+0000",
+        "updated": "2019-07-16T19:26:45.033+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-462/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 11,
+        "returned": 11
+      }
+    ]
+  }
+}

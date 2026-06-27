@@ -1,0 +1,2094 @@
+{
+  "downloaded_at": "2026-06-25T10:24:26.625500+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-366",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-366?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12630039",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039",
+    "key": "YARN-366",
+    "fields": {
+      "summary": "Add a tracing async dispatcher to simplify debugging",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+        "id": "2",
+        "description": "A new feature of the product, which has yet to be developed.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+        "name": "New Feature",
+        "subtask": false,
+        "avatarId": 21141
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319323",
+          "id": "12319323",
+          "name": "nodemanager"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319322",
+          "id": "12319322",
+          "name": "resourcemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2013-01-30T23:57:08.501+0000",
+      "description": "Exceptions thrown in YARN/MR code with asynchronous event handling do not contain informative stack traces, as all handle() methods sit directly under the dispatcher thread's loop.\n\nThis makes errors very difficult to debug for those who are not intimately familiar with the code, as it is difficult to see which chain of events caused a particular outcome.\n\nI propose adding an AsyncDispatcher that instruments events with tracing information.  Whenever an event is dispatched during the handling of another event, the dispatcher would annotate that event with a pointer to its parent.  When the dispatcher catches an exception, it could reconstruct a \"stack\" trace of the chain of events that led to it, and be able to log something informative.\n\nThis would be an experimental feature, off by default, unless extensive testing showed that it did not have a significant performance impact.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12567927",
+          "id": "12567927",
+          "filename": "YARN-366.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+            "name": "sandyr",
+            "key": "sandyr",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Sandy Ryza",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2013-02-05T01:40:08.842+0000",
+          "size": 13352,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12567927/YARN-366.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12576190",
+          "id": "12576190",
+          "filename": "YARN-366-1.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+            "name": "sandyr",
+            "key": "sandyr",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Sandy Ryza",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2013-03-29T22:50:57.272+0000",
+          "size": 28043,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12576190/YARN-366-1.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12576270",
+          "id": "12576270",
+          "filename": "YARN-366-2.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+            "name": "sandyr",
+            "key": "sandyr",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Sandy Ryza",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2013-03-31T05:58:22.190+0000",
+          "size": 37292,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12576270/YARN-366-2.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12583270",
+          "id": "12583270",
+          "filename": "YARN-366-3.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+            "name": "sandyr",
+            "key": "sandyr",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Sandy Ryza",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2013-05-15T03:19:50.830+0000",
+          "size": 37210,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12583270/YARN-366-3.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12583378",
+          "id": "12583378",
+          "filename": "YARN-366-4.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+            "name": "sandyr",
+            "key": "sandyr",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Sandy Ryza",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2013-05-15T21:20:21.187+0000",
+          "size": 37737,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12583378/YARN-366-4.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12587528",
+          "id": "12587528",
+          "filename": "YARN-366-5.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+            "name": "sandyr",
+            "key": "sandyr",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Sandy Ryza",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2013-06-13T00:12:05.624+0000",
+          "size": 37667,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12587528/YARN-366-5.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12591331",
+          "id": "12591331",
+          "filename": "YARN-366-6.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+            "name": "sandyr",
+            "key": "sandyr",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Sandy Ryza",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2013-07-09T00:36:30.363+0000",
+          "size": 37526,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12591331/YARN-366-6.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12591531",
+          "id": "12591531",
+          "filename": "YARN-366-7.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+            "name": "sandyr",
+            "key": "sandyr",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Sandy Ryza",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2013-07-09T22:01:22.469+0000",
+          "size": 38125,
+          "mimeType": "text/x-patch",
+          "content": "https://issues.apache.org/jira/secure/attachment/12591531/YARN-366-7.patch"
+        }
+      ],
+      "issuelinks": [
+        {
+          "id": "12366600",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12366600",
+          "type": {
+            "id": "10001",
+            "name": "dependent",
+            "inward": "is depended upon by",
+            "outward": "depends upon",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10001"
+          },
+          "inwardIssue": {
+            "id": "12639970",
+            "key": "MAPREDUCE-5120",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12639970",
+            "fields": {
+              "summary": "Allow app master to use tracing async dispatcher",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+                "id": "4",
+                "description": "An improvement or enhancement to an existing feature or task.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+                "name": "Improvement",
+                "subtask": false,
+                "avatarId": 21140
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13567122",
+            "id": "13567122",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+              "name": "acmurthy",
+              "key": "acmurthy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Murthy",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "+1, good idea.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+              "name": "acmurthy",
+              "key": "acmurthy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Murthy",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-01-30T23:59:36.315+0000",
+            "updated": "2013-01-30T23:59:36.315+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13570856",
+            "id": "13570856",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "I've attached an initial patch that adds TracingAsyncDispatcher.  The basic idea of it is that it maintains a thread local reference to the event currently being handled, so that any other events that are fired off while it is being handled get tagged with it as a parent.  I've added an EventTrace field to the Event class that maintains trace and parentage information - if we want this feature to entirely not affect existing code, we could instead maintain a mapping inside the dispatcher.\n\nI still need to add in configuration hooks to turn it on.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-02-05T01:47:10.571+0000",
+            "updated": "2013-02-05T01:47:10.571+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13570865",
+            "id": "13570865",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12567927/YARN-366.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 1 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/379//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/379//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-02-05T02:04:00.344+0000",
+            "updated": "2013-02-05T02:04:00.344+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13614499",
+            "id": "13614499",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "This is definitely a useful feature for tests. I doubt if we can ever put it in the main code path, I am concerned that it will have too much overhead.\n\nAnyways, we can have an advanced config to enable it, disable it by default. Can you make the changes to use this in RM, NM, and AM when the config is on?\n\nLooked at the patch, few minor comments:\n - AsyncDispatcher.curEvent can be removed?\n - TestTracingAsyncDispatcher:\n   -- After MAX_TRIES, validate that erroredEvent.get() is non-null?\n   -- Add a junit test-timeout overall?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2013-03-26T20:22:46.196+0000",
+            "updated": "2013-03-26T20:22:46.196+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13617838",
+            "id": "13617838",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks for the review, Vinod.  I uploaded a new patch that incorporates your comments.  The patch also now includes intermediate methods in the trace, so if handler1.handle() calls childMethod1(), which calls childMethod2(), which dispatches an event, all three of handle(), childMethod1(), and childMethod2() will be included in the trace for the event. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-03-29T22:53:40.381+0000",
+            "updated": "2013-03-29T22:53:40.381+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13617905",
+            "id": "13617905",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12576190/YARN-366-1.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 1 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:red}-1 findbugs{color}.  The patch appears to introduce 2 new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:red}-1 core tests{color}.  The patch failed these unit tests in hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-core hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager:\n\n                  org.apache.hadoop.mapreduce.v2.app.TestAMInfos\n                  org.apache.hadoop.mapreduce.v2.app.TestFetchFailure\n                  org.apache.hadoop.mapreduce.v2.app.TestMRAppMaster\n                  org.apache.hadoop.mapreduce.v2.app.TestRecovery\n                  org.apache.hadoop.mapreduce.v2.app.TestMRClientService\n                  org.apache.hadoop.mapreduce.v2.app.job.impl.TestMapReduceChildJVM\n                  org.apache.hadoop.mapreduce.v2.app.TestStagingCleanup\n                  org.apache.hadoop.mapreduce.v2.app.TestKill\n                  org.apache.hadoop.mapreduce.v2.app.TestFail\n                  org.apache.hadoop.mapreduce.v2.app.TestMRApp\n                  org.apache.hadoop.mapreduce.v2.app.launcher.TestContainerLauncher\n                  org.apache.hadoop.mapreduce.v2.app.job.impl.TestTaskAttempt\n                  org.apache.hadoop.yarn.server.nodemanager.TestNodeManagerReboot\n                  org.apache.hadoop.yarn.server.nodemanager.TestEventFlow\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.localizer.TestContainerLocalizer\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.monitor.TestContainersMonitor\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.launcher.TestContainerLaunch\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.logaggregation.TestLogAggregationService\n                  org.apache.hadoop.yarn.server.nodemanager.TestNodeManagerShutdown\n                  org.apache.hadoop.yarn.server.nodemanager.TestNodeStatusUpdater\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.TestContainerManager\n                  org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.TestCapacityScheduler\n                  org.apache.hadoop.yarn.server.resourcemanager.TestClientRMService\n                  org.apache.hadoop.yarn.server.resourcemanager.TestResourceManager\n                  org.apache.hadoop.yarn.server.resourcemanager.TestApplicationCleanup\n                  org.apache.hadoop.yarn.server.resourcemanager.TestRMRestart\n                  org.apache.hadoop.yarn.server.resourcemanager.TestFifoScheduler\n                  org.apache.hadoop.yarn.server.resourcemanager.TestApplicationACLs\n                  org.apache.hadoop.yarn.server.resourcemanager.TestResourceTrackerService\n                  org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.TestFSLeafQueue\n                  org.apache.hadoop.yarn.server.resourcemanager.webapp.TestRMWebServicesApps\n                  org.apache.hadoop.yarn.server.resourcemanager.webapp.TestRMWebServicesNodes\n                  org.apache.hadoop.yarn.server.resourcemanager.TestApplicationMasterLauncher\n                  org.apache.hadoop.yarn.server.resourcemanager.TestRM\n                  org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.TestFairSchedulerEventLog\n                  org.apache.hadoop.yarn.server.resourcemanager.security.TestApplicationTokens\n                  org.apache.hadoop.yarn.server.resourcemanager.applicationsmanager.TestAMRMRPCResponseId\n                  org.apache.hadoop.yarn.server.resourcemanager.webapp.TestRMWebServices\n                  org.apache.hadoop.yarn.server.resourcemanager.scheduler.fifo.TestFifoScheduler\n                  org.apache.hadoop.yarn.server.resourcemanager.TestAMAuthorization\n                  org.apache.hadoop.yarn.server.resourcemanager.webapp.TestRMWebServicesCapacitySched\n                  org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.TestFairScheduler\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/630//testReport/\nFindbugs warnings: https://builds.apache.org/job/PreCommit-YARN-Build/630//artifact/trunk/patchprocess/newPatchFindbugsWarningshadoop-yarn-common.html\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/630//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-03-30T00:15:45.284+0000",
+            "updated": "2013-03-30T00:15:45.284+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13618216",
+            "id": "13618216",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Let's separate the MR only changes to a MAPREDUCE ticket.\n\nAlso,\n - Please fix the test-case issues. The failures may be mostly because you use getConfig() in init() methods which won't work.\n - Rename yarn.async.dispatcher.tracing to simply yarn.dispatcher.Please also document that it can/amy impact performance if enabled.\n - YarnConfiguration.YARN_ASYNC_DISPATCHER_TRACING to YARN_DISPATCHER and similarly the default value's constant.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2013-03-31T03:20:44.311+0000",
+            "updated": "2013-03-31T03:20:44.311+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13618248",
+            "id": "13618248",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Woah that's a lot of failing tests.  Working on a patch that fixes the getConfig() / init issue.\n\nbq. Rename yarn.async.dispatcher.tracing to simply yarn.dispatcher.Please also document that it can/amy impact performance if enabled.\nIn this case should it still be a boolean or accept any class name?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-03-31T05:21:41.903+0000",
+            "updated": "2013-03-31T05:21:41.903+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13618254",
+            "id": "13618254",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Filed MAPREDUCE-5120 for the MR side.  Updated patch should fix the failing tests.  I didn't change the config name yet - I'll do that after an answer to the question above.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-03-31T06:00:43.574+0000",
+            "updated": "2013-03-31T06:00:43.574+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13618263",
+            "id": "13618263",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12576270/YARN-366-2.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 11 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:red}-1 findbugs{color}.  The patch appears to introduce 2 new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:red}-1 core tests{color}.  The patch failed these unit tests in hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-tests:\n\n                  org.apache.hadoop.mapreduce.v2.app.TestRecovery\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.localizer.TestContainerLocalizer\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/631//testReport/\nFindbugs warnings: https://builds.apache.org/job/PreCommit-YARN-Build/631//artifact/trunk/patchprocess/newPatchFindbugsWarningshadoop-yarn-common.html\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/631//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-03-31T06:40:27.431+0000",
+            "updated": "2013-03-31T06:40:27.431+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13618943",
+            "id": "13618943",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "The test failures appear to be unrelated.  The findbugs do not.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-04-01T17:21:45.626+0000",
+            "updated": "2013-04-01T17:21:45.626+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13619418",
+            "id": "13619418",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "More comments\n - Let's make it a class-name , as we are indeed swapping out classes instead of modifying the behaviour of AsyncDispatcher.\n - Can call the new config as \"yarn.dispatcher.class\".\n - I don't like how we are passing configuration around in the ContainerManagerImpl constructor, we have {{Service.init(Configuration)}} exactly for this purpose. I think the better fix is to move the initialization code into init() of ContainerManagerImpl where you will have the conf accessible like in other configs.\n - Please address find-bugs warnings too.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2013-04-02T01:45:05.098+0000",
+            "updated": "2013-04-02T01:45:05.098+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13626930",
+            "id": "13626930",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "bq. Let's make it a class-name\n\nSounds good.\n\nbq. I don't like how we are passing configuration around in the ContainerManagerImpl constructor, we have Service.init(Configuration) exactly for this purpose.\n\nThis is what I tried first, but I came across the following problem, stemming from the fact that both WebServer and ContainerManager have a a ContainersMonitor:\n* ContainerManager needs to pass its dispatcher to its ContainersMonitor when it instantiates it.\n* To address this, we can instantiate ContainersMonitor in ContainerManager's init instead of its constructor.\n* The way that composite services work, parent service inits tend to happen before child service inits.\n* In NodeManager's init method, it instantiates a WebServer, which takes a ContainersMonitor as an argument.\n* Because of the above, the NodeManager's ContainerManager's ContainersMonitor will not be instantiated yet.\n\nTo work around this, we'd need to do something like move the hierarchy around a little or set the WebServer's ContainersMonitor separately from the WebServer's instantiation.  What do you think?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-04-09T18:41:02.354+0000",
+            "updated": "2013-04-09T18:41:02.354+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13655475",
+            "id": "13655475",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "I see the problem.\n\nWe should definitely move most of the instantiation in ContainerManager to init(). In general, a service cannot easily itself without conf via init. So let's do that.\n\nThe other issue fundamentally seems to be WebServer looking *inside* ContainerManagerImpl. This can be simplified by making ContainerManagerImpl also implement ResourceView and make ContainerManagerImpl proxy the APIs to ContainersMonitor.\n\nThat should work?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2013-05-12T05:55:07.517+0000",
+            "updated": "2013-05-12T05:55:07.517+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13657842",
+            "id": "13657842",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "That seems reasonable to me, Vinod.  Uploading a patch that makes ContainerManagerImpl implement ResourceView and makes the config a class-name instead of a boolean.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-05-15T03:18:37.518+0000",
+            "updated": "2013-05-15T03:18:37.518+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13658480",
+            "id": "13658480",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12583270/YARN-366-3.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 7 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:red}-1 findbugs{color}.  The patch appears to introduce 2 new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-tests.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/932//testReport/\nFindbugs warnings: https://builds.apache.org/job/PreCommit-YARN-Build/932//artifact/trunk/patchprocess/newPatchFindbugsWarningshadoop-yarn-common.html\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/932//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-05-15T15:51:16.526+0000",
+            "updated": "2013-05-15T15:51:16.526+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13658836",
+            "id": "13658836",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Uploading a patch to address the findbugs warnings.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-05-15T21:20:09.621+0000",
+            "updated": "2013-05-15T21:20:09.621+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13658867",
+            "id": "13658867",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12583378/YARN-366-4.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 7 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-tests.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/936//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/936//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-05-15T21:51:04.080+0000",
+            "updated": "2013-05-15T21:51:04.080+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13681786",
+            "id": "13681786",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Rebased onto trunk",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-06-13T00:12:27.000+0000",
+            "updated": "2013-06-13T00:12:27.000+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13681854",
+            "id": "13681854",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12587528/YARN-366-5.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 7 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-tests.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/1208//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/1208//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-06-13T02:19:27.335+0000",
+            "updated": "2013-06-13T02:19:27.335+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13702689",
+            "id": "13702689",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Rebased onto trunk again",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+              "name": "sandyr",
+              "key": "sandyr",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sandy Ryza",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2013-07-09T00:36:44.827+0000",
+            "updated": "2013-07-09T00:36:44.827+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13702753",
+            "id": "13702753",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12591331/YARN-366-6.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 7 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:red}-1 core tests{color}.  The patch failed these unit tests in hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-tests:\n\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.launcher.TestContainerLaunch\n                  org.apache.hadoop.yarn.server.nodemanager.TestNodeManagerReboot\n                  org.apache.hadoop.yarn.server.nodemanager.TestNodeStatusUpdater\n                  org.apache.hadoop.yarn.server.nodemanager.TestNodeManagerResync\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.logaggregation.TestLogAggregationService\n                  org.apache.hadoop.yarn.server.nodemanager.TestNodeManagerShutdown\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.monitor.TestContainersMonitor\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.TestContainerManager\n                  org.apache.hadoop.yarn.server.nodemanager.TestEventFlow\n                  org.apache.hadoop.yarn.server.TestContainerManagerSecurity\n                  org.apache.hadoop.yarn.server.TestDiskFailures\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/1431//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/1431//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-07-09T01:29:56.394+0000",
+            "updated": "2013-07-09T01:29:56.394+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13703980",
+            "id": "13703980",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12591531/YARN-366-7.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 7 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-tests.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/1448//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/1448//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2013-07-09T23:19:17.578+0000",
+            "updated": "2013-07-09T23:19:17.578+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13706339",
+            "id": "13706339",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "body": "[~vinodkv], you have been following this one, anything else you think it should be addressed before committing? I'd like to get this in 2.1-beta if possible.\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+              "name": "tucu00",
+              "key": "tucu00",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alejandro Abdelnur",
+              "active": true,
+              "timeZone": "Europe/Madrid"
+            },
+            "created": "2013-07-11T22:18:26.549+0000",
+            "updated": "2013-07-11T22:18:26.549+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/14308778",
+            "id": "14308778",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+              "name": "acmurthy",
+              "key": "acmurthy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Murthy",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~sandyr] - Sorry, patch has gone stale. Mind re-basing? Thanks.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+              "name": "acmurthy",
+              "key": "acmurthy",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Arun Murthy",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-02-06T07:37:33.352+0000",
+            "updated": "2015-02-06T07:37:33.352+0000"
+          }
+        ],
+        "maxResults": 25,
+        "total": 25,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-366/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2015-02-06T07:37:33.382+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 25,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13567122",
+        "id": "13567122",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+          "name": "acmurthy",
+          "key": "acmurthy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Murthy",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "+1, good idea.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+          "name": "acmurthy",
+          "key": "acmurthy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Murthy",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-01-30T23:59:36.315+0000",
+        "updated": "2013-01-30T23:59:36.315+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13570856",
+        "id": "13570856",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "I've attached an initial patch that adds TracingAsyncDispatcher.  The basic idea of it is that it maintains a thread local reference to the event currently being handled, so that any other events that are fired off while it is being handled get tagged with it as a parent.  I've added an EventTrace field to the Event class that maintains trace and parentage information - if we want this feature to entirely not affect existing code, we could instead maintain a mapping inside the dispatcher.\n\nI still need to add in configuration hooks to turn it on.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-02-05T01:47:10.571+0000",
+        "updated": "2013-02-05T01:47:10.571+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13570865",
+        "id": "13570865",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12567927/YARN-366.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 1 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/379//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/379//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-02-05T02:04:00.344+0000",
+        "updated": "2013-02-05T02:04:00.344+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13614499",
+        "id": "13614499",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "This is definitely a useful feature for tests. I doubt if we can ever put it in the main code path, I am concerned that it will have too much overhead.\n\nAnyways, we can have an advanced config to enable it, disable it by default. Can you make the changes to use this in RM, NM, and AM when the config is on?\n\nLooked at the patch, few minor comments:\n - AsyncDispatcher.curEvent can be removed?\n - TestTracingAsyncDispatcher:\n   -- After MAX_TRIES, validate that erroredEvent.get() is non-null?\n   -- Add a junit test-timeout overall?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2013-03-26T20:22:46.196+0000",
+        "updated": "2013-03-26T20:22:46.196+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13617838",
+        "id": "13617838",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks for the review, Vinod.  I uploaded a new patch that incorporates your comments.  The patch also now includes intermediate methods in the trace, so if handler1.handle() calls childMethod1(), which calls childMethod2(), which dispatches an event, all three of handle(), childMethod1(), and childMethod2() will be included in the trace for the event. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-03-29T22:53:40.381+0000",
+        "updated": "2013-03-29T22:53:40.381+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13617905",
+        "id": "13617905",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12576190/YARN-366-1.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 1 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:red}-1 findbugs{color}.  The patch appears to introduce 2 new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:red}-1 core tests{color}.  The patch failed these unit tests in hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-core hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager:\n\n                  org.apache.hadoop.mapreduce.v2.app.TestAMInfos\n                  org.apache.hadoop.mapreduce.v2.app.TestFetchFailure\n                  org.apache.hadoop.mapreduce.v2.app.TestMRAppMaster\n                  org.apache.hadoop.mapreduce.v2.app.TestRecovery\n                  org.apache.hadoop.mapreduce.v2.app.TestMRClientService\n                  org.apache.hadoop.mapreduce.v2.app.job.impl.TestMapReduceChildJVM\n                  org.apache.hadoop.mapreduce.v2.app.TestStagingCleanup\n                  org.apache.hadoop.mapreduce.v2.app.TestKill\n                  org.apache.hadoop.mapreduce.v2.app.TestFail\n                  org.apache.hadoop.mapreduce.v2.app.TestMRApp\n                  org.apache.hadoop.mapreduce.v2.app.launcher.TestContainerLauncher\n                  org.apache.hadoop.mapreduce.v2.app.job.impl.TestTaskAttempt\n                  org.apache.hadoop.yarn.server.nodemanager.TestNodeManagerReboot\n                  org.apache.hadoop.yarn.server.nodemanager.TestEventFlow\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.localizer.TestContainerLocalizer\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.monitor.TestContainersMonitor\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.launcher.TestContainerLaunch\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.logaggregation.TestLogAggregationService\n                  org.apache.hadoop.yarn.server.nodemanager.TestNodeManagerShutdown\n                  org.apache.hadoop.yarn.server.nodemanager.TestNodeStatusUpdater\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.TestContainerManager\n                  org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.TestCapacityScheduler\n                  org.apache.hadoop.yarn.server.resourcemanager.TestClientRMService\n                  org.apache.hadoop.yarn.server.resourcemanager.TestResourceManager\n                  org.apache.hadoop.yarn.server.resourcemanager.TestApplicationCleanup\n                  org.apache.hadoop.yarn.server.resourcemanager.TestRMRestart\n                  org.apache.hadoop.yarn.server.resourcemanager.TestFifoScheduler\n                  org.apache.hadoop.yarn.server.resourcemanager.TestApplicationACLs\n                  org.apache.hadoop.yarn.server.resourcemanager.TestResourceTrackerService\n                  org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.TestFSLeafQueue\n                  org.apache.hadoop.yarn.server.resourcemanager.webapp.TestRMWebServicesApps\n                  org.apache.hadoop.yarn.server.resourcemanager.webapp.TestRMWebServicesNodes\n                  org.apache.hadoop.yarn.server.resourcemanager.TestApplicationMasterLauncher\n                  org.apache.hadoop.yarn.server.resourcemanager.TestRM\n                  org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.TestFairSchedulerEventLog\n                  org.apache.hadoop.yarn.server.resourcemanager.security.TestApplicationTokens\n                  org.apache.hadoop.yarn.server.resourcemanager.applicationsmanager.TestAMRMRPCResponseId\n                  org.apache.hadoop.yarn.server.resourcemanager.webapp.TestRMWebServices\n                  org.apache.hadoop.yarn.server.resourcemanager.scheduler.fifo.TestFifoScheduler\n                  org.apache.hadoop.yarn.server.resourcemanager.TestAMAuthorization\n                  org.apache.hadoop.yarn.server.resourcemanager.webapp.TestRMWebServicesCapacitySched\n                  org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.TestFairScheduler\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/630//testReport/\nFindbugs warnings: https://builds.apache.org/job/PreCommit-YARN-Build/630//artifact/trunk/patchprocess/newPatchFindbugsWarningshadoop-yarn-common.html\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/630//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-03-30T00:15:45.284+0000",
+        "updated": "2013-03-30T00:15:45.284+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13618216",
+        "id": "13618216",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Let's separate the MR only changes to a MAPREDUCE ticket.\n\nAlso,\n - Please fix the test-case issues. The failures may be mostly because you use getConfig() in init() methods which won't work.\n - Rename yarn.async.dispatcher.tracing to simply yarn.dispatcher.Please also document that it can/amy impact performance if enabled.\n - YarnConfiguration.YARN_ASYNC_DISPATCHER_TRACING to YARN_DISPATCHER and similarly the default value's constant.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2013-03-31T03:20:44.311+0000",
+        "updated": "2013-03-31T03:20:44.311+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13618248",
+        "id": "13618248",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Woah that's a lot of failing tests.  Working on a patch that fixes the getConfig() / init issue.\n\nbq. Rename yarn.async.dispatcher.tracing to simply yarn.dispatcher.Please also document that it can/amy impact performance if enabled.\nIn this case should it still be a boolean or accept any class name?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-03-31T05:21:41.903+0000",
+        "updated": "2013-03-31T05:21:41.903+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13618254",
+        "id": "13618254",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Filed MAPREDUCE-5120 for the MR side.  Updated patch should fix the failing tests.  I didn't change the config name yet - I'll do that after an answer to the question above.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-03-31T06:00:43.574+0000",
+        "updated": "2013-03-31T06:00:43.574+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13618263",
+        "id": "13618263",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12576270/YARN-366-2.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 11 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:red}-1 findbugs{color}.  The patch appears to introduce 2 new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:red}-1 core tests{color}.  The patch failed these unit tests in hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-tests:\n\n                  org.apache.hadoop.mapreduce.v2.app.TestRecovery\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.localizer.TestContainerLocalizer\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/631//testReport/\nFindbugs warnings: https://builds.apache.org/job/PreCommit-YARN-Build/631//artifact/trunk/patchprocess/newPatchFindbugsWarningshadoop-yarn-common.html\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/631//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-03-31T06:40:27.431+0000",
+        "updated": "2013-03-31T06:40:27.431+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13618943",
+        "id": "13618943",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "The test failures appear to be unrelated.  The findbugs do not.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-04-01T17:21:45.626+0000",
+        "updated": "2013-04-01T17:21:45.626+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13619418",
+        "id": "13619418",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "More comments\n - Let's make it a class-name , as we are indeed swapping out classes instead of modifying the behaviour of AsyncDispatcher.\n - Can call the new config as \"yarn.dispatcher.class\".\n - I don't like how we are passing configuration around in the ContainerManagerImpl constructor, we have {{Service.init(Configuration)}} exactly for this purpose. I think the better fix is to move the initialization code into init() of ContainerManagerImpl where you will have the conf accessible like in other configs.\n - Please address find-bugs warnings too.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2013-04-02T01:45:05.098+0000",
+        "updated": "2013-04-02T01:45:05.098+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13626930",
+        "id": "13626930",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "bq. Let's make it a class-name\n\nSounds good.\n\nbq. I don't like how we are passing configuration around in the ContainerManagerImpl constructor, we have Service.init(Configuration) exactly for this purpose.\n\nThis is what I tried first, but I came across the following problem, stemming from the fact that both WebServer and ContainerManager have a a ContainersMonitor:\n* ContainerManager needs to pass its dispatcher to its ContainersMonitor when it instantiates it.\n* To address this, we can instantiate ContainersMonitor in ContainerManager's init instead of its constructor.\n* The way that composite services work, parent service inits tend to happen before child service inits.\n* In NodeManager's init method, it instantiates a WebServer, which takes a ContainersMonitor as an argument.\n* Because of the above, the NodeManager's ContainerManager's ContainersMonitor will not be instantiated yet.\n\nTo work around this, we'd need to do something like move the hierarchy around a little or set the WebServer's ContainersMonitor separately from the WebServer's instantiation.  What do you think?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-04-09T18:41:02.354+0000",
+        "updated": "2013-04-09T18:41:02.354+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13655475",
+        "id": "13655475",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "I see the problem.\n\nWe should definitely move most of the instantiation in ContainerManager to init(). In general, a service cannot easily itself without conf via init. So let's do that.\n\nThe other issue fundamentally seems to be WebServer looking *inside* ContainerManagerImpl. This can be simplified by making ContainerManagerImpl also implement ResourceView and make ContainerManagerImpl proxy the APIs to ContainersMonitor.\n\nThat should work?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2013-05-12T05:55:07.517+0000",
+        "updated": "2013-05-12T05:55:07.517+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13657842",
+        "id": "13657842",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "That seems reasonable to me, Vinod.  Uploading a patch that makes ContainerManagerImpl implement ResourceView and makes the config a class-name instead of a boolean.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-05-15T03:18:37.518+0000",
+        "updated": "2013-05-15T03:18:37.518+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13658480",
+        "id": "13658480",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12583270/YARN-366-3.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 7 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:red}-1 findbugs{color}.  The patch appears to introduce 2 new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-tests.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/932//testReport/\nFindbugs warnings: https://builds.apache.org/job/PreCommit-YARN-Build/932//artifact/trunk/patchprocess/newPatchFindbugsWarningshadoop-yarn-common.html\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/932//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-05-15T15:51:16.526+0000",
+        "updated": "2013-05-15T15:51:16.526+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13658836",
+        "id": "13658836",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Uploading a patch to address the findbugs warnings.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-05-15T21:20:09.621+0000",
+        "updated": "2013-05-15T21:20:09.621+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13658867",
+        "id": "13658867",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12583378/YARN-366-4.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 7 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-tests.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/936//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/936//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-05-15T21:51:04.080+0000",
+        "updated": "2013-05-15T21:51:04.080+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13681786",
+        "id": "13681786",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Rebased onto trunk",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-06-13T00:12:27.000+0000",
+        "updated": "2013-06-13T00:12:27.000+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13681854",
+        "id": "13681854",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12587528/YARN-366-5.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 7 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-tests.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/1208//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/1208//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-06-13T02:19:27.335+0000",
+        "updated": "2013-06-13T02:19:27.335+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13702689",
+        "id": "13702689",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Rebased onto trunk again",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sandyr",
+          "name": "sandyr",
+          "key": "sandyr",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sandy Ryza",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2013-07-09T00:36:44.827+0000",
+        "updated": "2013-07-09T00:36:44.827+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13702753",
+        "id": "13702753",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12591331/YARN-366-6.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 7 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:red}-1 core tests{color}.  The patch failed these unit tests in hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-tests:\n\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.launcher.TestContainerLaunch\n                  org.apache.hadoop.yarn.server.nodemanager.TestNodeManagerReboot\n                  org.apache.hadoop.yarn.server.nodemanager.TestNodeStatusUpdater\n                  org.apache.hadoop.yarn.server.nodemanager.TestNodeManagerResync\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.logaggregation.TestLogAggregationService\n                  org.apache.hadoop.yarn.server.nodemanager.TestNodeManagerShutdown\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.monitor.TestContainersMonitor\n                  org.apache.hadoop.yarn.server.nodemanager.containermanager.TestContainerManager\n                  org.apache.hadoop.yarn.server.nodemanager.TestEventFlow\n                  org.apache.hadoop.yarn.server.TestContainerManagerSecurity\n                  org.apache.hadoop.yarn.server.TestDiskFailures\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/1431//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/1431//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-07-09T01:29:56.394+0000",
+        "updated": "2013-07-09T01:29:56.394+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13703980",
+        "id": "13703980",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:green}+1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12591531/YARN-366-7.patch\n  against trunk revision .\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:green}+1 tests included{color}.  The patch appears to include 7 new or modified test files.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  The javadoc tool did not generate any warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 1.3.9) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-app hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-tests.\n\n    {color:green}+1 contrib tests{color}.  The patch passed contrib unit tests.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/1448//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/1448//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2013-07-09T23:19:17.578+0000",
+        "updated": "2013-07-09T23:19:17.578+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/13706339",
+        "id": "13706339",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "body": "[~vinodkv], you have been following this one, anything else you think it should be addressed before committing? I'd like to get this in 2.1-beta if possible.\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=tucu00",
+          "name": "tucu00",
+          "key": "tucu00",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alejandro Abdelnur",
+          "active": true,
+          "timeZone": "Europe/Madrid"
+        },
+        "created": "2013-07-11T22:18:26.549+0000",
+        "updated": "2013-07-11T22:18:26.549+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12630039/comment/14308778",
+        "id": "14308778",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+          "name": "acmurthy",
+          "key": "acmurthy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Murthy",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~sandyr] - Sorry, patch has gone stale. Mind re-basing? Thanks.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=acmurthy",
+          "name": "acmurthy",
+          "key": "acmurthy",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Arun Murthy",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-02-06T07:37:33.352+0000",
+        "updated": "2015-02-06T07:37:33.352+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-366/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 25,
+        "returned": 25
+      }
+    ]
+  }
+}

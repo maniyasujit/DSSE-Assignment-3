@@ -1,0 +1,1601 @@
+{
+  "downloaded_at": "2026-06-25T10:24:50.458729+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-9834",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9834?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13256652",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652",
+    "key": "YARN-9834",
+    "fields": {
+      "summary": "Allow using a pool of local users to run Yarn Secure Container in secure mode",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+        "id": "1",
+        "description": "A problem which impairs or prevents the functions of the product.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+        "name": "Bug",
+        "subtask": false,
+        "avatarId": 21133
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319323",
+          "id": "12319323",
+          "name": "nodemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2019-09-14T02:20:18.741+0000",
+      "description": "Yarn Secure Container allows separation of different user's local files and container processes running on the same node manager. This depends on an out of band service such as SSSD/Winbind to sync all domain users to local machine that runs Yarn node manager. *Hadoop code only works with local users*.\r\n\r\nWinbind/SSSD user sync has lots of overhead, especially for large corporations. Also if running Yarn node manager inside Kubernetes cluster (meaning node managers running inside Docker container), it doesn't make sense for each Docker container to domain join with Active Directory and sync a whole copy of domain users to the Docker container.\r\n\r\nWe need an optional light-weighted approach to enable Yarn Secure Container in secure mode, as an alternative to AD domain join and SSSD/Winbind based user-sync service.\r\n\r\nToday, class LinuxContainerExecutor already supports running Yarn container process as one designated local user in non-secure mode.\r\n*We can add new configurations to Yarn, such that with LinuxContainerExecutor we can pre-create a pool of local users on each Yarn node manager. At runtime, Yarn node manager allocates a local user to run the container process, for the domain user that submits the application*. When all containers of that user are finished and all files belonging to that user are deleted, we can release the allocation and allow other users to use the same local user to run their Yarn containers.\r\n\r\nPlease look at attached design doc for more details.\r\n\r\n\u00a0",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [
+        "pull-request-available"
+      ],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12981919",
+          "id": "12981919",
+          "filename": "YarnSecureContainerWithPoolOfLocalUsers.pdf",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+            "name": "shanyu",
+            "key": "shanyu",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "shanyu zhao",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2019-10-01T18:31:50.054+0000",
+          "size": 254529,
+          "mimeType": "application/pdf",
+          "content": "https://issues.apache.org/jira/secure/attachment/12981919/YarnSecureContainerWithPoolOfLocalUsers.pdf"
+        }
+      ],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16929676",
+            "id": "16929676",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ashvin",
+              "name": "ashvin",
+              "key": "ashvin",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10444",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10444",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10444",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10444"
+              },
+              "displayName": "Ashvin Agrawal",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Hi [~shanyu]. I took a quick look at the pull request. Is it missing some files,\u00a0SecureModeLocalUserAllocator.java.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=ashvin",
+              "name": "ashvin",
+              "key": "ashvin",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10444",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10444",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10444",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10444"
+              },
+              "displayName": "Ashvin Agrawal",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-09-14T04:22:57.443+0000",
+            "updated": "2019-09-14T04:22:57.443+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16929804",
+            "id": "16929804",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+              "name": "shanyu",
+              "key": "shanyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "shanyu zhao",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~ashvin]\u00a0I missed that file during git push, it is added now. Thanks!",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+              "name": "shanyu",
+              "key": "shanyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "shanyu zhao",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-09-14T18:33:31.380+0000",
+            "updated": "2019-09-14T18:33:31.380+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16930716",
+            "id": "16930716",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~shanyu] SSSD does not mirror all users, and it only caches users on demand during per user lookup.  Hence, it is very efficient.  Winbind does have the limitation that this issue tries to address.  \r\n\r\nCan we change the config from:\r\n\r\n{code}\r\nyarn.nodemanager.linux-container-executor.secure-mode.use-local-user=false\r\n{code}\r\n\r\nto\r\n\r\n{code}\r\nyarn.nodemanager.linux-container-executor.secure-mode.use-pool-user=false\r\n{code}\r\n\r\nUse-local-user can be misleading for some users who would like to use /etc/passwd users, but get confused by the meaning of the config name.  Thanks",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-09-16T17:23:10.424+0000",
+            "updated": "2019-09-16T17:23:10.424+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16930945",
+            "id": "16930945",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+              "name": "shanyu",
+              "key": "shanyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "shanyu zhao",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks [~eyang]! I forgot to mention that for Winbind/SSSD to work the container needs to be domain joined to Active Directory, which doesn't work and doesn't seem to be efficient.\r\n\r\nI pushed a change to rename \"use-local-user\" to \"use-pool-user\", and \"local-user-prefix\" to \"pool-user-prefix\".",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+              "name": "shanyu",
+              "key": "shanyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "shanyu zhao",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-09-16T22:58:42.430+0000",
+            "updated": "2019-09-16T22:58:42.430+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16930980",
+            "id": "16930980",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~shanyu] {quote}I forgot to mention that for Winbind/SSSD to work the container needs to be domain joined to Active Directory, which doesn't work and doesn't seem to be efficient.{quote}\r\n\r\nI don't think this statement is true.  Container doesn't need to join AD.  User credential can be setup using sssd socket to Linux host sssd cache, see: https://hadoop.apache.org/docs/r3.1.2/hadoop-yarn/hadoop-yarn-site/DockerContainers.html#SSSD for setup instructions.\r\n\r\nI can understand the idea of this feature to make sure there is only small set of users to reuse to reduce overloading of user information from disjoined system.  However, this feature could be dangerous if the user has existing data that can be accidentally accessed by future users.  It tries to strip away some of the fundamental security design like process owner and file owner in Linux like system.  The modification to LinuxContainerExecutor and ResourceLocalizationService are not safe practices.  The conflicting model will make it hard to maintain Linux container executor.  \r\n\r\nI would suggest to write a separate container executor to accomplish your goal instead of hacking LinuxContainerExecutor for this purpose.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-09-17T00:40:28.033+0000",
+            "updated": "2019-09-17T00:40:28.033+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16930998",
+            "id": "16930998",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+              "name": "shanyu",
+              "key": "shanyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "shanyu zhao",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~eyang], You are talking about Docker container executor. What I meant is running Yarn node manager itself inside Docker container (managed by Kubernetes). The node manager (that runs SSSD) container needs to be domain joined to be able to sync domain users.\r\n\r\nThis change will honor the fundamental security design of process owner and file owner, that's why it uses reference counting for all these local files, the local user is not released to reallocate until all FileDeletionTask are done, so a Yarn container won't be able to access any other previous container's local files/logs.\r\n\r\nCurrently LinuxContainerExecutor already supports non-secure mode and secure mode, and this change is just modifying the getRunAsUser() behavior for secure mode. I could inherit from LinuxContainerExecutor and override this single file with one line change. But in the end, it is still LinuxContainerExecutor, not a drastically different container executor.\r\n\r\nAs for ResourceLocalization modification, basically we are treating \"PRIVATE\" type of resources as \"APPLICATION\" without banning \"PRIVATE\" resources. The end result is that the PRIVATE resources are kept within application folder and will be removed after the application is done.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+              "name": "shanyu",
+              "key": "shanyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "shanyu zhao",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-09-17T01:35:44.002+0000",
+            "updated": "2019-09-17T01:35:44.002+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16931554",
+            "id": "16931554",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~shanyu] {quote}You are talking about Docker container executor. What I meant is running Yarn node manager itself inside Docker container (managed by Kubernetes). The node manager (that runs SSSD) container needs to be domain joined to be able to sync domain users.{quote}\r\n\r\nThe mechanism doesn't need to be different between both solutions.\r\n\r\n{quote}This change will honor the fundamental security design of process owner and file owner, that's why it uses reference counting for all these local files, the local user is not released to reallocate until all FileDeletionTask are done, so a Yarn container won't be able to access any other previous container's local files/logs.{quote}\r\n\r\nUnless I am mistaken, the container user can access external storage like HDFS.  Pool user can be reused, and data stored on HDFS will become someone else's file.  What mechanism is there to protect future user from accessing past user data on external storage?\r\n\r\n{quote}Currently LinuxContainerExecutor already supports non-secure mode and secure mode, and this change is just modifying the getRunAsUser() behavior for secure mode. I could inherit from LinuxContainerExecutor and override this single file with one line change. But in the end, it is still LinuxContainerExecutor, not a drastically different container executor.{quote}\r\n\r\nThe new ContainerExecutor can extend LinuxContainerExecutor to provide the one line change.  Please keep this separated from LinuxContainerExecutor for other people who are not comfortable with pool users idea.\r\n\r\n{quote}As for ResourceLocalization modification, basically we are treating \"PRIVATE\" type of resources as \"APPLICATION\" without banning \"PRIVATE\" resources. The end result is that the PRIVATE resources are kept within application folder and will be removed after the application is done.{quote}\r\n\r\nThis change will cause private data to be accessible by multiple users via path traversal.  This does not sound good from security point of view.  More thoughts is required on resource permission.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-09-17T15:09:35.011+0000",
+            "updated": "2019-09-17T15:09:35.011+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16931725",
+            "id": "16931725",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+              "name": "shanyu",
+              "key": "shanyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "shanyu zhao",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~eyang]\r\n{quote}The mechanism doesn't need to be different between both solutions.{quote}\r\nFor SSSD to work it needs to have credentials to talk to LDAP, the recommended way is to use \"realm join\". This means the node manager running inside Docker container needs to have a \"computer account\" on AD.\r\n\r\n{quote}Unless I am mistaken, the container user can access external storage like HDFS. Pool user can be reused, and data stored on HDFS will become someone else's file. What mechanism is there to protect future user from accessing past user data on external storage?{quote}\r\nThis is not true. The Yarn container user does not have any special permissions, it is using the Hadoop delegation token to talk to HDFS. The Hadoop delegation token is an APPLICATION visibility resource \"localized\" to the current Yarn container working directory. Once the container is finished the Hadoop delegation token is deleted.\r\n\r\n{quote}The new ContainerExecutor can extend LinuxContainerExecutor to provide the one line change. Please keep this separated from LinuxContainerExecutor for other people who are not comfortable with pool users idea.{quote}\r\nOk, I can create a LinuxPoolUserContainerExecutor then.\r\n\r\n{quote}This change will cause private data to be accessible by multiple users via path traversal. This does not sound good from security point of view. More thoughts is required on resource permission.{quote}\r\n\r\nIt is not possible to access PRIVATE visibility resources using a different pool user. Note that APPLICATION visibility is more restrictive then PRIVATE visibility. After the change to treat PRIVATE visibility as APPLICATION visibility, the private resources are located in:\r\n<local-dir>/usercache/<domainuser>/appcache/<appid>/filecache\r\nThis folder is owned by pool local user, and its permission is 710. Trying to access it from a different pool user results in \"permission denied\"\r\n{code}\r\nls /mnt/tmp/nm-local-dir/usercache/admin/appcache/application_1568407112772_0007/filecache/ -al\r\nls: cannot open directory '/mnt/tmp/nm-local-dir/usercache/admin/appcache/application_1568407112772_0007/filecache/': Permission denied\r\n{code}\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+              "name": "shanyu",
+              "key": "shanyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "shanyu zhao",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-09-17T18:16:05.560+0000",
+            "updated": "2019-09-17T18:16:05.560+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16931946",
+            "id": "16931946",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "{quote}For SSSD to work it needs to have credentials to talk to LDAP, the recommended way is to use \"realm join\". This means the node manager running inside Docker container needs to have a \"computer account\" on AD.{quote}\r\n\r\nI think host joining AD is required to keep authorized servers to access LDAP.  Without AD authenticate the host, it would be wide open, no?\r\n\r\n{quote}This is not true. The Yarn container user does not have any special permissions, it is using the Hadoop delegation token to talk to HDFS. The Hadoop delegation token is an APPLICATION visibility resource \"localized\" to the current Yarn container working directory. Once the container is finished the Hadoop delegation token is deleted.{quote}\r\n\r\nI am still not clear on how the pool users would be used.  It sounds like user1 can be given to Joe, and Fred at different time.  Wouldn't that give Fred access to hdfs data stored by Joe as user1?\r\n\r\n{quote}It is not possible to access PRIVATE visibility resources using a different pool user.{quote}\r\n\r\nHow about the same user?  Let's consider:\r\n1. Joe run as user1, debug delay enabled, running: application_1568407112772_0007\r\n2. Fred run as user1, running: application_1568407112772_0008\r\n\r\nFred task can access Joe's data:\r\n{code}\r\nls /mnt/tmp/nm-local-dir/usercache/user1/appcache/application_1568407112772_0007/filecache/\r\n{code}\r\n\r\nDoes this look right to you?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-09-18T01:16:07.321+0000",
+            "updated": "2019-09-18T01:16:07.321+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16931953",
+            "id": "16931953",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+              "name": "shanyu",
+              "key": "shanyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "shanyu zhao",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "{quote}I think host joining AD is required to keep authorized servers to access LDAP. Without AD authenticate the host, it would be wide open, no?{quote}\r\n\"host\" in this scenario is the Docker container running node manager. That's why I said it doesn't make sense for that container to domain join just to sync domain user to local Docker container. With this PR there is no need to sync domain users to \"host\", we precreate pool of users and dynamically assign to Yarn container process to run.\r\n\r\n{quote}I am still not clear on how the pool users would be used. It sounds like user1 can be given to Joe, and Fred at different time. Wouldn't that give Fred access to hdfs data stored by Joe as user1?{quote}\r\nYes local user \"user1\" can be given to Joe and Fred at different time. But before we reassign \"user1\" from Joe to Fred, we make sure all local files as the result or running the Yarn container (data and logs) are deleted. Note that to access HDFS from the Yarn container process, it always need to use the Hadoop delegation token, which is just a APPLICATION type of resource localized to the working directory of that container. When the application is finished, this file is deleted so when Freq's container is running it won't be able to talk to HDFS with Joe's Hadoop delegation token.\r\n\r\n{quote}How about the same user? Let's consider:\r\n1. Joe run as user1, debug delay enabled, running: application_1568407112772_0007\r\n2. Fred run as user1, running: application_1568407112772_0008{quote}\r\nIn this case, Fred won't get allocation of \"user1\" because there are pending FileDeletionTask, the reference count for FileOpCount of LocalUserInfo is not zero therefore Joe still holds user1, until all the pending FileDeletionTask is executed and the reference count reaches zero. Then \"user1\" is up for reuse.\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+              "name": "shanyu",
+              "key": "shanyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "shanyu zhao",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-09-18T01:26:19.455+0000",
+            "updated": "2019-09-18T01:26:19.455+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16931975",
+            "id": "16931975",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "{quote}\"host\" in this scenario is the Docker container running node manager. That's why I said it doesn't make sense for that container to domain join just to sync domain user to local Docker container. With this PR there is no need to sync domain users to \"host\", we precreate pool of users and dynamically assign to Yarn container process to run.{quote}\r\n\r\nGiven the reasoning of node manager running in Docker container, and node manager isn't really authenticating with Kerberos for the host credential.  The proposal drops the basic security of trusted hosts.  This means replay attack is possible.  Wouldn't it be easier to run the cluster in simple security instead of breaking secure cluster to work like simple security cluster?\r\n\r\n{quote}In this case, Fred won't get allocation of \"user1\" because there are pending FileDeletionTask, the reference count for FileOpCount of LocalUserInfo is not zero therefore Joe still holds user1, until all the pending FileDeletionTask is executed and the reference count reaches zero. Then \"user1\" is up for reuse.{quote}\r\n\r\nWhat happen if the node manager restarted?  Will this cause Joe's delegation token to leak?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-09-18T02:18:01.544+0000",
+            "updated": "2019-09-18T02:18:01.544+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16932009",
+            "id": "16932009",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+              "name": "shanyu",
+              "key": "shanyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "shanyu zhao",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "{quote}Given the reasoning of node manager running in Docker container, and node manager isn't really authenticating with Kerberos for the host credential. The proposal drops the basic security of trusted hosts. This means replay attack is possible. Wouldn't it be easier to run the cluster in simple security instead of breaking secure cluster to work like simple security cluster?{quote}\r\nNode manager actually authenticate with Resource manager via Kerberos, we configured a keytab file for node manager to use. All the local pool users do not have permission to access this keytab file. It is still a secure Hadoop cluster. The only reason for Winbind/SSSD to sync domain user to local user, is for LinuxCotnainerExecutor to start the Yarn container process as the synced \"domain user\" name, without any implicit permission associated with that domain user. What we did here is to skip the domain user sync part, and dynamically allocate local users to Yarn containers to achieve files and processes isolation.\r\n\r\n{quote}What happen if the node manager restarted? Will this cause Joe's delegation token to leak?{quote}\r\nYou raised a good point here. Node manager process restart will cause re-initialization of ResourceLocalizationService, which will rename the local directories for the node manager (including all existing application folders as sub folders), then schedule delete task. Joe's delegation token was among the files to be deleted. However, this is async process, so in theory there is a short window that if the scheduled FileDeletionTask has not been executed yet. A simple fix is in addition to the rename, change permission to 700 on these folders before scheduling FileDeletionTask:\r\n{code}\r\n    renameLocalDir(lfs, localDir, ContainerLocalizer.USERCACHE,\r\n      currentTimeStamp);\r\n    renameLocalDir(lfs, localDir, ContainerLocalizer.FILECACHE,\r\n      currentTimeStamp);\r\n    renameLocalDir(lfs, localDir, ResourceLocalizationService.NM_PRIVATE_DIR,\r\n      currentTimeStamp);\r\n{code}",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+              "name": "shanyu",
+              "key": "shanyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "shanyu zhao",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-09-18T03:23:27.218+0000",
+            "updated": "2019-09-18T05:45:39.406+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16932041",
+            "id": "16932041",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Sorry, this design looks too risky for me to consider.  I will let others provide feedback.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-09-18T04:24:07.727+0000",
+            "updated": "2019-09-18T04:24:07.727+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16932085",
+            "id": "16932085",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+              "name": "shanyu",
+              "key": "shanyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "shanyu zhao",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks for the review [~eyang]. If you see any security hole in this design, please let me know.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+              "name": "shanyu",
+              "key": "shanyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "shanyu zhao",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-09-18T05:50:22.926+0000",
+            "updated": "2019-09-18T05:50:22.926+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16932594",
+            "id": "16932594",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~shanyu] There are too many security defects to list them all.  I just list random three issues:\r\n\r\n# User's home directory may be used by multiple parties.  Some application may install ssh key or user preference into user home directory.  User home directory becomes a public space in this design.  This breaks user home directory privacy for existing applications.\r\n# Application can not rely on any group membership lookup because the user does not have group membership in the container.  To access external posix like file system in application, group authorization needs to be custom code like going through HDFS client rather than standard file interfaces.  This is incompatible with most file systems options today.\r\n# User can not access raw devices like GPU.  Many of the sudo or kernel capabilities are only granted permissively to users with sudo rights or proper group permission.  Node manager does not have the logic to grant user sudo rights.  If continue on this path, this means node manager becomes root to delegate rights of the user.  This makes node manager more powerful and more dangerous.\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-09-18T16:02:19.199+0000",
+            "updated": "2019-09-18T16:02:19.199+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16932748",
+            "id": "16932748",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+              "name": "shanyu",
+              "key": "shanyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "shanyu zhao",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~eyang]\r\n{quote}User's home directory may be used by multiple parties. Some application may install ssh key or user preference into user home directory. User home directory becomes a public space in this design. This breaks user home directory privacy for existing applications.{quote}\r\nThere is no home directory configured for \"domain users\" and Yarn container are not supposed to use home directory. The working directory of a container is managed by Yarn node manager and will be deleted when the container is finished. Any additional credentials (other than hadoop delegation token) is also localized to the container working directory and will be cleaned up.\r\n\r\n{quote}Application can not rely on any group membership lookup because the user does not have group membership in the container. To access external posix like file system in application, group authorization needs to be custom code like going through HDFS client rather than standard file interfaces. This is incompatible with most file systems options today.{quote}\r\nAgain for HDFS access hadoop delegation token is used. For any external resource access such as JDBC, the credentials (e.g. keytab file) should be localized to the container as a file resource. The only thing I can think of is this scenario: we want to allow sharing some content in local file system of the node manager and configure a certain group of user can read it. I don't believe this is an important usage scenario, and we can always put that shared content to HDFS and rely on resource localization and manage the ACLs on HDFS.\r\n\r\n{quote}User can not access raw devices like GPU. Many of the sudo or kernel capabilities are only granted permissively to users with sudo rights or proper group permission. Node manager does not have the logic to grant user sudo rights. If continue on this path, this means node manager becomes root to delegate rights of the user. This makes node manager more powerful and more dangerous.{quote}\r\nGPU scheduling and isolation rely on CGroup. The \"domain user\" cannot be sudoers otherwise they can peek into each other's working directory. \r\n\r\nI'm trying to provide an alternative to SSSD (the domain user sync) to provide a light-weight secure mode for LinuxContainerExecutor to provide the benefit of Yarn Secure Containers (user isolation inside node manager). I believe it works for most of the scenarios. If there are certain scenario this cannot support, we can call it out. It's not a bad idea to offer an additional choice. But I don't want to have any security holes in any situation.\r\n\r\n{quote}",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+              "name": "shanyu",
+              "key": "shanyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "shanyu zhao",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-09-18T18:47:07.295+0000",
+            "updated": "2019-09-18T18:47:07.295+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16942349",
+            "id": "16942349",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "There was a community meeting called to discuss this issue, people presented were:\r\n[~wangda] [~shanyu] [~eyang] [~ashvin] and two others (apologies for those who I can find their names from JIRA.)\r\n\r\nThe discussed items are:\r\n\r\n# The current patch does not work for recovery.  \r\n# Past, present, and future usage of the same pool user may have conflicts.  Detached user process can monitor data generated by future user.\r\n# YARN container does not have full isolation of working directories, path traversal to user home directory is possible.  Docker and runc container can provide better isolation to prevent accidental leakage of file owned by pool users.\r\n# The patch is vulnerable to user job to play tricks with config flag to trigger code path designed for pool user.\r\n# Group membership association.  Whether the file should be written with primary group, or the current directory group owner.  This should be handled with care by application.\r\n\r\nRecommendation:\r\n\r\n# Implement the new incompatible security model in a separate container executor to prevent adding security holes to Linux container executor.\r\n# Use Docker container/runc or chroot to provide isolation and remove path traversal.\r\n# [~wangda] recommended to implement Auxiliary service to reactively change the execution model rather than direct modification to LinuxContainerExecutor to prevent security bugs leaks into LinuxContainerExecutor through a series of if else statements.\r\n\r\n\r\nPull request #1446 is taking the shortest route to implement the pool user concept, but there are too many loopholes in the current implementation.  Until those concerns are addressed, -1 on this patch.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-10-01T22:19:54.796+0000",
+            "updated": "2019-10-01T22:22:38.913+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16942361",
+            "id": "16942361",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+              "name": "shanyu",
+              "key": "shanyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "shanyu zhao",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~eyang] Please see my response inline:\r\n\r\n{quote}The current patch does not work for recovery.{quote}\r\nYes this is listed in as limitations in the attached design doc. It does not work for Yarn node manager recovery, which by default is turned off. If trying to enable both local pool users and Yarn node manager recovery, Yarn node manager will exit with error message.\r\n\r\n{quote}Past, present, and future usage of the same pool user may have conflicts. Detached user process can monitor data generated by future user.{quote}\r\nLike I already explained in our meeting. There is no concrete example of the \"conflict\". The design will restrict pool users from creating folders outside of Yarn node manager usercache folder. The design guarantees the local files are all deleted before the local pool user can be reused.\r\n\r\n{quote}YARN container does not have full isolation of working directories, path traversal to user home directory is possible. Docker and runc container can provide better isolation to prevent accidental leakage of file owned by pool users.{quote}\r\nAs I explained above. There will be no user directory (/home/<user>), and one local pool user cannot access other local pool user's usercache folder. We have e2e test cases to cover all kinds of scenarios like this.\r\n\r\n{quote}The patch is vulnerable to user job to play tricks with config flag to trigger code path designed for pool user.{quote}\r\nHow could user job play tricks to modify Yarn node manager's configuration? If they could, they could just steal node manager's keytab file and talk to Yarn resource manager directly.\r\n\r\n{quote}Group membership association. Whether the file should be written with primary group, or the current directory group owner. This should be handled with care by application.{quote}\r\nWhat files are you talking about? Local files does not have any domain group membership association. This is expected because we are not sharing files for the same domain user across applications. Please see one of the limitation section in the design doc. We do not support PRIVATE visibility resources and will treat it as APPLICATION visibility.\r\n\r\nAs for your recommendations:\r\n{quote}Implement the new incompatible security model in a separate container executor to prevent adding security holes to Linux container executor.{quote}\r\nI already mentioned the whole idea of this work is based on extending LinuxContainerExecutor. This feature is protected by a configuration and turned off by default, just like an existing configuration \"yarn.nodemanager.linux-container-executor.nonsecure-mode.limit-users\". I do not see how can this add security holes to Linux container executor.\r\n\r\n{quote}Use Docker container/runc or chroot to provide isolation and remove path traversal.{quote}\r\nWe cannot run Docker container inside Docker container. We are relying on running Yarn container process as different local user for the isolation, which is based on the existing Yarn Secure Container implementation in LinuxContainerExecutor.\r\n\r\n{quote}Wangda Tan recommended to implement Auxiliary service to reactively change the execution model rather than direct modification to LinuxContainerExecutor to prevent security bugs leaks into LinuxContainerExecutor through a series of if else statements.{quote}\r\nWe can look into Aux services, but as I said, my understanding of Aux services is that it can only provide service to Yarn node manager, e.g. maybe creating users or something, but in the end, we need modification to LinuxContainerExecutor to launch Yarn container process so that we can use Yarn Secure Container in a light-weight setup.\r\n\r\nFinally, I want to stress here, that whoever might be interested in running Yarn on Kubernetes with security setup, this JIRA provides a secure alternative way to enable Yarn Secure Container without the need for container domain join and winbind/SSSD service inside Docker containers.\r\n\r\n{quote}\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+              "name": "shanyu",
+              "key": "shanyu",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "shanyu zhao",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-10-01T23:06:56.749+0000",
+            "updated": "2019-10-01T23:06:56.749+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16942396",
+            "id": "16942396",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "{quote}Like I already explained in our meeting. There is no concrete example of the \"conflict\". The design will restrict pool users from creating folders outside of Yarn node manager usercache folder. The design guarantees the local files are all deleted before the local pool user can be reused.\r\n\r\nAs I explained above. There will be no user directory (/home/<user>), and one local pool user cannot access other local pool user's usercache folder. We have e2e test cases to cover all kinds of scenarios like this.\r\n{quote}\r\nThe above statement is false. There is no code in this patch to help working directory isolation. YARN container is just a directory. The user process is not jailed into the working directory by any stretch of imagination. Hence you are making a design decision based on false assumption that user program would not access outside of working directory. This is a big mistake. You should not insist on something that is not true in reality.\r\n{quote}We cannot run Docker container inside Docker container. We are relying on running Yarn container process as different local user for the isolation, which is based on the existing Yarn Secure Container implementation in LinuxContainerExecutor.\r\n{quote}\r\nLinuxContainerExecutor is not designed for your use case. Your modification is only going to jeopardize others who already have heavily reliance for the existing Unix security model for LinuxContainerExecutor. Docker in Docker on YARN is possible, we have in house cloud implementation based on this. Hadoop trunk code base already have all the necessary knobs to improve isolation. I will ask you nicely one last time to implement Pool user container executor with proper path isolation and process isolation.\r\n{quote}How could user job play tricks to modify Yarn node manager's configuration? If they could, they could just steal node manager's keytab file and talk to Yarn resource manager directly.\r\n{quote}\r\nPlease look at your own patch carefully, line 695 of hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/localizer/ResourceLocalizationService.java\u00a0is not returning any thing nor breaking. It smash into case APPLICATION:. This is wrong, and there are several ways to exploit it.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+              "name": "eyang",
+              "key": "eyang",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Eric Yang",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-10-02T00:15:18.412+0000",
+            "updated": "2019-10-02T00:17:54.273+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/18046469",
+            "id": "18046469",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "github-actions[bot] commented on PR #1446:\nURL: https://github.com/apache/hadoop/pull/1446#issuecomment-3672853719\n\n   We're closing this stale PR because it has been open for 100 days with no activity. This isn't a judgement on the merit of the PR in any way. It's just a way of keeping the PR queue manageable.\n   If you feel like this was a mistake, or you would like to continue working on it, please feel free to re-open it and ask for a committer to remove the stale tag and review again.\n   Thanks all for your contribution.\n\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2025-12-19T00:25:18.555+0000",
+            "updated": "2025-12-19T00:25:18.555+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/18046756",
+            "id": "18046756",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "github-actions[bot] closed pull request #1446: YARN-9834. Allow using a pool of local users to run Yarn Secure Conta\u2026\nURL: https://github.com/apache/hadoop/pull/1446\n\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+              "name": "githubbot",
+              "key": "githubbot",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "ASF GitHub Bot",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2025-12-20T00:23:38.371+0000",
+            "updated": "2025-12-20T00:23:38.371+0000"
+          }
+        ],
+        "maxResults": 21,
+        "total": 21,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9834/votes",
+        "votes": 1,
+        "hasVoted": false
+      },
+      "updated": "2025-12-20T00:23:38.616+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 21,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16929676",
+        "id": "16929676",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ashvin",
+          "name": "ashvin",
+          "key": "ashvin",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10444",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10444",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10444",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10444"
+          },
+          "displayName": "Ashvin Agrawal",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Hi [~shanyu]. I took a quick look at the pull request. Is it missing some files,\u00a0SecureModeLocalUserAllocator.java.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=ashvin",
+          "name": "ashvin",
+          "key": "ashvin",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10444",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10444",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10444",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10444"
+          },
+          "displayName": "Ashvin Agrawal",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-09-14T04:22:57.443+0000",
+        "updated": "2019-09-14T04:22:57.443+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16929804",
+        "id": "16929804",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+          "name": "shanyu",
+          "key": "shanyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "shanyu zhao",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~ashvin]\u00a0I missed that file during git push, it is added now. Thanks!",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+          "name": "shanyu",
+          "key": "shanyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "shanyu zhao",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-09-14T18:33:31.380+0000",
+        "updated": "2019-09-14T18:33:31.380+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16930716",
+        "id": "16930716",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~shanyu] SSSD does not mirror all users, and it only caches users on demand during per user lookup.  Hence, it is very efficient.  Winbind does have the limitation that this issue tries to address.  \r\n\r\nCan we change the config from:\r\n\r\n{code}\r\nyarn.nodemanager.linux-container-executor.secure-mode.use-local-user=false\r\n{code}\r\n\r\nto\r\n\r\n{code}\r\nyarn.nodemanager.linux-container-executor.secure-mode.use-pool-user=false\r\n{code}\r\n\r\nUse-local-user can be misleading for some users who would like to use /etc/passwd users, but get confused by the meaning of the config name.  Thanks",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-09-16T17:23:10.424+0000",
+        "updated": "2019-09-16T17:23:10.424+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16930945",
+        "id": "16930945",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+          "name": "shanyu",
+          "key": "shanyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "shanyu zhao",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks [~eyang]! I forgot to mention that for Winbind/SSSD to work the container needs to be domain joined to Active Directory, which doesn't work and doesn't seem to be efficient.\r\n\r\nI pushed a change to rename \"use-local-user\" to \"use-pool-user\", and \"local-user-prefix\" to \"pool-user-prefix\".",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+          "name": "shanyu",
+          "key": "shanyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "shanyu zhao",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-09-16T22:58:42.430+0000",
+        "updated": "2019-09-16T22:58:42.430+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16930980",
+        "id": "16930980",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~shanyu] {quote}I forgot to mention that for Winbind/SSSD to work the container needs to be domain joined to Active Directory, which doesn't work and doesn't seem to be efficient.{quote}\r\n\r\nI don't think this statement is true.  Container doesn't need to join AD.  User credential can be setup using sssd socket to Linux host sssd cache, see: https://hadoop.apache.org/docs/r3.1.2/hadoop-yarn/hadoop-yarn-site/DockerContainers.html#SSSD for setup instructions.\r\n\r\nI can understand the idea of this feature to make sure there is only small set of users to reuse to reduce overloading of user information from disjoined system.  However, this feature could be dangerous if the user has existing data that can be accidentally accessed by future users.  It tries to strip away some of the fundamental security design like process owner and file owner in Linux like system.  The modification to LinuxContainerExecutor and ResourceLocalizationService are not safe practices.  The conflicting model will make it hard to maintain Linux container executor.  \r\n\r\nI would suggest to write a separate container executor to accomplish your goal instead of hacking LinuxContainerExecutor for this purpose.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-09-17T00:40:28.033+0000",
+        "updated": "2019-09-17T00:40:28.033+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16930998",
+        "id": "16930998",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+          "name": "shanyu",
+          "key": "shanyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "shanyu zhao",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~eyang], You are talking about Docker container executor. What I meant is running Yarn node manager itself inside Docker container (managed by Kubernetes). The node manager (that runs SSSD) container needs to be domain joined to be able to sync domain users.\r\n\r\nThis change will honor the fundamental security design of process owner and file owner, that's why it uses reference counting for all these local files, the local user is not released to reallocate until all FileDeletionTask are done, so a Yarn container won't be able to access any other previous container's local files/logs.\r\n\r\nCurrently LinuxContainerExecutor already supports non-secure mode and secure mode, and this change is just modifying the getRunAsUser() behavior for secure mode. I could inherit from LinuxContainerExecutor and override this single file with one line change. But in the end, it is still LinuxContainerExecutor, not a drastically different container executor.\r\n\r\nAs for ResourceLocalization modification, basically we are treating \"PRIVATE\" type of resources as \"APPLICATION\" without banning \"PRIVATE\" resources. The end result is that the PRIVATE resources are kept within application folder and will be removed after the application is done.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+          "name": "shanyu",
+          "key": "shanyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "shanyu zhao",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-09-17T01:35:44.002+0000",
+        "updated": "2019-09-17T01:35:44.002+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16931554",
+        "id": "16931554",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~shanyu] {quote}You are talking about Docker container executor. What I meant is running Yarn node manager itself inside Docker container (managed by Kubernetes). The node manager (that runs SSSD) container needs to be domain joined to be able to sync domain users.{quote}\r\n\r\nThe mechanism doesn't need to be different between both solutions.\r\n\r\n{quote}This change will honor the fundamental security design of process owner and file owner, that's why it uses reference counting for all these local files, the local user is not released to reallocate until all FileDeletionTask are done, so a Yarn container won't be able to access any other previous container's local files/logs.{quote}\r\n\r\nUnless I am mistaken, the container user can access external storage like HDFS.  Pool user can be reused, and data stored on HDFS will become someone else's file.  What mechanism is there to protect future user from accessing past user data on external storage?\r\n\r\n{quote}Currently LinuxContainerExecutor already supports non-secure mode and secure mode, and this change is just modifying the getRunAsUser() behavior for secure mode. I could inherit from LinuxContainerExecutor and override this single file with one line change. But in the end, it is still LinuxContainerExecutor, not a drastically different container executor.{quote}\r\n\r\nThe new ContainerExecutor can extend LinuxContainerExecutor to provide the one line change.  Please keep this separated from LinuxContainerExecutor for other people who are not comfortable with pool users idea.\r\n\r\n{quote}As for ResourceLocalization modification, basically we are treating \"PRIVATE\" type of resources as \"APPLICATION\" without banning \"PRIVATE\" resources. The end result is that the PRIVATE resources are kept within application folder and will be removed after the application is done.{quote}\r\n\r\nThis change will cause private data to be accessible by multiple users via path traversal.  This does not sound good from security point of view.  More thoughts is required on resource permission.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-09-17T15:09:35.011+0000",
+        "updated": "2019-09-17T15:09:35.011+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16931725",
+        "id": "16931725",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+          "name": "shanyu",
+          "key": "shanyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "shanyu zhao",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~eyang]\r\n{quote}The mechanism doesn't need to be different between both solutions.{quote}\r\nFor SSSD to work it needs to have credentials to talk to LDAP, the recommended way is to use \"realm join\". This means the node manager running inside Docker container needs to have a \"computer account\" on AD.\r\n\r\n{quote}Unless I am mistaken, the container user can access external storage like HDFS. Pool user can be reused, and data stored on HDFS will become someone else's file. What mechanism is there to protect future user from accessing past user data on external storage?{quote}\r\nThis is not true. The Yarn container user does not have any special permissions, it is using the Hadoop delegation token to talk to HDFS. The Hadoop delegation token is an APPLICATION visibility resource \"localized\" to the current Yarn container working directory. Once the container is finished the Hadoop delegation token is deleted.\r\n\r\n{quote}The new ContainerExecutor can extend LinuxContainerExecutor to provide the one line change. Please keep this separated from LinuxContainerExecutor for other people who are not comfortable with pool users idea.{quote}\r\nOk, I can create a LinuxPoolUserContainerExecutor then.\r\n\r\n{quote}This change will cause private data to be accessible by multiple users via path traversal. This does not sound good from security point of view. More thoughts is required on resource permission.{quote}\r\n\r\nIt is not possible to access PRIVATE visibility resources using a different pool user. Note that APPLICATION visibility is more restrictive then PRIVATE visibility. After the change to treat PRIVATE visibility as APPLICATION visibility, the private resources are located in:\r\n<local-dir>/usercache/<domainuser>/appcache/<appid>/filecache\r\nThis folder is owned by pool local user, and its permission is 710. Trying to access it from a different pool user results in \"permission denied\"\r\n{code}\r\nls /mnt/tmp/nm-local-dir/usercache/admin/appcache/application_1568407112772_0007/filecache/ -al\r\nls: cannot open directory '/mnt/tmp/nm-local-dir/usercache/admin/appcache/application_1568407112772_0007/filecache/': Permission denied\r\n{code}\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+          "name": "shanyu",
+          "key": "shanyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "shanyu zhao",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-09-17T18:16:05.560+0000",
+        "updated": "2019-09-17T18:16:05.560+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16931946",
+        "id": "16931946",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "{quote}For SSSD to work it needs to have credentials to talk to LDAP, the recommended way is to use \"realm join\". This means the node manager running inside Docker container needs to have a \"computer account\" on AD.{quote}\r\n\r\nI think host joining AD is required to keep authorized servers to access LDAP.  Without AD authenticate the host, it would be wide open, no?\r\n\r\n{quote}This is not true. The Yarn container user does not have any special permissions, it is using the Hadoop delegation token to talk to HDFS. The Hadoop delegation token is an APPLICATION visibility resource \"localized\" to the current Yarn container working directory. Once the container is finished the Hadoop delegation token is deleted.{quote}\r\n\r\nI am still not clear on how the pool users would be used.  It sounds like user1 can be given to Joe, and Fred at different time.  Wouldn't that give Fred access to hdfs data stored by Joe as user1?\r\n\r\n{quote}It is not possible to access PRIVATE visibility resources using a different pool user.{quote}\r\n\r\nHow about the same user?  Let's consider:\r\n1. Joe run as user1, debug delay enabled, running: application_1568407112772_0007\r\n2. Fred run as user1, running: application_1568407112772_0008\r\n\r\nFred task can access Joe's data:\r\n{code}\r\nls /mnt/tmp/nm-local-dir/usercache/user1/appcache/application_1568407112772_0007/filecache/\r\n{code}\r\n\r\nDoes this look right to you?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-09-18T01:16:07.321+0000",
+        "updated": "2019-09-18T01:16:07.321+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16931953",
+        "id": "16931953",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+          "name": "shanyu",
+          "key": "shanyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "shanyu zhao",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "{quote}I think host joining AD is required to keep authorized servers to access LDAP. Without AD authenticate the host, it would be wide open, no?{quote}\r\n\"host\" in this scenario is the Docker container running node manager. That's why I said it doesn't make sense for that container to domain join just to sync domain user to local Docker container. With this PR there is no need to sync domain users to \"host\", we precreate pool of users and dynamically assign to Yarn container process to run.\r\n\r\n{quote}I am still not clear on how the pool users would be used. It sounds like user1 can be given to Joe, and Fred at different time. Wouldn't that give Fred access to hdfs data stored by Joe as user1?{quote}\r\nYes local user \"user1\" can be given to Joe and Fred at different time. But before we reassign \"user1\" from Joe to Fred, we make sure all local files as the result or running the Yarn container (data and logs) are deleted. Note that to access HDFS from the Yarn container process, it always need to use the Hadoop delegation token, which is just a APPLICATION type of resource localized to the working directory of that container. When the application is finished, this file is deleted so when Freq's container is running it won't be able to talk to HDFS with Joe's Hadoop delegation token.\r\n\r\n{quote}How about the same user? Let's consider:\r\n1. Joe run as user1, debug delay enabled, running: application_1568407112772_0007\r\n2. Fred run as user1, running: application_1568407112772_0008{quote}\r\nIn this case, Fred won't get allocation of \"user1\" because there are pending FileDeletionTask, the reference count for FileOpCount of LocalUserInfo is not zero therefore Joe still holds user1, until all the pending FileDeletionTask is executed and the reference count reaches zero. Then \"user1\" is up for reuse.\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+          "name": "shanyu",
+          "key": "shanyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "shanyu zhao",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-09-18T01:26:19.455+0000",
+        "updated": "2019-09-18T01:26:19.455+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16931975",
+        "id": "16931975",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "{quote}\"host\" in this scenario is the Docker container running node manager. That's why I said it doesn't make sense for that container to domain join just to sync domain user to local Docker container. With this PR there is no need to sync domain users to \"host\", we precreate pool of users and dynamically assign to Yarn container process to run.{quote}\r\n\r\nGiven the reasoning of node manager running in Docker container, and node manager isn't really authenticating with Kerberos for the host credential.  The proposal drops the basic security of trusted hosts.  This means replay attack is possible.  Wouldn't it be easier to run the cluster in simple security instead of breaking secure cluster to work like simple security cluster?\r\n\r\n{quote}In this case, Fred won't get allocation of \"user1\" because there are pending FileDeletionTask, the reference count for FileOpCount of LocalUserInfo is not zero therefore Joe still holds user1, until all the pending FileDeletionTask is executed and the reference count reaches zero. Then \"user1\" is up for reuse.{quote}\r\n\r\nWhat happen if the node manager restarted?  Will this cause Joe's delegation token to leak?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-09-18T02:18:01.544+0000",
+        "updated": "2019-09-18T02:18:01.544+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16932009",
+        "id": "16932009",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+          "name": "shanyu",
+          "key": "shanyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "shanyu zhao",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "{quote}Given the reasoning of node manager running in Docker container, and node manager isn't really authenticating with Kerberos for the host credential. The proposal drops the basic security of trusted hosts. This means replay attack is possible. Wouldn't it be easier to run the cluster in simple security instead of breaking secure cluster to work like simple security cluster?{quote}\r\nNode manager actually authenticate with Resource manager via Kerberos, we configured a keytab file for node manager to use. All the local pool users do not have permission to access this keytab file. It is still a secure Hadoop cluster. The only reason for Winbind/SSSD to sync domain user to local user, is for LinuxCotnainerExecutor to start the Yarn container process as the synced \"domain user\" name, without any implicit permission associated with that domain user. What we did here is to skip the domain user sync part, and dynamically allocate local users to Yarn containers to achieve files and processes isolation.\r\n\r\n{quote}What happen if the node manager restarted? Will this cause Joe's delegation token to leak?{quote}\r\nYou raised a good point here. Node manager process restart will cause re-initialization of ResourceLocalizationService, which will rename the local directories for the node manager (including all existing application folders as sub folders), then schedule delete task. Joe's delegation token was among the files to be deleted. However, this is async process, so in theory there is a short window that if the scheduled FileDeletionTask has not been executed yet. A simple fix is in addition to the rename, change permission to 700 on these folders before scheduling FileDeletionTask:\r\n{code}\r\n    renameLocalDir(lfs, localDir, ContainerLocalizer.USERCACHE,\r\n      currentTimeStamp);\r\n    renameLocalDir(lfs, localDir, ContainerLocalizer.FILECACHE,\r\n      currentTimeStamp);\r\n    renameLocalDir(lfs, localDir, ResourceLocalizationService.NM_PRIVATE_DIR,\r\n      currentTimeStamp);\r\n{code}",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+          "name": "shanyu",
+          "key": "shanyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "shanyu zhao",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-09-18T03:23:27.218+0000",
+        "updated": "2019-09-18T05:45:39.406+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16932041",
+        "id": "16932041",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Sorry, this design looks too risky for me to consider.  I will let others provide feedback.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-09-18T04:24:07.727+0000",
+        "updated": "2019-09-18T04:24:07.727+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16932085",
+        "id": "16932085",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+          "name": "shanyu",
+          "key": "shanyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "shanyu zhao",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks for the review [~eyang]. If you see any security hole in this design, please let me know.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+          "name": "shanyu",
+          "key": "shanyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "shanyu zhao",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-09-18T05:50:22.926+0000",
+        "updated": "2019-09-18T05:50:22.926+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16932594",
+        "id": "16932594",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~shanyu] There are too many security defects to list them all.  I just list random three issues:\r\n\r\n# User's home directory may be used by multiple parties.  Some application may install ssh key or user preference into user home directory.  User home directory becomes a public space in this design.  This breaks user home directory privacy for existing applications.\r\n# Application can not rely on any group membership lookup because the user does not have group membership in the container.  To access external posix like file system in application, group authorization needs to be custom code like going through HDFS client rather than standard file interfaces.  This is incompatible with most file systems options today.\r\n# User can not access raw devices like GPU.  Many of the sudo or kernel capabilities are only granted permissively to users with sudo rights or proper group permission.  Node manager does not have the logic to grant user sudo rights.  If continue on this path, this means node manager becomes root to delegate rights of the user.  This makes node manager more powerful and more dangerous.\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-09-18T16:02:19.199+0000",
+        "updated": "2019-09-18T16:02:19.199+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16932748",
+        "id": "16932748",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+          "name": "shanyu",
+          "key": "shanyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "shanyu zhao",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~eyang]\r\n{quote}User's home directory may be used by multiple parties. Some application may install ssh key or user preference into user home directory. User home directory becomes a public space in this design. This breaks user home directory privacy for existing applications.{quote}\r\nThere is no home directory configured for \"domain users\" and Yarn container are not supposed to use home directory. The working directory of a container is managed by Yarn node manager and will be deleted when the container is finished. Any additional credentials (other than hadoop delegation token) is also localized to the container working directory and will be cleaned up.\r\n\r\n{quote}Application can not rely on any group membership lookup because the user does not have group membership in the container. To access external posix like file system in application, group authorization needs to be custom code like going through HDFS client rather than standard file interfaces. This is incompatible with most file systems options today.{quote}\r\nAgain for HDFS access hadoop delegation token is used. For any external resource access such as JDBC, the credentials (e.g. keytab file) should be localized to the container as a file resource. The only thing I can think of is this scenario: we want to allow sharing some content in local file system of the node manager and configure a certain group of user can read it. I don't believe this is an important usage scenario, and we can always put that shared content to HDFS and rely on resource localization and manage the ACLs on HDFS.\r\n\r\n{quote}User can not access raw devices like GPU. Many of the sudo or kernel capabilities are only granted permissively to users with sudo rights or proper group permission. Node manager does not have the logic to grant user sudo rights. If continue on this path, this means node manager becomes root to delegate rights of the user. This makes node manager more powerful and more dangerous.{quote}\r\nGPU scheduling and isolation rely on CGroup. The \"domain user\" cannot be sudoers otherwise they can peek into each other's working directory. \r\n\r\nI'm trying to provide an alternative to SSSD (the domain user sync) to provide a light-weight secure mode for LinuxContainerExecutor to provide the benefit of Yarn Secure Containers (user isolation inside node manager). I believe it works for most of the scenarios. If there are certain scenario this cannot support, we can call it out. It's not a bad idea to offer an additional choice. But I don't want to have any security holes in any situation.\r\n\r\n{quote}",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+          "name": "shanyu",
+          "key": "shanyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "shanyu zhao",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-09-18T18:47:07.295+0000",
+        "updated": "2019-09-18T18:47:07.295+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16942349",
+        "id": "16942349",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "There was a community meeting called to discuss this issue, people presented were:\r\n[~wangda] [~shanyu] [~eyang] [~ashvin] and two others (apologies for those who I can find their names from JIRA.)\r\n\r\nThe discussed items are:\r\n\r\n# The current patch does not work for recovery.  \r\n# Past, present, and future usage of the same pool user may have conflicts.  Detached user process can monitor data generated by future user.\r\n# YARN container does not have full isolation of working directories, path traversal to user home directory is possible.  Docker and runc container can provide better isolation to prevent accidental leakage of file owned by pool users.\r\n# The patch is vulnerable to user job to play tricks with config flag to trigger code path designed for pool user.\r\n# Group membership association.  Whether the file should be written with primary group, or the current directory group owner.  This should be handled with care by application.\r\n\r\nRecommendation:\r\n\r\n# Implement the new incompatible security model in a separate container executor to prevent adding security holes to Linux container executor.\r\n# Use Docker container/runc or chroot to provide isolation and remove path traversal.\r\n# [~wangda] recommended to implement Auxiliary service to reactively change the execution model rather than direct modification to LinuxContainerExecutor to prevent security bugs leaks into LinuxContainerExecutor through a series of if else statements.\r\n\r\n\r\nPull request #1446 is taking the shortest route to implement the pool user concept, but there are too many loopholes in the current implementation.  Until those concerns are addressed, -1 on this patch.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-10-01T22:19:54.796+0000",
+        "updated": "2019-10-01T22:22:38.913+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16942361",
+        "id": "16942361",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+          "name": "shanyu",
+          "key": "shanyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "shanyu zhao",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~eyang] Please see my response inline:\r\n\r\n{quote}The current patch does not work for recovery.{quote}\r\nYes this is listed in as limitations in the attached design doc. It does not work for Yarn node manager recovery, which by default is turned off. If trying to enable both local pool users and Yarn node manager recovery, Yarn node manager will exit with error message.\r\n\r\n{quote}Past, present, and future usage of the same pool user may have conflicts. Detached user process can monitor data generated by future user.{quote}\r\nLike I already explained in our meeting. There is no concrete example of the \"conflict\". The design will restrict pool users from creating folders outside of Yarn node manager usercache folder. The design guarantees the local files are all deleted before the local pool user can be reused.\r\n\r\n{quote}YARN container does not have full isolation of working directories, path traversal to user home directory is possible. Docker and runc container can provide better isolation to prevent accidental leakage of file owned by pool users.{quote}\r\nAs I explained above. There will be no user directory (/home/<user>), and one local pool user cannot access other local pool user's usercache folder. We have e2e test cases to cover all kinds of scenarios like this.\r\n\r\n{quote}The patch is vulnerable to user job to play tricks with config flag to trigger code path designed for pool user.{quote}\r\nHow could user job play tricks to modify Yarn node manager's configuration? If they could, they could just steal node manager's keytab file and talk to Yarn resource manager directly.\r\n\r\n{quote}Group membership association. Whether the file should be written with primary group, or the current directory group owner. This should be handled with care by application.{quote}\r\nWhat files are you talking about? Local files does not have any domain group membership association. This is expected because we are not sharing files for the same domain user across applications. Please see one of the limitation section in the design doc. We do not support PRIVATE visibility resources and will treat it as APPLICATION visibility.\r\n\r\nAs for your recommendations:\r\n{quote}Implement the new incompatible security model in a separate container executor to prevent adding security holes to Linux container executor.{quote}\r\nI already mentioned the whole idea of this work is based on extending LinuxContainerExecutor. This feature is protected by a configuration and turned off by default, just like an existing configuration \"yarn.nodemanager.linux-container-executor.nonsecure-mode.limit-users\". I do not see how can this add security holes to Linux container executor.\r\n\r\n{quote}Use Docker container/runc or chroot to provide isolation and remove path traversal.{quote}\r\nWe cannot run Docker container inside Docker container. We are relying on running Yarn container process as different local user for the isolation, which is based on the existing Yarn Secure Container implementation in LinuxContainerExecutor.\r\n\r\n{quote}Wangda Tan recommended to implement Auxiliary service to reactively change the execution model rather than direct modification to LinuxContainerExecutor to prevent security bugs leaks into LinuxContainerExecutor through a series of if else statements.{quote}\r\nWe can look into Aux services, but as I said, my understanding of Aux services is that it can only provide service to Yarn node manager, e.g. maybe creating users or something, but in the end, we need modification to LinuxContainerExecutor to launch Yarn container process so that we can use Yarn Secure Container in a light-weight setup.\r\n\r\nFinally, I want to stress here, that whoever might be interested in running Yarn on Kubernetes with security setup, this JIRA provides a secure alternative way to enable Yarn Secure Container without the need for container domain join and winbind/SSSD service inside Docker containers.\r\n\r\n{quote}\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=shanyu",
+          "name": "shanyu",
+          "key": "shanyu",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "shanyu zhao",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-10-01T23:06:56.749+0000",
+        "updated": "2019-10-01T23:06:56.749+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/16942396",
+        "id": "16942396",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "{quote}Like I already explained in our meeting. There is no concrete example of the \"conflict\". The design will restrict pool users from creating folders outside of Yarn node manager usercache folder. The design guarantees the local files are all deleted before the local pool user can be reused.\r\n\r\nAs I explained above. There will be no user directory (/home/<user>), and one local pool user cannot access other local pool user's usercache folder. We have e2e test cases to cover all kinds of scenarios like this.\r\n{quote}\r\nThe above statement is false. There is no code in this patch to help working directory isolation. YARN container is just a directory. The user process is not jailed into the working directory by any stretch of imagination. Hence you are making a design decision based on false assumption that user program would not access outside of working directory. This is a big mistake. You should not insist on something that is not true in reality.\r\n{quote}We cannot run Docker container inside Docker container. We are relying on running Yarn container process as different local user for the isolation, which is based on the existing Yarn Secure Container implementation in LinuxContainerExecutor.\r\n{quote}\r\nLinuxContainerExecutor is not designed for your use case. Your modification is only going to jeopardize others who already have heavily reliance for the existing Unix security model for LinuxContainerExecutor. Docker in Docker on YARN is possible, we have in house cloud implementation based on this. Hadoop trunk code base already have all the necessary knobs to improve isolation. I will ask you nicely one last time to implement Pool user container executor with proper path isolation and process isolation.\r\n{quote}How could user job play tricks to modify Yarn node manager's configuration? If they could, they could just steal node manager's keytab file and talk to Yarn resource manager directly.\r\n{quote}\r\nPlease look at your own patch carefully, line 695 of hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/localizer/ResourceLocalizationService.java\u00a0is not returning any thing nor breaking. It smash into case APPLICATION:. This is wrong, and there are several ways to exploit it.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=eyang",
+          "name": "eyang",
+          "key": "eyang",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Eric Yang",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-10-02T00:15:18.412+0000",
+        "updated": "2019-10-02T00:17:54.273+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/18046469",
+        "id": "18046469",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "github-actions[bot] commented on PR #1446:\nURL: https://github.com/apache/hadoop/pull/1446#issuecomment-3672853719\n\n   We're closing this stale PR because it has been open for 100 days with no activity. This isn't a judgement on the merit of the PR in any way. It's just a way of keeping the PR queue manageable.\n   If you feel like this was a mistake, or you would like to continue working on it, please feel free to re-open it and ask for a committer to remove the stale tag and review again.\n   Thanks all for your contribution.\n\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2025-12-19T00:25:18.555+0000",
+        "updated": "2025-12-19T00:25:18.555+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13256652/comment/18046756",
+        "id": "18046756",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "github-actions[bot] closed pull request #1446: YARN-9834. Allow using a pool of local users to run Yarn Secure Conta\u2026\nURL: https://github.com/apache/hadoop/pull/1446\n\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=githubbot",
+          "name": "githubbot",
+          "key": "githubbot",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "ASF GitHub Bot",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2025-12-20T00:23:38.371+0000",
+        "updated": "2025-12-20T00:23:38.371+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9834/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 21,
+        "returned": 21
+      }
+    ]
+  }
+}

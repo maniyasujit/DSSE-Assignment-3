@@ -1,0 +1,385 @@
+{
+  "downloaded_at": "2026-06-25T10:18:48.334357+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-9443",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9443?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13226218",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13226218",
+    "key": "YARN-9443",
+    "fields": {
+      "summary": "Fast RM Failover using Ratis (Raft protocol)",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+        "id": "2",
+        "description": "A new feature of the product, which has yet to be developed.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+        "name": "New Feature",
+        "subtask": false,
+        "avatarId": 21141
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319322",
+          "id": "12319322",
+          "name": "resourcemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2019-04-04T18:33:40.251+0000",
+      "description": "During Failover, the RM Standby\u00a0will have a lag as it has to recover from Zookeeper / FileSystem StateStore. RM HA using Ratis (Raft Protocol) can achieve Fast failover as all RMs are in sync already. This is used by Ozone - HDDS-505.\r\n\u00a0\r\ncc [~nandakumar131]",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13226218/comment/16812230",
+            "id": "16812230",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+              "name": "adam.antal",
+              "key": "adam.antal",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+              },
+              "displayName": "Adam Antal",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Thanks for filing this [~prabhujoseph].\r\n\r\nIt seems like a huge improvement looking through the linked jira from Ozone project, so probably a design doc will be needed. \r\n\r\nAlso I'm curious of the potential performance impact caused by the incorporation of Ratis. Could you bring light on how can it affect the existing architecture of RM? Also are there any potential drawbacks we should be aware of?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=johna",
+              "name": "johna",
+              "key": "banjo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=banjo&avatarId=38464",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=banjo&avatarId=38464",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=banjo&avatarId=38464",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=banjo&avatarId=38464"
+              },
+              "displayName": "John Andrunas",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-04-08T08:32:30.732+0000",
+            "updated": "2019-10-23T16:15:00.868+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13226218/comment/16813127",
+            "id": "16813127",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=prabhujoseph",
+              "name": "prabhujoseph",
+              "key": "prabhu joseph",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=prabhu+joseph&avatarId=38454",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=prabhu+joseph&avatarId=38454",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=prabhu+joseph&avatarId=38454",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=prabhu+joseph&avatarId=38454"
+              },
+              "displayName": "Prabhu Joseph",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "[~adam.antal] Thanks for checking this one. Have planned to prepare a design doc, will update.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=prabhujoseph",
+              "name": "prabhujoseph",
+              "key": "prabhu joseph",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=prabhu+joseph&avatarId=38454",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=prabhu+joseph&avatarId=38454",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=prabhu+joseph&avatarId=38454",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=prabhu+joseph&avatarId=38454"
+              },
+              "displayName": "Prabhu Joseph",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-04-09T08:37:55.000+0000",
+            "updated": "2019-04-09T08:37:55.000+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13226218/comment/17244973",
+            "id": "17244973",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "[~prabhujoseph] [~leftnoteasy]\u00a0\r\n\r\nIt's a greate improvement,\u00a0 i am looking forward to the design. And i can help to finish some sub-tasks when i am free, and i wish it can apply to our production cluster with thousands of nodes, i will be very helpful.\r\n\r\nThanks a lot.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2020-12-07T06:02:12.519+0000",
+            "updated": "2020-12-07T06:02:12.519+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13226218/comment/17335205",
+            "id": "17335205",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "[~prabhujoseph] [~ztang] [~ebadger] [~epayne]\r\n\r\nIs this going on, now the state store is used to store in ZK, but in large cluster will not run very well.\u00a0\r\n\r\n\u00a0YARN-5123\u00a0use sql based to store the state, but it is also not a hot HA like NameNode in HDFS.\r\n\r\nIf we want to realize the hot HA for resourcemanager, it's a very good choice to use ratis(raft) to make the state consistent in HA mode (the actvie RM state consistent with standby RM state, use log commit in raft), when we transform to standby we don't need fence to load the large state from ZK, we can realize the hot HA.\r\n\r\nThanks.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+              "name": "zhuqi",
+              "key": "zhuqi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+              },
+              "displayName": "Qi Zhu",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2021-04-29T07:44:52.900+0000",
+            "updated": "2021-04-29T07:44:52.900+0000"
+          }
+        ],
+        "maxResults": 4,
+        "total": 4,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9443/votes",
+        "votes": 2,
+        "hasVoted": false
+      },
+      "updated": "2021-04-29T07:44:52.900+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 4,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13226218/comment/16812230",
+        "id": "16812230",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=adam.antal",
+          "name": "adam.antal",
+          "key": "adam.antal",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=34056",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=34056",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=34056",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=34056"
+          },
+          "displayName": "Adam Antal",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Thanks for filing this [~prabhujoseph].\r\n\r\nIt seems like a huge improvement looking through the linked jira from Ozone project, so probably a design doc will be needed. \r\n\r\nAlso I'm curious of the potential performance impact caused by the incorporation of Ratis. Could you bring light on how can it affect the existing architecture of RM? Also are there any potential drawbacks we should be aware of?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=johna",
+          "name": "johna",
+          "key": "banjo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=banjo&avatarId=38464",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=banjo&avatarId=38464",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=banjo&avatarId=38464",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=banjo&avatarId=38464"
+          },
+          "displayName": "John Andrunas",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-04-08T08:32:30.732+0000",
+        "updated": "2019-10-23T16:15:00.868+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13226218/comment/16813127",
+        "id": "16813127",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=prabhujoseph",
+          "name": "prabhujoseph",
+          "key": "prabhu joseph",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=prabhu+joseph&avatarId=38454",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=prabhu+joseph&avatarId=38454",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=prabhu+joseph&avatarId=38454",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=prabhu+joseph&avatarId=38454"
+          },
+          "displayName": "Prabhu Joseph",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "[~adam.antal] Thanks for checking this one. Have planned to prepare a design doc, will update.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=prabhujoseph",
+          "name": "prabhujoseph",
+          "key": "prabhu joseph",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=prabhu+joseph&avatarId=38454",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=prabhu+joseph&avatarId=38454",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=prabhu+joseph&avatarId=38454",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=prabhu+joseph&avatarId=38454"
+          },
+          "displayName": "Prabhu Joseph",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-04-09T08:37:55.000+0000",
+        "updated": "2019-04-09T08:37:55.000+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13226218/comment/17244973",
+        "id": "17244973",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "[~prabhujoseph] [~leftnoteasy]\u00a0\r\n\r\nIt's a greate improvement,\u00a0 i am looking forward to the design. And i can help to finish some sub-tasks when i am free, and i wish it can apply to our production cluster with thousands of nodes, i will be very helpful.\r\n\r\nThanks a lot.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2020-12-07T06:02:12.519+0000",
+        "updated": "2020-12-07T06:02:12.519+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13226218/comment/17335205",
+        "id": "17335205",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "[~prabhujoseph] [~ztang] [~ebadger] [~epayne]\r\n\r\nIs this going on, now the state store is used to store in ZK, but in large cluster will not run very well.\u00a0\r\n\r\n\u00a0YARN-5123\u00a0use sql based to store the state, but it is also not a hot HA like NameNode in HDFS.\r\n\r\nIf we want to realize the hot HA for resourcemanager, it's a very good choice to use ratis(raft) to make the state consistent in HA mode (the actvie RM state consistent with standby RM state, use log commit in raft), when we transform to standby we don't need fence to load the large state from ZK, we can realize the hot HA.\r\n\r\nThanks.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zhuqi",
+          "name": "zhuqi",
+          "key": "zhuqi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zhuqi&avatarId=39200",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zhuqi&avatarId=39200",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zhuqi&avatarId=39200",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zhuqi&avatarId=39200"
+          },
+          "displayName": "Qi Zhu",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2021-04-29T07:44:52.900+0000",
+        "updated": "2021-04-29T07:44:52.900+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9443/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 4,
+        "returned": 4
+      }
+    ]
+  }
+}

@@ -1,0 +1,638 @@
+{
+  "downloaded_at": "2026-06-25T10:20:56.435019+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-5357",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5357?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12988418",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12988418",
+    "key": "YARN-5357",
+    "fields": {
+      "summary": "Timeline service v2 integration with Federation ",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "13253762",
+        "key": "YARN-9802",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13253762",
+        "fields": {
+          "summary": "YARN Timeline Service v2 (post GA features)",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+            "description": "The issue is open and ready for the assignee to start work on it.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+            "name": "Open",
+            "id": "1",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+            "id": "2",
+            "description": "A new feature of the product, which has yet to be developed.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+            "name": "New Feature",
+            "subtask": false,
+            "avatarId": 21141
+          }
+        }
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12322904",
+          "id": "12322904",
+          "name": "timelineserver",
+          "description": "YARN Timeline Server"
+        }
+      ],
+      "subtasks": [],
+      "created": "2016-07-11T20:32:01.823+0000",
+      "description": "Jira to note the discussion points from an initial chat about integrating Timeline Service v2 with Federation (YARN-2915).\n\ncc [~subru] [~curino] \n\nFor Federation:\n- all entities that belong to the same flow run should have the same cluster name\n- app id in the same flow run strongly ordered in time\n- need a logical cluster name and physical cluster name\n- a possibility to implement the Application TimelineCollector as an interceptor in the AMRMProxyService.\n\nFor Timeline Service:\n- need to store physical cluster id and logical cluster id so that we don't lose information at any level (flow/app/entity etc)\n- add a  new table app id to cluster mapping table\n- need a different entity table/some table to store node level metrics for physical cluster stats. Once we get to node-level rollup, we probably have to store something in a dc, cluster, rack, node hierarchy. In that case a physical cluster makes sense, but we'd still need some way to tie physical and logical together in order to make automatic error detection etc that we're envisioning feasible within a federated setup.\n\n\nFor the Cluster Naming convention:\n- three situations for cluster name:\n----> app submitted to router should take federated (aka logical) cluster name\n----> app submitted directly to RM should take physical cluster name\n----> Info about the physical cluster  in entities?\n- suggestion to set the cluster name as yarn tag at the router level (in the app submission context) \n\nOther points to note:\n- for federation to work smoothly in environments that use HDFS some additional considerations are needed, and possibly some solution like what is being used at Twitter with the nFly approach.\n\n\nEmail thread context:\n\n{code}\n\n---------- Forwarded message ----------\nFrom: Joep Rottinghuis \nDate: Fri, Jul 8, 2016 at 1:22 PM\nSubject: Re: Federation -Timeline Service meeting notes\nTo: Subramaniam Venkatraman Krishnan \nCc: Sangjin Lee, Vrushali Channapattan , Carlo Curino\n\n\nThanks for the notes.\n\nI think that for federation to work smoothly in environments that use HDFS some additional considerations are needed, and possibly some solution like what we're using at Twitter with our nFly approach.\n\nbq. - need a different entity table/some table to store node level metrics for physical cluster stats\nOnce we get to node-level rollup, we probably have to store something in a dc, cluster, rack, node hierarchy. In that case a physical cluster makes sense, but we'd still need some way to tie physical and logical together in order to make automatic error detection etc that we're envisioning feasible within a federated setup.\n\nCheers,\n\nJoep\n\nOn Fri, Jul 8, 2016 at 1:00 PM, Subramaniam Venkatraman Krishnan  wrote:\n\n    Thanks Vrushali for crisply capturing the essential from our rambling discussion J.\n\n     \n\n    Sangjin, I just want to add one comment to yours \u2013 we want to retain the physical cluster name (possibly as a new entity type) so that we don\u2019t lose information & we can cluster level rollups even if they are not efficient.\n\n     \n\n    Additionally, based on the walkthrough of Federation design:\n\n    \u00b7         There was general agreement with the proposed approach.\n\n    \u00b7         There is a possibility to implement the Application TimelineCollector as an interceptor in the AMRMProxyService.\n\n    \u00b7         Joep raised the concern that it would be better if the RMs obtain the epoch from FederationStateStore. This is not currently in the roadmap of our MVP but we definitely plan to address this in future.\n\n     \n\n    Regards,\n\n    Subru\n\n     \n\n    From: Sangjin Lee\n    Sent: Thursday, July 07, 2016 6:22 PM\n    To: Vrushali Channapattan \n    Cc: Joep Rottinghuis; Carlo Curino; Subramaniam Venkatraman Krishnan \n    Subject: Re: Federation -Timeline Service meeting notes\n\n     \n\n    Thanks for the summary Vrushali!\n\n     \n\n    Just so that we're on the same page regarding the terminology, I understand we're using the terms \"logical cluster\" and \"federated cluster\" interchangeably.\n\n     \n\n    Also, between using the federated cluster name and the home cluster name as a solution, I think we were leaning towards the federated cluster name (although not concluded).\n\n     \n\n    On Thu, Jul 7, 2016 at 4:33 PM, Vrushali Channapattan wrote:\n\n         \n\n        For Federation:\n\n        - all entities that belong to the same flow run should have the same cluster name\n\n        - app id in the same flow run strongly ordered in time\n\n        - need a logical cluster name and physical cluster name\n\n        For Timeline Service:\n\n        - need to store physical cluster id and logical cluster id so that we don't lose information at any level (flow/app/entity etc)\n\n        - add a  new table app id to cluster mapping table\n\n        - need a different entity table/some table to store node level metrics for physical cluster stats\n\n        For the Cluster Naming convention:\n\n        - three situations for cluster name:\n\n        ----> app submitted to router should take federated cluster name\n\n        ----> app submitted directly to RM should take physical cluster name\n\n        ----> Info about the physical cluster  in entities?\n\n        - suggestion to set the cluster name as yarn tag at the router level (in the app submission context)\n\n {code}",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [
+        {
+          "id": "12474533",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12474533",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "12758944",
+            "key": "YARN-2915",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12758944",
+            "fields": {
+              "summary": "Enable YARN RM scale out via federation using multiple RM's",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+                "id": "2",
+                "description": "A new feature of the product, which has yet to be developed.",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+                "name": "New Feature",
+                "subtask": false,
+                "avatarId": 21141
+              }
+            }
+          }
+        },
+        {
+          "id": "12474535",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12474535",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "inwardIssue": {
+            "id": "12988421",
+            "key": "YARN-5358",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12988421",
+            "fields": {
+              "summary": "Consider adding a config setting to accept logical cluster name",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12474901",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12474901",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "inwardIssue": {
+            "id": "12989369",
+            "key": "YARN-5378",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12989369",
+            "fields": {
+              "summary": "Accommodate app-id->cluster mapping",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12988418/comment/16568085",
+            "id": "16568085",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Update:\r\n[~prabham] [~Sushil-K-S] [~abmodi] [~rohithsharma] and I have been discussing federation integration with timeline service in the recent community calls.\r\n\r\nHere is a summary of our current assumption, understanding and direction: \r\n- There exists a managed AM which we will refer to as 'original AM' for this discussion\r\n- There exist sub cluster ids which are physical cluster ids defined in the yarn site xml\r\n- Unmanaged AMs which coordinate containers in other subclusters run in the jvm context of the Node Manager which manages the original AM.\r\n- The same app id is used on all sub clusters\r\n- Containers launched on other sub clusters will have different epoch ids. \r\n\r\nCurrent thought process:\r\n- As per our current understanding, the flow context is initialized once and then used by all containers launched as part of that application.\r\n- Say an application is launched on sub Cluster A and runs containers on sub clusters A, B and C.\r\n- Entities from containers launched on the sub cluster A will have the cluster id as sub cluster A in their row key\r\n- The entities from containers that run on different sub clusters B and C will also have the cluster id as sub cluster A.\r\n- The containers will be updated to emit to timeline storage the actual physical sub cluster that they run on. For instance, containers that run on sub clusters B and C will have sub cluster A in their row key but will store sub cluster B (or C as the case maybe) in their info column family. \r\n\r\nThis enables entities that belong to one application to have one cluster identifier (sub cluster A).  Storing the sub clusters B & C for entities that are emitted from containers run on sub clusters B & C enables answering federation related queries like, how many containers from this application id ran on subCluster B? What were the metrics that are associated with entities run on subCluster C? What was the average (or min/max/median) runtimes for entities for this application on sub clusters A, B and C? etc.\r\n\r\nAdding the physical sub cluster as a column / value in info also helps differentiate between application entities that belong to applications that run on just one sub cluster versus entities that belong to applications that run on multiple sub clusters. For entities that belong to applications that run on exactly one subcluster, this field will have just one physical cluster id which will be the same as the cluster id in the row key. \r\n\r\nWe do need to also store the logical federated cluster name, which will a new config variable added in YARN-5358. \r\n\r\nAnother option is:\r\nWe can consider updating the cluster id to be the logical cluster instead of subclusterA for the applications that are submitted to the federation router. In this case, we would need to update the flow context initialization to use the logical cluster id instead of the physical cluster id. The applications that are submitted to the RM outside of the federation case will continue to use the physical cluster id. \r\n\r\n\r\n\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2018-08-03T10:40:53.808+0000",
+            "updated": "2018-08-03T10:47:37.434+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12988418/comment/16731210",
+            "id": "16731210",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+              "name": "abmodi",
+              "key": "abmodi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+              },
+              "displayName": "Abhishek Modi",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "I further checked this and found that all ATSv2 events are not going through federation. Right now, NM where AM is launched tells to RM about the collector info in the heartbeat and then RM sends this to all the NMs where container is launched for that application. In case of federation, NM will only inform the home subcluster RM but containers for the application can be launched on another subclusters also. NMs of other subcluster will never know about the collector info of the application and thus will not be able to publish the events. We need to figure out some workaround for this problem. One of the option is AM telling RM about the container info in AMRM communication. Thoughts?\r\n\r\ncc [~vrushalic] [~rohithsharma]",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+              "name": "abmodi",
+              "key": "abmodi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+              },
+              "displayName": "Abhishek Modi",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2018-12-31T06:43:56.616+0000",
+            "updated": "2018-12-31T06:43:56.616+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12988418/comment/16733883",
+            "id": "16733883",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+              "name": "abmodi",
+              "key": "abmodi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+              },
+              "displayName": "Abhishek Modi",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "One more approach that we discussed was using AMRMProxyService to update foreign RMs about the timeline collector info for Application masters running on this nodemanager. Flow would be something like this:\r\n1. AM gets launched on the node. NM starts timeline collector service and updates home subcluster RM and AM about the collector info.\r\n2. When AM requests for a container to foreign subcluster -  AMRMProxyService will register a UAM to get registered with foreign RM.\r\n3. As part of registration request, AMRMProxyService will send collector info about this application.\r\n4. RM will update the set of collector info it maintains and will send the collector info to corresponding where container for this particular application starts.\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+              "name": "abmodi",
+              "key": "abmodi",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+              },
+              "displayName": "Abhishek Modi",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2019-01-04T07:07:20.859+0000",
+            "updated": "2019-01-04T07:07:20.859+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12988418/comment/16755751",
+            "id": "16755751",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Notes from our discussion around this. Abhishek, Sushil, Prabha, Rohith and I attended the discussion call. \r\n\r\nCurrent situation:\r\nTimeline Service collector's address & port are sent from the RM to NMs which run containers for this app to publish the system metrics from the NM. In case of federated yarn clusters, since an Uberized AM is used for coordinating with containers running in foreign subclusters, the NMs in foreign sub-clusters do not have the timeline service collector address.\r\n\r\nThis is not specific to federation but is a design item to be solved for any unmanaged AM. \r\n\r\nWe discussed a few approaches. One of which was allowing the AM itself to send the timeline service address & port to other foreign subclusters' RM and then propagating it from there. But this has some issues. A malicious AM might try to \"game\" the system by sending those a dummy collector address to some NMs. This way, some NMs' system metrics mysteriously disappear before being reported and therefore chargeback & accountability will become incorrect. \r\n\r\nAnother idea Abhishek proposed was around picking a random NM for starting up a timeline-service collector when the AM is uberized. He will be working on the design idea further and will discuss with his team mates and we can all review it when he has consolidated his thoughts. \r\n\r\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2019-01-30T06:53:21.332+0000",
+            "updated": "2019-01-30T06:53:21.332+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12988418/comment/17755773",
+            "id": "17755773",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=yangjiandan",
+              "name": "yangjiandan",
+              "key": "yangjiandan",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yangjiandan&avatarId=32648",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yangjiandan&avatarId=32648",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yangjiandan&avatarId=32648",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yangjiandan&avatarId=32648"
+              },
+              "displayName": "Jiandan Yang ",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Hello, [~abmodi] [~vrushalic]\r\n\r\nI've noticed that this JIRA hasn't seen any updates in over four years. I'm interested in continuing the development on this issue. I was wondering if you are still following or working on this topic?\r\n\r\nI'd like to build upon the discussions that have taken place here. If anyone involved in the previous discussions could provide or point me to the proposed solutions or strategies discussed earlier, that would be immensely helpful.\r\n\r\nLooking forward to your insights and feedback as I venture into progressing this issue further. \r\n\r\nThank you for your time and consideration.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=yangjiandan",
+              "name": "yangjiandan",
+              "key": "yangjiandan",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yangjiandan&avatarId=32648",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yangjiandan&avatarId=32648",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yangjiandan&avatarId=32648",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yangjiandan&avatarId=32648"
+              },
+              "displayName": "Jiandan Yang ",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2023-08-18T02:31:47.157+0000",
+            "updated": "2023-08-18T02:31:47.157+0000"
+          }
+        ],
+        "maxResults": 5,
+        "total": 5,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5357/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2023-08-18T02:31:47.157+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 5,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12988418/comment/16568085",
+        "id": "16568085",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Update:\r\n[~prabham] [~Sushil-K-S] [~abmodi] [~rohithsharma] and I have been discussing federation integration with timeline service in the recent community calls.\r\n\r\nHere is a summary of our current assumption, understanding and direction: \r\n- There exists a managed AM which we will refer to as 'original AM' for this discussion\r\n- There exist sub cluster ids which are physical cluster ids defined in the yarn site xml\r\n- Unmanaged AMs which coordinate containers in other subclusters run in the jvm context of the Node Manager which manages the original AM.\r\n- The same app id is used on all sub clusters\r\n- Containers launched on other sub clusters will have different epoch ids. \r\n\r\nCurrent thought process:\r\n- As per our current understanding, the flow context is initialized once and then used by all containers launched as part of that application.\r\n- Say an application is launched on sub Cluster A and runs containers on sub clusters A, B and C.\r\n- Entities from containers launched on the sub cluster A will have the cluster id as sub cluster A in their row key\r\n- The entities from containers that run on different sub clusters B and C will also have the cluster id as sub cluster A.\r\n- The containers will be updated to emit to timeline storage the actual physical sub cluster that they run on. For instance, containers that run on sub clusters B and C will have sub cluster A in their row key but will store sub cluster B (or C as the case maybe) in their info column family. \r\n\r\nThis enables entities that belong to one application to have one cluster identifier (sub cluster A).  Storing the sub clusters B & C for entities that are emitted from containers run on sub clusters B & C enables answering federation related queries like, how many containers from this application id ran on subCluster B? What were the metrics that are associated with entities run on subCluster C? What was the average (or min/max/median) runtimes for entities for this application on sub clusters A, B and C? etc.\r\n\r\nAdding the physical sub cluster as a column / value in info also helps differentiate between application entities that belong to applications that run on just one sub cluster versus entities that belong to applications that run on multiple sub clusters. For entities that belong to applications that run on exactly one subcluster, this field will have just one physical cluster id which will be the same as the cluster id in the row key. \r\n\r\nWe do need to also store the logical federated cluster name, which will a new config variable added in YARN-5358. \r\n\r\nAnother option is:\r\nWe can consider updating the cluster id to be the logical cluster instead of subclusterA for the applications that are submitted to the federation router. In this case, we would need to update the flow context initialization to use the logical cluster id instead of the physical cluster id. The applications that are submitted to the RM outside of the federation case will continue to use the physical cluster id. \r\n\r\n\r\n\r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2018-08-03T10:40:53.808+0000",
+        "updated": "2018-08-03T10:47:37.434+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12988418/comment/16731210",
+        "id": "16731210",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+          "name": "abmodi",
+          "key": "abmodi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+          },
+          "displayName": "Abhishek Modi",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "I further checked this and found that all ATSv2 events are not going through federation. Right now, NM where AM is launched tells to RM about the collector info in the heartbeat and then RM sends this to all the NMs where container is launched for that application. In case of federation, NM will only inform the home subcluster RM but containers for the application can be launched on another subclusters also. NMs of other subcluster will never know about the collector info of the application and thus will not be able to publish the events. We need to figure out some workaround for this problem. One of the option is AM telling RM about the container info in AMRM communication. Thoughts?\r\n\r\ncc [~vrushalic] [~rohithsharma]",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+          "name": "abmodi",
+          "key": "abmodi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+          },
+          "displayName": "Abhishek Modi",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2018-12-31T06:43:56.616+0000",
+        "updated": "2018-12-31T06:43:56.616+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12988418/comment/16733883",
+        "id": "16733883",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+          "name": "abmodi",
+          "key": "abmodi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+          },
+          "displayName": "Abhishek Modi",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "One more approach that we discussed was using AMRMProxyService to update foreign RMs about the timeline collector info for Application masters running on this nodemanager. Flow would be something like this:\r\n1. AM gets launched on the node. NM starts timeline collector service and updates home subcluster RM and AM about the collector info.\r\n2. When AM requests for a container to foreign subcluster -  AMRMProxyService will register a UAM to get registered with foreign RM.\r\n3. As part of registration request, AMRMProxyService will send collector info about this application.\r\n4. RM will update the set of collector info it maintains and will send the collector info to corresponding where container for this particular application starts.\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=abmodi",
+          "name": "abmodi",
+          "key": "abmodi",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=abmodi&avatarId=37680",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=abmodi&avatarId=37680",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=abmodi&avatarId=37680",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=abmodi&avatarId=37680"
+          },
+          "displayName": "Abhishek Modi",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2019-01-04T07:07:20.859+0000",
+        "updated": "2019-01-04T07:07:20.859+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12988418/comment/16755751",
+        "id": "16755751",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Notes from our discussion around this. Abhishek, Sushil, Prabha, Rohith and I attended the discussion call. \r\n\r\nCurrent situation:\r\nTimeline Service collector's address & port are sent from the RM to NMs which run containers for this app to publish the system metrics from the NM. In case of federated yarn clusters, since an Uberized AM is used for coordinating with containers running in foreign subclusters, the NMs in foreign sub-clusters do not have the timeline service collector address.\r\n\r\nThis is not specific to federation but is a design item to be solved for any unmanaged AM. \r\n\r\nWe discussed a few approaches. One of which was allowing the AM itself to send the timeline service address & port to other foreign subclusters' RM and then propagating it from there. But this has some issues. A malicious AM might try to \"game\" the system by sending those a dummy collector address to some NMs. This way, some NMs' system metrics mysteriously disappear before being reported and therefore chargeback & accountability will become incorrect. \r\n\r\nAnother idea Abhishek proposed was around picking a random NM for starting up a timeline-service collector when the AM is uberized. He will be working on the design idea further and will discuss with his team mates and we can all review it when he has consolidated his thoughts. \r\n\r\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2019-01-30T06:53:21.332+0000",
+        "updated": "2019-01-30T06:53:21.332+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12988418/comment/17755773",
+        "id": "17755773",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=yangjiandan",
+          "name": "yangjiandan",
+          "key": "yangjiandan",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yangjiandan&avatarId=32648",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yangjiandan&avatarId=32648",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yangjiandan&avatarId=32648",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yangjiandan&avatarId=32648"
+          },
+          "displayName": "Jiandan Yang ",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Hello, [~abmodi] [~vrushalic]\r\n\r\nI've noticed that this JIRA hasn't seen any updates in over four years. I'm interested in continuing the development on this issue. I was wondering if you are still following or working on this topic?\r\n\r\nI'd like to build upon the discussions that have taken place here. If anyone involved in the previous discussions could provide or point me to the proposed solutions or strategies discussed earlier, that would be immensely helpful.\r\n\r\nLooking forward to your insights and feedback as I venture into progressing this issue further. \r\n\r\nThank you for your time and consideration.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=yangjiandan",
+          "name": "yangjiandan",
+          "key": "yangjiandan",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=yangjiandan&avatarId=32648",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=yangjiandan&avatarId=32648",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=yangjiandan&avatarId=32648",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=yangjiandan&avatarId=32648"
+          },
+          "displayName": "Jiandan Yang ",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2023-08-18T02:31:47.157+0000",
+        "updated": "2023-08-18T02:31:47.157+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-5357/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 5,
+        "returned": 5
+      }
+    ]
+  }
+}

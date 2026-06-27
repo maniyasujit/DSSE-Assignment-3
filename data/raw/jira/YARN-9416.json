@@ -1,0 +1,176 @@
+{
+  "downloaded_at": "2026-06-25T10:18:48.769015+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-9416",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9416?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13224295",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13224295",
+    "key": "YARN-9416",
+    "fields": {
+      "summary": "Add filter options to FS placement rules",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/4",
+        "id": "4",
+        "description": "An improvement or enhancement to an existing feature or task.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype",
+        "name": "Improvement",
+        "subtask": false,
+        "avatarId": 21140
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12322906",
+          "id": "12322906",
+          "name": "fairscheduler",
+          "description": "Fair Scheduler"
+        }
+      ],
+      "subtasks": [],
+      "created": "2019-03-27T13:07:19.059+0000",
+      "description": "The placement rules should allow filtering of the groups and or users that match the rule.\r\n\r\nIn the case of the user rule you might want it to only match if the users are member of a specific group. An other example would be to only allow specific users to match the specified rule.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13224295/comment/16802761",
+            "id": "16802761",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=wilfreds",
+              "name": "wilfreds",
+              "key": "wifreds",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=wifreds&avatarId=42439",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=wifreds&avatarId=42439",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=wifreds&avatarId=42439",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=wifreds&avatarId=42439"
+              },
+              "displayName": "Wilfred Spiegelenburg",
+              "active": true,
+              "timeZone": "Australia/Melbourne"
+            },
+            "body": "The proposal is to add a new child entry to all rules, like the parent rule we have now.\r\n\r\nName of the xml node: \r\n* filter\r\nName of the attributes supported for each: \r\n* type (_allow_ or _deny_)\r\n* users  (comma separated list)\r\n* groups (comma separated _ordered_ list)\r\n\r\nThe type attribute is required. One of the users and groups attributes can be omitted or left empty. If both are left empty the filter is ignored.\r\nThe ordering only has an impact on the secondary group rule, and thus the group filter, in combination with the _allow_ type. That is the only rule that has a loop running over a number of values that are returned in a random order by the OS. The order in which the list is specified will be the order in which the secondary groups are evaluated in the rule.\r\n\r\nWhen a rule has a filter set we check the filter before we decide if the queue found will be returned. This is independent of the ACLs.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=johna",
+              "name": "johna",
+              "key": "banjo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=banjo&avatarId=38464",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=banjo&avatarId=38464",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=banjo&avatarId=38464",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=banjo&avatarId=38464"
+              },
+              "displayName": "John Andrunas",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2019-03-27T13:10:29.728+0000",
+            "updated": "2020-02-26T05:29:21.412+0000"
+          }
+        ],
+        "maxResults": 1,
+        "total": 1,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9416/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2020-02-26T05:29:21.436+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 1,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13224295/comment/16802761",
+        "id": "16802761",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=wilfreds",
+          "name": "wilfreds",
+          "key": "wifreds",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=wifreds&avatarId=42439",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=wifreds&avatarId=42439",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=wifreds&avatarId=42439",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=wifreds&avatarId=42439"
+          },
+          "displayName": "Wilfred Spiegelenburg",
+          "active": true,
+          "timeZone": "Australia/Melbourne"
+        },
+        "body": "The proposal is to add a new child entry to all rules, like the parent rule we have now.\r\n\r\nName of the xml node: \r\n* filter\r\nName of the attributes supported for each: \r\n* type (_allow_ or _deny_)\r\n* users  (comma separated list)\r\n* groups (comma separated _ordered_ list)\r\n\r\nThe type attribute is required. One of the users and groups attributes can be omitted or left empty. If both are left empty the filter is ignored.\r\nThe ordering only has an impact on the secondary group rule, and thus the group filter, in combination with the _allow_ type. That is the only rule that has a loop running over a number of values that are returned in a random order by the OS. The order in which the list is specified will be the order in which the secondary groups are evaluated in the rule.\r\n\r\nWhen a rule has a filter set we check the filter before we decide if the queue found will be returned. This is independent of the ACLs.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=johna",
+          "name": "johna",
+          "key": "banjo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=banjo&avatarId=38464",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=banjo&avatarId=38464",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=banjo&avatarId=38464",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=banjo&avatarId=38464"
+          },
+          "displayName": "John Andrunas",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2019-03-27T13:10:29.728+0000",
+        "updated": "2020-02-26T05:29:21.412+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-9416/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 1,
+        "returned": 1
+      }
+    ]
+  }
+}

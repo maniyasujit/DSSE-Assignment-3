@@ -1,0 +1,252 @@
+{
+  "downloaded_at": "2026-06-25T10:24:56.477503+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-11087",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-11087?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13433504",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13433504",
+    "key": "YARN-11087",
+    "fields": {
+      "summary": "Introduce the config to control the refresh interval in RMDelegatedNodeLabelsUpdater",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/1",
+        "id": "1",
+        "description": "A problem which impairs or prevents the functions of the product.",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype",
+        "name": "Bug",
+        "subtask": false,
+        "avatarId": 21133
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12339154",
+          "id": "12339154",
+          "name": "nodelabel"
+        }
+      ],
+      "subtasks": [],
+      "created": "2022-03-13T08:12:48.229+0000",
+      "description": "h3. Why \r\nWhen configuring nodes to labels mapping by Delegated-Centralized mode, once the newly registered nodes comes, the node-label of this node wont be attached until triggering the nodelabel mapping provider, which the delayed time depends on the scheduler interval.\r\n\r\nh3. How to solve this bug\r\nI think there are two options\r\n# Introduce the new config to specify the update-node-label schedule interval. If u want to quickly refresh the newly registered nodes, user should decrease the interval.\r\n# Once the newly registered node come, directly trigger the execution of nodelabel mapping provider. But if the provider is the time-consuming operation and lots of nodes register to RM  at the same time, this will also make some nodes with node-label delay.\r\n\r\nI prefer the first option and submit the PR to solve this. \r\n\r\nFeel free to discuss if having any ideas.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/1",
+        "id": "1",
+        "description": "A fix for this issue is checked into the tree and tested.",
+        "name": "Fixed"
+      },
+      "labels": [
+        "pull-request-available"
+      ],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13433504/comment/17509903",
+            "id": "17509903",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zuston",
+              "name": "zuston",
+              "key": "zuston",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zuston&avatarId=38820",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zuston&avatarId=38820",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zuston&avatarId=38820",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zuston&avatarId=38820"
+              },
+              "displayName": "Junfan Zhang",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "What do u think of the second option? [~quapaw] ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zuston",
+              "name": "zuston",
+              "key": "zuston",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zuston&avatarId=38820",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zuston&avatarId=38820",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zuston&avatarId=38820",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zuston&avatarId=38820"
+              },
+              "displayName": "Junfan Zhang",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2022-03-21T13:59:12.470+0000",
+            "updated": "2022-03-21T13:59:55.627+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13433504/comment/17509970",
+            "id": "17509970",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=quapaw",
+              "name": "quapaw",
+              "key": "JIRAUSER285186",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=JIRAUSER285186&avatarId=49403",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=JIRAUSER285186&avatarId=49403",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=JIRAUSER285186&avatarId=49403",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=JIRAUSER285186&avatarId=49403"
+              },
+              "displayName": "Andr\u00e1s Gy\u0151ri",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "[~zuston] From the perspective of scalability, I think the first approach is better (and also it is easier to implement).",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=quapaw",
+              "name": "quapaw",
+              "key": "JIRAUSER285186",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=JIRAUSER285186&avatarId=49403",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=JIRAUSER285186&avatarId=49403",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=JIRAUSER285186&avatarId=49403",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=JIRAUSER285186&avatarId=49403"
+              },
+              "displayName": "Andr\u00e1s Gy\u0151ri",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2022-03-21T15:57:29.701+0000",
+            "updated": "2022-03-21T15:57:29.701+0000"
+          }
+        ],
+        "maxResults": 2,
+        "total": 2,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-11087/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2024-02-11T23:37:07.770+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 2,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13433504/comment/17509903",
+        "id": "17509903",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zuston",
+          "name": "zuston",
+          "key": "zuston",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zuston&avatarId=38820",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zuston&avatarId=38820",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zuston&avatarId=38820",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zuston&avatarId=38820"
+          },
+          "displayName": "Junfan Zhang",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "What do u think of the second option? [~quapaw] ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zuston",
+          "name": "zuston",
+          "key": "zuston",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=zuston&avatarId=38820",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=zuston&avatarId=38820",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=zuston&avatarId=38820",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=zuston&avatarId=38820"
+          },
+          "displayName": "Junfan Zhang",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2022-03-21T13:59:12.470+0000",
+        "updated": "2022-03-21T13:59:55.627+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13433504/comment/17509970",
+        "id": "17509970",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=quapaw",
+          "name": "quapaw",
+          "key": "JIRAUSER285186",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=JIRAUSER285186&avatarId=49403",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=JIRAUSER285186&avatarId=49403",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=JIRAUSER285186&avatarId=49403",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=JIRAUSER285186&avatarId=49403"
+          },
+          "displayName": "Andr\u00e1s Gy\u0151ri",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "[~zuston] From the perspective of scalability, I think the first approach is better (and also it is easier to implement).",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=quapaw",
+          "name": "quapaw",
+          "key": "JIRAUSER285186",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=JIRAUSER285186&avatarId=49403",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=JIRAUSER285186&avatarId=49403",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=JIRAUSER285186&avatarId=49403",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=JIRAUSER285186&avatarId=49403"
+          },
+          "displayName": "Andr\u00e1s Gy\u0151ri",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2022-03-21T15:57:29.701+0000",
+        "updated": "2022-03-21T15:57:29.701+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-11087/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 2,
+        "returned": 2
+      }
+    ]
+  }
+}

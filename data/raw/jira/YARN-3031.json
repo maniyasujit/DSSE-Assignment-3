@@ -1,0 +1,2701 @@
+{
+  "downloaded_at": "2026-06-25T10:22:33.231953+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-3031",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3031?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12766972",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972",
+    "key": "YARN-3031",
+    "fields": {
+      "summary": "[Storage abstraction] Create backing storage write interface for timeline collectors",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12759910",
+        "key": "YARN-2928",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12759910",
+        "fields": {
+          "summary": "YARN Timeline Service v.2: alpha 1",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+            "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+            "name": "Resolved",
+            "id": "5",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/2",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/critical.svg",
+            "name": "Critical",
+            "id": "2"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+            "id": "2",
+            "description": "A new feature of the product, which has yet to be developed.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+            "name": "New Feature",
+            "subtask": false,
+            "avatarId": 21141
+          }
+        }
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12322904",
+          "id": "12322904",
+          "name": "timelineserver",
+          "description": "YARN Timeline Server"
+        }
+      ],
+      "subtasks": [],
+      "created": "2015-01-13T00:23:51.136+0000",
+      "description": "Per design in YARN-2928, come up with the interface for the ATS writer to write to various backing storages. The interface should be created to capture the right level of abstractions so that it will enable all backing storage implementations to implement it efficiently.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/3",
+        "id": "3",
+        "description": "The problem is a duplicate of an existing issue.",
+        "name": "Duplicate"
+      },
+      "labels": [],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12698488",
+          "id": "12698488",
+          "filename": "Sequence_diagram_write_interaction.2.png",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+            "name": "vrushalic",
+            "key": "vrushalic",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+            },
+            "displayName": "Vrushali C",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2015-02-12T18:20:56.219+0000",
+          "size": 77381,
+          "mimeType": "image/png",
+          "content": "https://issues.apache.org/jira/secure/attachment/12698488/Sequence_diagram_write_interaction.2.png"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12698250",
+          "id": "12698250",
+          "filename": "Sequence_diagram_write_interaction.png",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+            "name": "vrushalic",
+            "key": "vrushalic",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+            },
+            "displayName": "Vrushali C",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2015-02-12T00:29:26.641+0000",
+          "size": 75261,
+          "mimeType": "image/png",
+          "content": "https://issues.apache.org/jira/secure/attachment/12698250/Sequence_diagram_write_interaction.png"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12698194",
+          "id": "12698194",
+          "filename": "YARN-3031.01.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+            "name": "vrushalic",
+            "key": "vrushalic",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+            },
+            "displayName": "Vrushali C",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2015-02-11T21:54:34.574+0000",
+          "size": 8646,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12698194/YARN-3031.01.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12700617",
+          "id": "12700617",
+          "filename": "YARN-3031.02.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+            "name": "vrushalic",
+            "key": "vrushalic",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+            },
+            "displayName": "Vrushali C",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2015-02-25T00:17:37.582+0000",
+          "size": 11614,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12700617/YARN-3031.02.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12700828",
+          "id": "12700828",
+          "filename": "YARN-3031.03.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+            "name": "vrushalic",
+            "key": "vrushalic",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+            },
+            "displayName": "Vrushali C",
+            "active": true,
+            "timeZone": "Etc/UTC"
+          },
+          "created": "2015-02-25T18:38:35.984+0000",
+          "size": 11652,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12700828/YARN-3031.03.patch"
+        }
+      ],
+      "issuelinks": [
+        {
+          "id": "12409685",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12409685",
+          "type": {
+            "id": "12310000",
+            "name": "Duplicate",
+            "inward": "is duplicated by",
+            "outward": "duplicates",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/12310000"
+          },
+          "outwardIssue": {
+            "id": "12777697",
+            "key": "YARN-3264",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12777697",
+            "fields": {
+              "summary": "[Storage implementation] Create backing storage write interface and  a POC only file based storage implementation",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12407208",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12407208",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "12739625",
+            "key": "YARN-2517",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12739625",
+            "fields": {
+              "summary": "Implement TimelineClientAsync",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12405300",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12405300",
+          "type": {
+            "id": "10001",
+            "name": "dependent",
+            "inward": "is depended upon by",
+            "outward": "depends upon",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10001"
+          },
+          "outwardIssue": {
+            "id": "12766985",
+            "key": "YARN-3041",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766985",
+            "fields": {
+              "summary": "[Data Model] create overall data objects of TS next gen",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12405214",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12405214",
+          "type": {
+            "id": "10001",
+            "name": "dependent",
+            "inward": "is depended upon by",
+            "outward": "depends upon",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10001"
+          },
+          "inwardIssue": {
+            "id": "12766978",
+            "key": "YARN-3035",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766978",
+            "fields": {
+              "summary": "[Storage implementation] Create a test-only backing storage implementation for ATS writes",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12405215",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12405215",
+          "type": {
+            "id": "10001",
+            "name": "dependent",
+            "inward": "is depended upon by",
+            "outward": "depends upon",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10001"
+          },
+          "inwardIssue": {
+            "id": "12766979",
+            "key": "YARN-3036",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766979",
+            "fields": {
+              "summary": "[Storage implementation] Create standalone HBase backing storage implementation for ATS writes",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12405216",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12405216",
+          "type": {
+            "id": "10001",
+            "name": "dependent",
+            "inward": "is depended upon by",
+            "outward": "depends upon",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10001"
+          },
+          "inwardIssue": {
+            "id": "12766980",
+            "key": "YARN-3037",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766980",
+            "fields": {
+              "summary": "[Storage implementation] Create HBase cluster backing storage implementation for ATS writes",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12407839",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12407839",
+          "type": {
+            "id": "10001",
+            "name": "dependent",
+            "inward": "is depended upon by",
+            "outward": "depends upon",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10001"
+          },
+          "inwardIssue": {
+            "id": "12774001",
+            "key": "YARN-3167",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12774001",
+            "fields": {
+              "summary": "[Collector implementation] Implement the core functionality of the timeline collector",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14279045",
+            "id": "14279045",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Hi Varun,\nI'd like to take ownership of this JIRA, and hope you're OK with that. Do let me know.\n\nthanks\nVrushali\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-01-15T18:14:23.138+0000",
+            "updated": "2015-01-15T18:14:23.138+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14279129",
+            "id": "14279129",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Sure, go ahead.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2015-01-15T19:08:30.144+0000",
+            "updated": "2015-01-15T19:08:30.144+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14279130",
+            "id": "14279130",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Sure, go ahead.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2015-01-15T19:08:32.884+0000",
+            "updated": "2015-01-15T19:08:32.884+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14305652",
+            "id": "14305652",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "\nRelated effort around asynchronous writes in ATSv1 https://issues.apache.org/jira/browse/YARN-2517",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-02-04T18:17:41.675+0000",
+            "updated": "2015-02-04T18:17:41.675+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14305691",
+            "id": "14305691",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "YARN-2517 may be different. It aims to optimize the client <--> timeline server communication. I think this Jira's scope is the communication between the aggregator (which used to be the timeline server)  and the backend storage. It's equivalent to TimelineWriter interface now.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-02-04T18:37:29.613+0000",
+            "updated": "2015-02-04T18:37:29.613+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14312767",
+            "id": "14312767",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "\nAttaching the first draft of the interface. The patch will not compile presently since this code depends on the TimelineServiceEntity class that's being added as part of  https://issues.apache.org/jira/browse/YARN-3041 (create the ATS entity/event API).\n\nThe interface calls out two main functionalities:  single entity writes and aggregations. \n\nSince several read APIs would depend on data being available at the aggregated level, it needs to be called out in the interface so that any writer class implementing this interface takes into consideration entity aggregation functionality. \n\nThe aggregate functionality may be implemented by writer class implementations in a way that is optimal to that storage. For instance, hbase may choose to have co-processors do the aggregation; then that writer implementation code would have the aggregate function as a no-op. \n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-02-09T20:03:51.801+0000",
+            "updated": "2015-02-09T20:03:51.801+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14317026",
+            "id": "14317026",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Attaching a sequence diagram that reflects the interactions for writing between the AM, the base aggregator service, the timeline service writer api and backend store.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-02-11T21:42:31.391+0000",
+            "updated": "2015-02-11T21:42:31.391+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14317122",
+            "id": "14317122",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12698194/YARN-3031.01.patch\n  against trunk revision 50625e6.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:red}-1 tests included{color}.  The patch doesn't appear to include any new or modified tests.\n                        Please justify why no new tests are needed for this patch.\n                        Also please list what manual steps were performed to verify this patch.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/6598//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/6598//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-02-11T22:36:03.272+0000",
+            "updated": "2015-02-11T22:36:03.272+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14317442",
+            "id": "14317442",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12698250/Sequence_diagram_write_interaction.png\n  against trunk revision 67efab9.\n\n    {color:red}-1 patch{color}.  The patch command could not apply the patch.\n\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/6603//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-02-12T02:20:49.876+0000",
+            "updated": "2015-02-12T02:20:49.876+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14318576",
+            "id": "14318576",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Thanks [~vrushalic] for updating the patch and sequence diagram here!\nOne quick question about sequence diagram: looks like we are doing async call (non-blocking call) between AM and BaseAggregatorService here. Do have some scenarios that AM write some entities/event and check them immediately? If so, we may need to find some way to notify AM about the result of writing (it may get failed, so AM can redo it later) or we also provide a blocking call option? ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2015-02-12T17:22:17.498+0000",
+            "updated": "2015-02-12T17:22:17.498+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14318680",
+            "id": "14318680",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "hi [~junping_du],\nThanks for looking at this! Yes, the calls from client (like AM) to write an entity info could be sync ( blocking) or async (non-blocking), but the storage writer api (TimelineServiceWriter) calls are always synchronous (blocking).  The Base Aggregator Service would provide both options of writes (sync and async) in it's API. Would be part of YARN-3167 I think.\n\nI have modified the sequence diagram to say that calls from AM to Base Aggregator Service can be sync or async.\n\nthanks\nVrushali\n\n\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=johna",
+              "name": "johna",
+              "key": "banjo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=banjo&avatarId=38464",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=banjo&avatarId=38464",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=banjo&avatarId=38464",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=banjo&avatarId=38464"
+              },
+              "displayName": "John Andrunas",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-02-12T18:17:28.133+0000",
+            "updated": "2019-10-25T20:27:20.793+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14318758",
+            "id": "14318758",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12698488/Sequence_diagram_write_interaction.2.png\n  against trunk revision 9e33c99.\n\n    {color:red}-1 patch{color}.  The patch command could not apply the patch.\n\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/6618//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-02-12T18:58:35.334+0000",
+            "updated": "2015-02-12T18:58:35.334+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14329368",
+            "id": "14329368",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~vrushalic], YARN-3041 is committed, would you mind updating this patch accordingly? And we'd like to review it again. Thanks!",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-02-20T18:59:48.626+0000",
+            "updated": "2015-02-20T18:59:48.626+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14329375",
+            "id": "14329375",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Yes, I will.. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-02-20T19:05:48.844+0000",
+            "updated": "2015-02-20T19:05:48.844+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14335710",
+            "id": "14335710",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "\nAttaching a revised writer interface. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-02-25T00:17:37.609+0000",
+            "updated": "2015-02-25T00:17:37.609+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14335756",
+            "id": "14335756",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12700617/YARN-3031.02.patch\n  against trunk revision ac3468a.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:red}-1 tests included{color}.  The patch doesn't appear to include any new or modified tests.\n                        Please justify why no new tests are needed for this patch.\n                        Also please list what manual steps were performed to verify this patch.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/6717//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/6717//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-02-25T00:54:35.425+0000",
+            "updated": "2015-02-25T00:54:35.425+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14336001",
+            "id": "14336001",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "[~vrushalic], thanks for updating the patch! Some comments on the APIs:\n\n1. According to YARN-3041, metric and event are neither the standalone objects, nor associated to application entity only. For example, If I want to write the container-level metrics and events, being given appId is not enough for me associate these objects to the container entity they should belong to. IMHO, entity identifier is more appropriate instead of appId. \n\n{code}\nTimelineServiceWriteResponse updateMetrics(ApplicationId appId,\n    TimelineMetric metric) throws IOException;\n{code}\n{code}\nTimelineServiceWriteResponse addEvent(ApplicationId appId,\n     TimelineEvent data) throws IOException;\n{code}\n\nThink it out loudly, can we just have a single {{write(TimelineEntity entity)}}. To store the metrics and events, we always use the entity as the holder them.\n\n2. Perhaps we even don't need to have separate write and aggregate APIs. We can have a single write API, but also take AggregateUpTo as the second param. If it is provided, the store impl does the aggregation at the given dimension, otherwise, it simply persists the entity.\n\n3. It seems that TimelineServiceWriteResponse is copied from the old TimelinePutResponse. I'm not sure it is still going to make sense in TS next gen. Or at least, we may rethink of the meaningful error code.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-02-25T04:50:29.332+0000",
+            "updated": "2015-02-25T04:50:29.332+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14336054",
+            "id": "14336054",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Hi [~zjshen],\n\nThanks for the prompt review, appreciate it! These are very good points you mention, let me add some more context around why these are coded this way right now.\n\n1. The reasoning behind having two more apis for writing metrics and events in addition to the entity write is that, it would be good (efficient) to have the option to write a single metric or a single event. For example, say a job has many custom metrics and one particular metric is updated extremely frequently but not the others. We may want to write out only that particular metric without having to look through/write all other metrics and other information in that entity. Similarly for events. Perhaps we could do it differently that what is proposed in the patch, but the functionality of writing them individually would help in performance I believe. \n\n2. Having a separate write and aggregator API makes them independent of the order in which the entity details and aggregation are invoked/stored and makes them independent of each other. For instance, we may choose to invoke the aggregation at a different frequency (more slower) than the regular entity writes. Hence two apis. \n\n3. The TimelineServiceWriteResponse has two error codes presently: NO_START_TIME and  IO_EXCEPTION. We can of course add in more error codes as we proceed.  The reason I chose these two for now is that each flow is inherently associated with a submit timestamp (run id of that flow). In case, we don\u2019t find that timestamp, it would be difficult to write the flow information for that run to the store - I think an error should be thrown with an error code. The other one, IO_EXCEPTION is what I thought would help accounting for write/put errors to the store- we should be able to indicate that the write did not go through. We can rename these if these names don\u2019t sound meaningful. \n\nthanks\nVrushali",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-02-25T05:53:48.848+0000",
+            "updated": "2015-02-25T05:53:48.848+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14336922",
+            "id": "14336922",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "\nUploading a new patch with Identifier instead of ApplicationId as per [~zjshen]'s review suggestion. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-02-25T18:31:00.132+0000",
+            "updated": "2015-02-25T18:31:00.132+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14336994",
+            "id": "14336994",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Hi [~vrushalic], thanks for updating the patch. A quick question here: \nLooks like we only specify three tracks for entity: FLOW, USER and QUEUE\n{code}\n+public enum AggregateUpTo {\n+\tFLOW,\n+\tUSER,\n+\tQUEUE\n+}\n{code}\nBut we have more tracks (type) in YARN-3041.\n{code}\n+public enum TimelineEntityType {\n+  YARN_CLUSTER,\n+  YARN_FLOW,\n+  YARN_APPLICATION,\n+  YARN_APPLICATION_ATTEMPT,\n+  YARN_CONTAINER,\n+  YARN_USER,\n+  YARN_QUEUE;\n{code}\nMay be we should add more here?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2015-02-25T19:05:12.941+0000",
+            "updated": "2015-02-25T19:05:12.941+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14337008",
+            "id": "14337008",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12700828/YARN-3031.03.patch\n  against trunk revision 5731c0e.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:red}-1 tests included{color}.  The patch doesn't appear to include any new or modified tests.\n                        Please justify why no new tests are needed for this patch.\n                        Also please list what manual steps were performed to verify this patch.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/6738//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/6738//console\n\nThis message is automatically generated.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-02-25T19:14:35.582+0000",
+            "updated": "2015-02-25T19:14:35.582+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14337148",
+            "id": "14337148",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Quick comment: Following the proposal at YARN-3166, let's put the storage APIs in hadoop-yarn-server/hadoop-yarn-server-timelineservice under package o.a.h.yarn.server.timelineservice.storage? We shouldn't be exposing these to application writers as part of the hadoop-yarn-api records.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+              "name": "vinodkv",
+              "key": "vinodkv",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Vinod Kumar Vavilapalli",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2015-02-25T20:50:11.216+0000",
+            "updated": "2015-02-25T20:50:11.216+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14337393",
+            "id": "14337393",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "\nYes, will update it in the next patch.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-02-25T22:52:49.891+0000",
+            "updated": "2015-02-25T22:52:49.891+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14337401",
+            "id": "14337401",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "\nHi [~junping_du]\n\nThe AggregateUpTo enum has the tracks to aggregate along, the TimelineEntityType enum has the types of entities that can exist. There may not be aggregations along all entity types. \nFor example: a query can be, give all the apps run by this user in the last week. This will read the data that is aggregated along the USER track. I think I can rename those with a YARN prefix though.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=johna",
+              "name": "johna",
+              "key": "banjo",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=banjo&avatarId=38464",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=banjo&avatarId=38464",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=banjo&avatarId=38464",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=banjo&avatarId=38464"
+              },
+              "displayName": "John Andrunas",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-02-25T22:56:31.555+0000",
+            "updated": "2019-10-25T20:26:09.827+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14338654",
+            "id": "14338654",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "bq. The AggregateUpTo enum has the tracks to aggregate along, the TimelineEntityType enum has the types of entities that can exist. There may not be aggregations along all entity types. \nI see. Thanks [~vrushalic] for explanation here. However, \"CLUSTER\" seems to be missing here as it is an aggregation of \"FLOW\"s. Isn't it?\n\nbq. The reasoning behind having two more apis for writing metrics and events in addition to the entity write is that, it would be good (efficient) to have the option to write a single metric or a single event. For example, say a job has many custom metrics and one particular metric is updated extremely frequently but not the others. We may want to write out only that particular metric without having to look through/write all other metrics and other information in that entity. Similarly for events. Perhaps we could do it differently that what is proposed in the patch, but the functionality of writing them individually would help in performance I believe.\nAgree that we should have separated interfaces to write single data entry quickly and aggregate data entries. Also some aggregator (like RM) won't even call aggregation interface here (according to YARN-3167). IMO, it sounds like two interfaces are good enough so we can merge addEvent() and updateMetrics() into a single data entry writer which can accept more generic type? That will make interface more concisely and hiding more details that could be changed in future. Thoughts?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2015-02-26T16:32:52.015+0000",
+            "updated": "2015-02-26T16:32:52.015+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14345160",
+            "id": "14345160",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Discussed offline with [~vrushalic] and [~zjshen] last week and we agree to consolidate APIs here. [~vrushalic], mind giving a quick update? Thx!",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2015-03-03T14:51:14.894+0000",
+            "updated": "2015-03-03T14:51:14.894+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14345321",
+            "id": "14345321",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Yes, we've decided to have only a write and aggregate api in the writer interface. The addEvent and updateMetrics is not needed, we can use the write api to do this. \nAlso, I have the distributed shell test case working end to end for timeline v2. I have some feedback from a chat with Zhijie on that. I am updating the code and I should be posting a patch for YARN-3167, YARN-3031 and  YARN-3264 today. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-03-03T16:49:27.853+0000",
+            "updated": "2015-03-03T16:49:27.853+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14345345",
+            "id": "14345345",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "body": "Hi [~vrushalic], Awesome! I will help to review this patch here when patch is ready. Thanks for updating.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+              "name": "junping_du",
+              "key": "djp",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+              },
+              "displayName": "Junping Du",
+              "active": true,
+              "timeZone": "Asia/Shanghai"
+            },
+            "created": "2015-03-03T17:05:43.564+0000",
+            "updated": "2015-03-03T17:05:43.564+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14346202",
+            "id": "14346202",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "\nThe writer interface is being added in the patch in https://issues.apache.org/jira/browse/YARN-3264. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2015-03-04T01:43:00.030+0000",
+            "updated": "2015-03-04T01:43:00.030+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14347367",
+            "id": "14347367",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Since the patch there covers the code of the writer interface. Let's resolve this one as the duplicate of YARN-3264.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+              "name": "zjshen",
+              "key": "zjshen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+              },
+              "displayName": "Zhijie Shen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2015-03-04T18:51:38.978+0000",
+            "updated": "2015-03-04T18:51:38.978+0000"
+          }
+        ],
+        "maxResults": 30,
+        "total": 30,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3031/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2019-10-25T20:27:20.821+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 30,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14279045",
+        "id": "14279045",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Hi Varun,\nI'd like to take ownership of this JIRA, and hope you're OK with that. Do let me know.\n\nthanks\nVrushali\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-01-15T18:14:23.138+0000",
+        "updated": "2015-01-15T18:14:23.138+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14279129",
+        "id": "14279129",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Sure, go ahead.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2015-01-15T19:08:30.144+0000",
+        "updated": "2015-01-15T19:08:30.144+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14279130",
+        "id": "14279130",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Sure, go ahead.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2015-01-15T19:08:32.884+0000",
+        "updated": "2015-01-15T19:08:32.884+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14305652",
+        "id": "14305652",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "\nRelated effort around asynchronous writes in ATSv1 https://issues.apache.org/jira/browse/YARN-2517",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-02-04T18:17:41.675+0000",
+        "updated": "2015-02-04T18:17:41.675+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14305691",
+        "id": "14305691",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "YARN-2517 may be different. It aims to optimize the client <--> timeline server communication. I think this Jira's scope is the communication between the aggregator (which used to be the timeline server)  and the backend storage. It's equivalent to TimelineWriter interface now.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-02-04T18:37:29.613+0000",
+        "updated": "2015-02-04T18:37:29.613+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14312767",
+        "id": "14312767",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "\nAttaching the first draft of the interface. The patch will not compile presently since this code depends on the TimelineServiceEntity class that's being added as part of  https://issues.apache.org/jira/browse/YARN-3041 (create the ATS entity/event API).\n\nThe interface calls out two main functionalities:  single entity writes and aggregations. \n\nSince several read APIs would depend on data being available at the aggregated level, it needs to be called out in the interface so that any writer class implementing this interface takes into consideration entity aggregation functionality. \n\nThe aggregate functionality may be implemented by writer class implementations in a way that is optimal to that storage. For instance, hbase may choose to have co-processors do the aggregation; then that writer implementation code would have the aggregate function as a no-op. \n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-02-09T20:03:51.801+0000",
+        "updated": "2015-02-09T20:03:51.801+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14317026",
+        "id": "14317026",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Attaching a sequence diagram that reflects the interactions for writing between the AM, the base aggregator service, the timeline service writer api and backend store.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-02-11T21:42:31.391+0000",
+        "updated": "2015-02-11T21:42:31.391+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14317122",
+        "id": "14317122",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12698194/YARN-3031.01.patch\n  against trunk revision 50625e6.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:red}-1 tests included{color}.  The patch doesn't appear to include any new or modified tests.\n                        Please justify why no new tests are needed for this patch.\n                        Also please list what manual steps were performed to verify this patch.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/6598//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/6598//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-02-11T22:36:03.272+0000",
+        "updated": "2015-02-11T22:36:03.272+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14317442",
+        "id": "14317442",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12698250/Sequence_diagram_write_interaction.png\n  against trunk revision 67efab9.\n\n    {color:red}-1 patch{color}.  The patch command could not apply the patch.\n\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/6603//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-02-12T02:20:49.876+0000",
+        "updated": "2015-02-12T02:20:49.876+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14318576",
+        "id": "14318576",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Thanks [~vrushalic] for updating the patch and sequence diagram here!\nOne quick question about sequence diagram: looks like we are doing async call (non-blocking call) between AM and BaseAggregatorService here. Do have some scenarios that AM write some entities/event and check them immediately? If so, we may need to find some way to notify AM about the result of writing (it may get failed, so AM can redo it later) or we also provide a blocking call option? ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2015-02-12T17:22:17.498+0000",
+        "updated": "2015-02-12T17:22:17.498+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14318680",
+        "id": "14318680",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "hi [~junping_du],\nThanks for looking at this! Yes, the calls from client (like AM) to write an entity info could be sync ( blocking) or async (non-blocking), but the storage writer api (TimelineServiceWriter) calls are always synchronous (blocking).  The Base Aggregator Service would provide both options of writes (sync and async) in it's API. Would be part of YARN-3167 I think.\n\nI have modified the sequence diagram to say that calls from AM to Base Aggregator Service can be sync or async.\n\nthanks\nVrushali\n\n\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=johna",
+          "name": "johna",
+          "key": "banjo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=banjo&avatarId=38464",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=banjo&avatarId=38464",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=banjo&avatarId=38464",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=banjo&avatarId=38464"
+          },
+          "displayName": "John Andrunas",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-02-12T18:17:28.133+0000",
+        "updated": "2019-10-25T20:27:20.793+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14318758",
+        "id": "14318758",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12698488/Sequence_diagram_write_interaction.2.png\n  against trunk revision 9e33c99.\n\n    {color:red}-1 patch{color}.  The patch command could not apply the patch.\n\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/6618//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-02-12T18:58:35.334+0000",
+        "updated": "2015-02-12T18:58:35.334+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14329368",
+        "id": "14329368",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~vrushalic], YARN-3041 is committed, would you mind updating this patch accordingly? And we'd like to review it again. Thanks!",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-02-20T18:59:48.626+0000",
+        "updated": "2015-02-20T18:59:48.626+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14329375",
+        "id": "14329375",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Yes, I will.. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-02-20T19:05:48.844+0000",
+        "updated": "2015-02-20T19:05:48.844+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14335710",
+        "id": "14335710",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "\nAttaching a revised writer interface. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-02-25T00:17:37.609+0000",
+        "updated": "2015-02-25T00:17:37.609+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14335756",
+        "id": "14335756",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12700617/YARN-3031.02.patch\n  against trunk revision ac3468a.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:red}-1 tests included{color}.  The patch doesn't appear to include any new or modified tests.\n                        Please justify why no new tests are needed for this patch.\n                        Also please list what manual steps were performed to verify this patch.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/6717//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/6717//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-02-25T00:54:35.425+0000",
+        "updated": "2015-02-25T00:54:35.425+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14336001",
+        "id": "14336001",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "[~vrushalic], thanks for updating the patch! Some comments on the APIs:\n\n1. According to YARN-3041, metric and event are neither the standalone objects, nor associated to application entity only. For example, If I want to write the container-level metrics and events, being given appId is not enough for me associate these objects to the container entity they should belong to. IMHO, entity identifier is more appropriate instead of appId. \n\n{code}\nTimelineServiceWriteResponse updateMetrics(ApplicationId appId,\n    TimelineMetric metric) throws IOException;\n{code}\n{code}\nTimelineServiceWriteResponse addEvent(ApplicationId appId,\n     TimelineEvent data) throws IOException;\n{code}\n\nThink it out loudly, can we just have a single {{write(TimelineEntity entity)}}. To store the metrics and events, we always use the entity as the holder them.\n\n2. Perhaps we even don't need to have separate write and aggregate APIs. We can have a single write API, but also take AggregateUpTo as the second param. If it is provided, the store impl does the aggregation at the given dimension, otherwise, it simply persists the entity.\n\n3. It seems that TimelineServiceWriteResponse is copied from the old TimelinePutResponse. I'm not sure it is still going to make sense in TS next gen. Or at least, we may rethink of the meaningful error code.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-02-25T04:50:29.332+0000",
+        "updated": "2015-02-25T04:50:29.332+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14336054",
+        "id": "14336054",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Hi [~zjshen],\n\nThanks for the prompt review, appreciate it! These are very good points you mention, let me add some more context around why these are coded this way right now.\n\n1. The reasoning behind having two more apis for writing metrics and events in addition to the entity write is that, it would be good (efficient) to have the option to write a single metric or a single event. For example, say a job has many custom metrics and one particular metric is updated extremely frequently but not the others. We may want to write out only that particular metric without having to look through/write all other metrics and other information in that entity. Similarly for events. Perhaps we could do it differently that what is proposed in the patch, but the functionality of writing them individually would help in performance I believe. \n\n2. Having a separate write and aggregator API makes them independent of the order in which the entity details and aggregation are invoked/stored and makes them independent of each other. For instance, we may choose to invoke the aggregation at a different frequency (more slower) than the regular entity writes. Hence two apis. \n\n3. The TimelineServiceWriteResponse has two error codes presently: NO_START_TIME and  IO_EXCEPTION. We can of course add in more error codes as we proceed.  The reason I chose these two for now is that each flow is inherently associated with a submit timestamp (run id of that flow). In case, we don\u2019t find that timestamp, it would be difficult to write the flow information for that run to the store - I think an error should be thrown with an error code. The other one, IO_EXCEPTION is what I thought would help accounting for write/put errors to the store- we should be able to indicate that the write did not go through. We can rename these if these names don\u2019t sound meaningful. \n\nthanks\nVrushali",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-02-25T05:53:48.848+0000",
+        "updated": "2015-02-25T05:53:48.848+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14336922",
+        "id": "14336922",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "\nUploading a new patch with Identifier instead of ApplicationId as per [~zjshen]'s review suggestion. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-02-25T18:31:00.132+0000",
+        "updated": "2015-02-25T18:31:00.132+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14336994",
+        "id": "14336994",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Hi [~vrushalic], thanks for updating the patch. A quick question here: \nLooks like we only specify three tracks for entity: FLOW, USER and QUEUE\n{code}\n+public enum AggregateUpTo {\n+\tFLOW,\n+\tUSER,\n+\tQUEUE\n+}\n{code}\nBut we have more tracks (type) in YARN-3041.\n{code}\n+public enum TimelineEntityType {\n+  YARN_CLUSTER,\n+  YARN_FLOW,\n+  YARN_APPLICATION,\n+  YARN_APPLICATION_ATTEMPT,\n+  YARN_CONTAINER,\n+  YARN_USER,\n+  YARN_QUEUE;\n{code}\nMay be we should add more here?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2015-02-25T19:05:12.941+0000",
+        "updated": "2015-02-25T19:05:12.941+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14337008",
+        "id": "14337008",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "{color:red}-1 overall{color}.  Here are the results of testing the latest attachment \n  http://issues.apache.org/jira/secure/attachment/12700828/YARN-3031.03.patch\n  against trunk revision 5731c0e.\n\n    {color:green}+1 @author{color}.  The patch does not contain any @author tags.\n\n    {color:red}-1 tests included{color}.  The patch doesn't appear to include any new or modified tests.\n                        Please justify why no new tests are needed for this patch.\n                        Also please list what manual steps were performed to verify this patch.\n\n    {color:green}+1 javac{color}.  The applied patch does not increase the total number of javac compiler warnings.\n\n    {color:green}+1 javadoc{color}.  There were no new javadoc warning messages.\n\n    {color:green}+1 eclipse:eclipse{color}.  The patch built with eclipse:eclipse.\n\n    {color:green}+1 findbugs{color}.  The patch does not introduce any new Findbugs (version 2.0.3) warnings.\n\n    {color:green}+1 release audit{color}.  The applied patch does not increase the total number of release audit warnings.\n\n    {color:green}+1 core tests{color}.  The patch passed unit tests in hadoop-yarn-project/hadoop-yarn/hadoop-yarn-api.\n\nTest results: https://builds.apache.org/job/PreCommit-YARN-Build/6738//testReport/\nConsole output: https://builds.apache.org/job/PreCommit-YARN-Build/6738//console\n\nThis message is automatically generated.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-02-25T19:14:35.582+0000",
+        "updated": "2015-02-25T19:14:35.582+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14337148",
+        "id": "14337148",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Quick comment: Following the proposal at YARN-3166, let's put the storage APIs in hadoop-yarn-server/hadoop-yarn-server-timelineservice under package o.a.h.yarn.server.timelineservice.storage? We shouldn't be exposing these to application writers as part of the hadoop-yarn-api records.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vinodkv",
+          "name": "vinodkv",
+          "key": "vinodkv",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Vinod Kumar Vavilapalli",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2015-02-25T20:50:11.216+0000",
+        "updated": "2015-02-25T20:50:11.216+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14337393",
+        "id": "14337393",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "\nYes, will update it in the next patch.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-02-25T22:52:49.891+0000",
+        "updated": "2015-02-25T22:52:49.891+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14337401",
+        "id": "14337401",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "\nHi [~junping_du]\n\nThe AggregateUpTo enum has the tracks to aggregate along, the TimelineEntityType enum has the types of entities that can exist. There may not be aggregations along all entity types. \nFor example: a query can be, give all the apps run by this user in the last week. This will read the data that is aggregated along the USER track. I think I can rename those with a YARN prefix though.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=johna",
+          "name": "johna",
+          "key": "banjo",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=banjo&avatarId=38464",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=banjo&avatarId=38464",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=banjo&avatarId=38464",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=banjo&avatarId=38464"
+          },
+          "displayName": "John Andrunas",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-02-25T22:56:31.555+0000",
+        "updated": "2019-10-25T20:26:09.827+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14338654",
+        "id": "14338654",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "bq. The AggregateUpTo enum has the tracks to aggregate along, the TimelineEntityType enum has the types of entities that can exist. There may not be aggregations along all entity types. \nI see. Thanks [~vrushalic] for explanation here. However, \"CLUSTER\" seems to be missing here as it is an aggregation of \"FLOW\"s. Isn't it?\n\nbq. The reasoning behind having two more apis for writing metrics and events in addition to the entity write is that, it would be good (efficient) to have the option to write a single metric or a single event. For example, say a job has many custom metrics and one particular metric is updated extremely frequently but not the others. We may want to write out only that particular metric without having to look through/write all other metrics and other information in that entity. Similarly for events. Perhaps we could do it differently that what is proposed in the patch, but the functionality of writing them individually would help in performance I believe.\nAgree that we should have separated interfaces to write single data entry quickly and aggregate data entries. Also some aggregator (like RM) won't even call aggregation interface here (according to YARN-3167). IMO, it sounds like two interfaces are good enough so we can merge addEvent() and updateMetrics() into a single data entry writer which can accept more generic type? That will make interface more concisely and hiding more details that could be changed in future. Thoughts?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2015-02-26T16:32:52.015+0000",
+        "updated": "2015-02-26T16:32:52.015+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14345160",
+        "id": "14345160",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Discussed offline with [~vrushalic] and [~zjshen] last week and we agree to consolidate APIs here. [~vrushalic], mind giving a quick update? Thx!",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2015-03-03T14:51:14.894+0000",
+        "updated": "2015-03-03T14:51:14.894+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14345321",
+        "id": "14345321",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Yes, we've decided to have only a write and aggregate api in the writer interface. The addEvent and updateMetrics is not needed, we can use the write api to do this. \nAlso, I have the distributed shell test case working end to end for timeline v2. I have some feedback from a chat with Zhijie on that. I am updating the code and I should be posting a patch for YARN-3167, YARN-3031 and  YARN-3264 today. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-03-03T16:49:27.853+0000",
+        "updated": "2015-03-03T16:49:27.853+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14345345",
+        "id": "14345345",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "body": "Hi [~vrushalic], Awesome! I will help to review this patch here when patch is ready. Thanks for updating.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=junping_du",
+          "name": "junping_du",
+          "key": "djp",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=djp&avatarId=16954",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=djp&avatarId=16954",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=djp&avatarId=16954",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=djp&avatarId=16954"
+          },
+          "displayName": "Junping Du",
+          "active": true,
+          "timeZone": "Asia/Shanghai"
+        },
+        "created": "2015-03-03T17:05:43.564+0000",
+        "updated": "2015-03-03T17:05:43.564+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14346202",
+        "id": "14346202",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "\nThe writer interface is being added in the patch in https://issues.apache.org/jira/browse/YARN-3264. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2015-03-04T01:43:00.030+0000",
+        "updated": "2015-03-04T01:43:00.030+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12766972/comment/14347367",
+        "id": "14347367",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Since the patch there covers the code of the writer interface. Let's resolve this one as the duplicate of YARN-3264.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=zjshen",
+          "name": "zjshen",
+          "key": "zjshen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10443",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10443",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10443",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10443"
+          },
+          "displayName": "Zhijie Shen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2015-03-04T18:51:38.978+0000",
+        "updated": "2015-03-04T18:51:38.978+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3031/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 30,
+        "returned": 30
+      }
+    ]
+  }
+}

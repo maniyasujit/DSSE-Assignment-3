@@ -1,0 +1,2538 @@
+{
+  "downloaded_at": "2026-06-25T10:20:20.567669+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-6357",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-6357?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13056813",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813",
+    "key": "YARN-6357",
+    "fields": {
+      "summary": "Implement putEntitiesAsync API in TimelineCollector",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12988354",
+        "key": "YARN-5355",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12988354",
+        "fields": {
+          "summary": "YARN Timeline Service v.2: alpha 2",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+            "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+            "name": "Resolved",
+            "id": "5",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/2",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/critical.svg",
+            "name": "Critical",
+            "id": "2"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+            "id": "2",
+            "description": "A new feature of the product, which has yet to be developed.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+            "name": "New Feature",
+            "subtask": false,
+            "avatarId": 21141
+          }
+        }
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12331008",
+          "id": "12331008",
+          "name": "ATSv2"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12322904",
+          "id": "12322904",
+          "name": "timelineserver",
+          "description": "YARN Timeline Server"
+        }
+      ],
+      "subtasks": [],
+      "created": "2017-03-16T22:07:47.257+0000",
+      "description": "As discovered and discussed in YARN-5269 the TimelineCollector#putEntitiesAsync method is currently not implemented and TimelineCollector#putEntities is asynchronous.\n\nTimelineV2ClientImpl#putEntities vs TimelineV2ClientImpl#putEntitiesAsync correctly call TimelineEntityDispatcher#dispatchEntities(boolean sync,... with the correct argument. This argument does seem to make it into the params, and on the server side TimelineCollectorWebService#putEntities correctly pulls the async parameter from the rest call. See line 156:\n{code}\n    boolean isAsync = async != null && async.trim().equalsIgnoreCase(\"true\");\n{code}\nHowever, this is where the problem starts. It simply calls TimelineCollector#putEntities and ignores the value of isAsync. It should instead have called TimelineCollector#putEntitiesAsync, which is currently not implemented.\nputEntities should call putEntitiesAsync and then after that call writer.flush()\nThe fact that we flush on close and we flush periodically should be more of a concern of avoiding data loss; close in case sync is never called and the periodic flush to guard against having data from slow writers get buffered for a long time and expose us to risk of loss in case the collector crashes with data in its buffers. Size-based flush is a different concern to avoid blowing up memory footprint.\nThe spooling behavior is also somewhat separate.\nWe have two separate methods on our API putEntities and putEntitiesAsync and they should have different behavior beyond waiting for the request to be sent.",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": {
+        "self": "https://issues.apache.org/jira/rest/api/2/resolution/1",
+        "id": "1",
+        "description": "A fix for this issue is checked into the tree and tested.",
+        "name": "Fixed"
+      },
+      "labels": [
+        "yarn-5355-merge-blocker"
+      ],
+      "attachment": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12859365",
+          "id": "12859365",
+          "filename": "YARN-6357.01.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+            "name": "haibochen",
+            "key": "haibochen",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Haibo Chen",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2017-03-17T22:23:22.124+0000",
+          "size": 7764,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12859365/YARN-6357.01.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12859632",
+          "id": "12859632",
+          "filename": "YARN-6357.02.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+            "name": "haibochen",
+            "key": "haibochen",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Haibo Chen",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2017-03-20T20:48:36.930+0000",
+          "size": 8478,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12859632/YARN-6357.02.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12860203",
+          "id": "12860203",
+          "filename": "YARN-6357.03.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+            "name": "haibochen",
+            "key": "haibochen",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Haibo Chen",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2017-03-23T18:36:01.390+0000",
+          "size": 8418,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12860203/YARN-6357.03.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12860442",
+          "id": "12860442",
+          "filename": "YARN-6357.04.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+            "name": "haibochen",
+            "key": "haibochen",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Haibo Chen",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2017-03-24T20:31:23.803+0000",
+          "size": 8425,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12860442/YARN-6357.04.patch"
+        },
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/attachment/12860683",
+          "id": "12860683",
+          "filename": "YARN-6357.05.patch",
+          "author": {
+            "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+            "name": "haibochen",
+            "key": "haibochen",
+            "avatarUrls": {
+              "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+              "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+              "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+              "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+            },
+            "displayName": "Haibo Chen",
+            "active": true,
+            "timeZone": "America/Los_Angeles"
+          },
+          "created": "2017-03-27T16:43:33.835+0000",
+          "size": 8425,
+          "mimeType": "text/plain",
+          "content": "https://issues.apache.org/jira/secure/attachment/12860683/YARN-6357.05.patch"
+        }
+      ],
+      "issuelinks": [
+        {
+          "id": "12498211",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12498211",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "12980040",
+            "key": "YARN-5269",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12980040",
+            "fields": {
+              "summary": "Bubble exceptions and errors all the way up the calls, including to clients.",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+                "description": "The issue is open and ready for the assignee to start work on it.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+                "name": "Open",
+                "id": "1",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        },
+        {
+          "id": "12498212",
+          "self": "https://issues.apache.org/jira/rest/api/2/issueLink/12498212",
+          "type": {
+            "id": "10030",
+            "name": "Reference",
+            "inward": "is related to",
+            "outward": "relates to",
+            "self": "https://issues.apache.org/jira/rest/api/2/issueLinkType/10030"
+          },
+          "outwardIssue": {
+            "id": "13056231",
+            "key": "YARN-6342",
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056231",
+            "fields": {
+              "summary": "Make TimelineV2Client's drain timeout after stop configurable",
+              "status": {
+                "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+                "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+                "name": "Resolved",
+                "id": "5",
+                "statusCategory": {
+                  "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+                "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+                "name": "Major",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+                "id": "7",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 21146
+              }
+            }
+          }
+        }
+      ],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15929037",
+            "id": "15929037",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Correct. This is what I was suspecting in the previous call.\nIn YARN-3367 sync/async changes were only made on the client side.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2017-03-16T22:26:00.043+0000",
+            "updated": "2017-03-16T22:26:00.043+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15929048",
+            "id": "15929048",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "bq. We have two separate methods on our API putEntities and putEntitiesAsync and they should have different behavior beyond waiting for the request to be sent. I can file a separate bug from this one dealing with exception handling to tackle the sync vs async nature.\nSorry couldn't get this. Which exception handling part will be handled in this JIRA? IIUC, this JIRA is intended to check isAsync flag and call flush immediately for a sync call.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2017-03-16T22:30:35.134+0000",
+            "updated": "2017-03-16T22:30:35.134+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15929254",
+            "id": "15929254",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jrottinghuis",
+              "name": "jrottinghuis",
+              "key": "jrottinghuis",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Joep Rottinghuis",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "bq. I can file a separate bug from this one dealing with exception handling to tackle the sync vs async nature.\nSorry, copy paste from previous bug YARN-5269. This _is_ the separate jira.\n\n[~varun_saxena] you were right in the previous call. I was thinking about the writer side where flush works correctly, you were thinking one level up where flush wasn't appropriately called.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=jrottinghuis",
+              "name": "jrottinghuis",
+              "key": "jrottinghuis",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Joep Rottinghuis",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-03-17T00:51:43.752+0000",
+            "updated": "2017-03-17T00:51:43.752+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15930832",
+            "id": "15930832",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Upload an initial patch for review. I did not call putEntitiesAsync() in putEntities because this will require putEntitiesAsync() to return a response, which I think is weird for an async method. Plus, the debug logging for the sync and async putEntities call can also be awkward. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-03-17T22:23:22.142+0000",
+            "updated": "2017-03-17T22:26:38.219+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15930863",
+            "id": "15930863",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 15s{color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 12m 26s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 16s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 12s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 17s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m 12s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 25s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 14s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 14s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 14s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 14s{color} | {color:green} the patch passed {color} |\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 10s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice: The patch generated 3 new + 1 unchanged - 0 fixed = 4 total (was 1) {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 15s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m  9s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 29s{color} | {color:green} the patch passed {color} |\n| {color:red}-1{color} | {color:red} javadoc {color} | {color:red}  0m 10s{color} | {color:red} hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-timelineservice generated 1 new + 0 unchanged - 0 fixed = 1 total (was 0) {color} |\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 39s{color} | {color:green} hadoop-yarn-server-timelineservice in the patch passed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 16s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 18m 12s{color} | {color:black} {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:a9ad5d6 |\n| JIRA Issue | YARN-6357 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12859365/YARN-6357.01.patch |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 32d1abca7430 3.13.0-106-generic #153-Ubuntu SMP Tue Dec 6 15:44:32 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / 4a8e304 |\n| Default Java | 1.8.0_121 |\n| findbugs | v3.0.0 |\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/15322/artifact/patchprocess/diff-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-timelineservice.txt |\n| javadoc | https://builds.apache.org/job/PreCommit-YARN-Build/15322/artifact/patchprocess/diff-javadoc-javadoc-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-timelineservice.txt |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/15322/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/15322/console |\n| Powered by | Apache Yetus 0.5.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-03-17T22:56:38.906+0000",
+            "updated": "2017-03-17T22:56:38.906+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15933141",
+            "id": "15933141",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Thanks [~haibochen] for the patch.\n\n# TODO comment in TimelineCollector#putEntitiesAsync should be removed.\n# Not related but in TimelineCollector#putEntities we can probably remove the log {{LOG.debug(\"SUCCESS - TIMELINE V2 PROTOTYPE\");}}\n# Duplicate code in putEntities and putEntitiesAsync, can probably be moved to a private method and we can then call this code from respective methods?\n# Checkstyle and javadoc issues seem fixable.\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2017-03-20T17:36:20.082+0000",
+            "updated": "2017-03-20T17:36:20.082+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15933517",
+            "id": "15933517",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks [~varun_saxena] for the review! I updated the patch accordingly with your comments.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-03-20T20:48:24.129+0000",
+            "updated": "2017-03-20T20:48:24.129+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15933545",
+            "id": "15933545",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "One thing I noticed, is that TimelineWriter.write() is effectively an async method, i.e. writeAsync() for the moment. \nIf we need to ensure entities are written to backend, we need to call TimelineWriter.flush(() after TimelineWriter.write().\nIn addition, both TimelineWriter implementations return new TimelineWriteResponse() in all situations, so response carries no value.\nI wonder if the TimelineWriter.write() should be renamed to writeAsync() and a new writeSync() should be added to make it cleaner.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-03-20T20:59:49.172+0000",
+            "updated": "2017-03-20T20:59:49.172+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15933594",
+            "id": "15933594",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (/) *{color:green}+1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 19s{color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 15m 59s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 19s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 14s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 21s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m 14s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 28s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 14s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 16s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 15s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 15s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 12s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 18s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m 11s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 33s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 12s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 45s{color} | {color:green} hadoop-yarn-server-timelineservice in the patch passed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 17s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 22m 37s{color} | {color:black} {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:a9ad5d6 |\n| JIRA Issue | YARN-6357 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12859632/YARN-6357.02.patch |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 23176df02cfb 3.13.0-105-generic #152-Ubuntu SMP Fri Dec 2 15:37:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / 6c399a8 |\n| Default Java | 1.8.0_121 |\n| findbugs | v3.0.0 |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/15338/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/15338/console |\n| Powered by | Apache Yetus 0.5.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-03-20T21:20:54.313+0000",
+            "updated": "2017-03-20T21:20:54.313+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15934549",
+            "id": "15934549",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "bq. I wonder if the TimelineWriter.write() should be renamed to writeAsync() and a new writeSync() should be added to make it cleaner.\nWe can do this but I personally think that even if we were to do this, or pass a flag to write API, we would basically be calling writeAsync and then call flush in writeSync API anyways because that is what we want to do. Because we want order of async and sync entities to be maintained.\nIf we were to separate the API, we will have to document that we want this behavior. \nCurrently we can control this behavior by calling flush after write explicitly for sync writes. And we have clearly documented what flush means.\nSo I personally think lets keep the APIs' as is. \n\nBut let's get views from others as well.\ncc [~jrottinghuis] / [~gtCarrera9]",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2017-03-21T12:31:16.157+0000",
+            "updated": "2017-03-21T12:31:16.157+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15935524",
+            "id": "15935524",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "By the way, coming to the patch, although almost all the writer implementations will have asynchronous writes and some buffering but there is no guarantee (unlikely but writer implementations can choose to persist data to backend immediately and choose to implement flush as a no-op), so lets name the method writeTimelineEntities instead of writeTimelineEntitiesAsync.\nAlso persistOutstandingTimelineEntities can be renamed to persistBufferedTimelineEntities. Or simply name the method flushEntities.\nAlso change the javadoc appropriately if you agree to change this.\n\nOther than this patch looks fine to me.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2017-03-21T23:15:11.792+0000",
+            "updated": "2017-03-22T10:42:02.274+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15936727",
+            "id": "15936727",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "\nIn the write APIs, I think it will be good to have an explicitly named async API and a sync API (rather than persistXX). \n\nI think the API doc should explain that  the sync one means syncing to call HBase flush and that aysnc means it will be translated to hbase#flush after a time interval or at the end of the application life.\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-03-22T17:20:08.953+0000",
+            "updated": "2017-03-22T17:20:08.953+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15936731",
+            "id": "15936731",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "Also, I am wondering if there is any way for the TimelineWriteResponse to indicate that a sync call was invoked or if an aync call was invoked. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+              "name": "vrushalic",
+              "key": "vrushalic",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+              },
+              "displayName": "Vrushali C",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-03-22T17:21:13.404+0000",
+            "updated": "2017-03-22T17:21:13.404+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15936763",
+            "id": "15936763",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "bq. Also, I am wondering if there is any way for the TimelineWriteResponse to indicate that a sync call was invoked or if an aync call was invoked.\nIf I am not wrong, async and sync call would lead to 2 separate puts so client should be knowing already which one is what so is it necessary to indicate so in response?\nIn TimelineV2ClientImpl we return directly for an async call and for sync, we wait. Some place you think this will be useful?\n\nbq. In the write APIs, I think it will be good to have an explicitly named async API and a sync API (rather than persistXX). I think the API doc should explain that the sync one means syncing to call HBase flush and that aysnc means it will be translated to hbase#flush after a time interval or at the end of the application life.\n[~vrushalic], are you referring to TimelineWriter interface when you talk about persistXXX APIs'? Actually the comments above are for code in TimelineCollector.\nAnyways coming to APIs' in TimelineWriter which Haibo referred to in his comment above, TimelineWriter is an interface so we cannot really talk about HBase flush functionality in the javadoc here. Probably can be mentioned as an example.\nAlso, we can split the APIs' or even pass a flag to write API and explain in javadoc that you should call flush mandatorily after write for sync calls and that should also flush buffered async calls if there is any buffering.\nBut if this is what we want writer (which is a pluggable interface) to do mandatorily and essentially writer implementation would also need to call write followed by flush for sync, can't we simply ensure the sequence from TimelineCollector itself? Is there some scenario where you think an explicit separate API will be useful? \nThoughts?",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2017-03-22T17:40:04.296+0000",
+            "updated": "2017-03-22T17:40:04.296+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15936770",
+            "id": "15936770",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "The way current code is structured, the responsibility of the writer is merely to buffer data and write it out.\nThe control of when to flush is still with the collector i.e. the timer to flush. So the reasoning from my side is that the control of flush from sync API can also be with the collector.\nHowever, this is not something which I feel strongly about so let us do whatever most of the people think.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2017-03-22T17:43:54.716+0000",
+            "updated": "2017-03-22T17:43:54.716+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15936804",
+            "id": "15936804",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Seems exact same thing has been discussed in YARN-3949 before.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2017-03-22T17:59:06.487+0000",
+            "updated": "2017-03-22T17:59:06.487+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15937110",
+            "id": "15937110",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks for the pointer [~varun_impala_149e].  Reading through the discussion there, it now makes sense to me why a TimelineWriter.writesync() is never added (https://issues.apache.org/jira/browse/YARN-3949?focusedCommentId=14640959&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-14640959). However, I think there is still some confusion in the current TimelienWriter API. Given the way TimelineCollector uses TimelineWriter, i.e. call flush() right after write() for synchronous putEntities requests, TimelineCollector expects TimelineWriter.write() to be asynchronous. In the meantime, it also expects a TimelineResponse from this asynchronous method, which I think is awkward and can cause confusion for alternative TimelineWriter implementations. \n\nI propose, we replace TimelineResponse with void as the return type, effectively making TimelineWriter API very much similar to that of BufferedMutator. This way, for truly asynchronous implementations of TimelineWriter.write(), such as HBaseTimelineWriter, no bogus TimelineResponse is created any more. For synchronous implementations, response can be given back in terms of IOException, that is, if the underlying synchronous store succeeds, no exception is thrown, otherwise, the failure is wrapped in a IOException and given back to TimelineCollector.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-03-22T21:01:38.676+0000",
+            "updated": "2017-03-22T21:01:38.676+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15937850",
+            "id": "15937850",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "bq. I propose, we replace TimelineResponse with void as the return type, effectively making TimelineWriter API very much similar to that of BufferedMutator.\nI think this would largely depend on the conclusion for the discussion taking place on YARN-5269. \nThe proposal above is fine if we decide to propagate only an exception from the collector and not send errors per entity. So lets do this in YARN-5269.\nWe can merely implement the async API here.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2017-03-23T07:08:01.916+0000",
+            "updated": "2017-03-23T07:08:01.916+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15938910",
+            "id": "15938910",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "bq. We can merely implement the async API here.\nSure. Will update the patch based on your previous comments.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-03-23T17:57:50.757+0000",
+            "updated": "2017-03-23T17:57:50.757+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15939031",
+            "id": "15939031",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (/) *{color:green}+1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 23s{color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 14m 30s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 18s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 14s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 19s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m 14s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 28s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 14s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 16s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 15s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 15s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 11s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 17s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m 12s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 36s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 15s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 46s{color} | {color:green} hadoop-yarn-server-timelineservice in the patch passed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 19s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 21m 13s{color} | {color:black} {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:a9ad5d6 |\n| JIRA Issue | YARN-6357 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12860203/YARN-6357.03.patch |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux a47bbf8a88ad 3.13.0-105-generic #152-Ubuntu SMP Fri Dec 2 15:37:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / 2e30aa7 |\n| Default Java | 1.8.0_121 |\n| findbugs | v3.0.0 |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/15366/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/15366/console |\n| Powered by | Apache Yetus 0.5.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-03-23T18:59:49.990+0000",
+            "updated": "2017-03-23T18:59:49.990+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15940821",
+            "id": "15940821",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Thanks [~haibochen] for the latest patch.\n\nA nit in the javadoc for flushBufferedTimelineEntities\n\n* We should say *flushing* instead of  putting below.\n{code}\n160\t   * @throws IOException if there is any exception encountered while putting\n161\t   *     buffered entities\n{code}\n\nAlso maybe say \"Flush buffered timeline entities, if any.\" instead of \"Flush any buffered TimelineEntities.\"",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2017-03-24T17:54:56.305+0000",
+            "updated": "2017-03-24T17:54:56.305+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15941084",
+            "id": "15941084",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Updated the patch according to your catch.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-03-24T20:31:23.822+0000",
+            "updated": "2017-03-24T20:31:23.822+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15941120",
+            "id": "15941120",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (/) *{color:green}+1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 19s{color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 13m 39s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 16s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 13s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 18s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m 12s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 25s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 14s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 15s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 13s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 13s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 10s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 16s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m 10s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 32s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 11s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 39s{color} | {color:green} hadoop-yarn-server-timelineservice in the patch passed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 20s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 19m 37s{color} | {color:black} {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:a9ad5d6 |\n| JIRA Issue | YARN-6357 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12860442/YARN-6357.04.patch |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 27d4f4182342 3.13.0-106-generic #153-Ubuntu SMP Tue Dec 6 15:44:32 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / 332a997 |\n| Default Java | 1.8.0_121 |\n| findbugs | v3.0.0 |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/15381/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/15381/console |\n| Powered by | Apache Yetus 0.5.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-03-24T20:58:18.768+0000",
+            "updated": "2017-03-24T20:58:18.768+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15941236",
+            "id": "15941236",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Thanks Haibo. Will commit it in a day.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2017-03-24T22:13:13.072+0000",
+            "updated": "2017-03-24T22:13:13.072+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15942262",
+            "id": "15942262",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "[~haibochen], in TimelineCollectorWebServices, shouldn't the code be the reverse of below?\nIf isAsync is true we should call putEnttiesAsync not putEntities.\n{code}\n169\t      boolean isAsync = async != null && async.trim().equalsIgnoreCase(\"true\");\n170\t      if (isAsync) {\n171\t        collector.putEntities(processTimelineEntities(entities), callerUgi);\n172\t      } else {\n173\t        collector.putEntitiesAsync(\n174\t            processTimelineEntities(entities), callerUgi);\n175\t      }\n{code}",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2017-03-26T12:33:59.250+0000",
+            "updated": "2017-03-26T12:33:59.250+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15943592",
+            "id": "15943592",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "My bad, I'll update the patch shortly.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-03-27T16:40:12.653+0000",
+            "updated": "2017-03-27T16:40:12.653+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15943674",
+            "id": "15943674",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "| (/) *{color:green}+1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 46s{color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 13m  9s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 15s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 13s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 18s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m 12s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 24s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 13s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 15s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 13s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 13s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m  9s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 15s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m  9s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 29s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 11s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 40s{color} | {color:green} hadoop-yarn-server-timelineservice in the patch passed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 19s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 19m 37s{color} | {color:black} {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:a9ad5d6 |\n| JIRA Issue | YARN-6357 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12860683/YARN-6357.05.patch |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 7dcf01db948b 3.13.0-108-generic #155-Ubuntu SMP Wed Jan 11 16:58:52 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / 858d597 |\n| Default Java | 1.8.0_121 |\n| findbugs | v3.0.0 |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/15397/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/15397/console |\n| Powered by | Apache Yetus 0.5.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+              "name": "hadoopqa",
+              "key": "hadoopqa",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+              },
+              "displayName": "Hadoop QA",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-03-27T17:21:13.882+0000",
+            "updated": "2017-03-27T17:21:13.882+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15946068",
+            "id": "15946068",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "+1. Will commit it shortly.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2017-03-28T22:16:18.363+0000",
+            "updated": "2017-03-28T22:16:18.363+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15946097",
+            "id": "15946097",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "body": "Committed to trunk, YARN-5355 and YARN-5355-branch-2.\nThanks [~haibochen] for your contribution. Thanks [~jrottinghuis] and [~vrushalic] for reviews",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+              "name": "varun_saxena",
+              "key": "varun_saxena",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Varun Saxena",
+              "active": true,
+              "timeZone": "Asia/Kolkata"
+            },
+            "created": "2017-03-28T22:36:19.932+0000",
+            "updated": "2017-03-28T22:37:01.283+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15946113",
+            "id": "15946113",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "body": "SUCCESS: Integrated in Jenkins build Hadoop-trunk-Commit #11484 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/11484/])\nYARN-6357. Implement putEntitiesAsync API in TimelineCollector (Haibo (varunsaxena: rev 063b513b1c10987461caab3d26c8543c6e657bf7)\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice/src/test/java/org/apache/hadoop/yarn/server/timelineservice/collector/TestTimelineCollector.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice/src/main/java/org/apache/hadoop/yarn/server/timelineservice/collector/TimelineCollectorWebService.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice/src/main/java/org/apache/hadoop/yarn/server/timelineservice/collector/TimelineCollector.java\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+              "name": "hudson",
+              "key": "hudson",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Hudson",
+              "active": true,
+              "timeZone": "Etc/UTC"
+            },
+            "created": "2017-03-28T22:41:07.077+0000",
+            "updated": "2017-03-28T22:41:07.077+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15946127",
+            "id": "15946127",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Thanks [~varun_saxena] for your reviews and commit!",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+              "name": "haibochen",
+              "key": "haibochen",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Haibo Chen",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2017-03-28T22:55:21.513+0000",
+            "updated": "2017-03-28T22:55:21.513+0000"
+          }
+        ],
+        "maxResults": 31,
+        "total": 31,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-6357/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2017-10-21T06:05:17.414+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 31,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15929037",
+        "id": "15929037",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Correct. This is what I was suspecting in the previous call.\nIn YARN-3367 sync/async changes were only made on the client side.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2017-03-16T22:26:00.043+0000",
+        "updated": "2017-03-16T22:26:00.043+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15929048",
+        "id": "15929048",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "bq. We have two separate methods on our API putEntities and putEntitiesAsync and they should have different behavior beyond waiting for the request to be sent. I can file a separate bug from this one dealing with exception handling to tackle the sync vs async nature.\nSorry couldn't get this. Which exception handling part will be handled in this JIRA? IIUC, this JIRA is intended to check isAsync flag and call flush immediately for a sync call.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2017-03-16T22:30:35.134+0000",
+        "updated": "2017-03-16T22:30:35.134+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15929254",
+        "id": "15929254",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jrottinghuis",
+          "name": "jrottinghuis",
+          "key": "jrottinghuis",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Joep Rottinghuis",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "bq. I can file a separate bug from this one dealing with exception handling to tackle the sync vs async nature.\nSorry, copy paste from previous bug YARN-5269. This _is_ the separate jira.\n\n[~varun_saxena] you were right in the previous call. I was thinking about the writer side where flush works correctly, you were thinking one level up where flush wasn't appropriately called.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=jrottinghuis",
+          "name": "jrottinghuis",
+          "key": "jrottinghuis",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Joep Rottinghuis",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-03-17T00:51:43.752+0000",
+        "updated": "2017-03-17T00:51:43.752+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15930832",
+        "id": "15930832",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Upload an initial patch for review. I did not call putEntitiesAsync() in putEntities because this will require putEntitiesAsync() to return a response, which I think is weird for an async method. Plus, the debug logging for the sync and async putEntities call can also be awkward. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-03-17T22:23:22.142+0000",
+        "updated": "2017-03-17T22:26:38.219+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15930863",
+        "id": "15930863",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (x) *{color:red}-1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 15s{color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 12m 26s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 16s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 12s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 17s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m 12s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 25s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 14s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 14s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 14s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 14s{color} | {color:green} the patch passed {color} |\n| {color:orange}-0{color} | {color:orange} checkstyle {color} | {color:orange}  0m 10s{color} | {color:orange} hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice: The patch generated 3 new + 1 unchanged - 0 fixed = 4 total (was 1) {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 15s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m  9s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 29s{color} | {color:green} the patch passed {color} |\n| {color:red}-1{color} | {color:red} javadoc {color} | {color:red}  0m 10s{color} | {color:red} hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-timelineservice generated 1 new + 0 unchanged - 0 fixed = 1 total (was 0) {color} |\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 39s{color} | {color:green} hadoop-yarn-server-timelineservice in the patch passed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 16s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 18m 12s{color} | {color:black} {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:a9ad5d6 |\n| JIRA Issue | YARN-6357 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12859365/YARN-6357.01.patch |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 32d1abca7430 3.13.0-106-generic #153-Ubuntu SMP Tue Dec 6 15:44:32 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / 4a8e304 |\n| Default Java | 1.8.0_121 |\n| findbugs | v3.0.0 |\n| checkstyle | https://builds.apache.org/job/PreCommit-YARN-Build/15322/artifact/patchprocess/diff-checkstyle-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-timelineservice.txt |\n| javadoc | https://builds.apache.org/job/PreCommit-YARN-Build/15322/artifact/patchprocess/diff-javadoc-javadoc-hadoop-yarn-project_hadoop-yarn_hadoop-yarn-server_hadoop-yarn-server-timelineservice.txt |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/15322/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/15322/console |\n| Powered by | Apache Yetus 0.5.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-03-17T22:56:38.906+0000",
+        "updated": "2017-03-17T22:56:38.906+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15933141",
+        "id": "15933141",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Thanks [~haibochen] for the patch.\n\n# TODO comment in TimelineCollector#putEntitiesAsync should be removed.\n# Not related but in TimelineCollector#putEntities we can probably remove the log {{LOG.debug(\"SUCCESS - TIMELINE V2 PROTOTYPE\");}}\n# Duplicate code in putEntities and putEntitiesAsync, can probably be moved to a private method and we can then call this code from respective methods?\n# Checkstyle and javadoc issues seem fixable.\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2017-03-20T17:36:20.082+0000",
+        "updated": "2017-03-20T17:36:20.082+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15933517",
+        "id": "15933517",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks [~varun_saxena] for the review! I updated the patch accordingly with your comments.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-03-20T20:48:24.129+0000",
+        "updated": "2017-03-20T20:48:24.129+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15933545",
+        "id": "15933545",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "One thing I noticed, is that TimelineWriter.write() is effectively an async method, i.e. writeAsync() for the moment. \nIf we need to ensure entities are written to backend, we need to call TimelineWriter.flush(() after TimelineWriter.write().\nIn addition, both TimelineWriter implementations return new TimelineWriteResponse() in all situations, so response carries no value.\nI wonder if the TimelineWriter.write() should be renamed to writeAsync() and a new writeSync() should be added to make it cleaner.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-03-20T20:59:49.172+0000",
+        "updated": "2017-03-20T20:59:49.172+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15933594",
+        "id": "15933594",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (/) *{color:green}+1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 19s{color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 15m 59s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 19s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 14s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 21s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m 14s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 28s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 14s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 16s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 15s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 15s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 12s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 18s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m 11s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 33s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 12s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 45s{color} | {color:green} hadoop-yarn-server-timelineservice in the patch passed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 17s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 22m 37s{color} | {color:black} {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:a9ad5d6 |\n| JIRA Issue | YARN-6357 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12859632/YARN-6357.02.patch |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 23176df02cfb 3.13.0-105-generic #152-Ubuntu SMP Fri Dec 2 15:37:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / 6c399a8 |\n| Default Java | 1.8.0_121 |\n| findbugs | v3.0.0 |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/15338/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/15338/console |\n| Powered by | Apache Yetus 0.5.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-03-20T21:20:54.313+0000",
+        "updated": "2017-03-20T21:20:54.313+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15934549",
+        "id": "15934549",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "bq. I wonder if the TimelineWriter.write() should be renamed to writeAsync() and a new writeSync() should be added to make it cleaner.\nWe can do this but I personally think that even if we were to do this, or pass a flag to write API, we would basically be calling writeAsync and then call flush in writeSync API anyways because that is what we want to do. Because we want order of async and sync entities to be maintained.\nIf we were to separate the API, we will have to document that we want this behavior. \nCurrently we can control this behavior by calling flush after write explicitly for sync writes. And we have clearly documented what flush means.\nSo I personally think lets keep the APIs' as is. \n\nBut let's get views from others as well.\ncc [~jrottinghuis] / [~gtCarrera9]",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2017-03-21T12:31:16.157+0000",
+        "updated": "2017-03-21T12:31:16.157+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15935524",
+        "id": "15935524",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "By the way, coming to the patch, although almost all the writer implementations will have asynchronous writes and some buffering but there is no guarantee (unlikely but writer implementations can choose to persist data to backend immediately and choose to implement flush as a no-op), so lets name the method writeTimelineEntities instead of writeTimelineEntitiesAsync.\nAlso persistOutstandingTimelineEntities can be renamed to persistBufferedTimelineEntities. Or simply name the method flushEntities.\nAlso change the javadoc appropriately if you agree to change this.\n\nOther than this patch looks fine to me.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2017-03-21T23:15:11.792+0000",
+        "updated": "2017-03-22T10:42:02.274+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15936727",
+        "id": "15936727",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "\nIn the write APIs, I think it will be good to have an explicitly named async API and a sync API (rather than persistXX). \n\nI think the API doc should explain that  the sync one means syncing to call HBase flush and that aysnc means it will be translated to hbase#flush after a time interval or at the end of the application life.\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-03-22T17:20:08.953+0000",
+        "updated": "2017-03-22T17:20:08.953+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15936731",
+        "id": "15936731",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "Also, I am wondering if there is any way for the TimelineWriteResponse to indicate that a sync call was invoked or if an aync call was invoked. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=vrushalic",
+          "name": "vrushalic",
+          "key": "vrushalic",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10433",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10433",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10433",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10433"
+          },
+          "displayName": "Vrushali C",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-03-22T17:21:13.404+0000",
+        "updated": "2017-03-22T17:21:13.404+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15936763",
+        "id": "15936763",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "bq. Also, I am wondering if there is any way for the TimelineWriteResponse to indicate that a sync call was invoked or if an aync call was invoked.\nIf I am not wrong, async and sync call would lead to 2 separate puts so client should be knowing already which one is what so is it necessary to indicate so in response?\nIn TimelineV2ClientImpl we return directly for an async call and for sync, we wait. Some place you think this will be useful?\n\nbq. In the write APIs, I think it will be good to have an explicitly named async API and a sync API (rather than persistXX). I think the API doc should explain that the sync one means syncing to call HBase flush and that aysnc means it will be translated to hbase#flush after a time interval or at the end of the application life.\n[~vrushalic], are you referring to TimelineWriter interface when you talk about persistXXX APIs'? Actually the comments above are for code in TimelineCollector.\nAnyways coming to APIs' in TimelineWriter which Haibo referred to in his comment above, TimelineWriter is an interface so we cannot really talk about HBase flush functionality in the javadoc here. Probably can be mentioned as an example.\nAlso, we can split the APIs' or even pass a flag to write API and explain in javadoc that you should call flush mandatorily after write for sync calls and that should also flush buffered async calls if there is any buffering.\nBut if this is what we want writer (which is a pluggable interface) to do mandatorily and essentially writer implementation would also need to call write followed by flush for sync, can't we simply ensure the sequence from TimelineCollector itself? Is there some scenario where you think an explicit separate API will be useful? \nThoughts?",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2017-03-22T17:40:04.296+0000",
+        "updated": "2017-03-22T17:40:04.296+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15936770",
+        "id": "15936770",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "The way current code is structured, the responsibility of the writer is merely to buffer data and write it out.\nThe control of when to flush is still with the collector i.e. the timer to flush. So the reasoning from my side is that the control of flush from sync API can also be with the collector.\nHowever, this is not something which I feel strongly about so let us do whatever most of the people think.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2017-03-22T17:43:54.716+0000",
+        "updated": "2017-03-22T17:43:54.716+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15936804",
+        "id": "15936804",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Seems exact same thing has been discussed in YARN-3949 before.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2017-03-22T17:59:06.487+0000",
+        "updated": "2017-03-22T17:59:06.487+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15937110",
+        "id": "15937110",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks for the pointer [~varun_impala_149e].  Reading through the discussion there, it now makes sense to me why a TimelineWriter.writesync() is never added (https://issues.apache.org/jira/browse/YARN-3949?focusedCommentId=14640959&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-14640959). However, I think there is still some confusion in the current TimelienWriter API. Given the way TimelineCollector uses TimelineWriter, i.e. call flush() right after write() for synchronous putEntities requests, TimelineCollector expects TimelineWriter.write() to be asynchronous. In the meantime, it also expects a TimelineResponse from this asynchronous method, which I think is awkward and can cause confusion for alternative TimelineWriter implementations. \n\nI propose, we replace TimelineResponse with void as the return type, effectively making TimelineWriter API very much similar to that of BufferedMutator. This way, for truly asynchronous implementations of TimelineWriter.write(), such as HBaseTimelineWriter, no bogus TimelineResponse is created any more. For synchronous implementations, response can be given back in terms of IOException, that is, if the underlying synchronous store succeeds, no exception is thrown, otherwise, the failure is wrapped in a IOException and given back to TimelineCollector.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-03-22T21:01:38.676+0000",
+        "updated": "2017-03-22T21:01:38.676+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15937850",
+        "id": "15937850",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "bq. I propose, we replace TimelineResponse with void as the return type, effectively making TimelineWriter API very much similar to that of BufferedMutator.\nI think this would largely depend on the conclusion for the discussion taking place on YARN-5269. \nThe proposal above is fine if we decide to propagate only an exception from the collector and not send errors per entity. So lets do this in YARN-5269.\nWe can merely implement the async API here.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2017-03-23T07:08:01.916+0000",
+        "updated": "2017-03-23T07:08:01.916+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15938910",
+        "id": "15938910",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "bq. We can merely implement the async API here.\nSure. Will update the patch based on your previous comments.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-03-23T17:57:50.757+0000",
+        "updated": "2017-03-23T17:57:50.757+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15939031",
+        "id": "15939031",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (/) *{color:green}+1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 23s{color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 14m 30s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 18s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 14s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 19s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m 14s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 28s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 14s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 16s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 15s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 15s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 11s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 17s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m 12s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 36s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 15s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 46s{color} | {color:green} hadoop-yarn-server-timelineservice in the patch passed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 19s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 21m 13s{color} | {color:black} {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:a9ad5d6 |\n| JIRA Issue | YARN-6357 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12860203/YARN-6357.03.patch |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux a47bbf8a88ad 3.13.0-105-generic #152-Ubuntu SMP Fri Dec 2 15:37:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / 2e30aa7 |\n| Default Java | 1.8.0_121 |\n| findbugs | v3.0.0 |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/15366/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/15366/console |\n| Powered by | Apache Yetus 0.5.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-03-23T18:59:49.990+0000",
+        "updated": "2017-03-23T18:59:49.990+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15940821",
+        "id": "15940821",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Thanks [~haibochen] for the latest patch.\n\nA nit in the javadoc for flushBufferedTimelineEntities\n\n* We should say *flushing* instead of  putting below.\n{code}\n160\t   * @throws IOException if there is any exception encountered while putting\n161\t   *     buffered entities\n{code}\n\nAlso maybe say \"Flush buffered timeline entities, if any.\" instead of \"Flush any buffered TimelineEntities.\"",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2017-03-24T17:54:56.305+0000",
+        "updated": "2017-03-24T17:54:56.305+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15941084",
+        "id": "15941084",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Updated the patch according to your catch.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-03-24T20:31:23.822+0000",
+        "updated": "2017-03-24T20:31:23.822+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15941120",
+        "id": "15941120",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (/) *{color:green}+1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 19s{color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 13m 39s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 16s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 13s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 18s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m 12s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 25s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 14s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 15s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 13s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 13s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 10s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 16s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m 10s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 32s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 11s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 39s{color} | {color:green} hadoop-yarn-server-timelineservice in the patch passed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 20s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 19m 37s{color} | {color:black} {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:a9ad5d6 |\n| JIRA Issue | YARN-6357 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12860442/YARN-6357.04.patch |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 27d4f4182342 3.13.0-106-generic #153-Ubuntu SMP Tue Dec 6 15:44:32 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / 332a997 |\n| Default Java | 1.8.0_121 |\n| findbugs | v3.0.0 |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/15381/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/15381/console |\n| Powered by | Apache Yetus 0.5.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-03-24T20:58:18.768+0000",
+        "updated": "2017-03-24T20:58:18.768+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15941236",
+        "id": "15941236",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Thanks Haibo. Will commit it in a day.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2017-03-24T22:13:13.072+0000",
+        "updated": "2017-03-24T22:13:13.072+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15942262",
+        "id": "15942262",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "[~haibochen], in TimelineCollectorWebServices, shouldn't the code be the reverse of below?\nIf isAsync is true we should call putEnttiesAsync not putEntities.\n{code}\n169\t      boolean isAsync = async != null && async.trim().equalsIgnoreCase(\"true\");\n170\t      if (isAsync) {\n171\t        collector.putEntities(processTimelineEntities(entities), callerUgi);\n172\t      } else {\n173\t        collector.putEntitiesAsync(\n174\t            processTimelineEntities(entities), callerUgi);\n175\t      }\n{code}",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2017-03-26T12:33:59.250+0000",
+        "updated": "2017-03-26T12:33:59.250+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15943592",
+        "id": "15943592",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "My bad, I'll update the patch shortly.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-03-27T16:40:12.653+0000",
+        "updated": "2017-03-27T16:40:12.653+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15943674",
+        "id": "15943674",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "| (/) *{color:green}+1 overall{color}* |\n\\\\\n\\\\\n|| Vote || Subsystem || Runtime || Comment ||\n| {color:blue}0{color} | {color:blue} reexec {color} | {color:blue}  0m 46s{color} | {color:blue} Docker mode activated. {color} |\n| {color:green}+1{color} | {color:green} @author {color} | {color:green}  0m  0s{color} | {color:green} The patch does not contain any @author tags. {color} |\n| {color:green}+1{color} | {color:green} test4tests {color} | {color:green}  0m  0s{color} | {color:green} The patch appears to include 1 new or modified test files. {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green} 13m  9s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 15s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m 13s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 18s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m 12s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 24s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 13s{color} | {color:green} trunk passed {color} |\n| {color:green}+1{color} | {color:green} mvninstall {color} | {color:green}  0m 15s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} compile {color} | {color:green}  0m 13s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javac {color} | {color:green}  0m 13s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} checkstyle {color} | {color:green}  0m  9s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvnsite {color} | {color:green}  0m 15s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} mvneclipse {color} | {color:green}  0m  9s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} whitespace {color} | {color:green}  0m  0s{color} | {color:green} The patch has no whitespace issues. {color} |\n| {color:green}+1{color} | {color:green} findbugs {color} | {color:green}  0m 29s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} javadoc {color} | {color:green}  0m 11s{color} | {color:green} the patch passed {color} |\n| {color:green}+1{color} | {color:green} unit {color} | {color:green}  0m 40s{color} | {color:green} hadoop-yarn-server-timelineservice in the patch passed. {color} |\n| {color:green}+1{color} | {color:green} asflicense {color} | {color:green}  0m 19s{color} | {color:green} The patch does not generate ASF License warnings. {color} |\n| {color:black}{color} | {color:black} {color} | {color:black} 19m 37s{color} | {color:black} {color} |\n\\\\\n\\\\\n|| Subsystem || Report/Notes ||\n| Docker |  Image:yetus/hadoop:a9ad5d6 |\n| JIRA Issue | YARN-6357 |\n| JIRA Patch URL | https://issues.apache.org/jira/secure/attachment/12860683/YARN-6357.05.patch |\n| Optional Tests |  asflicense  compile  javac  javadoc  mvninstall  mvnsite  unit  findbugs  checkstyle  |\n| uname | Linux 7dcf01db948b 3.13.0-108-generic #155-Ubuntu SMP Wed Jan 11 16:58:52 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux |\n| Build tool | maven |\n| Personality | /testptch/hadoop/patchprocess/precommit/personality/provided.sh |\n| git revision | trunk / 858d597 |\n| Default Java | 1.8.0_121 |\n| findbugs | v3.0.0 |\n|  Test Results | https://builds.apache.org/job/PreCommit-YARN-Build/15397/testReport/ |\n| modules | C: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice U: hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice |\n| Console output | https://builds.apache.org/job/PreCommit-YARN-Build/15397/console |\n| Powered by | Apache Yetus 0.5.0-SNAPSHOT   http://yetus.apache.org |\n\n\nThis message was automatically generated.\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hadoopqa",
+          "name": "hadoopqa",
+          "key": "hadoopqa",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?ownerId=hadoopqa&avatarId=10393",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&ownerId=hadoopqa&avatarId=10393",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&ownerId=hadoopqa&avatarId=10393",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&ownerId=hadoopqa&avatarId=10393"
+          },
+          "displayName": "Hadoop QA",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-03-27T17:21:13.882+0000",
+        "updated": "2017-03-27T17:21:13.882+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15946068",
+        "id": "15946068",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "+1. Will commit it shortly.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2017-03-28T22:16:18.363+0000",
+        "updated": "2017-03-28T22:16:18.363+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15946097",
+        "id": "15946097",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "body": "Committed to trunk, YARN-5355 and YARN-5355-branch-2.\nThanks [~haibochen] for your contribution. Thanks [~jrottinghuis] and [~vrushalic] for reviews",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=varun_saxena",
+          "name": "varun_saxena",
+          "key": "varun_saxena",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Varun Saxena",
+          "active": true,
+          "timeZone": "Asia/Kolkata"
+        },
+        "created": "2017-03-28T22:36:19.932+0000",
+        "updated": "2017-03-28T22:37:01.283+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15946113",
+        "id": "15946113",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "body": "SUCCESS: Integrated in Jenkins build Hadoop-trunk-Commit #11484 (See [https://builds.apache.org/job/Hadoop-trunk-Commit/11484/])\nYARN-6357. Implement putEntitiesAsync API in TimelineCollector (Haibo (varunsaxena: rev 063b513b1c10987461caab3d26c8543c6e657bf7)\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice/src/test/java/org/apache/hadoop/yarn/server/timelineservice/collector/TestTimelineCollector.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice/src/main/java/org/apache/hadoop/yarn/server/timelineservice/collector/TimelineCollectorWebService.java\n* (edit) hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-timelineservice/src/main/java/org/apache/hadoop/yarn/server/timelineservice/collector/TimelineCollector.java\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=hudson",
+          "name": "hudson",
+          "key": "hudson",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Hudson",
+          "active": true,
+          "timeZone": "Etc/UTC"
+        },
+        "created": "2017-03-28T22:41:07.077+0000",
+        "updated": "2017-03-28T22:41:07.077+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/13056813/comment/15946127",
+        "id": "15946127",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Thanks [~varun_saxena] for your reviews and commit!",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=haibochen",
+          "name": "haibochen",
+          "key": "haibochen",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Haibo Chen",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2017-03-28T22:55:21.513+0000",
+        "updated": "2017-03-28T22:55:21.513+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-6357/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 31,
+        "returned": 31
+      }
+    ]
+  }
+}

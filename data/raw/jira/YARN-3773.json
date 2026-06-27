@@ -1,0 +1,352 @@
+{
+  "downloaded_at": "2026-06-25T10:21:59.853420+00:00",
+  "source": "Apache Jira REST API v2",
+  "issue_key": "YARN-3773",
+  "issue_url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3773?fields=id%2Ckey%2Csummary%2Cdescription%2Cparent%2Cvotes%2Ccomment%2Cattachment%2Cissuetype%2Cstatus%2Cpriority%2Cresolution%2Clabels%2Ccomponents%2Ccreated%2Cupdated%2Cissuelinks%2Csubtasks",
+  "requested_fields": [
+    "id",
+    "key",
+    "summary",
+    "description",
+    "parent",
+    "votes",
+    "comment",
+    "attachment",
+    "issuetype",
+    "status",
+    "priority",
+    "resolution",
+    "labels",
+    "components",
+    "created",
+    "updated",
+    "issuelinks",
+    "subtasks"
+  ],
+  "issue_response": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "12835752",
+    "self": "https://issues.apache.org/jira/rest/api/2/issue/12835752",
+    "key": "YARN-3773",
+    "fields": {
+      "summary": "hadoop-yarn-server-nodemanager needs cross-platform equivalents of Linux /sbin/tc",
+      "issuetype": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issuetype/7",
+        "id": "7",
+        "description": "The sub-task of the issue",
+        "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21146&avatarType=issuetype",
+        "name": "Sub-task",
+        "subtask": true,
+        "avatarId": 21146
+      },
+      "parent": {
+        "id": "12832814",
+        "key": "YARN-3719",
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12832814",
+        "fields": {
+          "summary": "Improve Solaris support in YARN",
+          "status": {
+            "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+            "description": "The issue is open and ready for the assignee to start work on it.",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+            "name": "Open",
+            "id": "1",
+            "statusCategory": {
+              "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+            "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://issues.apache.org/jira/rest/api/2/issuetype/2",
+            "id": "2",
+            "description": "A new feature of the product, which has yet to be developed.",
+            "iconUrl": "https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21141&avatarType=issuetype",
+            "name": "New Feature",
+            "subtask": false,
+            "avatarId": 21141
+          }
+        }
+      },
+      "components": [
+        {
+          "self": "https://issues.apache.org/jira/rest/api/2/component/12319323",
+          "id": "12319323",
+          "name": "nodemanager"
+        }
+      ],
+      "subtasks": [],
+      "created": "2015-06-05T15:02:49.070+0000",
+      "description": "hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/native/container-executor/impl/container-executor.c makes use of the Linux-only executable /sbin/tc (http://lartc.org/manpages/tc.txt)  but there is no corresponding functionality for non-Linux platforms. The code in question also seems to try to execute tc even on platforms where it will never exist.\n\nOther platforms provide similar functionality, e.g. Solaris has an extensive range of network management features (http://www.oracle.com/technetwork/articles/servers-storage-admin/o11-095-s11-app-traffic-525038.html). Work is needed to abstract the network management features of Yarn so that the same facilities for network management can be provided on all platforms that provide the requisite functionality,\n",
+      "priority": {
+        "self": "https://issues.apache.org/jira/rest/api/2/priority/3",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/priorities/major.svg",
+        "name": "Major",
+        "id": "3"
+      },
+      "resolution": null,
+      "labels": [],
+      "attachment": [],
+      "issuelinks": [],
+      "comment": {
+        "comments": [
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12835752/comment/15205680",
+            "id": "15205680",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sidharta-s",
+              "name": "sidharta-s",
+              "key": "sidharta-s",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sidharta Seethana",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Hi [~alanburlison],\n\nCould you please elaborate what you are referring to here?\n\n{quote}\nThe code in question also seems to try to execute tc even on platforms where it will never exist.\n{quote}\n\nThe container-executor binary is only used by the LinuxContainerExecutor - so I am wondering what you meant by this. \n\nthanks,\n-Sidharta\n\n\n",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sidharta-s",
+              "name": "sidharta-s",
+              "key": "sidharta-s",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sidharta Seethana",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-03-22T03:00:04.065+0000",
+            "updated": "2016-03-22T03:00:04.065+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12835752/comment/15221697",
+            "id": "15221697",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=alanburlison",
+              "name": "alanburlison",
+              "key": "alanburlison",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alan Burlison",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "body": "I hadn't drilled down so I wasn't sure if it did/didn't get executed elsewhere. In any case, equivalent functionality is needed on other platforms.",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=alanburlison",
+              "name": "alanburlison",
+              "key": "alanburlison",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Alan Burlison",
+              "active": true,
+              "timeZone": "Europe/London"
+            },
+            "created": "2016-04-01T13:43:17.194+0000",
+            "updated": "2016-04-01T13:43:17.194+0000"
+          },
+          {
+            "self": "https://issues.apache.org/jira/rest/api/2/issue/12835752/comment/15221973",
+            "id": "15221973",
+            "author": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sidharta-s",
+              "name": "sidharta-s",
+              "key": "sidharta-s",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sidharta Seethana",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "body": "Ok, thanks for the clarification. Could you please update the description accordingly? Folks running into this JIRA might get an incorrect impression of how the container-executor is used. ",
+            "updateAuthor": {
+              "self": "https://issues.apache.org/jira/rest/api/2/user?username=sidharta-s",
+              "name": "sidharta-s",
+              "key": "sidharta-s",
+              "avatarUrls": {
+                "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+                "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+                "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+                "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+              },
+              "displayName": "Sidharta Seethana",
+              "active": true,
+              "timeZone": "America/Los_Angeles"
+            },
+            "created": "2016-04-01T16:58:16.329+0000",
+            "updated": "2016-04-01T16:58:16.329+0000"
+          }
+        ],
+        "maxResults": 3,
+        "total": 3,
+        "startAt": 0
+      },
+      "votes": {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3773/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "updated": "2016-04-01T17:48:05.539+0000",
+      "status": {
+        "self": "https://issues.apache.org/jira/rest/api/2/status/1",
+        "description": "The issue is open and ready for the assignee to start work on it.",
+        "iconUrl": "https://issues.apache.org/jira/images/icons/statuses/open.png",
+        "name": "Open",
+        "id": "1",
+        "statusCategory": {
+          "self": "https://issues.apache.org/jira/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "comments_response": {
+    "total": 3,
+    "comments": [
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12835752/comment/15205680",
+        "id": "15205680",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sidharta-s",
+          "name": "sidharta-s",
+          "key": "sidharta-s",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sidharta Seethana",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Hi [~alanburlison],\n\nCould you please elaborate what you are referring to here?\n\n{quote}\nThe code in question also seems to try to execute tc even on platforms where it will never exist.\n{quote}\n\nThe container-executor binary is only used by the LinuxContainerExecutor - so I am wondering what you meant by this. \n\nthanks,\n-Sidharta\n\n\n",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sidharta-s",
+          "name": "sidharta-s",
+          "key": "sidharta-s",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sidharta Seethana",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-03-22T03:00:04.065+0000",
+        "updated": "2016-03-22T03:00:04.065+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12835752/comment/15221697",
+        "id": "15221697",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=alanburlison",
+          "name": "alanburlison",
+          "key": "alanburlison",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alan Burlison",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "body": "I hadn't drilled down so I wasn't sure if it did/didn't get executed elsewhere. In any case, equivalent functionality is needed on other platforms.",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=alanburlison",
+          "name": "alanburlison",
+          "key": "alanburlison",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Alan Burlison",
+          "active": true,
+          "timeZone": "Europe/London"
+        },
+        "created": "2016-04-01T13:43:17.194+0000",
+        "updated": "2016-04-01T13:43:17.194+0000"
+      },
+      {
+        "self": "https://issues.apache.org/jira/rest/api/2/issue/12835752/comment/15221973",
+        "id": "15221973",
+        "author": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sidharta-s",
+          "name": "sidharta-s",
+          "key": "sidharta-s",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sidharta Seethana",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "body": "Ok, thanks for the clarification. Could you please update the description accordingly? Folks running into this JIRA might get an incorrect impression of how the container-executor is used. ",
+        "updateAuthor": {
+          "self": "https://issues.apache.org/jira/rest/api/2/user?username=sidharta-s",
+          "name": "sidharta-s",
+          "key": "sidharta-s",
+          "avatarUrls": {
+            "48x48": "https://issues.apache.org/jira/secure/useravatar?avatarId=10452",
+            "24x24": "https://issues.apache.org/jira/secure/useravatar?size=small&avatarId=10452",
+            "16x16": "https://issues.apache.org/jira/secure/useravatar?size=xsmall&avatarId=10452",
+            "32x32": "https://issues.apache.org/jira/secure/useravatar?size=medium&avatarId=10452"
+          },
+          "displayName": "Sidharta Seethana",
+          "active": true,
+          "timeZone": "America/Los_Angeles"
+        },
+        "created": "2016-04-01T16:58:16.329+0000",
+        "updated": "2016-04-01T16:58:16.329+0000"
+      }
+    ],
+    "pages": [
+      {
+        "url": "https://issues.apache.org/jira/rest/api/2/issue/YARN-3773/comment?startAt=0&maxResults=100",
+        "startAt": 0,
+        "maxResults": 100,
+        "total": 3,
+        "returned": 3
+      }
+    ]
+  }
+}
